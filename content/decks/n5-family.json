@@ -1,0 +1,130 @@
+{
+  "id": "n5-family",
+  "level": "N5",
+  "group": "vocab",
+  "title": "Family",
+  "titleJa": "家族",
+  "order": 30,
+  "items": [
+    {
+      "id": "n5-family-1",
+      "ja": "{家族|かぞく}",
+      "en": "family"
+    },
+    {
+      "id": "n5-family-2",
+      "ja": "{両親|りょうしん}",
+      "en": "parents"
+    },
+    {
+      "id": "n5-family-3",
+      "ja": "{父|ちち}",
+      "en": "my father"
+    },
+    {
+      "id": "n5-family-4",
+      "ja": "{母|はは}",
+      "en": "my mother"
+    },
+    {
+      "id": "n5-family-5",
+      "ja": "お{父|とう}さん",
+      "en": "father (someone else's)"
+    },
+    {
+      "id": "n5-family-6",
+      "ja": "お{母|かあ}さん",
+      "en": "mother (someone else's)"
+    },
+    {
+      "id": "n5-family-7",
+      "ja": "{兄|あに}",
+      "en": "my older brother"
+    },
+    {
+      "id": "n5-family-8",
+      "ja": "{姉|あね}",
+      "en": "my older sister"
+    },
+    {
+      "id": "n5-family-9",
+      "ja": "お{兄|にい}さん",
+      "en": "older brother (someone else's)"
+    },
+    {
+      "id": "n5-family-10",
+      "ja": "お{姉|ねえ}さん",
+      "en": "older sister (someone else's)"
+    },
+    {
+      "id": "n5-family-11",
+      "ja": "{弟|おとうと}",
+      "en": "younger brother"
+    },
+    {
+      "id": "n5-family-12",
+      "ja": "{妹|いもうと}",
+      "en": "younger sister"
+    },
+    {
+      "id": "n5-family-13",
+      "ja": "{兄弟|きょうだい}",
+      "en": "siblings"
+    },
+    {
+      "id": "n5-family-14",
+      "ja": "おじいさん",
+      "en": "grandfather"
+    },
+    {
+      "id": "n5-family-15",
+      "ja": "おばあさん",
+      "en": "grandmother"
+    },
+    {
+      "id": "n5-family-16",
+      "ja": "おじさん",
+      "en": "uncle / middle-aged man"
+    },
+    {
+      "id": "n5-family-17",
+      "ja": "おばさん",
+      "en": "aunt / middle-aged woman"
+    },
+    {
+      "id": "n5-family-18",
+      "ja": "{子|こ}ども",
+      "en": "child"
+    },
+    {
+      "id": "n5-family-19",
+      "ja": "{息子|むすこ}",
+      "en": "son"
+    },
+    {
+      "id": "n5-family-20",
+      "ja": "{娘|むすめ}",
+      "en": "daughter"
+    },
+    {
+      "id": "n5-family-21",
+      "ja": "{夫|おっと}",
+      "en": "my husband"
+    },
+    {
+      "id": "n5-family-22",
+      "ja": "{妻|つま}",
+      "en": "my wife"
+    },
+    {
+      "id": "n5-family-23",
+      "ja": "ご{主人|しゅじん}",
+      "en": "husband (someone else's)"
+    },
+    {
+      "id": "n5-family-24",
+      "ja": "{奥|おく}さん",
+      "en": "wife (someone else's)"
+    }
+  ]
+}

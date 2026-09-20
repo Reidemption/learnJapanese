@@ -1,0 +1,130 @@
+{
+  "id": "n5-places",
+  "level": "N5",
+  "group": "vocab",
+  "title": "Places in town",
+  "titleJa": "町の場所",
+  "order": 60,
+  "items": [
+    {
+      "id": "n5-places-1",
+      "ja": "{駅|えき}",
+      "en": "train station"
+    },
+    {
+      "id": "n5-places-2",
+      "ja": "{学校|がっこう}",
+      "en": "school"
+    },
+    {
+      "id": "n5-places-3",
+      "ja": "{大学|だいがく}",
+      "en": "university"
+    },
+    {
+      "id": "n5-places-4",
+      "ja": "{病院|びょういん}",
+      "en": "hospital"
+    },
+    {
+      "id": "n5-places-5",
+      "ja": "{銀行|ぎんこう}",
+      "en": "bank"
+    },
+    {
+      "id": "n5-places-6",
+      "ja": "{郵便局|ゆうびんきょく}",
+      "en": "post office"
+    },
+    {
+      "id": "n5-places-7",
+      "ja": "{図書館|としょかん}",
+      "en": "library"
+    },
+    {
+      "id": "n5-places-8",
+      "ja": "{公園|こうえん}",
+      "en": "park"
+    },
+    {
+      "id": "n5-places-9",
+      "ja": "{店|みせ}",
+      "en": "shop"
+    },
+    {
+      "id": "n5-places-10",
+      "ja": "デパート",
+      "en": "department store"
+    },
+    {
+      "id": "n5-places-11",
+      "ja": "スーパー",
+      "en": "supermarket"
+    },
+    {
+      "id": "n5-places-12",
+      "ja": "コンビニ",
+      "en": "convenience store"
+    },
+    {
+      "id": "n5-places-13",
+      "ja": "{喫茶店|きっさてん}",
+      "en": "coffee shop"
+    },
+    {
+      "id": "n5-places-14",
+      "ja": "ホテル",
+      "en": "hotel"
+    },
+    {
+      "id": "n5-places-15",
+      "ja": "{会社|かいしゃ}",
+      "en": "company / office"
+    },
+    {
+      "id": "n5-places-16",
+      "ja": "{映画館|えいがかん}",
+      "en": "movie theater"
+    },
+    {
+      "id": "n5-places-17",
+      "ja": "{空港|くうこう}",
+      "en": "airport"
+    },
+    {
+      "id": "n5-places-18",
+      "ja": "{交番|こうばん}",
+      "en": "police box"
+    },
+    {
+      "id": "n5-places-19",
+      "ja": "{教会|きょうかい}",
+      "en": "church"
+    },
+    {
+      "id": "n5-places-20",
+      "ja": "{町|まち}",
+      "en": "town"
+    },
+    {
+      "id": "n5-places-21",
+      "ja": "{道|みち}",
+      "en": "road / street"
+    },
+    {
+      "id": "n5-places-22",
+      "ja": "{家|いえ}",
+      "en": "house / home"
+    },
+    {
+      "id": "n5-places-23",
+      "ja": "ビル",
+      "en": "office building"
+    },
+    {
+      "id": "n5-places-24",
+      "ja": "{部屋|へや}",
+      "en": "room"
+    }
+  ]
+}

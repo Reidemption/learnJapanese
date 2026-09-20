@@ -84,19 +84,19 @@ Distractors are 3 other items from the same deck, chosen with the seedable `rng`
 - Add `Deck`, `Item` and `DeckQuestion` types to `src/types.ts`. Keep `RubySegment`, `Question` and `Choice`, and remove `Category` once nothing uses it.
 - Add `src/study/ruby.ts` with `parseRuby` (and `toKana`, which joins readings and plain kana).
 - Add `src/content.ts`, which loads `content/decks/*.json` via `import.meta.glob(..., { eager: true })`, sorts by level and then `order`, and exports `decks` and `getDeck(id)`.
-- Migrate the existing `src/data/*.ts` content into topic decks. Hand-authored cloze questions from particles, verbs and grammar go into `questions`. Then delete `src/data/`.
+- Migrate the existing `src/data/*.ts` content into topic decks. Hand-authored cloze questions from particles, verbs and grammar go into `questions`. Anything not migrated yet is parked in `content/parked-n4.md`. **`src/data/` itself is deleted in Phase 3**, not here: `App.vue` still imports it, so removing it earlier would break the build and leave the app unusable between phases.
 - Write a **starter set of about 10 N5 decks** (enough to build and test Phases 2–3 against): Greetings & set phrases · Numbers 1–100 · Family · Food & drink · Colors & basic い-adjectives · Places in town · Common verbs I · Question words · Basic particles は/が/を/に/で (cloze) · Kanji: numbers & days. The rest of N5 is authored in Phase 3.5, and **no N4 content is written yet.**
 - **Content validation test** (`src/content.test.ts`), which is the main guard as the content grows.
 
 **A/C**
-- [ ] `parseRuby` tests cover plain text, reading, reading+gloss, gloss only, blanks, mixed strings, and malformed input (either throws or passes the text through, but pick one and test it).
-- [ ] The validation test checks **every** deck and fails with a readable message naming the deck/item when:
+- [x] `parseRuby` tests cover plain text, reading, reading+gloss, gloss only, blanks, mixed strings, and malformed input (either throws or passes the text through, but pick one and test it).
+- [x] The validation test checks **every** deck and fails with a readable message naming the deck/item when:
   - the item count is not 10–30
   - an id is duplicated (item and question ids are globally unique, and deck ids are unique)
   - `level` ∉ {N5, N4}, or `group` is unknown
   - a `ja` string fails to parse, or a reading contains non-kana characters
   - a cloze prompt doesn't have exactly one `___`, or doesn't have exactly 3 distractors distinct from the answer
-- [ ] There are at least 10 N5 decks. All old prototype content is migrated into N5 decks, parked in `content/parked-n4.md` for Phase 6, or intentionally dropped, and `src/data/` is gone.
+- [x] There are at least 10 N5 decks. All old prototype content is migrated into N5 decks or parked in `content/parked-n4.md`. (`src/data/` is deleted in Phase 3, see above.)
 
 ### Phase 2: Study-mode engine
 - Add `src/study/rng.ts` (a small seedable PRNG such as mulberry32, plus `shuffle(arr, rng)`). Update `progress.shuffle` to use it, or replace it outright.

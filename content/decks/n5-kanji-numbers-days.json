@@ -1,0 +1,140 @@
+{
+  "id": "n5-kanji-numbers-days",
+  "level": "N5",
+  "group": "kanji",
+  "title": "Kanji: numbers, days & time",
+  "titleJa": "漢字：数と曜日",
+  "order": 100,
+  "items": [
+    {
+      "id": "n5-kanji-numbers-days-1",
+      "ja": "{一|いち}",
+      "en": "one"
+    },
+    {
+      "id": "n5-kanji-numbers-days-2",
+      "ja": "{二|に}",
+      "en": "two"
+    },
+    {
+      "id": "n5-kanji-numbers-days-3",
+      "ja": "{三|さん}",
+      "en": "three"
+    },
+    {
+      "id": "n5-kanji-numbers-days-4",
+      "ja": "{四|よん}",
+      "en": "four"
+    },
+    {
+      "id": "n5-kanji-numbers-days-5",
+      "ja": "{五|ご}",
+      "en": "five"
+    },
+    {
+      "id": "n5-kanji-numbers-days-6",
+      "ja": "{六|ろく}",
+      "en": "six"
+    },
+    {
+      "id": "n5-kanji-numbers-days-7",
+      "ja": "{七|なな}",
+      "en": "seven"
+    },
+    {
+      "id": "n5-kanji-numbers-days-8",
+      "ja": "{八|はち}",
+      "en": "eight"
+    },
+    {
+      "id": "n5-kanji-numbers-days-9",
+      "ja": "{九|きゅう}",
+      "en": "nine"
+    },
+    {
+      "id": "n5-kanji-numbers-days-10",
+      "ja": "{十|じゅう}",
+      "en": "ten"
+    },
+    {
+      "id": "n5-kanji-numbers-days-11",
+      "ja": "{百|ひゃく}",
+      "en": "hundred"
+    },
+    {
+      "id": "n5-kanji-numbers-days-12",
+      "ja": "{千|せん}",
+      "en": "thousand"
+    },
+    {
+      "id": "n5-kanji-numbers-days-13",
+      "ja": "{万|まん}",
+      "en": "ten thousand"
+    },
+    {
+      "id": "n5-kanji-numbers-days-14",
+      "ja": "{円|えん}",
+      "en": "yen / circle"
+    },
+    {
+      "id": "n5-kanji-numbers-days-15",
+      "ja": "{日|にち}",
+      "en": "day / sun"
+    },
+    {
+      "id": "n5-kanji-numbers-days-16",
+      "ja": "{月|げつ}",
+      "en": "month / moon"
+    },
+    {
+      "id": "n5-kanji-numbers-days-17",
+      "ja": "{火|か}",
+      "en": "fire (Tuesday)"
+    },
+    {
+      "id": "n5-kanji-numbers-days-18",
+      "ja": "{水|すい}",
+      "en": "water (Wednesday)"
+    },
+    {
+      "id": "n5-kanji-numbers-days-19",
+      "ja": "{木|もく}",
+      "en": "tree (Thursday)"
+    },
+    {
+      "id": "n5-kanji-numbers-days-20",
+      "ja": "{金|きん}",
+      "en": "gold / money (Friday)"
+    },
+    {
+      "id": "n5-kanji-numbers-days-21",
+      "ja": "{土|ど}",
+      "en": "earth (Saturday)"
+    },
+    {
+      "id": "n5-kanji-numbers-days-22",
+      "ja": "{年|ねん}",
+      "en": "year"
+    },
+    {
+      "id": "n5-kanji-numbers-days-23",
+      "ja": "{時|じ}",
+      "en": "hour / time"
+    },
+    {
+      "id": "n5-kanji-numbers-days-24",
+      "ja": "{分|ふん}",
+      "en": "minute"
+    },
+    {
+      "id": "n5-kanji-numbers-days-25",
+      "ja": "{半|はん}",
+      "en": "half"
+    },
+    {
+      "id": "n5-kanji-numbers-days-26",
+      "ja": "{週|しゅう}",
+      "en": "week"
+    }
+  ]
+}

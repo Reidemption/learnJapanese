@@ -1,0 +1,140 @@
+{
+  "id": "n5-colors-adjectives",
+  "level": "N5",
+  "group": "vocab",
+  "title": "Colors & い-adjectives",
+  "titleJa": "色と形容詞",
+  "order": 50,
+  "items": [
+    {
+      "id": "n5-colors-adjectives-1",
+      "ja": "{赤|あか}い",
+      "en": "red"
+    },
+    {
+      "id": "n5-colors-adjectives-2",
+      "ja": "{青|あお}い",
+      "en": "blue"
+    },
+    {
+      "id": "n5-colors-adjectives-3",
+      "ja": "{白|しろ}い",
+      "en": "white"
+    },
+    {
+      "id": "n5-colors-adjectives-4",
+      "ja": "{黒|くろ}い",
+      "en": "black"
+    },
+    {
+      "id": "n5-colors-adjectives-5",
+      "ja": "{黄色|きいろ}い",
+      "en": "yellow"
+    },
+    {
+      "id": "n5-colors-adjectives-6",
+      "ja": "{茶色|ちゃいろ}",
+      "en": "brown"
+    },
+    {
+      "id": "n5-colors-adjectives-7",
+      "ja": "{緑|みどり}",
+      "en": "green"
+    },
+    {
+      "id": "n5-colors-adjectives-8",
+      "ja": "{大|おお}きい",
+      "en": "big"
+    },
+    {
+      "id": "n5-colors-adjectives-9",
+      "ja": "{小|ちい}さい",
+      "en": "small"
+    },
+    {
+      "id": "n5-colors-adjectives-10",
+      "ja": "{高|たか}い",
+      "en": "expensive / tall"
+    },
+    {
+      "id": "n5-colors-adjectives-11",
+      "ja": "{安|やす}い",
+      "en": "cheap"
+    },
+    {
+      "id": "n5-colors-adjectives-12",
+      "ja": "{新|あたら}しい",
+      "en": "new"
+    },
+    {
+      "id": "n5-colors-adjectives-13",
+      "ja": "{古|ふる}い",
+      "en": "old (things)"
+    },
+    {
+      "id": "n5-colors-adjectives-14",
+      "ja": "{長|なが}い",
+      "en": "long"
+    },
+    {
+      "id": "n5-colors-adjectives-15",
+      "ja": "{短|みじか}い",
+      "en": "short"
+    },
+    {
+      "id": "n5-colors-adjectives-16",
+      "ja": "{暑|あつ}い",
+      "en": "hot (weather)"
+    },
+    {
+      "id": "n5-colors-adjectives-17",
+      "ja": "{寒|さむ}い",
+      "en": "cold (weather)"
+    },
+    {
+      "id": "n5-colors-adjectives-18",
+      "ja": "{冷|つめ}たい",
+      "en": "cold (to the touch)"
+    },
+    {
+      "id": "n5-colors-adjectives-19",
+      "ja": "おいしい",
+      "en": "delicious"
+    },
+    {
+      "id": "n5-colors-adjectives-20",
+      "ja": "まずい",
+      "en": "bad-tasting"
+    },
+    {
+      "id": "n5-colors-adjectives-21",
+      "ja": "{面白|おもしろ}い",
+      "en": "interesting / funny"
+    },
+    {
+      "id": "n5-colors-adjectives-22",
+      "ja": "つまらない",
+      "en": "boring"
+    },
+    {
+      "id": "n5-colors-adjectives-23",
+      "ja": "{難|むずか}しい",
+      "en": "difficult"
+    },
+    {
+      "id": "n5-colors-adjectives-24",
+      "ja": "やさしい",
+      "en": "easy / kind"
+    },
+    {
+      "id": "n5-colors-adjectives-25",
+      "ja": "{忙|いそが}しい",
+      "en": "busy"
+    },
+    {
+      "id": "n5-colors-adjectives-26",
+      "ja": "{楽|たの}しい",
+      "en": "fun / enjoyable"
+    }
+  ]
+}

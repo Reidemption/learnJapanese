@@ -37,3 +37,45 @@ export type QuizScore = {
   total: number;
   at: number;
 };
+
+/** Deck content (content/decks/*.json) — see docs/PLAN.md. */
+
+export const DECK_GROUPS = [
+  "phrases",
+  "vocab",
+  "verbs",
+  "numbers",
+  "kanji",
+  "grammar",
+  "particles",
+] as const;
+
+export type DeckGroup = (typeof DECK_GROUPS)[number];
+
+/** A single thing to learn. `ja` uses the {base|reading|gloss} markup. */
+export type Item = {
+  id: string;
+  ja: string;
+  en: string;
+  note?: string;
+};
+
+/** A hand-authored fill-in-the-blank sentence. `prompt` holds exactly one ___ */
+export type DeckQuestion = {
+  id: string;
+  prompt: string;
+  en?: string;
+  answer: string;
+  distractors: string[];
+};
+
+export type Deck = {
+  id: string;
+  level: Jlpt;
+  group: DeckGroup;
+  title: string;
+  titleJa: string;
+  order: number;
+  items: Item[];
+  questions?: DeckQuestion[];
+};
