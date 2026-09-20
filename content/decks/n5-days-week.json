@@ -1,0 +1,105 @@
+{
+  "id": "n5-days-week",
+  "level": "N5",
+  "group": "vocab",
+  "title": "Days of the week",
+  "titleJa": "曜日",
+  "order": 28,
+  "items": [
+    {
+      "id": "n5-days-week-1",
+      "ja": "{月曜日|げつようび}",
+      "en": "Monday"
+    },
+    {
+      "id": "n5-days-week-2",
+      "ja": "{火曜日|かようび}",
+      "en": "Tuesday"
+    },
+    {
+      "id": "n5-days-week-3",
+      "ja": "{水曜日|すいようび}",
+      "en": "Wednesday"
+    },
+    {
+      "id": "n5-days-week-4",
+      "ja": "{木曜日|もくようび}",
+      "en": "Thursday"
+    },
+    {
+      "id": "n5-days-week-5",
+      "ja": "{金曜日|きんようび}",
+      "en": "Friday"
+    },
+    {
+      "id": "n5-days-week-6",
+      "ja": "{土曜日|どようび}",
+      "en": "Saturday"
+    },
+    {
+      "id": "n5-days-week-7",
+      "ja": "{日曜日|にちようび}",
+      "en": "Sunday"
+    },
+    {
+      "id": "n5-days-week-8",
+      "ja": "{何曜日|なんようび}",
+      "en": "what day of the week"
+    },
+    {
+      "id": "n5-days-week-9",
+      "ja": "{今日|きょう}",
+      "en": "today"
+    },
+    {
+      "id": "n5-days-week-10",
+      "ja": "{昨日|きのう}",
+      "en": "yesterday"
+    },
+    {
+      "id": "n5-days-week-11",
+      "ja": "{明日|あした}",
+      "en": "tomorrow"
+    },
+    {
+      "id": "n5-days-week-12",
+      "ja": "{毎日|まいにち}",
+      "en": "every day"
+    },
+    {
+      "id": "n5-days-week-13",
+      "ja": "{今週|こんしゅう}",
+      "en": "this week"
+    },
+    {
+      "id": "n5-days-week-14",
+      "ja": "{来週|らいしゅう}",
+      "en": "next week"
+    },
+    {
+      "id": "n5-days-week-15",
+      "ja": "{先週|せんしゅう}",
+      "en": "last week"
+    },
+    {
+      "id": "n5-days-week-16",
+      "ja": "{毎週|まいしゅう}",
+      "en": "every week"
+    },
+    {
+      "id": "n5-days-week-17",
+      "ja": "{週末|しゅうまつ}",
+      "en": "weekend"
+    },
+    {
+      "id": "n5-days-week-18",
+      "ja": "{平日|へいじつ}",
+      "en": "weekday"
+    },
+    {
+      "id": "n5-days-week-19",
+      "ja": "{休|やす}み",
+      "en": "day off / holiday"
+    }
+  ]
+}

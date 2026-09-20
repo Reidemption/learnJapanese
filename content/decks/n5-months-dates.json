@@ -1,0 +1,140 @@
+{
+  "id": "n5-months-dates",
+  "level": "N5",
+  "group": "vocab",
+  "title": "Months & dates",
+  "titleJa": "月と日",
+  "order": 30,
+  "items": [
+    {
+      "id": "n5-months-dates-1",
+      "ja": "{一月|いちがつ}",
+      "en": "January"
+    },
+    {
+      "id": "n5-months-dates-2",
+      "ja": "{二月|にがつ}",
+      "en": "February"
+    },
+    {
+      "id": "n5-months-dates-3",
+      "ja": "{三月|さんがつ}",
+      "en": "March"
+    },
+    {
+      "id": "n5-months-dates-4",
+      "ja": "{四月|しがつ}",
+      "en": "April",
+      "note": "しがつ, not よんがつ"
+    },
+    {
+      "id": "n5-months-dates-5",
+      "ja": "{五月|ごがつ}",
+      "en": "May"
+    },
+    {
+      "id": "n5-months-dates-6",
+      "ja": "{六月|ろくがつ}",
+      "en": "June"
+    },
+    {
+      "id": "n5-months-dates-7",
+      "ja": "{七月|しちがつ}",
+      "en": "July",
+      "note": "しちがつ"
+    },
+    {
+      "id": "n5-months-dates-8",
+      "ja": "{八月|はちがつ}",
+      "en": "August"
+    },
+    {
+      "id": "n5-months-dates-9",
+      "ja": "{九月|くがつ}",
+      "en": "September",
+      "note": "くがつ, not きゅうがつ"
+    },
+    {
+      "id": "n5-months-dates-10",
+      "ja": "{十月|じゅうがつ}",
+      "en": "October"
+    },
+    {
+      "id": "n5-months-dates-11",
+      "ja": "{十一月|じゅういちがつ}",
+      "en": "November"
+    },
+    {
+      "id": "n5-months-dates-12",
+      "ja": "{十二月|じゅうにがつ}",
+      "en": "December"
+    },
+    {
+      "id": "n5-months-dates-13",
+      "ja": "{何月|なんがつ}",
+      "en": "what month"
+    },
+    {
+      "id": "n5-months-dates-14",
+      "ja": "{一日|ついたち}",
+      "en": "1st of the month",
+      "note": "irregular"
+    },
+    {
+      "id": "n5-months-dates-15",
+      "ja": "{二日|ふつか}",
+      "en": "2nd of the month"
+    },
+    {
+      "id": "n5-months-dates-16",
+      "ja": "{三日|みっか}",
+      "en": "3rd of the month"
+    },
+    {
+      "id": "n5-months-dates-17",
+      "ja": "{四日|よっか}",
+      "en": "4th of the month"
+    },
+    {
+      "id": "n5-months-dates-18",
+      "ja": "{五日|いつか}",
+      "en": "5th of the month"
+    },
+    {
+      "id": "n5-months-dates-19",
+      "ja": "{六日|むいか}",
+      "en": "6th of the month"
+    },
+    {
+      "id": "n5-months-dates-20",
+      "ja": "{七日|なのか}",
+      "en": "7th of the month"
+    },
+    {
+      "id": "n5-months-dates-21",
+      "ja": "{八日|ようか}",
+      "en": "8th of the month"
+    },
+    {
+      "id": "n5-months-dates-22",
+      "ja": "{九日|ここのか}",
+      "en": "9th of the month"
+    },
+    {
+      "id": "n5-months-dates-23",
+      "ja": "{十日|とおか}",
+      "en": "10th of the month"
+    },
+    {
+      "id": "n5-months-dates-24",
+      "ja": "{二十日|はつか}",
+      "en": "20th of the month",
+      "note": "irregular"
+    },
+    {
+      "id": "n5-months-dates-25",
+      "ja": "{何日|なんにち}",
+      "en": "what day of the month"
+    }
+  ]
+}

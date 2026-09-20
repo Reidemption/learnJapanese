@@ -1,0 +1,122 @@
+{
+  "id": "n5-time-words",
+  "level": "N5",
+  "group": "vocab",
+  "title": "Time expressions",
+  "titleJa": "時の言葉",
+  "order": 34,
+  "items": [
+    {
+      "id": "n5-time-words-1",
+      "ja": "{今|いま}",
+      "en": "now"
+    },
+    {
+      "id": "n5-time-words-2",
+      "ja": "{今朝|けさ}",
+      "en": "this morning",
+      "note": "irregular reading"
+    },
+    {
+      "id": "n5-time-words-3",
+      "ja": "{今晩|こんばん}",
+      "en": "this evening"
+    },
+    {
+      "id": "n5-time-words-4",
+      "ja": "{毎朝|まいあさ}",
+      "en": "every morning"
+    },
+    {
+      "id": "n5-time-words-5",
+      "ja": "{毎晩|まいばん}",
+      "en": "every night"
+    },
+    {
+      "id": "n5-time-words-6",
+      "ja": "{去年|きょねん}",
+      "en": "last year"
+    },
+    {
+      "id": "n5-time-words-7",
+      "ja": "{今年|ことし}",
+      "en": "this year",
+      "note": "irregular reading"
+    },
+    {
+      "id": "n5-time-words-8",
+      "ja": "{来年|らいねん}",
+      "en": "next year"
+    },
+    {
+      "id": "n5-time-words-9",
+      "ja": "{毎年|まいとし}",
+      "en": "every year"
+    },
+    {
+      "id": "n5-time-words-10",
+      "ja": "{今月|こんげつ}",
+      "en": "this month"
+    },
+    {
+      "id": "n5-time-words-11",
+      "ja": "{来月|らいげつ}",
+      "en": "next month"
+    },
+    {
+      "id": "n5-time-words-12",
+      "ja": "{先月|せんげつ}",
+      "en": "last month"
+    },
+    {
+      "id": "n5-time-words-13",
+      "ja": "{毎月|まいつき}",
+      "en": "every month"
+    },
+    {
+      "id": "n5-time-words-14",
+      "ja": "おととい",
+      "en": "the day before yesterday"
+    },
+    {
+      "id": "n5-time-words-15",
+      "ja": "あさって",
+      "en": "the day after tomorrow"
+    },
+    {
+      "id": "n5-time-words-16",
+      "ja": "{最近|さいきん}",
+      "en": "recently"
+    },
+    {
+      "id": "n5-time-words-17",
+      "ja": "これから",
+      "en": "from now on"
+    },
+    {
+      "id": "n5-time-words-18",
+      "ja": "さっき",
+      "en": "a little while ago"
+    },
+    {
+      "id": "n5-time-words-19",
+      "ja": "{後|あと}で",
+      "en": "later"
+    },
+    {
+      "id": "n5-time-words-20",
+      "ja": "すぐに",
+      "en": "right away"
+    },
+    {
+      "id": "n5-time-words-21",
+      "ja": "この{間|あいだ}",
+      "en": "the other day"
+    },
+    {
+      "id": "n5-time-words-22",
+      "ja": "{午前中|ごぜんちゅう}",
+      "en": "during the morning"
+    }
+  ]
+}

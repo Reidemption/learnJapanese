@@ -1,0 +1,122 @@
+{
+  "id": "n5-telling-time",
+  "level": "N5",
+  "group": "vocab",
+  "title": "Telling time",
+  "titleJa": "時間の言い方",
+  "order": 32,
+  "items": [
+    {
+      "id": "n5-telling-time-1",
+      "ja": "{一時|いちじ}",
+      "en": "one o'clock"
+    },
+    {
+      "id": "n5-telling-time-2",
+      "ja": "{二時|にじ}",
+      "en": "two o'clock"
+    },
+    {
+      "id": "n5-telling-time-3",
+      "ja": "{四時|よじ}",
+      "en": "four o'clock",
+      "note": "よじ, not よんじ"
+    },
+    {
+      "id": "n5-telling-time-4",
+      "ja": "{七時|しちじ}",
+      "en": "seven o'clock"
+    },
+    {
+      "id": "n5-telling-time-5",
+      "ja": "{九時|くじ}",
+      "en": "nine o'clock",
+      "note": "くじ, not きゅうじ"
+    },
+    {
+      "id": "n5-telling-time-6",
+      "ja": "{一分|いっぷん}",
+      "en": "one minute"
+    },
+    {
+      "id": "n5-telling-time-7",
+      "ja": "{三分|さんぷん}",
+      "en": "three minutes"
+    },
+    {
+      "id": "n5-telling-time-8",
+      "ja": "{十分|じゅっぷん}",
+      "en": "ten minutes"
+    },
+    {
+      "id": "n5-telling-time-9",
+      "ja": "{半|はん}",
+      "en": "half past"
+    },
+    {
+      "id": "n5-telling-time-10",
+      "ja": "{午前|ごぜん}",
+      "en": "a.m. / morning"
+    },
+    {
+      "id": "n5-telling-time-11",
+      "ja": "{午後|ごご}",
+      "en": "p.m. / afternoon"
+    },
+    {
+      "id": "n5-telling-time-12",
+      "ja": "{朝|あさ}",
+      "en": "morning"
+    },
+    {
+      "id": "n5-telling-time-13",
+      "ja": "{昼|ひる}",
+      "en": "noon / daytime"
+    },
+    {
+      "id": "n5-telling-time-14",
+      "ja": "{夕方|ゆうがた}",
+      "en": "early evening"
+    },
+    {
+      "id": "n5-telling-time-15",
+      "ja": "{夜|よる}",
+      "en": "night"
+    },
+    {
+      "id": "n5-telling-time-16",
+      "ja": "{時間|じかん}",
+      "en": "time / hour"
+    },
+    {
+      "id": "n5-telling-time-17",
+      "ja": "{秒|びょう}",
+      "en": "second"
+    },
+    {
+      "id": "n5-telling-time-18",
+      "ja": "ちょうど",
+      "en": "exactly (on the hour)"
+    },
+    {
+      "id": "n5-telling-time-19",
+      "ja": "ごろ",
+      "en": "about (a point in time)"
+    },
+    {
+      "id": "n5-telling-time-20",
+      "ja": "{早|はや}く",
+      "en": "early"
+    },
+    {
+      "id": "n5-telling-time-21",
+      "ja": "{遅|おそ}く",
+      "en": "late"
+    },
+    {
+      "id": "n5-telling-time-22",
+      "ja": "{時計|とけい}",
+      "en": "clock / watch"
+    }
+  ]
+}

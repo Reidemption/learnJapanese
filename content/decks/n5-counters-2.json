@@ -1,0 +1,128 @@
+{
+  "id": "n5-counters-2",
+  "level": "N5",
+  "group": "numbers",
+  "title": "Counters II: long things, animals, times",
+  "titleJa": "助数詞（本・匹・回）",
+  "order": 26,
+  "items": [
+    {
+      "id": "n5-counters-2-1",
+      "ja": "{一本|いっぽん}",
+      "en": "one long object"
+    },
+    {
+      "id": "n5-counters-2-2",
+      "ja": "{二本|にほん}",
+      "en": "two long objects"
+    },
+    {
+      "id": "n5-counters-2-3",
+      "ja": "{三本|さんぼん}",
+      "en": "three long objects",
+      "note": "sound change: さんぼん"
+    },
+    {
+      "id": "n5-counters-2-4",
+      "ja": "{何本|なんぼん}",
+      "en": "how many long objects"
+    },
+    {
+      "id": "n5-counters-2-5",
+      "ja": "{一匹|いっぴき}",
+      "en": "one small animal"
+    },
+    {
+      "id": "n5-counters-2-6",
+      "ja": "{三匹|さんびき}",
+      "en": "three small animals"
+    },
+    {
+      "id": "n5-counters-2-7",
+      "ja": "{何匹|なんびき}",
+      "en": "how many small animals"
+    },
+    {
+      "id": "n5-counters-2-8",
+      "ja": "{一台|いちだい}",
+      "en": "one machine or vehicle"
+    },
+    {
+      "id": "n5-counters-2-9",
+      "ja": "{何台|なんだい}",
+      "en": "how many machines"
+    },
+    {
+      "id": "n5-counters-2-10",
+      "ja": "{一回|いっかい}",
+      "en": "once"
+    },
+    {
+      "id": "n5-counters-2-11",
+      "ja": "{二回|にかい}",
+      "en": "twice"
+    },
+    {
+      "id": "n5-counters-2-12",
+      "ja": "{何回|なんかい}",
+      "en": "how many times"
+    },
+    {
+      "id": "n5-counters-2-13",
+      "ja": "{一冊|いっさつ}",
+      "en": "one book"
+    },
+    {
+      "id": "n5-counters-2-14",
+      "ja": "{三冊|さんさつ}",
+      "en": "three books"
+    },
+    {
+      "id": "n5-counters-2-15",
+      "ja": "{何冊|なんさつ}",
+      "en": "how many books"
+    },
+    {
+      "id": "n5-counters-2-16",
+      "ja": "{一杯|いっぱい}",
+      "en": "one cupful"
+    },
+    {
+      "id": "n5-counters-2-17",
+      "ja": "{二杯|にはい}",
+      "en": "two cupfuls"
+    },
+    {
+      "id": "n5-counters-2-18",
+      "ja": "{三杯|さんばい}",
+      "en": "three cupfuls",
+      "note": "sound change: さんばい"
+    },
+    {
+      "id": "n5-counters-2-19",
+      "ja": "{一階|いっかい}",
+      "en": "first floor"
+    },
+    {
+      "id": "n5-counters-2-20",
+      "ja": "{三階|さんがい}",
+      "en": "third floor",
+      "note": "also さんかい"
+    },
+    {
+      "id": "n5-counters-2-21",
+      "ja": "{何階|なんがい}",
+      "en": "which floor"
+    },
+    {
+      "id": "n5-counters-2-22",
+      "ja": "{一番|いちばん}",
+      "en": "number one / the most"
+    },
+    {
+      "id": "n5-counters-2-23",
+      "ja": "{一度|いちど}",
+      "en": "one time / once before"
+    }
+  ]
+}
