@@ -76,9 +76,9 @@ Distractors are 3 other items from the same deck, chosen with the seedable `rng`
 - Write characterization tests for the pure helpers in `src/progress.ts` (`shuffle`, `correctChoice`, `filledPrompt`, `questionsFor`) before changing anything.
 
 **A/C**
-- [ ] `npm test` runs green with at least 1 test per helper listed above.
-- [ ] `npm run build` still passes (`vue-tsc -b && vite build`).
-- [ ] `docs/PLAN.md` and `CLAUDE.md` exist, and the repo has an initial commit.
+- [x] `npm test` runs green with at least 1 test per helper listed above.
+- [x] `npm run build` still passes (`vue-tsc -b && vite build`).
+- [x] `docs/PLAN.md` and `CLAUDE.md` exist, and the repo has an initial commit.
 
 ### Phase 1: Content model & deck migration
 - Add `Deck`, `Item` and `DeckQuestion` types to `src/types.ts`. Keep `RubySegment`, `Question` and `Choice`, and remove `Category` once nothing uses it.
