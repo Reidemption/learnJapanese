@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS attempts (
 	mode       TEXT NOT NULL,
 	correct    INTEGER NOT NULL,
 	total      INTEGER NOT NULL,
-	created_at TEXT NOT NULL
+	created_at INTEGER NOT NULL -- unix millis, to match the frontend's Date.now()
 );
 
 CREATE INDEX IF NOT EXISTS attempts_client ON attempts(client_id);
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS item_stats (
 	item_id    TEXT NOT NULL,
 	seen       INTEGER NOT NULL DEFAULT 0,
 	correct    INTEGER NOT NULL DEFAULT 0,
-	updated_at TEXT NOT NULL,
+	updated_at INTEGER NOT NULL, -- unix millis
 	PRIMARY KEY (client_id, item_id)
 );
 `

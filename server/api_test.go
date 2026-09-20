@@ -160,17 +160,19 @@ func TestPostAttemptAndProgress(t *testing.T) {
 	_, h := newTestServer(t)
 	id := firstDeckID(t)
 
-	post := func(correct int) {
+	post := func(correct, total int) {
 		t.Helper()
 		body := `{"clientId":"c1","deckId":"` + id + `","mode":"meaning","correct":` +
-			strconv.Itoa(correct) + `,"total":10,"items":[{"itemId":"i1","correct":true},{"itemId":"i2","correct":false}]}`
+			strconv.Itoa(correct) + `,"total":` + strconv.Itoa(total) +
+			`,"items":[{"itemId":"i1","correct":true},{"itemId":"i2","correct":false}]}`
 		w := do(t, h, "POST", "/api/attempts", body)
 		if w.Code != http.StatusCreated {
 			t.Fatalf("status = %d (%s), want 201", w.Code, w.Body.String())
 		}
 	}
-	post(8)
-	post(6)
+	// Different totals, so "total" has to track the *best* attempt, not the last.
+	post(8, 10)
+	post(6, 12)
 
 	w := do(t, h, "GET", "/api/progress?clientId=c1", "")
 	if w.Code != http.StatusOK {
@@ -184,8 +186,10 @@ func TestPostAttemptAndProgress(t *testing.T) {
 		t.Fatal(err)
 	}
 	key := id + ":meaning"
-	if p := got.Decks[key]; p.Best != 8 || p.Last != 6 || p.At == "" {
-		t.Fatalf("%s = %+v, want best 8 last 6 with a timestamp", key, p)
+	// `at` is unix millis, matching the frontend's Date.now(); a plausible value
+	// is anything past 2020, which also catches seconds-vs-millis mistakes.
+	if p := got.Decks[key]; p.Best != 8 || p.Last != 6 || p.Total != 10 || p.At < 1577836800000 {
+		t.Fatalf("%s = %+v, want best 8 last 6 total 10 with a millisecond timestamp", key, p)
 	}
 	if p := got.Items["i1"]; p.Seen != 2 || p.Correct != 2 {
 		t.Errorf("i1 = %+v, want seen 2 correct 2", p)

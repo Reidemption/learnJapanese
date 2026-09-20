@@ -184,7 +184,7 @@ func (s *server) postAttempt(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	now := time.Now().UTC().Format(time.RFC3339)
+	now := time.Now().UnixMilli()
 	tx, err := s.db.Begin()
 	if err != nil {
 		writeError(w, http.StatusInternalServerError, "begin failed")
@@ -226,10 +226,14 @@ func (s *server) postAttempt(w http.ResponseWriter, r *http.Request) {
 	writeJSON(w, http.StatusCreated, map[string]any{"id": id, "at": now})
 }
 
+// deckProgress mirrors the frontend's ModeScore, field for field, so HTTP mode
+// and static (localStorage) mode are interchangeable. `At` is unix millis,
+// which is what Date.now() gives the static implementation.
 type deckProgress struct {
-	Best int    `json:"best"`
-	Last int    `json:"last"`
-	At   string `json:"at"`
+	Best  int   `json:"best"`
+	Last  int   `json:"last"`
+	Total int   `json:"total"`
+	At    int64 `json:"at"`
 }
 
 type itemProgress struct {
@@ -265,7 +269,10 @@ func (s *server) deckProgress(clientID string) (map[string]deckProgress, error) 
 		SELECT a.deck_id, a.mode, MAX(a.correct), MAX(a.created_at),
 			(SELECT b.correct FROM attempts b
 			 WHERE b.client_id = a.client_id AND b.deck_id = a.deck_id AND b.mode = a.mode
-			 ORDER BY b.created_at DESC, b.id DESC LIMIT 1)
+			 ORDER BY b.created_at DESC, b.id DESC LIMIT 1),
+			(SELECT c.total FROM attempts c
+			 WHERE c.client_id = a.client_id AND c.deck_id = a.deck_id AND c.mode = a.mode
+			 ORDER BY c.correct DESC, c.created_at DESC, c.id DESC LIMIT 1)
 		FROM attempts a WHERE a.client_id = ? GROUP BY a.deck_id, a.mode`, clientID)
 	if err != nil {
 		return nil, err
@@ -276,7 +283,7 @@ func (s *server) deckProgress(clientID string) (map[string]deckProgress, error) 
 	for rows.Next() {
 		var deckID, mode string
 		var p deckProgress
-		if err := rows.Scan(&deckID, &mode, &p.Best, &p.At, &p.Last); err != nil {
+		if err := rows.Scan(&deckID, &mode, &p.Best, &p.At, &p.Last, &p.Total); err != nil {
 			return nil, err
 		}
 		out[deckID+":"+mode] = p
