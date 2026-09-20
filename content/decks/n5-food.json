@@ -1,0 +1,130 @@
+{
+  "id": "n5-food",
+  "level": "N5",
+  "group": "vocab",
+  "title": "Food & drink",
+  "titleJa": "食べ物と飲み物",
+  "order": 40,
+  "items": [
+    {
+      "id": "n5-food-1",
+      "ja": "{食|た}べ{物|もの}",
+      "en": "food"
+    },
+    {
+      "id": "n5-food-2",
+      "ja": "{飲|の}み{物|もの}",
+      "en": "drink"
+    },
+    {
+      "id": "n5-food-3",
+      "ja": "ごはん",
+      "en": "cooked rice / meal"
+    },
+    {
+      "id": "n5-food-4",
+      "ja": "パン",
+      "en": "bread"
+    },
+    {
+      "id": "n5-food-5",
+      "ja": "{肉|にく}",
+      "en": "meat"
+    },
+    {
+      "id": "n5-food-6",
+      "ja": "{魚|さかな}",
+      "en": "fish"
+    },
+    {
+      "id": "n5-food-7",
+      "ja": "{野菜|やさい}",
+      "en": "vegetables"
+    },
+    {
+      "id": "n5-food-8",
+      "ja": "{果物|くだもの}",
+      "en": "fruit"
+    },
+    {
+      "id": "n5-food-9",
+      "ja": "たまご",
+      "en": "egg"
+    },
+    {
+      "id": "n5-food-10",
+      "ja": "{牛乳|ぎゅうにゅう}",
+      "en": "milk"
+    },
+    {
+      "id": "n5-food-11",
+      "ja": "{水|みず}",
+      "en": "water"
+    },
+    {
+      "id": "n5-food-12",
+      "ja": "お{茶|ちゃ}",
+      "en": "green tea"
+    },
+    {
+      "id": "n5-food-13",
+      "ja": "コーヒー",
+      "en": "coffee"
+    },
+    {
+      "id": "n5-food-14",
+      "ja": "お{酒|さけ}",
+      "en": "alcohol / sake"
+    },
+    {
+      "id": "n5-food-15",
+      "ja": "ビール",
+      "en": "beer"
+    },
+    {
+      "id": "n5-food-16",
+      "ja": "{塩|しお}",
+      "en": "salt"
+    },
+    {
+      "id": "n5-food-17",
+      "ja": "{砂糖|さとう}",
+      "en": "sugar"
+    },
+    {
+      "id": "n5-food-18",
+      "ja": "お{菓子|かし}",
+      "en": "sweets / snacks"
+    },
+    {
+      "id": "n5-food-19",
+      "ja": "りんご",
+      "en": "apple"
+    },
+    {
+      "id": "n5-food-20",
+      "ja": "みかん",
+      "en": "mandarin orange"
+    },
+    {
+      "id": "n5-food-21",
+      "ja": "{朝|あさ}ごはん",
+      "en": "breakfast"
+    },
+    {
+      "id": "n5-food-22",
+      "ja": "{昼|ひる}ごはん",
+      "en": "lunch"
+    },
+    {
+      "id": "n5-food-23",
+      "ja": "{晩|ばん}ごはん",
+      "en": "dinner"
+    },
+    {
+      "id": "n5-food-24",
+      "ja": "レストラン",
+      "en": "restaurant"
+    }
+  ]
+}

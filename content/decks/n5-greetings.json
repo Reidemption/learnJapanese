@@ -1,0 +1,121 @@
+{
+  "id": "n5-greetings",
+  "level": "N5",
+  "group": "phrases",
+  "title": "Greetings & set phrases",
+  "titleJa": "あいさつ",
+  "order": 10,
+  "items": [
+    {
+      "id": "n5-greetings-1",
+      "ja": "おはようございます",
+      "en": "good morning (polite)"
+    },
+    {
+      "id": "n5-greetings-2",
+      "ja": "こんにちは",
+      "en": "hello / good afternoon"
+    },
+    {
+      "id": "n5-greetings-3",
+      "ja": "こんばんは",
+      "en": "good evening"
+    },
+    {
+      "id": "n5-greetings-4",
+      "ja": "おやすみなさい",
+      "en": "good night"
+    },
+    {
+      "id": "n5-greetings-5",
+      "ja": "さようなら",
+      "en": "goodbye"
+    },
+    {
+      "id": "n5-greetings-6",
+      "ja": "ありがとうございます",
+      "en": "thank you (polite)"
+    },
+    {
+      "id": "n5-greetings-7",
+      "ja": "どういたしまして",
+      "en": "you're welcome"
+    },
+    {
+      "id": "n5-greetings-8",
+      "ja": "すみません",
+      "en": "excuse me / sorry"
+    },
+    {
+      "id": "n5-greetings-9",
+      "ja": "ごめんなさい",
+      "en": "I'm sorry"
+    },
+    {
+      "id": "n5-greetings-10",
+      "ja": "はじめまして",
+      "en": "nice to meet you (first meeting)"
+    },
+    {
+      "id": "n5-greetings-11",
+      "ja": "どうぞよろしく",
+      "en": "pleased to meet you"
+    },
+    {
+      "id": "n5-greetings-12",
+      "ja": "いただきます",
+      "en": "said before eating"
+    },
+    {
+      "id": "n5-greetings-13",
+      "ja": "ごちそうさまでした",
+      "en": "said after eating"
+    },
+    {
+      "id": "n5-greetings-14",
+      "ja": "いってきます",
+      "en": "I'm off (leaving home)"
+    },
+    {
+      "id": "n5-greetings-15",
+      "ja": "いってらっしゃい",
+      "en": "see you (to someone leaving)"
+    },
+    {
+      "id": "n5-greetings-16",
+      "ja": "ただいま",
+      "en": "I'm home"
+    },
+    {
+      "id": "n5-greetings-17",
+      "ja": "おかえりなさい",
+      "en": "welcome home"
+    },
+    {
+      "id": "n5-greetings-18",
+      "ja": "しつれいします",
+      "en": "excuse me (entering or leaving)"
+    },
+    {
+      "id": "n5-greetings-19",
+      "ja": "お{元気|げんき}ですか",
+      "en": "how are you?",
+      "note": "元気 = healthy, lively"
+    },
+    {
+      "id": "n5-greetings-20",
+      "ja": "もしもし",
+      "en": "hello (on the phone)"
+    },
+    {
+      "id": "n5-greetings-21",
+      "ja": "どうぞ",
+      "en": "please, go ahead"
+    },
+    {
+      "id": "n5-greetings-22",
+      "ja": "おねがいします",
+      "en": "please (making a request)"
+    }
+  ]
+}

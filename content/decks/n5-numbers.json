@@ -1,0 +1,134 @@
+{
+  "id": "n5-numbers",
+  "level": "N5",
+  "group": "numbers",
+  "title": "Numbers 1–100",
+  "titleJa": "数字",
+  "order": 20,
+  "items": [
+    {
+      "id": "n5-numbers-1",
+      "ja": "{一|いち}",
+      "en": "one"
+    },
+    {
+      "id": "n5-numbers-2",
+      "ja": "{二|に}",
+      "en": "two"
+    },
+    {
+      "id": "n5-numbers-3",
+      "ja": "{三|さん}",
+      "en": "three"
+    },
+    {
+      "id": "n5-numbers-4",
+      "ja": "{四|よん}",
+      "en": "four",
+      "note": "also し"
+    },
+    {
+      "id": "n5-numbers-5",
+      "ja": "{五|ご}",
+      "en": "five"
+    },
+    {
+      "id": "n5-numbers-6",
+      "ja": "{六|ろく}",
+      "en": "six"
+    },
+    {
+      "id": "n5-numbers-7",
+      "ja": "{七|なな}",
+      "en": "seven",
+      "note": "also しち"
+    },
+    {
+      "id": "n5-numbers-8",
+      "ja": "{八|はち}",
+      "en": "eight"
+    },
+    {
+      "id": "n5-numbers-9",
+      "ja": "{九|きゅう}",
+      "en": "nine",
+      "note": "also く"
+    },
+    {
+      "id": "n5-numbers-10",
+      "ja": "{十|じゅう}",
+      "en": "ten"
+    },
+    {
+      "id": "n5-numbers-11",
+      "ja": "{十一|じゅういち}",
+      "en": "eleven"
+    },
+    {
+      "id": "n5-numbers-12",
+      "ja": "{十五|じゅうご}",
+      "en": "fifteen"
+    },
+    {
+      "id": "n5-numbers-13",
+      "ja": "{二十|にじゅう}",
+      "en": "twenty"
+    },
+    {
+      "id": "n5-numbers-14",
+      "ja": "{三十|さんじゅう}",
+      "en": "thirty"
+    },
+    {
+      "id": "n5-numbers-15",
+      "ja": "{四十|よんじゅう}",
+      "en": "forty"
+    },
+    {
+      "id": "n5-numbers-16",
+      "ja": "{五十|ごじゅう}",
+      "en": "fifty"
+    },
+    {
+      "id": "n5-numbers-17",
+      "ja": "{六十|ろくじゅう}",
+      "en": "sixty"
+    },
+    {
+      "id": "n5-numbers-18",
+      "ja": "{七十|ななじゅう}",
+      "en": "seventy"
+    },
+    {
+      "id": "n5-numbers-19",
+      "ja": "{八十|はちじゅう}",
+      "en": "eighty"
+    },
+    {
+      "id": "n5-numbers-20",
+      "ja": "{九十|きゅうじゅう}",
+      "en": "ninety"
+    },
+    {
+      "id": "n5-numbers-21",
+      "ja": "{百|ひゃく}",
+      "en": "one hundred"
+    },
+    {
+      "id": "n5-numbers-22",
+      "ja": "{千|せん}",
+      "en": "one thousand"
+    },
+    {
+      "id": "n5-numbers-23",
+      "ja": "{万|まん}",
+      "en": "ten thousand"
+    },
+    {
+      "id": "n5-numbers-24",
+      "ja": "ゼロ",
+      "en": "zero",
+      "note": "also 零 (れい)"
+    }
+  ]
+}

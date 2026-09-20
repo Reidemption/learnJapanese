@@ -1,0 +1,90 @@
+{
+  "id": "n5-question-words",
+  "level": "N5",
+  "group": "vocab",
+  "title": "Question words",
+  "titleJa": "疑問詞",
+  "order": 80,
+  "items": [
+    {
+      "id": "n5-question-words-1",
+      "ja": "{何|なに}",
+      "en": "what"
+    },
+    {
+      "id": "n5-question-words-2",
+      "ja": "{誰|だれ}",
+      "en": "who"
+    },
+    {
+      "id": "n5-question-words-3",
+      "ja": "どこ",
+      "en": "where"
+    },
+    {
+      "id": "n5-question-words-4",
+      "ja": "いつ",
+      "en": "when"
+    },
+    {
+      "id": "n5-question-words-5",
+      "ja": "どう",
+      "en": "how / how about"
+    },
+    {
+      "id": "n5-question-words-6",
+      "ja": "なぜ",
+      "en": "why (formal)"
+    },
+    {
+      "id": "n5-question-words-7",
+      "ja": "どうして",
+      "en": "why / how come"
+    },
+    {
+      "id": "n5-question-words-8",
+      "ja": "どの",
+      "en": "which ___ (before a noun)"
+    },
+    {
+      "id": "n5-question-words-9",
+      "ja": "どれ",
+      "en": "which one"
+    },
+    {
+      "id": "n5-question-words-10",
+      "ja": "どちら",
+      "en": "which of two / where (polite)"
+    },
+    {
+      "id": "n5-question-words-11",
+      "ja": "いくら",
+      "en": "how much (price)"
+    },
+    {
+      "id": "n5-question-words-12",
+      "ja": "いくつ",
+      "en": "how many / how old"
+    },
+    {
+      "id": "n5-question-words-13",
+      "ja": "{何時|なんじ}",
+      "en": "what time"
+    },
+    {
+      "id": "n5-question-words-14",
+      "ja": "{何人|なんにん}",
+      "en": "how many people"
+    },
+    {
+      "id": "n5-question-words-15",
+      "ja": "どんな",
+      "en": "what kind of"
+    },
+    {
+      "id": "n5-question-words-16",
+      "ja": "どうやって",
+      "en": "how / by what means"
+    }
+  ]
+}

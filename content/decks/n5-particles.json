@@ -1,0 +1,214 @@
+{
+  "id": "n5-particles",
+  "level": "N5",
+  "group": "particles",
+  "title": "Basic particles",
+  "titleJa": "助詞",
+  "order": 90,
+  "items": [
+    {
+      "id": "n5-particles-1",
+      "ja": "は",
+      "en": "topic marker"
+    },
+    {
+      "id": "n5-particles-2",
+      "ja": "が",
+      "en": "subject marker"
+    },
+    {
+      "id": "n5-particles-3",
+      "ja": "を",
+      "en": "direct object marker"
+    },
+    {
+      "id": "n5-particles-4",
+      "ja": "に",
+      "en": "at / to (time, destination)"
+    },
+    {
+      "id": "n5-particles-5",
+      "ja": "で",
+      "en": "at / by means of"
+    },
+    {
+      "id": "n5-particles-6",
+      "ja": "へ",
+      "en": "toward"
+    },
+    {
+      "id": "n5-particles-7",
+      "ja": "と",
+      "en": "with / and (full list)"
+    },
+    {
+      "id": "n5-particles-8",
+      "ja": "も",
+      "en": "also / too"
+    },
+    {
+      "id": "n5-particles-9",
+      "ja": "の",
+      "en": "of / possessive"
+    },
+    {
+      "id": "n5-particles-10",
+      "ja": "から",
+      "en": "from"
+    },
+    {
+      "id": "n5-particles-11",
+      "ja": "まで",
+      "en": "until / as far as"
+    },
+    {
+      "id": "n5-particles-12",
+      "ja": "や",
+      "en": "and (partial list)"
+    },
+    {
+      "id": "n5-particles-13",
+      "ja": "ね",
+      "en": "right? (seeking agreement)"
+    },
+    {
+      "id": "n5-particles-14",
+      "ja": "よ",
+      "en": "you know (emphasis)"
+    }
+  ],
+  "questions": [
+    {
+      "id": "n5-particles-q1",
+      "prompt": "わたし___{学生|がくせい}です。",
+      "en": "I am a student.",
+      "answer": "は",
+      "distractors": [
+        "を",
+        "に",
+        "で"
+      ]
+    },
+    {
+      "id": "n5-particles-q2",
+      "prompt": "ごはん___{食|た}べます。",
+      "en": "I eat a meal.",
+      "answer": "を",
+      "distractors": [
+        "は",
+        "に",
+        "へ"
+      ]
+    },
+    {
+      "id": "n5-particles-q3",
+      "prompt": "{毎朝|まいあさ}７{時|じ}___{起|お}きます。",
+      "en": "I get up at 7 every morning.",
+      "answer": "に",
+      "distractors": [
+        "で",
+        "を",
+        "へ"
+      ]
+    },
+    {
+      "id": "n5-particles-q4",
+      "prompt": "バス___{会社|かいしゃ}に{行|い}きます。",
+      "en": "I go to the office by bus.",
+      "answer": "で",
+      "distractors": [
+        "を",
+        "に",
+        "が"
+      ]
+    },
+    {
+      "id": "n5-particles-q5",
+      "prompt": "{図書館|としょかん}___{本|ほん}を{読|よ}みます。",
+      "en": "I read books at the library.",
+      "answer": "で",
+      "distractors": [
+        "に",
+        "へ",
+        "を"
+      ]
+    },
+    {
+      "id": "n5-particles-q6",
+      "prompt": "{友|とも}だち___{話|はな}します。",
+      "en": "I talk with a friend.",
+      "answer": "と",
+      "distractors": [
+        "を",
+        "の",
+        "へ"
+      ]
+    },
+    {
+      "id": "n5-particles-q7",
+      "prompt": "これはわたし___{本|ほん}です。",
+      "en": "This is my book.",
+      "answer": "の",
+      "distractors": [
+        "は",
+        "を",
+        "に"
+      ]
+    },
+    {
+      "id": "n5-particles-q8",
+      "prompt": "９{時|じ}___５{時|じ}まで{働|はたら}きます。",
+      "en": "I work from 9 until 5.",
+      "answer": "から",
+      "distractors": [
+        "まで",
+        "で",
+        "に"
+      ]
+    },
+    {
+      "id": "n5-particles-q9",
+      "prompt": "わたし___コーヒーが{好|す}きです。",
+      "en": "I like coffee too.",
+      "answer": "も",
+      "distractors": [
+        "を",
+        "へ",
+        "と"
+      ]
+    },
+    {
+      "id": "n5-particles-q10",
+      "prompt": "{部屋|へや}に{犬|いぬ}___います。",
+      "en": "There is a dog in the room.",
+      "answer": "が",
+      "distractors": [
+        "を",
+        "へ",
+        "と"
+      ]
+    },
+    {
+      "id": "n5-particles-q11",
+      "prompt": "この{電車|でんしゃ}は{東京|とうきょう}___{行|い}きます。",
+      "en": "This train goes as far as Tokyo.",
+      "answer": "まで",
+      "distractors": [
+        "を",
+        "が",
+        "の"
+      ]
+    },
+    {
+      "id": "n5-particles-q12",
+      "prompt": "パン___{牛乳|ぎゅうにゅう}を{買|か}いました。",
+      "en": "I bought bread and milk.",
+      "answer": "と",
+      "distractors": [
+        "は",
+        "が",
+        "で"
+      ]
+    }
+  ]
+}
