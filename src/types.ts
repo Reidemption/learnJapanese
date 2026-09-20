@@ -1,5 +1,5 @@
 export type Jlpt = "N5" | "N4";
-export type QuizKind = "meaning" | "reading" | "cloze";
+export type QuizKind = "meaning" | "reverse" | "reading" | "cloze";
 export type CardMark = "known" | "learning";
 
 export type RubySegment = {
