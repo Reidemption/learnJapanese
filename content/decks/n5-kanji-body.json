@@ -1,0 +1,110 @@
+{
+  "id": "n5-kanji-body",
+  "level": "N5",
+  "group": "kanji",
+  "title": "Kanji: body & directions",
+  "titleJa": "漢字：体と方角",
+  "order": 108,
+  "items": [
+    {
+      "id": "n5-kanji-body-1",
+      "ja": "{目|め}",
+      "en": "eye"
+    },
+    {
+      "id": "n5-kanji-body-2",
+      "ja": "{耳|みみ}",
+      "en": "ear"
+    },
+    {
+      "id": "n5-kanji-body-3",
+      "ja": "{口|くち}",
+      "en": "mouth"
+    },
+    {
+      "id": "n5-kanji-body-4",
+      "ja": "{手|て}",
+      "en": "hand"
+    },
+    {
+      "id": "n5-kanji-body-5",
+      "ja": "{足|あし}",
+      "en": "foot / leg"
+    },
+    {
+      "id": "n5-kanji-body-6",
+      "ja": "{体|からだ}",
+      "en": "body"
+    },
+    {
+      "id": "n5-kanji-body-7",
+      "ja": "{心|こころ}",
+      "en": "heart / mind"
+    },
+    {
+      "id": "n5-kanji-body-8",
+      "ja": "{上|うえ}",
+      "en": "above / up"
+    },
+    {
+      "id": "n5-kanji-body-9",
+      "ja": "{下|した}",
+      "en": "below / down"
+    },
+    {
+      "id": "n5-kanji-body-10",
+      "ja": "{中|なか}",
+      "en": "inside / middle"
+    },
+    {
+      "id": "n5-kanji-body-11",
+      "ja": "{外|そと}",
+      "en": "outside"
+    },
+    {
+      "id": "n5-kanji-body-12",
+      "ja": "{右|みぎ}",
+      "en": "right side"
+    },
+    {
+      "id": "n5-kanji-body-13",
+      "ja": "{左|ひだり}",
+      "en": "left side"
+    },
+    {
+      "id": "n5-kanji-body-14",
+      "ja": "{前|まえ}",
+      "en": "front / before"
+    },
+    {
+      "id": "n5-kanji-body-15",
+      "ja": "{後|うし}",
+      "en": "behind / after"
+    },
+    {
+      "id": "n5-kanji-body-16",
+      "ja": "{東|ひがし}",
+      "en": "east"
+    },
+    {
+      "id": "n5-kanji-body-17",
+      "ja": "{西|にし}",
+      "en": "west"
+    },
+    {
+      "id": "n5-kanji-body-18",
+      "ja": "{南|みなみ}",
+      "en": "south"
+    },
+    {
+      "id": "n5-kanji-body-19",
+      "ja": "{北|きた}",
+      "en": "north"
+    },
+    {
+      "id": "n5-kanji-body-20",
+      "ja": "{近|ちか}",
+      "en": "near"
+    }
+  ]
+}

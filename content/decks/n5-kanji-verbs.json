@@ -1,0 +1,120 @@
+{
+  "id": "n5-kanji-verbs",
+  "level": "N5",
+  "group": "kanji",
+  "title": "Kanji: verbs & adjectives",
+  "titleJa": "漢字：動詞と形容詞",
+  "order": 106,
+  "items": [
+    {
+      "id": "n5-kanji-verbs-1",
+      "ja": "{行|い}",
+      "en": "to go"
+    },
+    {
+      "id": "n5-kanji-verbs-2",
+      "ja": "{来|らい}",
+      "en": "to come"
+    },
+    {
+      "id": "n5-kanji-verbs-3",
+      "ja": "{見|み}",
+      "en": "to see"
+    },
+    {
+      "id": "n5-kanji-verbs-4",
+      "ja": "{聞|き}",
+      "en": "to hear / ask"
+    },
+    {
+      "id": "n5-kanji-verbs-5",
+      "ja": "{言|い}",
+      "en": "to say"
+    },
+    {
+      "id": "n5-kanji-verbs-6",
+      "ja": "{食|しょく}",
+      "en": "to eat / food"
+    },
+    {
+      "id": "n5-kanji-verbs-7",
+      "ja": "{飲|いん}",
+      "en": "to drink"
+    },
+    {
+      "id": "n5-kanji-verbs-8",
+      "ja": "{読|よ}",
+      "en": "to read"
+    },
+    {
+      "id": "n5-kanji-verbs-9",
+      "ja": "{書|か}",
+      "en": "to write"
+    },
+    {
+      "id": "n5-kanji-verbs-10",
+      "ja": "{話|はなし}",
+      "en": "to talk / a story"
+    },
+    {
+      "id": "n5-kanji-verbs-11",
+      "ja": "{買|か}",
+      "en": "to buy"
+    },
+    {
+      "id": "n5-kanji-verbs-12",
+      "ja": "{出|で}",
+      "en": "to go out / put out"
+    },
+    {
+      "id": "n5-kanji-verbs-13",
+      "ja": "{入|はい}",
+      "en": "to enter"
+    },
+    {
+      "id": "n5-kanji-verbs-14",
+      "ja": "{高|たか}",
+      "en": "high / expensive"
+    },
+    {
+      "id": "n5-kanji-verbs-15",
+      "ja": "{安|やす}",
+      "en": "cheap / peaceful"
+    },
+    {
+      "id": "n5-kanji-verbs-16",
+      "ja": "{新|しん}",
+      "en": "new"
+    },
+    {
+      "id": "n5-kanji-verbs-17",
+      "ja": "{古|ふる}",
+      "en": "old"
+    },
+    {
+      "id": "n5-kanji-verbs-18",
+      "ja": "{長|なが}",
+      "en": "long / chief"
+    },
+    {
+      "id": "n5-kanji-verbs-19",
+      "ja": "{白|しろ}",
+      "en": "white"
+    },
+    {
+      "id": "n5-kanji-verbs-20",
+      "ja": "{休|やす}",
+      "en": "to rest"
+    },
+    {
+      "id": "n5-kanji-verbs-21",
+      "ja": "{立|た}",
+      "en": "to stand"
+    },
+    {
+      "id": "n5-kanji-verbs-22",
+      "ja": "{早|はや}",
+      "en": "early"
+    }
+  ]
+}

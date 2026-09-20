@@ -1,0 +1,110 @@
+{
+  "id": "n5-kanji-people",
+  "level": "N5",
+  "group": "kanji",
+  "title": "Kanji: people & family",
+  "titleJa": "漢字：人と家族",
+  "order": 102,
+  "items": [
+    {
+      "id": "n5-kanji-people-1",
+      "ja": "{人|ひと}",
+      "en": "person"
+    },
+    {
+      "id": "n5-kanji-people-2",
+      "ja": "{男|おとこ}",
+      "en": "man / male"
+    },
+    {
+      "id": "n5-kanji-people-3",
+      "ja": "{女|おんな}",
+      "en": "woman / female"
+    },
+    {
+      "id": "n5-kanji-people-4",
+      "ja": "{子|こ}",
+      "en": "child"
+    },
+    {
+      "id": "n5-kanji-people-5",
+      "ja": "{父|ちち}",
+      "en": "father"
+    },
+    {
+      "id": "n5-kanji-people-6",
+      "ja": "{母|はは}",
+      "en": "mother"
+    },
+    {
+      "id": "n5-kanji-people-7",
+      "ja": "{友|とも}",
+      "en": "friend"
+    },
+    {
+      "id": "n5-kanji-people-8",
+      "ja": "{先|さき}",
+      "en": "ahead / previous"
+    },
+    {
+      "id": "n5-kanji-people-9",
+      "ja": "{生|せい}",
+      "en": "life / birth"
+    },
+    {
+      "id": "n5-kanji-people-10",
+      "ja": "{名|な}",
+      "en": "name"
+    },
+    {
+      "id": "n5-kanji-people-11",
+      "ja": "{私|わたし}",
+      "en": "I / myself"
+    },
+    {
+      "id": "n5-kanji-people-12",
+      "ja": "{大|だい}",
+      "en": "big / great"
+    },
+    {
+      "id": "n5-kanji-people-13",
+      "ja": "{小|しょう}",
+      "en": "small"
+    },
+    {
+      "id": "n5-kanji-people-14",
+      "ja": "{家|いえ}",
+      "en": "house / family"
+    },
+    {
+      "id": "n5-kanji-people-15",
+      "ja": "{兄|あに}",
+      "en": "older brother"
+    },
+    {
+      "id": "n5-kanji-people-16",
+      "ja": "{姉|あね}",
+      "en": "older sister"
+    },
+    {
+      "id": "n5-kanji-people-17",
+      "ja": "{弟|おとうと}",
+      "en": "younger brother"
+    },
+    {
+      "id": "n5-kanji-people-18",
+      "ja": "{妹|いもうと}",
+      "en": "younger sister"
+    },
+    {
+      "id": "n5-kanji-people-19",
+      "ja": "{方|かた}",
+      "en": "direction / person (polite)"
+    },
+    {
+      "id": "n5-kanji-people-20",
+      "ja": "{自|じ}",
+      "en": "self"
+    }
+  ]
+}

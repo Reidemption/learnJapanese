@@ -1,0 +1,110 @@
+{
+  "id": "n5-kanji-nature",
+  "level": "N5",
+  "group": "kanji",
+  "title": "Kanji: nature & places",
+  "titleJa": "漢字：自然と場所",
+  "order": 104,
+  "items": [
+    {
+      "id": "n5-kanji-nature-1",
+      "ja": "{山|やま}",
+      "en": "mountain"
+    },
+    {
+      "id": "n5-kanji-nature-2",
+      "ja": "{川|かわ}",
+      "en": "river"
+    },
+    {
+      "id": "n5-kanji-nature-3",
+      "ja": "{田|た}",
+      "en": "rice field"
+    },
+    {
+      "id": "n5-kanji-nature-4",
+      "ja": "{天|てん}",
+      "en": "heaven / sky"
+    },
+    {
+      "id": "n5-kanji-nature-5",
+      "ja": "{気|き}",
+      "en": "spirit / air"
+    },
+    {
+      "id": "n5-kanji-nature-6",
+      "ja": "{空|そら}",
+      "en": "sky / empty"
+    },
+    {
+      "id": "n5-kanji-nature-7",
+      "ja": "{雨|あめ}",
+      "en": "rain"
+    },
+    {
+      "id": "n5-kanji-nature-8",
+      "ja": "{国|くに}",
+      "en": "country"
+    },
+    {
+      "id": "n5-kanji-nature-9",
+      "ja": "{学|がく}",
+      "en": "study / learning"
+    },
+    {
+      "id": "n5-kanji-nature-10",
+      "ja": "{校|こう}",
+      "en": "school"
+    },
+    {
+      "id": "n5-kanji-nature-11",
+      "ja": "{駅|えき}",
+      "en": "station"
+    },
+    {
+      "id": "n5-kanji-nature-12",
+      "ja": "{店|みせ}",
+      "en": "shop"
+    },
+    {
+      "id": "n5-kanji-nature-13",
+      "ja": "{社|しゃ}",
+      "en": "company / shrine"
+    },
+    {
+      "id": "n5-kanji-nature-14",
+      "ja": "{会|かい}",
+      "en": "meeting / association"
+    },
+    {
+      "id": "n5-kanji-nature-15",
+      "ja": "{森|もり}",
+      "en": "forest"
+    },
+    {
+      "id": "n5-kanji-nature-16",
+      "ja": "{花|はな}",
+      "en": "flower"
+    },
+    {
+      "id": "n5-kanji-nature-17",
+      "ja": "{犬|いぬ}",
+      "en": "dog"
+    },
+    {
+      "id": "n5-kanji-nature-18",
+      "ja": "{魚|さかな}",
+      "en": "fish"
+    },
+    {
+      "id": "n5-kanji-nature-19",
+      "ja": "{鳥|とり}",
+      "en": "bird"
+    },
+    {
+      "id": "n5-kanji-nature-20",
+      "ja": "{虫|むし}",
+      "en": "insect"
+    }
+  ]
+}

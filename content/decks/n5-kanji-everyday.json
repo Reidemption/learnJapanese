@@ -1,0 +1,110 @@
+{
+  "id": "n5-kanji-everyday",
+  "level": "N5",
+  "group": "kanji",
+  "title": "Kanji: everyday & study",
+  "titleJa": "漢字：毎日と勉強",
+  "order": 110,
+  "items": [
+    {
+      "id": "n5-kanji-everyday-1",
+      "ja": "{今|いま}",
+      "en": "now"
+    },
+    {
+      "id": "n5-kanji-everyday-2",
+      "ja": "{何|なに}",
+      "en": "what"
+    },
+    {
+      "id": "n5-kanji-everyday-3",
+      "ja": "{毎|まい}",
+      "en": "every"
+    },
+    {
+      "id": "n5-kanji-everyday-4",
+      "ja": "{午|ご}",
+      "en": "noon"
+    },
+    {
+      "id": "n5-kanji-everyday-5",
+      "ja": "{間|あいだ}",
+      "en": "interval / between"
+    },
+    {
+      "id": "n5-kanji-everyday-6",
+      "ja": "{車|くるま}",
+      "en": "car / wheel"
+    },
+    {
+      "id": "n5-kanji-everyday-7",
+      "ja": "{電|でん}",
+      "en": "electricity"
+    },
+    {
+      "id": "n5-kanji-everyday-8",
+      "ja": "{語|ご}",
+      "en": "language / word"
+    },
+    {
+      "id": "n5-kanji-everyday-9",
+      "ja": "{文|ぶん}",
+      "en": "sentence / writing"
+    },
+    {
+      "id": "n5-kanji-everyday-10",
+      "ja": "{本|ほん}",
+      "en": "book / origin"
+    },
+    {
+      "id": "n5-kanji-everyday-11",
+      "ja": "{多|おお}",
+      "en": "many"
+    },
+    {
+      "id": "n5-kanji-everyday-12",
+      "ja": "{少|すく}",
+      "en": "few"
+    },
+    {
+      "id": "n5-kanji-everyday-13",
+      "ja": "{元|げん}",
+      "en": "origin / vigour"
+    },
+    {
+      "id": "n5-kanji-everyday-14",
+      "ja": "{使|つか}",
+      "en": "to use"
+    },
+    {
+      "id": "n5-kanji-everyday-15",
+      "ja": "{思|おも}",
+      "en": "to think"
+    },
+    {
+      "id": "n5-kanji-everyday-16",
+      "ja": "{知|し}",
+      "en": "to know"
+    },
+    {
+      "id": "n5-kanji-everyday-17",
+      "ja": "{作|つく}",
+      "en": "to make"
+    },
+    {
+      "id": "n5-kanji-everyday-18",
+      "ja": "{持|も}",
+      "en": "to hold"
+    },
+    {
+      "id": "n5-kanji-everyday-19",
+      "ja": "{待|ま}",
+      "en": "to wait"
+    },
+    {
+      "id": "n5-kanji-everyday-20",
+      "ja": "{住|す}",
+      "en": "to live / reside"
+    }
+  ]
+}
