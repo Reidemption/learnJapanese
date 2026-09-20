@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { computed } from "vue";
-import { decks } from "../content";
-import { deckBest } from "../progress";
-import type { Deck, DeckGroup, Jlpt } from "../types";
+import { computed, onMounted, ref } from "vue";
+import { emptyProgress, getProgress, listDecks, type DeckSummary, type Progress } from "../api";
+import { bestRatioIn } from "../progress";
+import type { DeckGroup, Jlpt } from "../types";
 
 const GROUP_LABELS: Record<DeckGroup, string> = {
   phrases: "Phrases",
@@ -14,13 +14,21 @@ const GROUP_LABELS: Record<DeckGroup, string> = {
   particles: "Particles",
 };
 
-type Section = { group: DeckGroup; decks: Deck[] };
+type Section = { group: DeckGroup; decks: DeckSummary[] };
 type LevelBlock = { level: Jlpt; sections: Section[]; count: number };
 
+const decks = ref<DeckSummary[]>([]);
+const progress = ref<Progress>(emptyProgress());
+
+onMounted(async () => {
+  decks.value = await listDecks();
+  progress.value = await getProgress();
+});
+
 const levels = computed<LevelBlock[]>(() => {
-  const byLevel = new Map<Jlpt, Map<DeckGroup, Deck[]>>();
-  for (const deck of decks) {
-    const groups = byLevel.get(deck.level) ?? new Map<DeckGroup, Deck[]>();
+  const byLevel = new Map<Jlpt, Map<DeckGroup, DeckSummary[]>>();
+  for (const deck of decks.value) {
+    const groups = byLevel.get(deck.level) ?? new Map<DeckGroup, DeckSummary[]>();
     groups.set(deck.group, [...(groups.get(deck.group) ?? []), deck]);
     byLevel.set(deck.level, groups);
   }
@@ -31,10 +39,12 @@ const levels = computed<LevelBlock[]>(() => {
   }));
 });
 
-function bestLabel(deck: Deck): string {
-  const best = deckBest(deck.id);
-  if (best === undefined) return `${deck.items.length} items`;
-  return `${deck.items.length} items · best ${Math.round(best * 100)}%`;
+function bestLabel(deck: DeckSummary): string {
+  const count = deck.itemCount === undefined ? "" : `${deck.itemCount} items`;
+  const best = bestRatioIn(progress.value.decks, deck.id);
+  if (best === undefined) return count;
+  const score = `best ${Math.round(best * 100)}%`;
+  return count ? `${count} · ${score}` : score;
 }
 </script>
 

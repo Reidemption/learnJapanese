@@ -1,5 +1,5 @@
 import { createRouter, createWebHashHistory } from "vue-router";
-import { getDeck } from "./content";
+import { getDeck } from "./api";
 import { availableModes, isMode } from "./study/modes";
 import DeckView from "./views/DeckView.vue";
 import HomeView from "./views/HomeView.vue";
@@ -20,11 +20,11 @@ export const router = createRouter({
 });
 
 /** Keeps hand-typed or stale URLs from rendering an empty session. */
-router.beforeEach((to) => {
+router.beforeEach(async (to) => {
   const id = to.params.id;
   if (typeof id !== "string") return true;
 
-  const deck = getDeck(id);
+  const deck = await getDeck(id);
   if (!deck) return { name: "home" };
 
   const mode = to.params.mode;

@@ -1,16 +1,26 @@
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, ref, watch } from "vue";
 import RubyText from "../components/RubyText.vue";
-import { getDeck } from "../content";
-import { getScore } from "../progress";
+import { emptyProgress, getDeck, getProgress, scoreKeyOf, type Progress } from "../api";
 import { MODE_HINTS, MODE_LABELS, availableModes, buildQuestions, sessionRng } from "../study/modes";
 import { parseRuby } from "../study/ruby";
 import type { Mode } from "../study/modes";
+import type { Deck } from "../types";
 
 const props = defineProps<{ id: string }>();
 
-const deck = computed(() => getDeck(props.id));
+const deck = ref<Deck | undefined>();
+const progress = ref<Progress>(emptyProgress());
 const modes = computed(() => (deck.value ? availableModes(deck.value) : []));
+
+watch(
+  () => props.id,
+  async (id) => {
+    deck.value = await getDeck(id);
+    progress.value = await getProgress();
+  },
+  { immediate: true },
+);
 
 function questionCount(mode: Mode): number {
   if (!deck.value) return 0;
@@ -18,9 +28,10 @@ function questionCount(mode: Mode): number {
 }
 
 function scoreLabel(mode: Mode): string {
-  const score = getScore(props.id, mode);
+  const score = progress.value.decks[scoreKeyOf(props.id, mode)];
   if (!score) return `${questionCount(mode)} questions`;
-  return `best ${score.best}/${score.total} · last ${score.last}/${score.total}`;
+  const total = score.total ?? questionCount(mode);
+  return `best ${score.best}/${total} · last ${score.last}/${total}`;
 }
 </script>
 

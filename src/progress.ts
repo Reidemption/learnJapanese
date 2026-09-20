@@ -29,7 +29,7 @@ export type ItemResult = {
   correct: boolean;
 };
 
-function read<T>(key: string, fallback: T): T {
+export function read<T>(key: string, fallback: T): T {
   try {
     const raw = localStorage.getItem(key);
     return raw ? (JSON.parse(raw) as T) : fallback;
@@ -38,7 +38,7 @@ function read<T>(key: string, fallback: T): T {
   }
 }
 
-function write(key: string, value: unknown): void {
+export function write(key: string, value: unknown): void {
   try {
     localStorage.setItem(key, JSON.stringify(value));
   } catch {
@@ -62,7 +62,7 @@ export function scoreKey(deckId: string, mode: Mode): string {
   return `${deckId}:${mode}`;
 }
 
-function loadScores(): Record<string, ModeScore> {
+export function loadScores(): Record<string, ModeScore> {
   return read<Record<string, ModeScore>>(SCORES_KEY, {});
 }
 
@@ -90,13 +90,22 @@ export function saveScore(
   return score;
 }
 
-/** The best score across every mode of a deck, as a ratio, or undefined if untouched. */
-export function deckBest(deckId: string): number | undefined {
-  const scores = loadScores();
+/**
+ * The best score across every mode of a deck, as a ratio, or undefined if
+ * untouched. Pure, so it also works on scores fetched from the server.
+ */
+export function bestRatioIn(
+  scores: Record<string, { best: number; total?: number }>,
+  deckId: string,
+): number | undefined {
   const ratios = Object.entries(scores)
     .filter(([key]) => key.startsWith(`${deckId}:`))
-    .map(([, score]) => (score.total > 0 ? score.best / score.total : 0));
+    .map(([, score]) => (score.total && score.total > 0 ? score.best / score.total : 0));
   return ratios.length ? Math.max(...ratios) : undefined;
+}
+
+export function deckBest(deckId: string): number | undefined {
+  return bestRatioIn(loadScores(), deckId);
 }
 
 export function getItemStats(): Record<string, ItemStat> {
