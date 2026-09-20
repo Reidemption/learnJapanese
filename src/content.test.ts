@@ -82,6 +82,14 @@ describe.each(cases)("deck %s", (id, deck) => {
     }
   });
 
+  it("has no placeholder text left in it", () => {
+    // Authoring decks in batches makes it easy to leave a stub behind.
+    for (const item of deck.items) {
+      expect(item.en, `${deck.id} / ${item.id}`).not.toMatch(/placeholder|TODO|FIXME|xxx/i);
+      expect(item.ja, `${deck.id} / ${item.id}`).not.toMatch(/[A-Za-z]{3,}\|/);
+    }
+  });
+
   it("has no duplicate items within the deck", () => {
     const ja = deck.items.map((i) => i.ja);
     const en = deck.items.map((i) => i.en);

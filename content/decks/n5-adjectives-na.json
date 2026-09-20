@@ -1,0 +1,125 @@
+{
+  "id": "n5-adjectives-na",
+  "level": "N5",
+  "group": "vocab",
+  "title": "な-adjectives",
+  "titleJa": "な形容詞",
+  "order": 58,
+  "items": [
+    {
+      "id": "n5-adjectives-na-1",
+      "ja": "{静|しず}か",
+      "en": "quiet"
+    },
+    {
+      "id": "n5-adjectives-na-2",
+      "ja": "にぎやか",
+      "en": "lively / bustling"
+    },
+    {
+      "id": "n5-adjectives-na-3",
+      "ja": "きれい",
+      "en": "pretty / clean"
+    },
+    {
+      "id": "n5-adjectives-na-4",
+      "ja": "{有名|ゆうめい}",
+      "en": "famous"
+    },
+    {
+      "id": "n5-adjectives-na-5",
+      "ja": "{親切|しんせつ}",
+      "en": "kind"
+    },
+    {
+      "id": "n5-adjectives-na-6",
+      "ja": "{便利|べんり}",
+      "en": "convenient"
+    },
+    {
+      "id": "n5-adjectives-na-7",
+      "ja": "{不便|ふべん}",
+      "en": "inconvenient"
+    },
+    {
+      "id": "n5-adjectives-na-8",
+      "ja": "{簡単|かんたん}",
+      "en": "simple / easy"
+    },
+    {
+      "id": "n5-adjectives-na-9",
+      "ja": "{大変|たいへん}",
+      "en": "tough / awful"
+    },
+    {
+      "id": "n5-adjectives-na-10",
+      "ja": "{大丈夫|だいじょうぶ}",
+      "en": "all right / okay"
+    },
+    {
+      "id": "n5-adjectives-na-11",
+      "ja": "{上手|じょうず}",
+      "en": "skilful / good at"
+    },
+    {
+      "id": "n5-adjectives-na-12",
+      "ja": "{下手|へた}",
+      "en": "unskilful / bad at"
+    },
+    {
+      "id": "n5-adjectives-na-13",
+      "ja": "{好|す}き",
+      "en": "liked / favourite"
+    },
+    {
+      "id": "n5-adjectives-na-14",
+      "ja": "{嫌|きら}い",
+      "en": "disliked"
+    },
+    {
+      "id": "n5-adjectives-na-15",
+      "ja": "{暇|ひま}",
+      "en": "free (time)"
+    },
+    {
+      "id": "n5-adjectives-na-16",
+      "ja": "{大切|たいせつ}",
+      "en": "important / precious"
+    },
+    {
+      "id": "n5-adjectives-na-17",
+      "ja": "{必要|ひつよう}",
+      "en": "necessary"
+    },
+    {
+      "id": "n5-adjectives-na-18",
+      "ja": "{安全|あんぜん}",
+      "en": "safe"
+    },
+    {
+      "id": "n5-adjectives-na-19",
+      "ja": "{自由|じゆう}",
+      "en": "free / unrestricted"
+    },
+    {
+      "id": "n5-adjectives-na-20",
+      "ja": "{残念|ざんねん}",
+      "en": "regrettable / a shame"
+    },
+    {
+      "id": "n5-adjectives-na-21",
+      "ja": "{特別|とくべつ}",
+      "en": "special"
+    },
+    {
+      "id": "n5-adjectives-na-22",
+      "ja": "いろいろ",
+      "en": "various"
+    },
+    {
+      "id": "n5-adjectives-na-23",
+      "ja": "{同|おな}じ",
+      "en": "the same"
+    }
+  ]
+}

@@ -1,0 +1,130 @@
+{
+  "id": "n5-adverbs",
+  "level": "N5",
+  "group": "vocab",
+  "title": "Adverbs & frequency",
+  "titleJa": "副詞",
+  "order": 60,
+  "items": [
+    {
+      "id": "n5-adverbs-1",
+      "ja": "とても",
+      "en": "very"
+    },
+    {
+      "id": "n5-adverbs-2",
+      "ja": "あまり",
+      "en": "not very (with a negative)"
+    },
+    {
+      "id": "n5-adverbs-3",
+      "ja": "ぜんぜん",
+      "en": "not at all (with a negative)"
+    },
+    {
+      "id": "n5-adverbs-4",
+      "ja": "よく",
+      "en": "often / well"
+    },
+    {
+      "id": "n5-adverbs-5",
+      "ja": "たいてい",
+      "en": "usually"
+    },
+    {
+      "id": "n5-adverbs-6",
+      "ja": "ときどき",
+      "en": "sometimes"
+    },
+    {
+      "id": "n5-adverbs-7",
+      "ja": "いつも",
+      "en": "always"
+    },
+    {
+      "id": "n5-adverbs-8",
+      "ja": "たまに",
+      "en": "once in a while"
+    },
+    {
+      "id": "n5-adverbs-9",
+      "ja": "もう",
+      "en": "already"
+    },
+    {
+      "id": "n5-adverbs-10",
+      "ja": "まだ",
+      "en": "still / not yet"
+    },
+    {
+      "id": "n5-adverbs-11",
+      "ja": "ちょっと",
+      "en": "a little"
+    },
+    {
+      "id": "n5-adverbs-12",
+      "ja": "{少|すこ}し",
+      "en": "a little / a few"
+    },
+    {
+      "id": "n5-adverbs-13",
+      "ja": "たくさん",
+      "en": "a lot"
+    },
+    {
+      "id": "n5-adverbs-14",
+      "ja": "みんな",
+      "en": "everyone / all"
+    },
+    {
+      "id": "n5-adverbs-15",
+      "ja": "だいたい",
+      "en": "roughly / mostly"
+    },
+    {
+      "id": "n5-adverbs-16",
+      "ja": "もっと",
+      "en": "more"
+    },
+    {
+      "id": "n5-adverbs-17",
+      "ja": "ゆっくり",
+      "en": "slowly / leisurely"
+    },
+    {
+      "id": "n5-adverbs-18",
+      "ja": "だんだん",
+      "en": "gradually"
+    },
+    {
+      "id": "n5-adverbs-19",
+      "ja": "たぶん",
+      "en": "probably"
+    },
+    {
+      "id": "n5-adverbs-20",
+      "ja": "きっと",
+      "en": "surely"
+    },
+    {
+      "id": "n5-adverbs-21",
+      "ja": "はじめて",
+      "en": "for the first time"
+    },
+    {
+      "id": "n5-adverbs-22",
+      "ja": "また",
+      "en": "again"
+    },
+    {
+      "id": "n5-adverbs-23",
+      "ja": "いっしょに",
+      "en": "together"
+    },
+    {
+      "id": "n5-adverbs-24",
+      "ja": "{全部|ぜんぶ}で",
+      "en": "in total"
+    }
+  ]
+}

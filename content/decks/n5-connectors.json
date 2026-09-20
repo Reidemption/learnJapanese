@@ -1,0 +1,120 @@
+{
+  "id": "n5-connectors",
+  "level": "N5",
+  "group": "vocab",
+  "title": "Conjunctions & connectors",
+  "titleJa": "接続詞",
+  "order": 62,
+  "items": [
+    {
+      "id": "n5-connectors-1",
+      "ja": "そして",
+      "en": "and then"
+    },
+    {
+      "id": "n5-connectors-2",
+      "ja": "それから",
+      "en": "after that"
+    },
+    {
+      "id": "n5-connectors-3",
+      "ja": "でも",
+      "en": "but"
+    },
+    {
+      "id": "n5-connectors-4",
+      "ja": "しかし",
+      "en": "however (formal)"
+    },
+    {
+      "id": "n5-connectors-5",
+      "ja": "だから",
+      "en": "so / therefore"
+    },
+    {
+      "id": "n5-connectors-6",
+      "ja": "それで",
+      "en": "and so"
+    },
+    {
+      "id": "n5-connectors-7",
+      "ja": "けれども",
+      "en": "although"
+    },
+    {
+      "id": "n5-connectors-8",
+      "ja": "または",
+      "en": "or"
+    },
+    {
+      "id": "n5-connectors-9",
+      "ja": "それに",
+      "en": "moreover"
+    },
+    {
+      "id": "n5-connectors-10",
+      "ja": "じゃあ",
+      "en": "well then"
+    },
+    {
+      "id": "n5-connectors-11",
+      "ja": "ところで",
+      "en": "by the way"
+    },
+    {
+      "id": "n5-connectors-12",
+      "ja": "{例|たと}えば",
+      "en": "for example"
+    },
+    {
+      "id": "n5-connectors-13",
+      "ja": "{最初|さいしょ}に",
+      "en": "first of all"
+    },
+    {
+      "id": "n5-connectors-14",
+      "ja": "{次|つぎ}に",
+      "en": "next"
+    },
+    {
+      "id": "n5-connectors-15",
+      "ja": "{最後|さいご}に",
+      "en": "finally"
+    },
+    {
+      "id": "n5-connectors-16",
+      "ja": "{他|ほか}に",
+      "en": "besides / other than"
+    },
+    {
+      "id": "n5-connectors-17",
+      "ja": "もちろん",
+      "en": "of course"
+    },
+    {
+      "id": "n5-connectors-18",
+      "ja": "たしかに",
+      "en": "certainly"
+    },
+    {
+      "id": "n5-connectors-19",
+      "ja": "{本当|ほんとう}に",
+      "en": "really"
+    },
+    {
+      "id": "n5-connectors-20",
+      "ja": "やっぱり",
+      "en": "as expected / after all"
+    },
+    {
+      "id": "n5-connectors-21",
+      "ja": "{実|じつ}は",
+      "en": "actually / to tell the truth"
+    },
+    {
+      "id": "n5-connectors-22",
+      "ja": "そうですね",
+      "en": "let me see / that's right"
+    }
+  ]
+}

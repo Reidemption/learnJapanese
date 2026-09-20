@@ -1,0 +1,120 @@
+{
+  "id": "n5-daily-phrases",
+  "level": "N5",
+  "group": "phrases",
+  "title": "Classroom & travel phrases",
+  "titleJa": "教室と旅行の表現",
+  "order": 64,
+  "items": [
+    {
+      "id": "n5-daily-phrases-1",
+      "ja": "もう{一度|いちど}おねがいします",
+      "en": "one more time, please"
+    },
+    {
+      "id": "n5-daily-phrases-2",
+      "ja": "ゆっくりおねがいします",
+      "en": "please speak slowly"
+    },
+    {
+      "id": "n5-daily-phrases-3",
+      "ja": "わかりました",
+      "en": "I understand / understood"
+    },
+    {
+      "id": "n5-daily-phrases-4",
+      "ja": "わかりません",
+      "en": "I don't understand"
+    },
+    {
+      "id": "n5-daily-phrases-5",
+      "ja": "{知|し}りません",
+      "en": "I don't know"
+    },
+    {
+      "id": "n5-daily-phrases-6",
+      "ja": "いいですか",
+      "en": "is it all right?"
+    },
+    {
+      "id": "n5-daily-phrases-7",
+      "ja": "ちょっと{待|ま}ってください",
+      "en": "please wait a moment"
+    },
+    {
+      "id": "n5-daily-phrases-8",
+      "ja": "{見|み}せてください",
+      "en": "please show me"
+    },
+    {
+      "id": "n5-daily-phrases-9",
+      "ja": "{教|おし}えてください",
+      "en": "please tell me / teach me"
+    },
+    {
+      "id": "n5-daily-phrases-10",
+      "ja": "{何|なん}と{言|い}いますか",
+      "en": "how do you say it?"
+    },
+    {
+      "id": "n5-daily-phrases-11",
+      "ja": "{大丈夫|だいじょうぶ}です",
+      "en": "it's all right"
+    },
+    {
+      "id": "n5-daily-phrases-12",
+      "ja": "けっこうです",
+      "en": "no thank you / that's fine"
+    },
+    {
+      "id": "n5-daily-phrases-13",
+      "ja": "おいくらですか",
+      "en": "how much is it?"
+    },
+    {
+      "id": "n5-daily-phrases-14",
+      "ja": "これをください",
+      "en": "I'll take this one"
+    },
+    {
+      "id": "n5-daily-phrases-15",
+      "ja": "すみませんが",
+      "en": "excuse me, but..."
+    },
+    {
+      "id": "n5-daily-phrases-16",
+      "ja": "たすけて",
+      "en": "help!"
+    },
+    {
+      "id": "n5-daily-phrases-17",
+      "ja": "{道|みち}に{迷|まよ}いました",
+      "en": "I'm lost"
+    },
+    {
+      "id": "n5-daily-phrases-18",
+      "ja": "{日本語|にほんご}が{少|すこ}しわかります",
+      "en": "I understand a little Japanese"
+    },
+    {
+      "id": "n5-daily-phrases-19",
+      "ja": "{英語|えいご}ができますか",
+      "en": "can you speak English?"
+    },
+    {
+      "id": "n5-daily-phrases-20",
+      "ja": "どこですか",
+      "en": "where is it?"
+    },
+    {
+      "id": "n5-daily-phrases-21",
+      "ja": "{何時|なんじ}からですか",
+      "en": "what time does it start?"
+    },
+    {
+      "id": "n5-daily-phrases-22",
+      "ja": "おつかれさまでした",
+      "en": "thanks for your work"
+    }
+  ]
+}
