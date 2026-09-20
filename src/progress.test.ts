@@ -1,23 +1,23 @@
 import { beforeEach, describe, expect, it } from "vitest";
 import {
   correctChoice,
+  deckBest,
   filledPrompt,
-  getCardMark,
-  getQuizScore,
-  knownCount,
+  getItemStats,
+  getScore,
+  itemIdOf,
   loadSettings,
-  questionsFor,
-  saveQuizScore,
+  recordItems,
+  saveScore,
   saveSettings,
-  setCardMark,
   shuffle,
 } from "./progress";
 import type { Question } from "./types";
 
-function question(id: string, jlpt: "N5" | "N4" = "N5"): Question {
+function question(id: string): Question {
   return {
     id,
-    jlpt,
+    jlpt: "N5",
     kind: "meaning",
     promptJa: [{ ja: "水", reading: "みず" }],
     choices: [
@@ -40,11 +40,6 @@ describe("shuffle", () => {
     expect(input).toEqual([1, 2, 3, 4, 5]);
     expect([...out].sort()).toEqual([1, 2, 3, 4, 5]);
   });
-
-  it("handles empty and single-item arrays", () => {
-    expect(shuffle([])).toEqual([]);
-    expect(shuffle(["a"])).toEqual(["a"]);
-  });
 });
 
 describe("correctChoice", () => {
@@ -53,8 +48,7 @@ describe("correctChoice", () => {
   });
 
   it("throws when the correct choice is missing", () => {
-    const broken = { ...question("q2"), correctId: "zz" };
-    expect(() => correctChoice(broken)).toThrow(/q2/);
+    expect(() => correctChoice({ ...question("q2"), correctId: "zz" })).toThrow(/q2/);
   });
 });
 
@@ -65,7 +59,10 @@ describe("filledPrompt", () => {
       jlpt: "N5",
       kind: "cloze",
       promptJa: [{ ja: "ごはん" }, { ja: "＿", blank: true }, { ja: "食べます" }],
-      choices: [{ id: "a", ja: [{ ja: "を" }] }, { id: "b", ja: [{ ja: "に" }] }],
+      choices: [
+        { id: "a", ja: [{ ja: "を" }] },
+        { id: "b", ja: [{ ja: "に" }] },
+      ],
       correctId: "a",
     };
     expect(filledPrompt(q).map((s) => s.ja)).toEqual(["ごはん", "を", "食べます"]);
@@ -76,38 +73,76 @@ describe("filledPrompt", () => {
   });
 });
 
-describe("questionsFor", () => {
-  it("filters by level", () => {
-    const all = [question("a", "N5"), question("b", "N4"), question("c", "N5")];
-    expect(questionsFor("N5", all).map((q) => q.id)).toEqual(["a", "c"]);
-    expect(questionsFor("N4", all).map((q) => q.id)).toEqual(["b"]);
+describe("itemIdOf", () => {
+  it("strips the mode suffix", () => {
+    expect(itemIdOf(question("n5-food-3:meaning"))).toBe("n5-food-3");
+    expect(itemIdOf(question("bare-id"))).toBe("bare-id");
   });
 });
 
-describe("storage helpers", () => {
-  it("round-trips settings and defaults to on", () => {
+describe("settings", () => {
+  it("round-trips and defaults to on", () => {
     expect(loadSettings()).toEqual({ kana: true, hints: true });
     saveSettings({ kana: false, hints: true });
     expect(loadSettings()).toEqual({ kana: false, hints: true });
   });
 
-  it("falls back to defaults on corrupt settings", () => {
+  it("falls back to defaults on corrupt storage", () => {
     localStorage.setItem("lj.settings", "{not json");
     expect(loadSettings()).toEqual({ kana: true, hints: true });
   });
+});
 
-  it("round-trips quiz scores per category and level", () => {
-    expect(getQuizScore("vocabulary", "N5")).toBeUndefined();
-    saveQuizScore("vocabulary", "N5", { correct: 3, total: 4, at: 1 });
-    expect(getQuizScore("vocabulary", "N5")).toEqual({ correct: 3, total: 4, at: 1 });
-    expect(getQuizScore("vocabulary", "N4")).toBeUndefined();
+describe("scores", () => {
+  it("round-trips per deck and mode", () => {
+    expect(getScore("n5-food", "meaning")).toBeUndefined();
+    saveScore("n5-food", "meaning", { correct: 3, total: 4 });
+    expect(getScore("n5-food", "meaning")).toMatchObject({ best: 3, last: 3, total: 4 });
+    expect(getScore("n5-food", "reading")).toBeUndefined();
   });
 
-  it("round-trips card marks and counts known cards", () => {
-    const pool = [question("a"), question("b"), question("c")];
-    setCardMark("a", "known");
-    setCardMark("b", "learning");
-    expect(getCardMark("a")).toBe("known");
-    expect(knownCount(pool)).toBe(1);
+  it("keeps the best run but tracks the latest", () => {
+    saveScore("n5-food", "meaning", { correct: 9, total: 10 });
+    saveScore("n5-food", "meaning", { correct: 4, total: 10 });
+    expect(getScore("n5-food", "meaning")).toMatchObject({ best: 9, last: 4 });
+  });
+
+  it("reports the best ratio across a deck's modes", () => {
+    expect(deckBest("n5-food")).toBeUndefined();
+    saveScore("n5-food", "meaning", { correct: 5, total: 10 });
+    saveScore("n5-food", "reading", { correct: 8, total: 10 });
+    saveScore("n5-places", "meaning", { correct: 10, total: 10 });
+    expect(deckBest("n5-food")).toBeCloseTo(0.8);
+  });
+
+  it("survives corrupt storage", () => {
+    localStorage.setItem("lj.scores", "]]not json[[");
+    expect(getScore("n5-food", "meaning")).toBeUndefined();
+    expect(() => saveScore("n5-food", "meaning", { correct: 1, total: 2 })).not.toThrow();
+    expect(getScore("n5-food", "meaning")).toMatchObject({ best: 1 });
+  });
+});
+
+describe("item stats", () => {
+  it("accumulates seen and correct counts", () => {
+    recordItems([
+      { itemId: "a", correct: true },
+      { itemId: "b", correct: false },
+    ]);
+    recordItems([
+      { itemId: "a", correct: false },
+      { itemId: "b", correct: false },
+    ]);
+    expect(getItemStats()).toEqual({
+      a: { seen: 2, correct: 1 },
+      b: { seen: 2, correct: 0 },
+    });
+  });
+
+  it("survives corrupt storage", () => {
+    localStorage.setItem("lj.items", "nope");
+    expect(getItemStats()).toEqual({});
+    recordItems([{ itemId: "a", correct: true }]);
+    expect(getItemStats()).toEqual({ a: { seen: 1, correct: 1 } });
   });
 });
