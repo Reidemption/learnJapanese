@@ -1,0 +1,391 @@
+:root {
+  --paper: #cfd6df;
+  --paper-deep: #c3ccd8;
+  --ink: #1e1c19;
+  --ink-soft: #4a4e57;
+  --vermillion: #c4452d;
+  --vermillion-deep: #9e3320;
+  --line: color-mix(in srgb, var(--ink) 16%, transparent);
+  --shadow: color-mix(in srgb, #1a2430 18%, transparent);
+  --display: "Shippori Mincho", "Hiragino Mincho ProN", serif;
+  --body: "Zen Kaku Gothic New", "Hiragino Sans", sans-serif;
+  --space: 1.15rem;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--body);
+  background-color: var(--paper);
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.09'/%3E%3C/svg%3E"),
+    linear-gradient(165deg, #d7dde6 0%, var(--paper) 42%, var(--paper-deep) 100%);
+  background-attachment: fixed;
+}
+
+button,
+a {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: 0;
+  background: none;
+}
+
+.shell {
+  max-width: 40rem;
+  margin: 0 auto;
+  padding: 1.25rem 1.35rem 4rem;
+}
+
+.site-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--line);
+  animation: rise 0.55s ease both;
+}
+
+.brand {
+  font-family: var(--display);
+  font-size: 1.65rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+}
+
+.brand small {
+  display: block;
+  margin-top: 0.15rem;
+  font-family: var(--body);
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.toggles {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.toggle {
+  padding: 0.35rem 0.7rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+}
+
+.toggle[aria-pressed="true"] {
+  border-color: var(--vermillion);
+  color: var(--vermillion);
+}
+
+.page {
+  animation: rise 0.6s ease both;
+}
+
+.hero {
+  padding: 2.6rem 0 1.8rem;
+}
+
+.hero h1 {
+  margin: 0;
+  font-family: var(--display);
+  font-size: clamp(2.2rem, 6vw, 3.1rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: 0.04em;
+}
+
+.hero p {
+  max-width: 26rem;
+  margin: 0.9rem 0 0;
+  color: var(--ink-soft);
+  line-height: 1.65;
+}
+
+.category-list {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--line);
+}
+
+.category-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+  padding: 1.05rem 0;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+}
+
+.category-row:hover .en {
+  color: var(--vermillion);
+}
+
+.category-row .en {
+  font-size: 1.12rem;
+  font-weight: 500;
+}
+
+.category-row .ja {
+  margin-left: 0.55rem;
+  font-family: var(--display);
+  color: var(--ink-soft);
+}
+
+.category-row .meta {
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  letter-spacing: 0.04em;
+}
+
+.back {
+  margin: 1.3rem 0 0.4rem;
+  color: var(--ink-soft);
+  font-size: 0.85rem;
+}
+
+.back:hover {
+  color: var(--vermillion);
+}
+
+.level-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.2rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.level-row h2 {
+  margin: 0;
+  font-family: var(--display);
+  font-size: 1.7rem;
+}
+
+.level-row p {
+  margin: 0.2rem 0 0;
+  color: var(--ink-soft);
+  font-size: 0.85rem;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.primary {
+  padding: 0.55rem 1.15rem;
+  background: var(--vermillion);
+  color: #f7f1ea;
+  letter-spacing: 0.08em;
+}
+
+.primary:hover {
+  background: var(--vermillion-deep);
+}
+
+.ghost {
+  color: var(--ink-soft);
+  font-size: 0.88rem;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.ghost:hover {
+  color: var(--vermillion);
+}
+
+.prompt {
+  min-height: 6.5rem;
+  margin: 1.6rem 0 1.2rem;
+  font-size: 1.7rem;
+  line-height: 2.05;
+}
+
+.prompt-en {
+  margin-top: 0.45rem;
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+}
+
+.choices {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.choice {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.85rem 0.95rem;
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, white 28%, transparent);
+  text-align: left;
+}
+
+.choice .num {
+  font-size: 0.75rem;
+  color: var(--ink-soft);
+}
+
+.choice.is-correct {
+  border-color: var(--vermillion);
+  background: color-mix(in srgb, var(--vermillion) 10%, white);
+}
+
+.choice.is-wrong {
+  opacity: 0.55;
+}
+
+.choice:disabled {
+  cursor: default;
+}
+
+.session-bar {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1.5rem;
+  color: var(--ink-soft);
+  font-size: 0.82rem;
+}
+
+.next-row {
+  margin-top: 1.1rem;
+  min-height: 2.4rem;
+}
+
+.score h2 {
+  font-family: var(--display);
+  font-size: 2.4rem;
+  margin: 1.4rem 0 0.4rem;
+}
+
+.misses {
+  margin-top: 1.6rem;
+  padding: 0;
+  list-style: none;
+}
+
+.misses li {
+  padding: 0.8rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.card {
+  min-height: 12rem;
+  margin: 1.8rem 0 1.2rem;
+  padding: 1.6rem 1.2rem;
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, white 32%, transparent);
+  box-shadow: 0 18px 40px var(--shadow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 1.85rem;
+  line-height: 1.8;
+  perspective: 800px;
+}
+
+.card-actions {
+  display: flex;
+  gap: 0.7rem;
+}
+
+.card-actions .primary,
+.card-actions .secondary {
+  flex: 1;
+  padding: 0.7rem 0.5rem;
+}
+
+.secondary {
+  border: 1px solid var(--line);
+}
+
+.ruby-text {
+  font-family: var(--display);
+}
+
+ruby {
+  ruby-position: over;
+}
+
+.kana-off rt {
+  visibility: hidden;
+}
+
+.hintable {
+  position: relative;
+  cursor: help;
+  border-bottom: 1px dotted color-mix(in srgb, var(--ink) 35%, transparent);
+}
+
+.hintable .tip {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 0.35rem);
+  transform: translateX(-50%);
+  padding: 0.28rem 0.5rem;
+  background: var(--ink);
+  color: #f3efe8;
+  font-family: var(--body);
+  font-size: 0.75rem;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease;
+  z-index: 2;
+}
+
+.hintable:hover .tip,
+.hintable:focus-visible .tip {
+  opacity: 1;
+}
+
+.blank {
+  display: inline-block;
+  min-width: 2.2em;
+  margin: 0 0.12em;
+  border-bottom: 2px solid var(--vermillion);
+  color: transparent;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
