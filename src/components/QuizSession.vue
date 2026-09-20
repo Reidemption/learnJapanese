@@ -1,17 +1,24 @@
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted, ref } from "vue";
-import { saveQuizScore, shuffle } from "../progress";
-import type { Choice, Jlpt, Question } from "../types";
+import { computed, onMounted, onUnmounted, ref, watch } from "vue";
+import { itemIdOf, shuffle } from "../progress";
+import type { ItemResult } from "../progress";
+import type { Choice, Question } from "../types";
 import RubyText from "./RubyText.vue";
 
 const props = defineProps<{
-  categoryId: string;
-  jlpt: Jlpt;
-  pool: Question[];
+  questions: Question[];
+  label: string;
 }>();
 
 const emit = defineEmits<{
-  done: [payload: { correct: number; total: number; missed: Question[] }];
+  done: [
+    payload: {
+      correct: number;
+      total: number;
+      missed: Question[];
+      results: ItemResult[];
+    },
+  ];
 }>();
 
 type Item = {
@@ -24,42 +31,42 @@ const index = ref(0);
 const picked = ref<string | null>(null);
 const correctCount = ref(0);
 const missed = ref<Question[]>([]);
+const results = ref<ItemResult[]>([]);
 
 const current = computed(() => items.value[index.value]);
 const locked = computed(() => picked.value !== null);
 
 function start(): void {
-  items.value = shuffle(props.pool).map((question) => ({
+  items.value = props.questions.map((question) => ({
     question,
+    // Choices arrive with the answer first, so they are shuffled per question.
     choices: shuffle(question.choices),
   }));
   index.value = 0;
   picked.value = null;
   correctCount.value = 0;
   missed.value = [];
+  results.value = [];
 }
 
 function pick(id: string): void {
   if (locked.value || !current.value) return;
   picked.value = id;
-  const q = current.value.question;
-  if (id === q.correctId) correctCount.value += 1;
-  else missed.value.push(q);
+  const question = current.value.question;
+  const right = id === question.correctId;
+  if (right) correctCount.value += 1;
+  else missed.value.push(question);
+  results.value.push({ itemId: itemIdOf(question), correct: right });
 }
 
 function goNext(): void {
   if (!locked.value) return;
   if (index.value + 1 >= items.value.length) {
-    const total = items.value.length;
-    saveQuizScore(props.categoryId, props.jlpt, {
-      correct: correctCount.value,
-      total,
-      at: Date.now(),
-    });
     emit("done", {
       correct: correctCount.value,
-      total,
+      total: items.value.length,
       missed: missed.value,
+      results: results.value,
     });
     return;
   }
@@ -89,22 +96,24 @@ function onKey(event: KeyboardEvent): void {
   }
 }
 
-onMounted(() => {
-  start();
-  window.addEventListener("keydown", onKey);
-});
+// Built during setup so the first render already has a question on screen.
+watch(() => props.questions, start, { immediate: true });
+onMounted(() => window.addEventListener("keydown", onKey));
 onUnmounted(() => window.removeEventListener("keydown", onKey));
 </script>
 
 <template>
   <section v-if="current" class="page">
     <p class="session-bar" style="margin-top: 1rem">
-      <span>{{ jlpt }} · {{ index + 1 }} / {{ items.length }}</span>
-      <span>{{ current.question.kind }}</span>
+      <span>{{ label }}</span>
+      <span>{{ index + 1 }} / {{ items.length }}</span>
     </p>
     <div class="prompt">
-      <RubyText :segments="current.question.promptJa" />
-      <p v-if="current.question.promptEn" class="prompt-en">
+      <RubyText v-if="current.question.promptJa.length" :segments="current.question.promptJa" />
+      <p
+        v-if="current.question.promptEn"
+        :class="current.question.promptJa.length ? 'prompt-en' : 'prompt-lead'"
+      >
         {{ current.question.promptEn }}
       </p>
     </div>

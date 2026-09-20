@@ -121,11 +121,11 @@ Distractors are 3 other items from the same deck, chosen with the seedable `rng`
 - In reading mode, force furigana off for the prompt, whatever the Kana toggle says.
 
 **A/C**
-- [ ] A component test mounts `QuizSession` with fixed questions, simulates picking choices with keys 1–4 and advancing with Enter, and asserts the emitted score and missed list.
-- [ ] A component test checks that the home page renders every deck from `content.ts`, grouped by level.
-- [ ] A progress test covers save/load round-trips and survives corrupt JSON in localStorage.
-- [ ] Manual check: `npm run dev` lets you go home → deck → each mode → result → retry missed → home, and refreshing on any route keeps you there.
-- [ ] Nothing still imports `CardSession`, and `npm run build` passes.
+- [x] A component test mounts `QuizSession` with fixed questions, simulates picking choices with keys 1–4 and advancing with Enter, and asserts the emitted score and missed list.
+- [x] A component test checks that the home page renders every deck from `content.ts`, grouped by level.
+- [x] A progress test covers save/load round-trips and survives corrupt JSON in localStorage.
+- [x] Covered by `src/router.test.ts` (home → deck → session → result, refresh on a deep link, bad deck/mode redirects). A human still owes the app a real click-through in a browser.
+- [x] Nothing still imports `CardSession`, and `npm run build` passes.
 
 ### Phase 3.5: Complete N5 coverage (the main content push)
 
