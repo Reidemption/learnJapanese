@@ -1,0 +1,204 @@
+{
+  "id": "n5-grammar-existence",
+  "level": "N5",
+  "group": "grammar",
+  "title": "あります・います & location",
+  "titleJa": "存在と場所",
+  "order": 95,
+  "items": [
+    {
+      "id": "n5-grammar-existence-1",
+      "ja": "あります",
+      "en": "there is (things)"
+    },
+    {
+      "id": "n5-grammar-existence-2",
+      "ja": "います",
+      "en": "there is (people and animals)"
+    },
+    {
+      "id": "n5-grammar-existence-3",
+      "ja": "ありません",
+      "en": "there isn't (things)"
+    },
+    {
+      "id": "n5-grammar-existence-4",
+      "ja": "いません",
+      "en": "there isn't (people and animals)"
+    },
+    {
+      "id": "n5-grammar-existence-5",
+      "ja": "〜に",
+      "en": "marks where something exists"
+    },
+    {
+      "id": "n5-grammar-existence-6",
+      "ja": "〜の{上|うえ}に",
+      "en": "on top of ___"
+    },
+    {
+      "id": "n5-grammar-existence-7",
+      "ja": "〜の{中|なか}に",
+      "en": "inside ___"
+    },
+    {
+      "id": "n5-grammar-existence-8",
+      "ja": "〜の{近|ちか}くに",
+      "en": "near ___"
+    },
+    {
+      "id": "n5-grammar-existence-9",
+      "ja": "どこにありますか",
+      "en": "where is it?"
+    },
+    {
+      "id": "n5-grammar-existence-10",
+      "ja": "{何|なに}もありません",
+      "en": "there is nothing"
+    },
+    {
+      "id": "n5-grammar-existence-11",
+      "ja": "{誰|だれ}もいません",
+      "en": "there is nobody"
+    },
+    {
+      "id": "n5-grammar-existence-12",
+      "ja": "たくさんあります",
+      "en": "there are lots"
+    }
+  ],
+  "questions": [
+    {
+      "id": "n5-grammar-existence-q1",
+      "prompt": "{部屋|へや}に{猫|ねこ}が___。",
+      "en": "There is a cat in the room.",
+      "answer": "います",
+      "distractors": [
+        "あります",
+        "です",
+        "なります"
+      ]
+    },
+    {
+      "id": "n5-grammar-existence-q2",
+      "prompt": "つくえの{上|うえ}に{本|ほん}が___。",
+      "en": "There is a book on the desk.",
+      "answer": "あります",
+      "distractors": [
+        "います",
+        "です",
+        "なります"
+      ]
+    },
+    {
+      "id": "n5-grammar-existence-q3",
+      "prompt": "{公園|こうえん}に{子|こ}どもが___か。",
+      "en": "Are there children in the park?",
+      "answer": "います",
+      "distractors": [
+        "あります",
+        "です",
+        "しています"
+      ]
+    },
+    {
+      "id": "n5-grammar-existence-q4",
+      "prompt": "{冷蔵庫|れいぞうこ}の{中|なか}に{何|なに}も___。",
+      "en": "There is nothing in the fridge.",
+      "answer": "ありません",
+      "distractors": [
+        "あります",
+        "いません",
+        "います"
+      ]
+    },
+    {
+      "id": "n5-grammar-existence-q5",
+      "prompt": "{銀行|ぎんこう}は{駅|えき}___{前|まえ}にあります。",
+      "en": "The bank is in front of the station.",
+      "answer": "の",
+      "distractors": [
+        "に",
+        "で",
+        "を"
+      ]
+    },
+    {
+      "id": "n5-grammar-existence-q6",
+      "prompt": "{教室|きょうしつ}___{学生|がくせい}がいます。",
+      "en": "There are students in the classroom.",
+      "answer": "に",
+      "distractors": [
+        "で",
+        "を",
+        "から"
+      ]
+    },
+    {
+      "id": "n5-grammar-existence-q7",
+      "prompt": "トイレはどこ___ありますか。",
+      "en": "Where is the toilet?",
+      "answer": "に",
+      "distractors": [
+        "で",
+        "を",
+        "へ"
+      ]
+    },
+    {
+      "id": "n5-grammar-existence-q8",
+      "prompt": "{今日|きょう}は{授業|じゅぎょう}が___。",
+      "en": "There is no class today.",
+      "answer": "ありません",
+      "distractors": [
+        "いません",
+        "います",
+        "あります"
+      ]
+    },
+    {
+      "id": "n5-grammar-existence-q9",
+      "prompt": "いすの{下|した}に{犬|いぬ}が___。",
+      "en": "There's a dog under the chair.",
+      "answer": "います",
+      "distractors": [
+        "あります",
+        "なります",
+        "します"
+      ]
+    },
+    {
+      "id": "n5-grammar-existence-q10",
+      "prompt": "{駅|えき}の{近|ちか}く___コンビニがあります。",
+      "en": "There's a convenience store near the station.",
+      "answer": "に",
+      "distractors": [
+        "で",
+        "を",
+        "へ"
+      ]
+    },
+    {
+      "id": "n5-grammar-existence-q11",
+      "prompt": "かばんの{中|なか}に{何|なに}が___か。",
+      "en": "What is in the bag?",
+      "answer": "あります",
+      "distractors": [
+        "います",
+        "なります",
+        "きます"
+      ]
+    },
+    {
+      "id": "n5-grammar-existence-q12",
+      "prompt": "{山田|やまだ}さんは{今|いま}{会社|かいしゃ}に___。",
+      "en": "Mr Yamada is at the office now.",
+      "answer": "います",
+      "distractors": [
+        "あります",
+        "なります",
+        "です"
+      ]
+    }
+  ]
+}

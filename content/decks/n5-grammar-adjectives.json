@@ -1,0 +1,204 @@
+{
+  "id": "n5-grammar-adjectives",
+  "level": "N5",
+  "group": "grammar",
+  "title": "Adjective conjugation",
+  "titleJa": "形容詞の活用",
+  "order": 94,
+  "items": [
+    {
+      "id": "n5-grammar-adjectives-1",
+      "ja": "〜くないです",
+      "en": "い-adjective, negative"
+    },
+    {
+      "id": "n5-grammar-adjectives-2",
+      "ja": "〜かったです",
+      "en": "い-adjective, past"
+    },
+    {
+      "id": "n5-grammar-adjectives-3",
+      "ja": "〜くなかったです",
+      "en": "い-adjective, past negative"
+    },
+    {
+      "id": "n5-grammar-adjectives-4",
+      "ja": "〜じゃないです",
+      "en": "な-adjective, negative"
+    },
+    {
+      "id": "n5-grammar-adjectives-5",
+      "ja": "〜でした",
+      "en": "な-adjective, past"
+    },
+    {
+      "id": "n5-grammar-adjectives-6",
+      "ja": "〜くて",
+      "en": "joins two い-adjectives"
+    },
+    {
+      "id": "n5-grammar-adjectives-7",
+      "ja": "〜で",
+      "en": "joins a な-adjective to what follows"
+    },
+    {
+      "id": "n5-grammar-adjectives-8",
+      "ja": "な＋{名詞|めいし}",
+      "en": "な-adjective before a noun"
+    },
+    {
+      "id": "n5-grammar-adjectives-9",
+      "ja": "い＋{名詞|めいし}",
+      "en": "い-adjective before a noun"
+    },
+    {
+      "id": "n5-grammar-adjectives-10",
+      "ja": "あまり〜くない",
+      "en": "not very ___"
+    },
+    {
+      "id": "n5-grammar-adjectives-11",
+      "ja": "よかったです",
+      "en": "past of いい (irregular)"
+    },
+    {
+      "id": "n5-grammar-adjectives-12",
+      "ja": "ではありません",
+      "en": "formal negative for な-adjectives"
+    }
+  ],
+  "questions": [
+    {
+      "id": "n5-grammar-adjectives-q1",
+      "prompt": "この{本|ほん}は{高|たか}___です。",
+      "en": "This book is not expensive.",
+      "answer": "くない",
+      "distractors": [
+        "じゃない",
+        "ない",
+        "くなくて"
+      ]
+    },
+    {
+      "id": "n5-grammar-adjectives-q2",
+      "prompt": "{昨日|きのう}は{寒|さむ}___です。",
+      "en": "It was cold yesterday.",
+      "answer": "かった",
+      "distractors": [
+        "いだった",
+        "くない",
+        "でした"
+      ]
+    },
+    {
+      "id": "n5-grammar-adjectives-q3",
+      "prompt": "この{部屋|へや}は{静|しず}か___。",
+      "en": "This room is quiet.",
+      "answer": "です",
+      "distractors": [
+        "くないです",
+        "かったです",
+        "いです"
+      ]
+    },
+    {
+      "id": "n5-grammar-adjectives-q4",
+      "prompt": "その{映画|えいが}は{面白|おもしろ}___なかったです。",
+      "en": "That movie wasn't interesting.",
+      "answer": "く",
+      "distractors": [
+        "じゃ",
+        "で",
+        "かった"
+      ]
+    },
+    {
+      "id": "n5-grammar-adjectives-q5",
+      "prompt": "{先生|せんせい}は{親切|しんせつ}___ありません。",
+      "en": "The teacher is not kind.",
+      "answer": "じゃ",
+      "distractors": [
+        "くは",
+        "なく",
+        "いじゃ"
+      ]
+    },
+    {
+      "id": "n5-grammar-adjectives-q6",
+      "prompt": "{新|あたら}し___、きれいな{家|いえ}です。",
+      "en": "It's a new, pretty house.",
+      "answer": "くて",
+      "distractors": [
+        "で",
+        "し",
+        "から"
+      ]
+    },
+    {
+      "id": "n5-grammar-adjectives-q7",
+      "prompt": "この{店|みせ}は{有名|ゆうめい}___、いつも{人|ひと}が{多|おお}いです。",
+      "en": "This shop is famous, and it's always crowded.",
+      "answer": "で",
+      "distractors": [
+        "くて",
+        "て",
+        "だって"
+      ]
+    },
+    {
+      "id": "n5-grammar-adjectives-q8",
+      "prompt": "{天気|てんき}が___です。",
+      "en": "The weather was good.",
+      "answer": "よかった",
+      "distractors": [
+        "いかった",
+        "いいでした",
+        "よいでした"
+      ]
+    },
+    {
+      "id": "n5-grammar-adjectives-q9",
+      "prompt": "あまり{高|たか}___ですね。",
+      "en": "It isn't very expensive, is it?",
+      "answer": "くない",
+      "distractors": [
+        "ない",
+        "じゃない",
+        "くなかった"
+      ]
+    },
+    {
+      "id": "n5-grammar-adjectives-q10",
+      "prompt": "{静|しず}か___{部屋|へや}がいいです。",
+      "en": "I'd like a quiet room.",
+      "answer": "な",
+      "distractors": [
+        "の",
+        "い",
+        "で"
+      ]
+    },
+    {
+      "id": "n5-grammar-adjectives-q11",
+      "prompt": "この{問題|もんだい}は{簡単|かんたん}___なかったです。",
+      "en": "This problem wasn't easy.",
+      "answer": "じゃ",
+      "distractors": [
+        "く",
+        "で",
+        "かった"
+      ]
+    },
+    {
+      "id": "n5-grammar-adjectives-q12",
+      "prompt": "きのうのパーティーは{楽|たの}し___です。",
+      "en": "Yesterday's party was fun.",
+      "answer": "かった",
+      "distractors": [
+        "い",
+        "くて",
+        "かったい"
+      ]
+    }
+  ]
+}

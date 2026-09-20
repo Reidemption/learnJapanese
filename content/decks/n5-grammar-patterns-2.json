@@ -1,0 +1,204 @@
+{
+  "id": "n5-grammar-patterns-2",
+  "level": "N5",
+  "group": "grammar",
+  "title": "Common patterns II",
+  "titleJa": "文型２",
+  "order": 98,
+  "items": [
+    {
+      "id": "n5-grammar-patterns-2-1",
+      "ja": "〜でしょう",
+      "en": "probably"
+    },
+    {
+      "id": "n5-grammar-patterns-2-2",
+      "ja": "〜と{思|おも}います",
+      "en": "I think that ___"
+    },
+    {
+      "id": "n5-grammar-patterns-2-3",
+      "ja": "〜つもりです",
+      "en": "intend to"
+    },
+    {
+      "id": "n5-grammar-patterns-2-4",
+      "ja": "〜ほうがいいです",
+      "en": "had better do"
+    },
+    {
+      "id": "n5-grammar-patterns-2-5",
+      "ja": "〜くなります",
+      "en": "becomes ___ (い-adjective)"
+    },
+    {
+      "id": "n5-grammar-patterns-2-6",
+      "ja": "〜になります",
+      "en": "becomes ___ (noun or な-adjective)"
+    },
+    {
+      "id": "n5-grammar-patterns-2-7",
+      "ja": "〜たり〜たりします",
+      "en": "do things like A and B"
+    },
+    {
+      "id": "n5-grammar-patterns-2-8",
+      "ja": "{何|なに}か",
+      "en": "something"
+    },
+    {
+      "id": "n5-grammar-patterns-2-9",
+      "ja": "{誰|だれ}か",
+      "en": "someone"
+    },
+    {
+      "id": "n5-grammar-patterns-2-10",
+      "ja": "どこか",
+      "en": "somewhere"
+    },
+    {
+      "id": "n5-grammar-patterns-2-11",
+      "ja": "〜など",
+      "en": "___ and so on"
+    },
+    {
+      "id": "n5-grammar-patterns-2-12",
+      "ja": "〜でも",
+      "en": "___ or something"
+    }
+  ],
+  "questions": [
+    {
+      "id": "n5-grammar-patterns-2-q1",
+      "prompt": "{明日|あした}は{雨|あめ}___。",
+      "en": "It will probably rain tomorrow.",
+      "answer": "でしょう",
+      "distractors": [
+        "ました",
+        "ません",
+        "ましょう"
+      ]
+    },
+    {
+      "id": "n5-grammar-patterns-2-q2",
+      "prompt": "{山田|やまだ}さんは{来|こ}ないと___。",
+      "en": "I think Mr Yamada won't come.",
+      "answer": "{思|おも}います",
+      "distractors": [
+        "{言|い}います",
+        "{聞|き}きます",
+        "{見|み}ます"
+      ]
+    },
+    {
+      "id": "n5-grammar-patterns-2-q3",
+      "prompt": "{夏休|なつやす}みに{国|くに}へ{帰|かえ}る___です。",
+      "en": "I intend to go home over the summer.",
+      "answer": "つもり",
+      "distractors": [
+        "ところ",
+        "こと",
+        "もの"
+      ]
+    },
+    {
+      "id": "n5-grammar-patterns-2-q4",
+      "prompt": "{薬|くすり}を{飲|の}んだ___がいいです。",
+      "en": "You had better take medicine.",
+      "answer": "ほう",
+      "distractors": [
+        "こと",
+        "もの",
+        "とき"
+      ]
+    },
+    {
+      "id": "n5-grammar-patterns-2-q5",
+      "prompt": "{寒|さむ}___なりました。",
+      "en": "It has gotten cold.",
+      "answer": "く",
+      "distractors": [
+        "に",
+        "で",
+        "の"
+      ]
+    },
+    {
+      "id": "n5-grammar-patterns-2-q6",
+      "prompt": "{医者|いしゃ}___なりたいです。",
+      "en": "I want to become a doctor.",
+      "answer": "に",
+      "distractors": [
+        "を",
+        "が",
+        "で"
+      ]
+    },
+    {
+      "id": "n5-grammar-patterns-2-q7",
+      "prompt": "{日曜日|にちようび}は{本|ほん}を{読|よ}んだり{音楽|おんがく}を{聞|き}い___します。",
+      "en": "On Sundays I do things like read books and listen to music.",
+      "answer": "たり",
+      "distractors": [
+        "ても",
+        "てから",
+        "ながら"
+      ]
+    },
+    {
+      "id": "n5-grammar-patterns-2-q8",
+      "prompt": "___{飲|の}みませんか。",
+      "en": "Won't you drink something?",
+      "answer": "{何|なに}か",
+      "distractors": [
+        "{何|なに}が",
+        "{何|なに}を",
+        "{何|なに}も"
+      ]
+    },
+    {
+      "id": "n5-grammar-patterns-2-q9",
+      "prompt": "{週末|しゅうまつ}は___{行|い}きましたか。",
+      "en": "Did you go somewhere at the weekend?",
+      "answer": "どこか",
+      "distractors": [
+        "どこ",
+        "どこも",
+        "どこへも"
+      ]
+    },
+    {
+      "id": "n5-grammar-patterns-2-q10",
+      "prompt": "{部屋|へや}がきれい___なりました。",
+      "en": "The room has become clean.",
+      "answer": "に",
+      "distractors": [
+        "く",
+        "で",
+        "と"
+      ]
+    },
+    {
+      "id": "n5-grammar-patterns-2-q11",
+      "prompt": "この{仕事|しごと}は{明日|あした}までに{終|お}わる___。",
+      "en": "This work will probably be finished by tomorrow.",
+      "answer": "でしょう",
+      "distractors": [
+        "ました",
+        "ません",
+        "ましょうか"
+      ]
+    },
+    {
+      "id": "n5-grammar-patterns-2-q12",
+      "prompt": "ケーキ___{買|か}いましょう。",
+      "en": "Let's buy cake and so on.",
+      "answer": "など",
+      "distractors": [
+        "ほど",
+        "より",
+        "まで"
+      ]
+    }
+  ]
+}

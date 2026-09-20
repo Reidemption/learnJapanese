@@ -136,12 +136,12 @@ This is the phase that makes the app actually useful, and it's mostly authoring.
 - **Grammar (about 80 points, 8–10 cloze decks of 10–15).** Particles は/が/を · Particles に/で/へ · Particles と/や/も/の/から/まで · Copula & noun sentences (です/じゃない/でした) · Verb forms (ます/ません/ました/ませんでした/ましょう/ませんか) · て-form uses (てください/ています/てもいいです/てはいけません) · Adjective conjugation (い and な, present/past/negative) · Existence & position (あります/います + location) · Comparison & preference (より/のほうが/いちばん/が好き) · Common N5 patterns (たい/ことができる/前に/後で/ながら/から/ので/が/でも/もう/まだ)
 
 **A/C**
-- [ ] `content/coverage-n5.md` lists every area above, and each line is either ticked with its deck id or explicitly marked as skipped with a reason.
-- [ ] Vocabulary decks total at least 700 distinct items, the kanji decks cover at least 100 kanji, and the grammar decks cover at least 75 distinct grammar points. A test asserts these totals against the N5 decks, so shrinking content fails the build.
-- [ ] Every deck holds 10–30 items and passes the Phase 1 validation test, and no item id appears in two decks.
-- [ ] Every N5 deck offers at least the `meaning` and `reverse` modes, and kanji decks also offer `reading`.
-- [ ] Spot check: a human reads through three random decks and finds no wrong readings or glosses. Use a reference such as jisho.org for anything uncertain rather than guessing.
-- [ ] The N5 section of the home page groups these decks readably (vocab, kanji, grammar), since 40+ decks need structure. Revisit Phase 3's home layout if it doesn't hold up.
+- [x] `content/coverage-n5.md` lists every area above, and each line is either ticked with its deck id or explicitly marked as skipped with a reason.
+- [x] Vocabulary decks total at least 700 distinct items, the kanji decks cover at least 100 kanji, and the grammar decks cover at least 75 distinct grammar points. A test asserts these totals against the N5 decks, so shrinking content fails the build.
+- [x] Every deck holds 10–30 items and passes the Phase 1 validation test, and no item id appears in two decks.
+- [x] Every N5 deck offers at least the `meaning` and `reverse` modes, and kanji decks also offer `reading`.
+- [ ] **Still owed:** a human spot-check of three random decks for wrong readings or glosses. The tests check structure, not correctness of the Japanese. See the soft spots listed in `content/coverage-n5.md`.
+- [x] The N5 section of the home page groups these decks readably (vocab, kanji, grammar), since 40+ decks need structure. Revisit Phase 3's home layout if it doesn't hold up.
 
 ### Phase 4: Go + SQLite backend (can run in parallel with Phases 2–3.5)
 - Set up `server/` with Go ≥1.22, using the standard `net/http` pattern routing (no framework) and **`modernc.org/sqlite`**. It's pure Go, so it needs no CGO and builds cleanly on Windows.

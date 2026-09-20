@@ -1,0 +1,204 @@
+{
+  "id": "n5-grammar-comparison",
+  "level": "N5",
+  "group": "grammar",
+  "title": "Comparing & preferences",
+  "titleJa": "比較と好み",
+  "order": 96,
+  "items": [
+    {
+      "id": "n5-grammar-comparison-1",
+      "ja": "〜より",
+      "en": "than ___"
+    },
+    {
+      "id": "n5-grammar-comparison-2",
+      "ja": "〜のほうが",
+      "en": "___ is the more ___ one"
+    },
+    {
+      "id": "n5-grammar-comparison-3",
+      "ja": "いちばん",
+      "en": "the most / the best"
+    },
+    {
+      "id": "n5-grammar-comparison-4",
+      "ja": "〜が{好|す}きです",
+      "en": "likes ___"
+    },
+    {
+      "id": "n5-grammar-comparison-5",
+      "ja": "〜が{上手|じょうず}です",
+      "en": "is good at ___"
+    },
+    {
+      "id": "n5-grammar-comparison-6",
+      "ja": "〜が{下手|へた}です",
+      "en": "is bad at ___"
+    },
+    {
+      "id": "n5-grammar-comparison-7",
+      "ja": "どちらが",
+      "en": "which of the two"
+    },
+    {
+      "id": "n5-grammar-comparison-8",
+      "ja": "〜と〜とどちらが",
+      "en": "which is more ___, A or B?"
+    },
+    {
+      "id": "n5-grammar-comparison-9",
+      "ja": "〜が{欲|ほ}しいです",
+      "en": "wants ___"
+    },
+    {
+      "id": "n5-grammar-comparison-10",
+      "ja": "あまり{好|す}きじゃないです",
+      "en": "doesn't like ___ much"
+    },
+    {
+      "id": "n5-grammar-comparison-11",
+      "ja": "{同|おな}じくらい",
+      "en": "about the same"
+    },
+    {
+      "id": "n5-grammar-comparison-12",
+      "ja": "ずっと",
+      "en": "by far"
+    }
+  ],
+  "questions": [
+    {
+      "id": "n5-grammar-comparison-q1",
+      "prompt": "{日本語|にほんご}は{英語|えいご}___{難|むずか}しいです。",
+      "en": "Japanese is harder than English.",
+      "answer": "より",
+      "distractors": [
+        "から",
+        "まで",
+        "ほど"
+      ]
+    },
+    {
+      "id": "n5-grammar-comparison-q2",
+      "prompt": "コーヒー___{紅茶|こうちゃ}のほうが{好|す}きです。",
+      "en": "I like black tea more than coffee.",
+      "answer": "より",
+      "distractors": [
+        "から",
+        "でも",
+        "まで"
+      ]
+    },
+    {
+      "id": "n5-grammar-comparison-q3",
+      "prompt": "{電車|でんしゃ}のほう___{速|はや}いです。",
+      "en": "The train is the faster one.",
+      "answer": "が",
+      "distractors": [
+        "を",
+        "に",
+        "で"
+      ]
+    },
+    {
+      "id": "n5-grammar-comparison-q4",
+      "prompt": "{果物|くだもの}の{中|なか}でりんごが___{好|す}きです。",
+      "en": "Of all fruit, I like apples best.",
+      "answer": "いちばん",
+      "distractors": [
+        "とても",
+        "もっと",
+        "ずっと"
+      ]
+    },
+    {
+      "id": "n5-grammar-comparison-q5",
+      "prompt": "わたしは{犬|いぬ}___{好|す}きです。",
+      "en": "I like dogs.",
+      "answer": "が",
+      "distractors": [
+        "を",
+        "に",
+        "へ"
+      ]
+    },
+    {
+      "id": "n5-grammar-comparison-q6",
+      "prompt": "{妹|いもうと}はピアノ___{上手|じょうず}です。",
+      "en": "My little sister is good at piano.",
+      "answer": "が",
+      "distractors": [
+        "を",
+        "に",
+        "で"
+      ]
+    },
+    {
+      "id": "n5-grammar-comparison-q7",
+      "prompt": "{肉|にく}と{魚|さかな}と___が{好|す}きですか。",
+      "en": "Which do you like, meat or fish?",
+      "answer": "どちら",
+      "distractors": [
+        "どこ",
+        "どれ",
+        "いつ"
+      ]
+    },
+    {
+      "id": "n5-grammar-comparison-q8",
+      "prompt": "{新|あたら}しいパソコン___{欲|ほ}しいです。",
+      "en": "I want a new computer.",
+      "answer": "が",
+      "distractors": [
+        "を",
+        "に",
+        "へ"
+      ]
+    },
+    {
+      "id": "n5-grammar-comparison-q9",
+      "prompt": "{辛|から}い{食|た}べ{物|もの}は___{好|す}きじゃないです。",
+      "en": "I don't like spicy food very much.",
+      "answer": "あまり",
+      "distractors": [
+        "とても",
+        "いちばん",
+        "もっと"
+      ]
+    },
+    {
+      "id": "n5-grammar-comparison-q10",
+      "prompt": "{東京|とうきょう}は{大阪|おおさか}___{人|ひと}が{多|おお}いです。",
+      "en": "Tokyo has more people than Osaka.",
+      "answer": "より",
+      "distractors": [
+        "から",
+        "ほど",
+        "まで"
+      ]
+    },
+    {
+      "id": "n5-grammar-comparison-q11",
+      "prompt": "バスより{電車|でんしゃ}の___が{便利|べんり}です。",
+      "en": "The train is more convenient than the bus.",
+      "answer": "ほう",
+      "distractors": [
+        "こと",
+        "もの",
+        "とき"
+      ]
+    },
+    {
+      "id": "n5-grammar-comparison-q12",
+      "prompt": "この{店|みせ}が{町|まち}で___{安|やす}いです。",
+      "en": "This shop is the cheapest in town.",
+      "answer": "いちばん",
+      "distractors": [
+        "とても",
+        "ずっと",
+        "もっと"
+      ]
+    }
+  ]
+}

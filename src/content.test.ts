@@ -88,6 +88,12 @@ describe.each(cases)("deck %s", (id, deck) => {
       expect(item.en, `${deck.id} / ${item.id}`).not.toMatch(/placeholder|TODO|FIXME|xxx/i);
       expect(item.ja, `${deck.id} / ${item.id}`).not.toMatch(/[A-Za-z]{3,}\|/);
     }
+    for (const question of deck.questions ?? []) {
+      expect(question.en ?? "", `${deck.id} / ${question.id}`).not.toMatch(
+        /placeholder|TODO|FIXME/i,
+      );
+      expect(question.prompt, `${deck.id} / ${question.id}`).not.toMatch(/[A-Za-z]{3,}\}/);
+    }
   });
 
   it("has no duplicate items within the deck", () => {

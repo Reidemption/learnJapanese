@@ -1,0 +1,214 @@
+{
+  "id": "n5-grammar-copula",
+  "level": "N5",
+  "group": "grammar",
+  "title": "Noun sentences & です",
+  "titleJa": "名詞文",
+  "order": 91,
+  "items": [
+    {
+      "id": "n5-grammar-copula-1",
+      "ja": "です",
+      "en": "is / am / are (polite)"
+    },
+    {
+      "id": "n5-grammar-copula-2",
+      "ja": "じゃないです",
+      "en": "is not (polite)"
+    },
+    {
+      "id": "n5-grammar-copula-3",
+      "ja": "でした",
+      "en": "was / were (polite)"
+    },
+    {
+      "id": "n5-grammar-copula-4",
+      "ja": "じゃなかったです",
+      "en": "was not (polite)"
+    },
+    {
+      "id": "n5-grammar-copula-5",
+      "ja": "ですか",
+      "en": "turns a sentence into a question"
+    },
+    {
+      "id": "n5-grammar-copula-6",
+      "ja": "ではありません",
+      "en": "is not (formal)"
+    },
+    {
+      "id": "n5-grammar-copula-7",
+      "ja": "の",
+      "en": "links two nouns (possessive)"
+    },
+    {
+      "id": "n5-grammar-copula-8",
+      "ja": "これ",
+      "en": "this one (near me)"
+    },
+    {
+      "id": "n5-grammar-copula-9",
+      "ja": "それ",
+      "en": "that one (near you)"
+    },
+    {
+      "id": "n5-grammar-copula-10",
+      "ja": "あれ",
+      "en": "that one over there"
+    },
+    {
+      "id": "n5-grammar-copula-11",
+      "ja": "この",
+      "en": "this ___ (before a noun)"
+    },
+    {
+      "id": "n5-grammar-copula-12",
+      "ja": "その",
+      "en": "that ___ (before a noun)"
+    },
+    {
+      "id": "n5-grammar-copula-13",
+      "ja": "あの",
+      "en": "that ___ over there (before a noun)"
+    },
+    {
+      "id": "n5-grammar-copula-14",
+      "ja": "{誰|だれ}の",
+      "en": "whose"
+    }
+  ],
+  "questions": [
+    {
+      "id": "n5-grammar-copula-q1",
+      "prompt": "{今|いま}、わたしは{学生|がくせい}___。",
+      "en": "I am a student now.",
+      "answer": "です",
+      "distractors": [
+        "でした",
+        "じゃなかったです",
+        "ますか"
+      ]
+    },
+    {
+      "id": "n5-grammar-copula-q2",
+      "prompt": "{昨日|きのう}は{雨|あめ}___。",
+      "en": "It was rainy yesterday.",
+      "answer": "でした",
+      "distractors": [
+        "です",
+        "じゃないです",
+        "でしょうか"
+      ]
+    },
+    {
+      "id": "n5-grammar-copula-q3",
+      "prompt": "これはわたしの{本|ほん}じゃ___です。",
+      "en": "This is not my book.",
+      "answer": "ない",
+      "distractors": [
+        "なく",
+        "ある",
+        "いる"
+      ]
+    },
+    {
+      "id": "n5-grammar-copula-q4",
+      "prompt": "すみません、トイレはどこ___か。",
+      "en": "Excuse me, where is the toilet?",
+      "answer": "です",
+      "distractors": [
+        "ます",
+        "ある",
+        "いる"
+      ]
+    },
+    {
+      "id": "n5-grammar-copula-q5",
+      "prompt": "これは{日本語|にほんご}___{本|ほん}です。",
+      "en": "This is a Japanese book.",
+      "answer": "の",
+      "distractors": [
+        "を",
+        "は",
+        "で"
+      ]
+    },
+    {
+      "id": "n5-grammar-copula-q6",
+      "prompt": "___はわたしのかばんです。",
+      "en": "This one is my bag.",
+      "answer": "これ",
+      "distractors": [
+        "この",
+        "ここ",
+        "こんな"
+      ]
+    },
+    {
+      "id": "n5-grammar-copula-q7",
+      "prompt": "___かばんはわたしのです。",
+      "en": "This bag is mine.",
+      "answer": "この",
+      "distractors": [
+        "これ",
+        "ここ",
+        "こう"
+      ]
+    },
+    {
+      "id": "n5-grammar-copula-q8",
+      "prompt": "{先週|せんしゅう}のテストは{簡単|かんたん}___。",
+      "en": "Last week's test was easy.",
+      "answer": "でした",
+      "distractors": [
+        "です",
+        "じゃないです",
+        "くなかったです"
+      ]
+    },
+    {
+      "id": "n5-grammar-copula-q9",
+      "prompt": "これは{誰|だれ}___かさですか。",
+      "en": "Whose umbrella is this?",
+      "answer": "の",
+      "distractors": [
+        "が",
+        "は",
+        "を"
+      ]
+    },
+    {
+      "id": "n5-grammar-copula-q10",
+      "prompt": "{山田|やまだ}さんは{医者|いしゃ}___ありません。",
+      "en": "Mr Yamada is not a doctor.",
+      "answer": "では",
+      "distractors": [
+        "には",
+        "とは",
+        "からは"
+      ]
+    },
+    {
+      "id": "n5-grammar-copula-q11",
+      "prompt": "わたしの{名前|なまえ}は{田中|たなか}___。",
+      "en": "My name is Tanaka.",
+      "answer": "です",
+      "distractors": [
+        "ます",
+        "ある",
+        "いる"
+      ]
+    },
+    {
+      "id": "n5-grammar-copula-q12",
+      "prompt": "___は{何|なん}ですか。",
+      "en": "What is that over there?",
+      "answer": "あれ",
+      "distractors": [
+        "あの",
+        "あそこ",
+        "あんな"
+      ]
+    }
+  ]
+}

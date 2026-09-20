@@ -1,0 +1,204 @@
+{
+  "id": "n5-grammar-verb-forms",
+  "level": "N5",
+  "group": "grammar",
+  "title": "Polite verb forms",
+  "titleJa": "動詞の ます形",
+  "order": 92,
+  "items": [
+    {
+      "id": "n5-grammar-verb-forms-1",
+      "ja": "〜ます",
+      "en": "polite present or future"
+    },
+    {
+      "id": "n5-grammar-verb-forms-2",
+      "ja": "〜ません",
+      "en": "polite negative"
+    },
+    {
+      "id": "n5-grammar-verb-forms-3",
+      "ja": "〜ました",
+      "en": "polite past"
+    },
+    {
+      "id": "n5-grammar-verb-forms-4",
+      "ja": "〜ませんでした",
+      "en": "polite past negative"
+    },
+    {
+      "id": "n5-grammar-verb-forms-5",
+      "ja": "〜ましょう",
+      "en": "let's do"
+    },
+    {
+      "id": "n5-grammar-verb-forms-6",
+      "ja": "〜ましょうか",
+      "en": "shall I?"
+    },
+    {
+      "id": "n5-grammar-verb-forms-7",
+      "ja": "〜ませんか",
+      "en": "would you like to?"
+    },
+    {
+      "id": "n5-grammar-verb-forms-8",
+      "ja": "〜たいです",
+      "en": "I want to do"
+    },
+    {
+      "id": "n5-grammar-verb-forms-9",
+      "ja": "〜に{行|い}きます",
+      "en": "go in order to do"
+    },
+    {
+      "id": "n5-grammar-verb-forms-10",
+      "ja": "もう〜ました",
+      "en": "have already done"
+    },
+    {
+      "id": "n5-grammar-verb-forms-11",
+      "ja": "よく〜ます",
+      "en": "often do"
+    },
+    {
+      "id": "n5-grammar-verb-forms-12",
+      "ja": "いっしょに〜ましょう",
+      "en": "let's do it together"
+    }
+  ],
+  "questions": [
+    {
+      "id": "n5-grammar-verb-forms-q1",
+      "prompt": "{毎日|まいにち}コーヒーを{飲|の}___。",
+      "en": "I drink coffee every day.",
+      "answer": "みます",
+      "distractors": [
+        "みました",
+        "みません",
+        "みませんでした"
+      ]
+    },
+    {
+      "id": "n5-grammar-verb-forms-q2",
+      "prompt": "{昨日|きのう}、{映画|えいが}を{見|み}___。",
+      "en": "I watched a movie yesterday.",
+      "answer": "ました",
+      "distractors": [
+        "ます",
+        "ません",
+        "ましょう"
+      ]
+    },
+    {
+      "id": "n5-grammar-verb-forms-q3",
+      "prompt": "お{酒|さけ}は{飲|の}___。",
+      "en": "I don't drink alcohol.",
+      "answer": "みません",
+      "distractors": [
+        "みます",
+        "みました",
+        "みましょう"
+      ]
+    },
+    {
+      "id": "n5-grammar-verb-forms-q4",
+      "prompt": "{先週|せんしゅう}は{学校|がっこう}へ{行|い}___。",
+      "en": "I didn't go to school last week.",
+      "answer": "きませんでした",
+      "distractors": [
+        "きました",
+        "きません",
+        "きます"
+      ]
+    },
+    {
+      "id": "n5-grammar-verb-forms-q5",
+      "prompt": "いっしょに{昼|ひる}ごはんを{食|た}べ___。",
+      "en": "Let's eat lunch together.",
+      "answer": "ましょう",
+      "distractors": [
+        "ました",
+        "ません",
+        "ませんでした"
+      ]
+    },
+    {
+      "id": "n5-grammar-verb-forms-q6",
+      "prompt": "{窓|まど}を{開|あ}け___か。",
+      "en": "Shall I open the window?",
+      "answer": "ましょう",
+      "distractors": [
+        "ました",
+        "ません",
+        "たい"
+      ]
+    },
+    {
+      "id": "n5-grammar-verb-forms-q7",
+      "prompt": "{今晩|こんばん}、{飲|の}みに{行|い}き___か。",
+      "en": "Won't you go out for a drink tonight?",
+      "answer": "ません",
+      "distractors": [
+        "ました",
+        "ましょう",
+        "たい"
+      ]
+    },
+    {
+      "id": "n5-grammar-verb-forms-q8",
+      "prompt": "{水|みず}が{飲|の}み___です。",
+      "en": "I want to drink water.",
+      "answer": "たい",
+      "distractors": [
+        "ます",
+        "ました",
+        "ません"
+      ]
+    },
+    {
+      "id": "n5-grammar-verb-forms-q9",
+      "prompt": "デパートへ{買|か}い{物|もの}___{行|い}きます。",
+      "en": "I'm going to the department store to shop.",
+      "answer": "に",
+      "distractors": [
+        "で",
+        "を",
+        "と"
+      ]
+    },
+    {
+      "id": "n5-grammar-verb-forms-q10",
+      "prompt": "もうレポートを{書|か}き___。",
+      "en": "I have already written the report.",
+      "answer": "ました",
+      "distractors": [
+        "ます",
+        "ません",
+        "ましょう"
+      ]
+    },
+    {
+      "id": "n5-grammar-verb-forms-q11",
+      "prompt": "{母|はは}はよく{手紙|てがみ}を{書|か}き___。",
+      "en": "My mother often writes letters.",
+      "answer": "ます",
+      "distractors": [
+        "ました",
+        "ません",
+        "ましょう"
+      ]
+    },
+    {
+      "id": "n5-grammar-verb-forms-q12",
+      "prompt": "{明日|あした}は{何時|なんじ}に{起|お}き___か。",
+      "en": "What time will you get up tomorrow?",
+      "answer": "ます",
+      "distractors": [
+        "ました",
+        "ません",
+        "ましょう"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,204 @@
+{
+  "id": "n5-grammar-patterns-1",
+  "level": "N5",
+  "group": "grammar",
+  "title": "Common patterns I",
+  "titleJa": "文型１",
+  "order": 97,
+  "items": [
+    {
+      "id": "n5-grammar-patterns-1-1",
+      "ja": "〜たいです",
+      "en": "want to do"
+    },
+    {
+      "id": "n5-grammar-patterns-1-2",
+      "ja": "〜ことができます",
+      "en": "can do"
+    },
+    {
+      "id": "n5-grammar-patterns-1-3",
+      "ja": "〜{前|まえ}に",
+      "en": "before doing"
+    },
+    {
+      "id": "n5-grammar-patterns-1-4",
+      "ja": "〜{後|あと}で",
+      "en": "after doing"
+    },
+    {
+      "id": "n5-grammar-patterns-1-5",
+      "ja": "〜ながら",
+      "en": "while doing"
+    },
+    {
+      "id": "n5-grammar-patterns-1-6",
+      "ja": "〜から",
+      "en": "because / so"
+    },
+    {
+      "id": "n5-grammar-patterns-1-7",
+      "ja": "〜ので",
+      "en": "because (softer)"
+    },
+    {
+      "id": "n5-grammar-patterns-1-8",
+      "ja": "〜が",
+      "en": "but"
+    },
+    {
+      "id": "n5-grammar-patterns-1-9",
+      "ja": "でも",
+      "en": "but (starting a sentence)"
+    },
+    {
+      "id": "n5-grammar-patterns-1-10",
+      "ja": "もう",
+      "en": "already"
+    },
+    {
+      "id": "n5-grammar-patterns-1-11",
+      "ja": "まだ",
+      "en": "not yet / still"
+    },
+    {
+      "id": "n5-grammar-patterns-1-12",
+      "ja": "〜{方|かた}",
+      "en": "the way to do something"
+    }
+  ],
+  "questions": [
+    {
+      "id": "n5-grammar-patterns-1-q1",
+      "prompt": "{日本|にほん}へ{行|い}き___です。",
+      "en": "I want to go to Japan.",
+      "answer": "たい",
+      "distractors": [
+        "たら",
+        "ながら",
+        "ましょう"
+      ]
+    },
+    {
+      "id": "n5-grammar-patterns-1-q2",
+      "prompt": "わたしはピアノをひくこと___できます。",
+      "en": "I can play the piano.",
+      "answer": "が",
+      "distractors": [
+        "を",
+        "に",
+        "で"
+      ]
+    },
+    {
+      "id": "n5-grammar-patterns-1-q3",
+      "prompt": "{寝|ね}る___に{歯|は}をみがきます。",
+      "en": "I brush my teeth before going to bed.",
+      "answer": "{前|まえ}",
+      "distractors": [
+        "{後|あと}",
+        "{間|あいだ}",
+        "とき"
+      ]
+    },
+    {
+      "id": "n5-grammar-patterns-1-q4",
+      "prompt": "ごはんを{食|た}べた___で{薬|くすり}を{飲|の}みます。",
+      "en": "I take medicine after eating.",
+      "answer": "{後|あと}",
+      "distractors": [
+        "{前|まえ}",
+        "{中|なか}",
+        "とき"
+      ]
+    },
+    {
+      "id": "n5-grammar-patterns-1-q5",
+      "prompt": "{音楽|おんがく}を{聞|き}き___、{勉強|べんきょう}します。",
+      "en": "I study while listening to music.",
+      "answer": "ながら",
+      "distractors": [
+        "てから",
+        "ないで",
+        "たり"
+      ]
+    },
+    {
+      "id": "n5-grammar-patterns-1-q6",
+      "prompt": "{雨|あめ}が{降|ふ}っています___、{出|で}かけません。",
+      "en": "It's raining, so I won't go out.",
+      "answer": "から",
+      "distractors": [
+        "まで",
+        "より",
+        "ほど"
+      ]
+    },
+    {
+      "id": "n5-grammar-patterns-1-q7",
+      "prompt": "{時間|じかん}がありません___、タクシーで{行|い}きます。",
+      "en": "I don't have time, so I'll go by taxi.",
+      "answer": "から",
+      "distractors": [
+        "まで",
+        "より",
+        "ほど"
+      ]
+    },
+    {
+      "id": "n5-grammar-patterns-1-q8",
+      "prompt": "このかばんは{高|たか}いです___、いいです。",
+      "en": "This bag is expensive, but it's nice.",
+      "answer": "が",
+      "distractors": [
+        "から",
+        "ので",
+        "まで"
+      ]
+    },
+    {
+      "id": "n5-grammar-patterns-1-q9",
+      "prompt": "___{昼|ひる}ごはんを{食|た}べましたか。",
+      "en": "Have you eaten lunch yet?",
+      "answer": "もう",
+      "distractors": [
+        "まだ",
+        "ずっと",
+        "よく"
+      ]
+    },
+    {
+      "id": "n5-grammar-patterns-1-q10",
+      "prompt": "___{食|た}べていません。",
+      "en": "I haven't eaten yet.",
+      "answer": "まだ",
+      "distractors": [
+        "もう",
+        "よく",
+        "とても"
+      ]
+    },
+    {
+      "id": "n5-grammar-patterns-1-q11",
+      "prompt": "この{漢字|かんじ}の{読|よ}み___が{分|わ}かりません。",
+      "en": "I don't know how to read this kanji.",
+      "answer": "{方|かた}",
+      "distractors": [
+        "こと",
+        "もの",
+        "とき"
+      ]
+    },
+    {
+      "id": "n5-grammar-patterns-1-q12",
+      "prompt": "わたしは{泳|およ}ぐことが___。",
+      "en": "I can swim.",
+      "answer": "できます",
+      "distractors": [
+        "あります",
+        "します",
+        "なります"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,204 @@
+{
+  "id": "n5-grammar-te-form",
+  "level": "N5",
+  "group": "grammar",
+  "title": "The て-form",
+  "titleJa": "て形",
+  "order": 93,
+  "items": [
+    {
+      "id": "n5-grammar-te-form-1",
+      "ja": "〜てください",
+      "en": "please do"
+    },
+    {
+      "id": "n5-grammar-te-form-2",
+      "ja": "〜ています",
+      "en": "is doing right now"
+    },
+    {
+      "id": "n5-grammar-te-form-3",
+      "ja": "〜てもいいです",
+      "en": "may do / it's fine to do"
+    },
+    {
+      "id": "n5-grammar-te-form-4",
+      "ja": "〜てはいけません",
+      "en": "must not do"
+    },
+    {
+      "id": "n5-grammar-te-form-5",
+      "ja": "〜てから",
+      "en": "after doing"
+    },
+    {
+      "id": "n5-grammar-te-form-6",
+      "ja": "〜て、",
+      "en": "and then (joining sentences)"
+    },
+    {
+      "id": "n5-grammar-te-form-7",
+      "ja": "〜ないでください",
+      "en": "please don't do"
+    },
+    {
+      "id": "n5-grammar-te-form-8",
+      "ja": "{住|す}んでいます",
+      "en": "describes where someone lives"
+    },
+    {
+      "id": "n5-grammar-te-form-9",
+      "ja": "{待|ま}って",
+      "en": "て-form of 待つ"
+    },
+    {
+      "id": "n5-grammar-te-form-10",
+      "ja": "{食|た}べて",
+      "en": "て-form of 食べる"
+    },
+    {
+      "id": "n5-grammar-te-form-11",
+      "ja": "{行|い}って",
+      "en": "て-form of 行く (irregular)"
+    },
+    {
+      "id": "n5-grammar-te-form-12",
+      "ja": "して",
+      "en": "て-form of する"
+    }
+  ],
+  "questions": [
+    {
+      "id": "n5-grammar-te-form-q1",
+      "prompt": "ちょっと{待|ま}___ください。",
+      "en": "Please wait a moment.",
+      "answer": "って",
+      "distractors": [
+        "ちて",
+        "いて",
+        "んで"
+      ]
+    },
+    {
+      "id": "n5-grammar-te-form-q2",
+      "prompt": "{本|ほん}を{読|よ}___ください。",
+      "en": "Please read the book.",
+      "answer": "んで",
+      "distractors": [
+        "みて",
+        "いて",
+        "って"
+      ]
+    },
+    {
+      "id": "n5-grammar-te-form-q3",
+      "prompt": "ここに{名前|なまえ}を{書|か}___ください。",
+      "en": "Please write your name here.",
+      "answer": "いて",
+      "distractors": [
+        "きて",
+        "って",
+        "んで"
+      ]
+    },
+    {
+      "id": "n5-grammar-te-form-q4",
+      "prompt": "ここで{泳|およ}___はいけません。",
+      "en": "You must not swim here.",
+      "answer": "いで",
+      "distractors": [
+        "いて",
+        "ぎて",
+        "んで"
+      ]
+    },
+    {
+      "id": "n5-grammar-te-form-q5",
+      "prompt": "もっとゆっくり{話|はな}___ください。",
+      "en": "Please speak more slowly.",
+      "answer": "して",
+      "distractors": [
+        "すて",
+        "いて",
+        "って"
+      ]
+    },
+    {
+      "id": "n5-grammar-te-form-q6",
+      "prompt": "{駅|えき}へ{行|い}___、{切符|きっぷ}を{買|か}います。",
+      "en": "I'll go to the station and buy a ticket.",
+      "answer": "って",
+      "distractors": [
+        "いて",
+        "きて",
+        "んで"
+      ]
+    },
+    {
+      "id": "n5-grammar-te-form-q7",
+      "prompt": "{今|いま}ごはんを{食|た}べ___います。",
+      "en": "I'm eating a meal right now.",
+      "answer": "て",
+      "distractors": [
+        "た",
+        "で",
+        "に"
+      ]
+    },
+    {
+      "id": "n5-grammar-te-form-q8",
+      "prompt": "{東京|とうきょう}に{住|す}___います。",
+      "en": "I live in Tokyo.",
+      "answer": "んで",
+      "distractors": [
+        "みて",
+        "いて",
+        "って"
+      ]
+    },
+    {
+      "id": "n5-grammar-te-form-q9",
+      "prompt": "ここでたばこを{吸|す}っては___。",
+      "en": "You must not smoke here.",
+      "answer": "いけません",
+      "distractors": [
+        "いいです",
+        "ください",
+        "ましょう"
+      ]
+    },
+    {
+      "id": "n5-grammar-te-form-q10",
+      "prompt": "これを{使|つか}っ___いいですか。",
+      "en": "May I use this?",
+      "answer": "ても",
+      "distractors": [
+        "ては",
+        "てから",
+        "ないで"
+      ]
+    },
+    {
+      "id": "n5-grammar-te-form-q11",
+      "prompt": "ここに{入|はい}ら___ください。",
+      "en": "Please don't come in here.",
+      "answer": "ないで",
+      "distractors": [
+        "なくて",
+        "ないと",
+        "ずに"
+      ]
+    },
+    {
+      "id": "n5-grammar-te-form-q12",
+      "prompt": "{宿題|しゅくだい}をし___{遊|あそ}びます。",
+      "en": "I'll play after doing my homework.",
+      "answer": "てから",
+      "distractors": [
+        "ても",
+        "ては",
+        "ながら"
+      ]
+    }
+  ]
+}
