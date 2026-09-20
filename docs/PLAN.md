@@ -103,11 +103,11 @@ Distractors are 3 other items from the same deck, chosen with the seedable `rng`
 - Add `src/study/modes.ts` with `buildQuestions(deck, mode, rng): Question[]` and `availableModes(deck): Mode[]`.
 
 **A/C**
-- [ ] Each mode produces 4 unique choices with exactly one correct answer, and the correct answer is never also a distractor, including when two items share the same `en`. Dedupe by displayed text.
-- [ ] `reading` skips kana-only items, and `cloze` only uses `deck.questions`.
-- [ ] The same seed gives the same output (snapshot or deep-equal test), and different seeds give different orders.
-- [ ] `availableModes` leaves out any mode that yields fewer than 4 questions.
-- [ ] A property-style test runs every mode over **every real deck** without throwing.
+- [x] Each mode produces 4 unique choices with exactly one correct answer, and the correct answer is never also a distractor, including when two items share the same `en`. Dedupe by displayed text.
+- [x] `reading` skips kana-only items, and `cloze` only uses `deck.questions`.
+- [x] The same seed gives the same output (snapshot or deep-equal test), and different seeds give different orders.
+- [x] `availableModes` leaves out any mode that yields fewer than 4 questions.
+- [x] A property-style test runs every mode over **every real deck** without throwing.
 
 ### Phase 3: Frontend UI
 - Add **vue-router** (hash history, so static hosting works) with these routes:

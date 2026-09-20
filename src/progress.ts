@@ -74,16 +74,9 @@ export function knownCount(questions: Question[]): number {
   return questions.filter((q) => map[q.id] === "known").length;
 }
 
-export function shuffle<T>(items: T[]): T[] {
-  const next = [...items];
-  for (let i = next.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    const tmp = next[i];
-    next[i] = next[j]!;
-    next[j] = tmp!;
-  }
-  return next;
-}
+// Re-exported so callers keep one import; the seedable version lives with the
+// rest of the study logic.
+export { shuffle } from "./study/rng";
 
 export function correctChoice(question: Question): Choice {
   const found = question.choices.find((c) => c.id === question.correctId);
