@@ -1,0 +1,130 @@
+{
+  "id": "n5-nature-weather",
+  "level": "N5",
+  "group": "vocab",
+  "title": "Nature & weather",
+  "titleJa": "自然と天気",
+  "order": 48,
+  "items": [
+    {
+      "id": "n5-nature-weather-1",
+      "ja": "{天気|てんき}",
+      "en": "weather"
+    },
+    {
+      "id": "n5-nature-weather-2",
+      "ja": "{空|そら}",
+      "en": "sky"
+    },
+    {
+      "id": "n5-nature-weather-3",
+      "ja": "{雨|あめ}",
+      "en": "rain"
+    },
+    {
+      "id": "n5-nature-weather-4",
+      "ja": "{雪|ゆき}",
+      "en": "snow"
+    },
+    {
+      "id": "n5-nature-weather-5",
+      "ja": "{風|かぜ}",
+      "en": "wind"
+    },
+    {
+      "id": "n5-nature-weather-6",
+      "ja": "{雲|くも}",
+      "en": "cloud"
+    },
+    {
+      "id": "n5-nature-weather-7",
+      "ja": "{太陽|たいよう}",
+      "en": "the sun"
+    },
+    {
+      "id": "n5-nature-weather-8",
+      "ja": "{星|ほし}",
+      "en": "star"
+    },
+    {
+      "id": "n5-nature-weather-9",
+      "ja": "{山|やま}",
+      "en": "mountain"
+    },
+    {
+      "id": "n5-nature-weather-10",
+      "ja": "{川|かわ}",
+      "en": "river"
+    },
+    {
+      "id": "n5-nature-weather-11",
+      "ja": "{海|うみ}",
+      "en": "sea"
+    },
+    {
+      "id": "n5-nature-weather-12",
+      "ja": "{湖|みずうみ}",
+      "en": "lake"
+    },
+    {
+      "id": "n5-nature-weather-13",
+      "ja": "{森|もり}",
+      "en": "forest"
+    },
+    {
+      "id": "n5-nature-weather-14",
+      "ja": "{木|き}",
+      "en": "tree"
+    },
+    {
+      "id": "n5-nature-weather-15",
+      "ja": "{花|はな}",
+      "en": "flower"
+    },
+    {
+      "id": "n5-nature-weather-16",
+      "ja": "{草|くさ}",
+      "en": "grass"
+    },
+    {
+      "id": "n5-nature-weather-17",
+      "ja": "{石|いし}",
+      "en": "stone"
+    },
+    {
+      "id": "n5-nature-weather-18",
+      "ja": "{春|はる}",
+      "en": "spring"
+    },
+    {
+      "id": "n5-nature-weather-19",
+      "ja": "{夏|なつ}",
+      "en": "summer"
+    },
+    {
+      "id": "n5-nature-weather-20",
+      "ja": "{秋|あき}",
+      "en": "autumn"
+    },
+    {
+      "id": "n5-nature-weather-21",
+      "ja": "{冬|ふゆ}",
+      "en": "winter"
+    },
+    {
+      "id": "n5-nature-weather-22",
+      "ja": "{季節|きせつ}",
+      "en": "season"
+    },
+    {
+      "id": "n5-nature-weather-23",
+      "ja": "{晴|は}れ",
+      "en": "clear weather"
+    },
+    {
+      "id": "n5-nature-weather-24",
+      "ja": "くもり",
+      "en": "cloudy weather"
+    }
+  ]
+}

@@ -1,0 +1,127 @@
+{
+  "id": "n5-transport",
+  "level": "N5",
+  "group": "vocab",
+  "title": "Transport",
+  "titleJa": "乗り物",
+  "order": 52,
+  "items": [
+    {
+      "id": "n5-transport-1",
+      "ja": "{乗|の}り{物|もの}",
+      "en": "vehicle"
+    },
+    {
+      "id": "n5-transport-2",
+      "ja": "{電車|でんしゃ}",
+      "en": "train"
+    },
+    {
+      "id": "n5-transport-3",
+      "ja": "{地下鉄|ちかてつ}",
+      "en": "subway"
+    },
+    {
+      "id": "n5-transport-4",
+      "ja": "{新幹線|しんかんせん}",
+      "en": "bullet train"
+    },
+    {
+      "id": "n5-transport-5",
+      "ja": "バス",
+      "en": "bus"
+    },
+    {
+      "id": "n5-transport-6",
+      "ja": "タクシー",
+      "en": "taxi"
+    },
+    {
+      "id": "n5-transport-7",
+      "ja": "{車|くるま}",
+      "en": "car"
+    },
+    {
+      "id": "n5-transport-8",
+      "ja": "{自転車|じてんしゃ}",
+      "en": "bicycle"
+    },
+    {
+      "id": "n5-transport-9",
+      "ja": "バイク",
+      "en": "motorbike"
+    },
+    {
+      "id": "n5-transport-10",
+      "ja": "{飛行機|ひこうき}",
+      "en": "airplane"
+    },
+    {
+      "id": "n5-transport-11",
+      "ja": "{船|ふね}",
+      "en": "ship / boat"
+    },
+    {
+      "id": "n5-transport-12",
+      "ja": "{切符|きっぷ}",
+      "en": "ticket"
+    },
+    {
+      "id": "n5-transport-13",
+      "ja": "{改札|かいさつ}",
+      "en": "ticket gate"
+    },
+    {
+      "id": "n5-transport-14",
+      "ja": "ホーム",
+      "en": "platform"
+    },
+    {
+      "id": "n5-transport-15",
+      "ja": "{線路|せんろ}",
+      "en": "railway track"
+    },
+    {
+      "id": "n5-transport-16",
+      "ja": "{乗|の}る",
+      "en": "to ride / get on",
+      "note": "u-verb"
+    },
+    {
+      "id": "n5-transport-17",
+      "ja": "{降|お}りる",
+      "en": "to get off",
+      "note": "ru-verb"
+    },
+    {
+      "id": "n5-transport-18",
+      "ja": "{乗|の}り{換|か}える",
+      "en": "to change trains",
+      "note": "ru-verb"
+    },
+    {
+      "id": "n5-transport-19",
+      "ja": "{運転|うんてん}する",
+      "en": "to drive",
+      "note": "irregular"
+    },
+    {
+      "id": "n5-transport-20",
+      "ja": "{歩|ある}く",
+      "en": "to walk",
+      "note": "u-verb"
+    },
+    {
+      "id": "n5-transport-21",
+      "ja": "{走|はし}る",
+      "en": "to run",
+      "note": "u-verb"
+    },
+    {
+      "id": "n5-transport-22",
+      "ja": "{急|いそ}ぐ",
+      "en": "to hurry",
+      "note": "u-verb"
+    }
+  ]
+}

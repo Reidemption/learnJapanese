@@ -1,0 +1,131 @@
+{
+  "id": "n5-positions",
+  "level": "N5",
+  "group": "vocab",
+  "title": "Directions & positions",
+  "titleJa": "位置と方向",
+  "order": 54,
+  "items": [
+    {
+      "id": "n5-positions-1",
+      "ja": "{上|うえ}",
+      "en": "on top / above"
+    },
+    {
+      "id": "n5-positions-2",
+      "ja": "{下|した}",
+      "en": "under / below"
+    },
+    {
+      "id": "n5-positions-3",
+      "ja": "{中|なか}",
+      "en": "inside"
+    },
+    {
+      "id": "n5-positions-4",
+      "ja": "{外|そと}",
+      "en": "outside"
+    },
+    {
+      "id": "n5-positions-5",
+      "ja": "{前|まえ}",
+      "en": "in front / before"
+    },
+    {
+      "id": "n5-positions-6",
+      "ja": "{後|うし}ろ",
+      "en": "behind"
+    },
+    {
+      "id": "n5-positions-7",
+      "ja": "{右|みぎ}",
+      "en": "right"
+    },
+    {
+      "id": "n5-positions-8",
+      "ja": "{左|ひだり}",
+      "en": "left"
+    },
+    {
+      "id": "n5-positions-9",
+      "ja": "となり",
+      "en": "next door / beside"
+    },
+    {
+      "id": "n5-positions-10",
+      "ja": "そば",
+      "en": "close by"
+    },
+    {
+      "id": "n5-positions-11",
+      "ja": "{近|ちか}く",
+      "en": "nearby"
+    },
+    {
+      "id": "n5-positions-12",
+      "ja": "{遠|とお}く",
+      "en": "far away"
+    },
+    {
+      "id": "n5-positions-13",
+      "ja": "{間|あいだ}",
+      "en": "between"
+    },
+    {
+      "id": "n5-positions-14",
+      "ja": "{向|む}かい",
+      "en": "across from"
+    },
+    {
+      "id": "n5-positions-15",
+      "ja": "{東|ひがし}",
+      "en": "east"
+    },
+    {
+      "id": "n5-positions-16",
+      "ja": "{西|にし}",
+      "en": "west"
+    },
+    {
+      "id": "n5-positions-17",
+      "ja": "{南|みなみ}",
+      "en": "south"
+    },
+    {
+      "id": "n5-positions-18",
+      "ja": "{北|きた}",
+      "en": "north"
+    },
+    {
+      "id": "n5-positions-19",
+      "ja": "こちら",
+      "en": "this way"
+    },
+    {
+      "id": "n5-positions-20",
+      "ja": "そちら",
+      "en": "that way"
+    },
+    {
+      "id": "n5-positions-21",
+      "ja": "あちら",
+      "en": "that way over there"
+    },
+    {
+      "id": "n5-positions-22",
+      "ja": "まっすぐ",
+      "en": "straight ahead"
+    },
+    {
+      "id": "n5-positions-23",
+      "ja": "{角|かど}",
+      "en": "corner"
+    },
+    {
+      "id": "n5-positions-24",
+      "ja": "{曲|ま}がる",
+      "en": "to turn",
+      "note": "u-verb"
+    }
+  ]
+}

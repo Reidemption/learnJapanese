@@ -1,0 +1,122 @@
+{
+  "id": "n5-animals",
+  "level": "N5",
+  "group": "vocab",
+  "title": "Animals",
+  "titleJa": "動物",
+  "order": 50,
+  "items": [
+    {
+      "id": "n5-animals-1",
+      "ja": "{動物|どうぶつ}",
+      "en": "animal"
+    },
+    {
+      "id": "n5-animals-2",
+      "ja": "{犬|いぬ}",
+      "en": "dog"
+    },
+    {
+      "id": "n5-animals-3",
+      "ja": "{猫|ねこ}",
+      "en": "cat"
+    },
+    {
+      "id": "n5-animals-4",
+      "ja": "{鳥|とり}",
+      "en": "bird"
+    },
+    {
+      "id": "n5-animals-5",
+      "ja": "{馬|うま}",
+      "en": "horse"
+    },
+    {
+      "id": "n5-animals-6",
+      "ja": "{牛|うし}",
+      "en": "cow"
+    },
+    {
+      "id": "n5-animals-7",
+      "ja": "{豚|ぶた}",
+      "en": "pig"
+    },
+    {
+      "id": "n5-animals-8",
+      "ja": "{羊|ひつじ}",
+      "en": "sheep"
+    },
+    {
+      "id": "n5-animals-9",
+      "ja": "さる",
+      "en": "monkey"
+    },
+    {
+      "id": "n5-animals-10",
+      "ja": "くま",
+      "en": "bear"
+    },
+    {
+      "id": "n5-animals-11",
+      "ja": "うさぎ",
+      "en": "rabbit"
+    },
+    {
+      "id": "n5-animals-12",
+      "ja": "ねずみ",
+      "en": "mouse"
+    },
+    {
+      "id": "n5-animals-13",
+      "ja": "{虫|むし}",
+      "en": "insect"
+    },
+    {
+      "id": "n5-animals-14",
+      "ja": "{蝶|ちょう}",
+      "en": "butterfly"
+    },
+    {
+      "id": "n5-animals-15",
+      "ja": "{蚊|か}",
+      "en": "mosquito"
+    },
+    {
+      "id": "n5-animals-16",
+      "ja": "{象|ぞう}",
+      "en": "elephant"
+    },
+    {
+      "id": "n5-animals-17",
+      "ja": "ライオン",
+      "en": "lion"
+    },
+    {
+      "id": "n5-animals-18",
+      "ja": "ペット",
+      "en": "pet"
+    },
+    {
+      "id": "n5-animals-19",
+      "ja": "{飼|か}う",
+      "en": "to keep a pet",
+      "note": "u-verb"
+    },
+    {
+      "id": "n5-animals-20",
+      "ja": "{動物園|どうぶつえん}",
+      "en": "zoo"
+    },
+    {
+      "id": "n5-animals-21",
+      "ja": "{鳴|な}く",
+      "en": "to cry (animal sound)",
+      "note": "u-verb"
+    },
+    {
+      "id": "n5-animals-22",
+      "ja": "しっぽ",
+      "en": "tail"
+    }
+  ]
+}

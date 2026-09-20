@@ -1,0 +1,127 @@
+{
+  "id": "n5-food-2",
+  "level": "N5",
+  "group": "vocab",
+  "title": "Food II: dishes & cooking",
+  "titleJa": "食べ物２",
+  "order": 41,
+  "items": [
+    {
+      "id": "n5-food-2-1",
+      "ja": "{料理|りょうり}",
+      "en": "cooking / a dish"
+    },
+    {
+      "id": "n5-food-2-2",
+      "ja": "{和食|わしょく}",
+      "en": "Japanese food"
+    },
+    {
+      "id": "n5-food-2-3",
+      "ja": "{弁当|べんとう}",
+      "en": "boxed lunch"
+    },
+    {
+      "id": "n5-food-2-4",
+      "ja": "すし",
+      "en": "sushi"
+    },
+    {
+      "id": "n5-food-2-5",
+      "ja": "てんぷら",
+      "en": "tempura"
+    },
+    {
+      "id": "n5-food-2-6",
+      "ja": "そば",
+      "en": "buckwheat noodles"
+    },
+    {
+      "id": "n5-food-2-7",
+      "ja": "うどん",
+      "en": "udon noodles"
+    },
+    {
+      "id": "n5-food-2-8",
+      "ja": "ラーメン",
+      "en": "ramen"
+    },
+    {
+      "id": "n5-food-2-9",
+      "ja": "カレー",
+      "en": "curry"
+    },
+    {
+      "id": "n5-food-2-10",
+      "ja": "サラダ",
+      "en": "salad"
+    },
+    {
+      "id": "n5-food-2-11",
+      "ja": "スープ",
+      "en": "soup"
+    },
+    {
+      "id": "n5-food-2-12",
+      "ja": "{卵焼|たまごや}き",
+      "en": "rolled omelette"
+    },
+    {
+      "id": "n5-food-2-13",
+      "ja": "バター",
+      "en": "butter"
+    },
+    {
+      "id": "n5-food-2-14",
+      "ja": "チーズ",
+      "en": "cheese"
+    },
+    {
+      "id": "n5-food-2-15",
+      "ja": "{豆腐|とうふ}",
+      "en": "tofu"
+    },
+    {
+      "id": "n5-food-2-16",
+      "ja": "{味噌|みそ}",
+      "en": "miso"
+    },
+    {
+      "id": "n5-food-2-17",
+      "ja": "しょうゆ",
+      "en": "soy sauce"
+    },
+    {
+      "id": "n5-food-2-18",
+      "ja": "{味|あじ}",
+      "en": "taste / flavour"
+    },
+    {
+      "id": "n5-food-2-19",
+      "ja": "{甘|あま}い",
+      "en": "sweet"
+    },
+    {
+      "id": "n5-food-2-20",
+      "ja": "{辛|から}い",
+      "en": "spicy / salty"
+    },
+    {
+      "id": "n5-food-2-21",
+      "ja": "{作|つく}り{方|かた}",
+      "en": "how to make something"
+    },
+    {
+      "id": "n5-food-2-22",
+      "ja": "{焼|や}く",
+      "en": "to grill / bake",
+      "note": "u-verb"
+    },
+    {
+      "id": "n5-food-2-23",
+      "ja": "{切|き}る",
+      "en": "to cut",
+      "note": "u-verb"
+    }
+  ]
+}
