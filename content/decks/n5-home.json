@@ -1,0 +1,122 @@
+{
+  "id": "n5-home",
+  "level": "N5",
+  "group": "vocab",
+  "title": "Home & rooms",
+  "titleJa": "家と部屋",
+  "order": 42,
+  "items": [
+    {
+      "id": "n5-home-1",
+      "ja": "うち",
+      "en": "home / my place"
+    },
+    {
+      "id": "n5-home-2",
+      "ja": "アパート",
+      "en": "apartment"
+    },
+    {
+      "id": "n5-home-3",
+      "ja": "マンション",
+      "en": "apartment building"
+    },
+    {
+      "id": "n5-home-4",
+      "ja": "{玄関|げんかん}",
+      "en": "entryway"
+    },
+    {
+      "id": "n5-home-5",
+      "ja": "{台所|だいどころ}",
+      "en": "kitchen"
+    },
+    {
+      "id": "n5-home-6",
+      "ja": "{寝室|しんしつ}",
+      "en": "bedroom"
+    },
+    {
+      "id": "n5-home-7",
+      "ja": "お{風呂|ふろ}",
+      "en": "bath"
+    },
+    {
+      "id": "n5-home-8",
+      "ja": "トイレ",
+      "en": "toilet"
+    },
+    {
+      "id": "n5-home-9",
+      "ja": "{庭|にわ}",
+      "en": "garden / yard"
+    },
+    {
+      "id": "n5-home-10",
+      "ja": "{窓|まど}",
+      "en": "window"
+    },
+    {
+      "id": "n5-home-11",
+      "ja": "ドア",
+      "en": "door"
+    },
+    {
+      "id": "n5-home-12",
+      "ja": "{壁|かべ}",
+      "en": "wall"
+    },
+    {
+      "id": "n5-home-13",
+      "ja": "{床|ゆか}",
+      "en": "floor"
+    },
+    {
+      "id": "n5-home-14",
+      "ja": "{階段|かいだん}",
+      "en": "stairs"
+    },
+    {
+      "id": "n5-home-15",
+      "ja": "エレベーター",
+      "en": "elevator"
+    },
+    {
+      "id": "n5-home-16",
+      "ja": "{鍵|かぎ}",
+      "en": "key"
+    },
+    {
+      "id": "n5-home-17",
+      "ja": "{電気|でんき}",
+      "en": "electricity / light"
+    },
+    {
+      "id": "n5-home-18",
+      "ja": "{水道|すいどう}",
+      "en": "running water"
+    },
+    {
+      "id": "n5-home-19",
+      "ja": "{住|す}む",
+      "en": "to live / reside",
+      "note": "u-verb"
+    },
+    {
+      "id": "n5-home-20",
+      "ja": "{掃除|そうじ}する",
+      "en": "to clean",
+      "note": "irregular"
+    },
+    {
+      "id": "n5-home-21",
+      "ja": "{洗濯|せんたく}",
+      "en": "laundry"
+    },
+    {
+      "id": "n5-home-22",
+      "ja": "ごみ",
+      "en": "rubbish / trash"
+    }
+  ]
+}

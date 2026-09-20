@@ -1,0 +1,120 @@
+{
+  "id": "n5-body",
+  "level": "N5",
+  "group": "vocab",
+  "title": "The body",
+  "titleJa": "体",
+  "order": 38,
+  "items": [
+    {
+      "id": "n5-body-1",
+      "ja": "{体|からだ}",
+      "en": "body"
+    },
+    {
+      "id": "n5-body-2",
+      "ja": "{頭|あたま}",
+      "en": "head"
+    },
+    {
+      "id": "n5-body-3",
+      "ja": "{顔|かお}",
+      "en": "face"
+    },
+    {
+      "id": "n5-body-4",
+      "ja": "{目|め}",
+      "en": "eye"
+    },
+    {
+      "id": "n5-body-5",
+      "ja": "{耳|みみ}",
+      "en": "ear"
+    },
+    {
+      "id": "n5-body-6",
+      "ja": "{鼻|はな}",
+      "en": "nose"
+    },
+    {
+      "id": "n5-body-7",
+      "ja": "{口|くち}",
+      "en": "mouth"
+    },
+    {
+      "id": "n5-body-8",
+      "ja": "{歯|は}",
+      "en": "tooth"
+    },
+    {
+      "id": "n5-body-9",
+      "ja": "{首|くび}",
+      "en": "neck"
+    },
+    {
+      "id": "n5-body-10",
+      "ja": "{肩|かた}",
+      "en": "shoulder"
+    },
+    {
+      "id": "n5-body-11",
+      "ja": "{手|て}",
+      "en": "hand"
+    },
+    {
+      "id": "n5-body-12",
+      "ja": "{指|ゆび}",
+      "en": "finger"
+    },
+    {
+      "id": "n5-body-13",
+      "ja": "{腕|うで}",
+      "en": "arm"
+    },
+    {
+      "id": "n5-body-14",
+      "ja": "{足|あし}",
+      "en": "leg / foot"
+    },
+    {
+      "id": "n5-body-15",
+      "ja": "{背|せ}",
+      "en": "back / height"
+    },
+    {
+      "id": "n5-body-16",
+      "ja": "お{腹|なか}",
+      "en": "stomach / belly"
+    },
+    {
+      "id": "n5-body-17",
+      "ja": "{心|こころ}",
+      "en": "heart / mind"
+    },
+    {
+      "id": "n5-body-18",
+      "ja": "{声|こえ}",
+      "en": "voice"
+    },
+    {
+      "id": "n5-body-19",
+      "ja": "{髪|かみ}",
+      "en": "hair"
+    },
+    {
+      "id": "n5-body-20",
+      "ja": "{血|ち}",
+      "en": "blood"
+    },
+    {
+      "id": "n5-body-21",
+      "ja": "{元気|げんき}",
+      "en": "healthy / energetic"
+    },
+    {
+      "id": "n5-body-22",
+      "ja": "{病気|びょうき}",
+      "en": "illness"
+    }
+  ]
+}

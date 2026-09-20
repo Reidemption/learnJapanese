@@ -1,0 +1,130 @@
+{
+  "id": "n5-furniture",
+  "level": "N5",
+  "group": "vocab",
+  "title": "Furniture & household items",
+  "titleJa": "家具と道具",
+  "order": 44,
+  "items": [
+    {
+      "id": "n5-furniture-1",
+      "ja": "テーブル",
+      "en": "table"
+    },
+    {
+      "id": "n5-furniture-2",
+      "ja": "いす",
+      "en": "chair"
+    },
+    {
+      "id": "n5-furniture-3",
+      "ja": "つくえ",
+      "en": "desk"
+    },
+    {
+      "id": "n5-furniture-4",
+      "ja": "ベッド",
+      "en": "bed"
+    },
+    {
+      "id": "n5-furniture-5",
+      "ja": "ソファ",
+      "en": "sofa"
+    },
+    {
+      "id": "n5-furniture-6",
+      "ja": "{棚|たな}",
+      "en": "shelf"
+    },
+    {
+      "id": "n5-furniture-7",
+      "ja": "{本棚|ほんだな}",
+      "en": "bookshelf"
+    },
+    {
+      "id": "n5-furniture-8",
+      "ja": "{冷蔵庫|れいぞうこ}",
+      "en": "refrigerator"
+    },
+    {
+      "id": "n5-furniture-9",
+      "ja": "テレビ",
+      "en": "television"
+    },
+    {
+      "id": "n5-furniture-10",
+      "ja": "ラジオ",
+      "en": "radio"
+    },
+    {
+      "id": "n5-furniture-11",
+      "ja": "{電話|でんわ}",
+      "en": "telephone"
+    },
+    {
+      "id": "n5-furniture-12",
+      "ja": "パソコン",
+      "en": "computer"
+    },
+    {
+      "id": "n5-furniture-13",
+      "ja": "カメラ",
+      "en": "camera"
+    },
+    {
+      "id": "n5-furniture-14",
+      "ja": "かがみ",
+      "en": "mirror"
+    },
+    {
+      "id": "n5-furniture-15",
+      "ja": "{皿|さら}",
+      "en": "plate"
+    },
+    {
+      "id": "n5-furniture-16",
+      "ja": "コップ",
+      "en": "cup / glass"
+    },
+    {
+      "id": "n5-furniture-17",
+      "ja": "はし",
+      "en": "chopsticks"
+    },
+    {
+      "id": "n5-furniture-18",
+      "ja": "スプーン",
+      "en": "spoon"
+    },
+    {
+      "id": "n5-furniture-19",
+      "ja": "フォーク",
+      "en": "fork"
+    },
+    {
+      "id": "n5-furniture-20",
+      "ja": "ナイフ",
+      "en": "knife"
+    },
+    {
+      "id": "n5-furniture-21",
+      "ja": "タオル",
+      "en": "towel"
+    },
+    {
+      "id": "n5-furniture-22",
+      "ja": "{石鹸|せっけん}",
+      "en": "soap"
+    },
+    {
+      "id": "n5-furniture-23",
+      "ja": "ストーブ",
+      "en": "heater"
+    },
+    {
+      "id": "n5-furniture-24",
+      "ja": "エアコン",
+      "en": "air conditioner"
+    }
+  ]
+}

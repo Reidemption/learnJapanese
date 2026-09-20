@@ -1,0 +1,130 @@
+{
+  "id": "n5-school",
+  "level": "N5",
+  "group": "vocab",
+  "title": "School & stationery",
+  "titleJa": "学校と文房具",
+  "order": 46,
+  "items": [
+    {
+      "id": "n5-school-1",
+      "ja": "{教室|きょうしつ}",
+      "en": "classroom"
+    },
+    {
+      "id": "n5-school-2",
+      "ja": "{授業|じゅぎょう}",
+      "en": "class / lesson"
+    },
+    {
+      "id": "n5-school-3",
+      "ja": "{宿題|しゅくだい}",
+      "en": "homework"
+    },
+    {
+      "id": "n5-school-4",
+      "ja": "テスト",
+      "en": "test"
+    },
+    {
+      "id": "n5-school-5",
+      "ja": "{試験|しけん}",
+      "en": "exam"
+    },
+    {
+      "id": "n5-school-6",
+      "ja": "{質問|しつもん}",
+      "en": "question"
+    },
+    {
+      "id": "n5-school-7",
+      "ja": "{答|こた}え",
+      "en": "answer"
+    },
+    {
+      "id": "n5-school-8",
+      "ja": "{意味|いみ}",
+      "en": "meaning"
+    },
+    {
+      "id": "n5-school-9",
+      "ja": "{言葉|ことば}",
+      "en": "word / language"
+    },
+    {
+      "id": "n5-school-10",
+      "ja": "{漢字|かんじ}",
+      "en": "kanji"
+    },
+    {
+      "id": "n5-school-11",
+      "ja": "{平仮名|ひらがな}",
+      "en": "hiragana"
+    },
+    {
+      "id": "n5-school-12",
+      "ja": "{片仮名|かたかな}",
+      "en": "katakana"
+    },
+    {
+      "id": "n5-school-13",
+      "ja": "{辞書|じしょ}",
+      "en": "dictionary"
+    },
+    {
+      "id": "n5-school-14",
+      "ja": "{教科書|きょうかしょ}",
+      "en": "textbook"
+    },
+    {
+      "id": "n5-school-15",
+      "ja": "ノート",
+      "en": "notebook"
+    },
+    {
+      "id": "n5-school-16",
+      "ja": "ペン",
+      "en": "pen"
+    },
+    {
+      "id": "n5-school-17",
+      "ja": "えんぴつ",
+      "en": "pencil"
+    },
+    {
+      "id": "n5-school-18",
+      "ja": "けしゴム",
+      "en": "eraser"
+    },
+    {
+      "id": "n5-school-19",
+      "ja": "{紙|かみ}",
+      "en": "paper"
+    },
+    {
+      "id": "n5-school-20",
+      "ja": "はさみ",
+      "en": "scissors"
+    },
+    {
+      "id": "n5-school-21",
+      "ja": "{黒板|こくばん}",
+      "en": "blackboard"
+    },
+    {
+      "id": "n5-school-22",
+      "ja": "{地図|ちず}",
+      "en": "map"
+    },
+    {
+      "id": "n5-school-23",
+      "ja": "{留学生|りゅうがくせい}",
+      "en": "international student"
+    },
+    {
+      "id": "n5-school-24",
+      "ja": "{夏休|なつやす}み",
+      "en": "summer vacation"
+    }
+  ]
+}

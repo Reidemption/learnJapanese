@@ -1,0 +1,128 @@
+{
+  "id": "n5-clothing",
+  "level": "N5",
+  "group": "vocab",
+  "title": "Clothing",
+  "titleJa": "服",
+  "order": 40,
+  "items": [
+    {
+      "id": "n5-clothing-1",
+      "ja": "{服|ふく}",
+      "en": "clothes"
+    },
+    {
+      "id": "n5-clothing-2",
+      "ja": "{洋服|ようふく}",
+      "en": "Western clothes"
+    },
+    {
+      "id": "n5-clothing-3",
+      "ja": "シャツ",
+      "en": "shirt"
+    },
+    {
+      "id": "n5-clothing-4",
+      "ja": "Tシャツ",
+      "en": "T-shirt"
+    },
+    {
+      "id": "n5-clothing-5",
+      "ja": "セーター",
+      "en": "sweater"
+    },
+    {
+      "id": "n5-clothing-6",
+      "ja": "コート",
+      "en": "coat"
+    },
+    {
+      "id": "n5-clothing-7",
+      "ja": "ジャケット",
+      "en": "jacket"
+    },
+    {
+      "id": "n5-clothing-8",
+      "ja": "ズボン",
+      "en": "trousers"
+    },
+    {
+      "id": "n5-clothing-9",
+      "ja": "スカート",
+      "en": "skirt"
+    },
+    {
+      "id": "n5-clothing-10",
+      "ja": "ワンピース",
+      "en": "dress"
+    },
+    {
+      "id": "n5-clothing-11",
+      "ja": "{着物|きもの}",
+      "en": "kimono"
+    },
+    {
+      "id": "n5-clothing-12",
+      "ja": "{靴|くつ}",
+      "en": "shoes"
+    },
+    {
+      "id": "n5-clothing-13",
+      "ja": "{靴下|くつした}",
+      "en": "socks"
+    },
+    {
+      "id": "n5-clothing-14",
+      "ja": "{帽子|ぼうし}",
+      "en": "hat / cap"
+    },
+    {
+      "id": "n5-clothing-15",
+      "ja": "めがね",
+      "en": "glasses"
+    },
+    {
+      "id": "n5-clothing-16",
+      "ja": "ネクタイ",
+      "en": "necktie"
+    },
+    {
+      "id": "n5-clothing-17",
+      "ja": "{手袋|てぶくろ}",
+      "en": "gloves"
+    },
+    {
+      "id": "n5-clothing-18",
+      "ja": "かばん",
+      "en": "bag"
+    },
+    {
+      "id": "n5-clothing-19",
+      "ja": "{傘|かさ}",
+      "en": "umbrella"
+    },
+    {
+      "id": "n5-clothing-20",
+      "ja": "{指輪|ゆびわ}",
+      "en": "ring"
+    },
+    {
+      "id": "n5-clothing-21",
+      "ja": "{着|き}る",
+      "en": "to wear (upper body)",
+      "note": "ru-verb"
+    },
+    {
+      "id": "n5-clothing-22",
+      "ja": "はく",
+      "en": "to wear (lower body, shoes)",
+      "note": "u-verb"
+    },
+    {
+      "id": "n5-clothing-23",
+      "ja": "かぶる",
+      "en": "to wear (on the head)",
+      "note": "u-verb"
+    }
+  ]
+}
