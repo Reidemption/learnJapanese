@@ -80,6 +80,14 @@ While the server is off:
 
 ## Dashboard Phase 1: Durable progress & mastery data
 
+**Built as:** these are the choices made where the design above left room.
+- **Legacy counts:** they're kept as a baseline. The server has an `item_base` table (the same columns as `item_stats`), filled once from `item_stats` when the migration first runs. Static mode uses `lj.itemsBase`, which also absorbs sessions that fall out of the 1,000-session cap, so a rebuild never loses answers.
+- **One rebuild path:** every recorded session and every import rebuilds the affected items from their baseline plus answers, oldest first. The incremental and rebuilt results therefore can't disagree, even for a session posted late from the offline queue.
+- **Session identity:** `uid` is unique **per client**, not globally, so restoring a backup under a new `clientId` (after clearing browser data, say) copies the sessions rather than treating them as duplicates. Sessions from before this phase got a random uid during the migration.
+- **Timestamps:** posts carry the client's `at`, so a session queued offline keeps the time it was studied. The server ignores implausible values (before 2020, or more than a day ahead) and uses its own clock instead.
+- **Backups:** a backup also carries the `baseline`, so restoring into an empty database reproduces the same progress. Sessions for decks that no longer exist are skipped and counted.
+- **Where the buttons are:** there's no dashboard yet, so the backup buttons sit at the foot of the home page. Dashboard Phase 2 moves them.
+
 - Add `src/study/mastery.ts`: the extended `ItemStat`, `applyAnswer(stat, correct, at)`, `masteryOf(stat)`, `isWeak(stat)`, `rebuildStats(answers)` and `KNOWN_STREAK`.
 - Frontend recording:
   - `SessionView` passes `uid`, `kana` and `hints` (effective values) with each attempt.
@@ -96,16 +104,16 @@ While the server is off:
 - Add `testdata/mastery-cases.json`, read by `mastery.test.ts` and a Go test.
 
 **A/C**
-- [ ] `mastery.test.ts` covers new → learning → known, a wrong answer resetting the streak, `knownAt` surviving the reset, and the weak flag's boundaries (seen 2 vs. 3, 59% vs. 60%).
-- [ ] The TS and Go tests both pass against `testdata/mastery-cases.json`, and the same answers give identical stats via the incremental path and via a rebuild.
-- [ ] Legacy localStorage stats and corrupt JSON load without throwing, and the `lj.attempts` cap holds (a test writes cap + 10 sessions).
-- [ ] Go migration test: open a DB with today's schema and some rows, migrate twice, and check the rows and legacy `item_stats` counts survive.
-- [ ] Posting the same `uid` twice records one session and counts each answer once.
-- [ ] `GET /api/attempts` has a happy-path test, a `since` filter test and a 400 without `clientId`.
-- [ ] Export → import into an empty DB reproduces the same `/api/progress`, and importing the same file again changes nothing.
-- [ ] `DB_PATH` resolution is unit-tested: an explicit value wins, the default lands under the user config dir, and an existing legacy file is copied once and never overwrites an existing target.
-- [ ] Manual: study a session, stop the server, start it from the *other* directory (repo root vs. `server/`), and the progress is still there.
-- [ ] `npm test`, `npm run build`, `go test ./...` and `go vet ./...` pass.
+- [x] `mastery.test.ts` covers new → learning → known, a wrong answer resetting the streak, `knownAt` surviving the reset, and the weak flag's boundaries (seen 2 vs. 3, 59% vs. 60%).
+- [x] The TS and Go tests both pass against `testdata/mastery-cases.json`, and the same answers give identical stats via the incremental path and via a rebuild.
+- [x] Legacy localStorage stats and corrupt JSON load without throwing, and the `lj.attempts` cap holds (a test writes cap + 10 sessions).
+- [x] Go migration test: open a DB with today's schema and some rows, migrate twice, and check the rows and legacy `item_stats` counts survive.
+- [x] Posting the same `uid` twice records one session and counts each answer once.
+- [x] `GET /api/attempts` has a happy-path test, a `since` filter test and a 400 without `clientId`.
+- [x] Export → import into an empty DB reproduces the same `/api/progress`, and importing the same file again changes nothing.
+- [x] `DB_PATH` resolution is unit-tested: an explicit value wins, the default lands under the user config dir, and an existing legacy file is copied once and never overwrites an existing target.
+- [x] Manual: study a session, stop the server, start it from the *other* directory (repo root vs. `server/`), and the progress is still there. *(Checked with the built server and curl, against a copy of the real `server/data/app.db`: started from the repo root, which copied the old database over, recorded a session, then restarted from `server/`. A click-through in the browser is still worth doing.)*
+- [x] `npm test`, `npm run build`, `go test ./...` and `go vet ./...` pass.
 
 ## Dashboard Phase 2: Dashboard page
 

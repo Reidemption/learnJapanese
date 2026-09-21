@@ -2,8 +2,10 @@ import { flushPromises, mount } from "@vue/test-utils";
 import { beforeEach, describe, expect, it } from "vitest";
 import App from "./App.vue";
 import { decks } from "./content";
+import { loadAttemptLog } from "./progress";
 import { router } from "./router";
 import { lastResult, retryQueue } from "./session";
+import { settings } from "./settings";
 import { availableModes } from "./study/modes";
 
 const deck = decks[0]!;
@@ -19,6 +21,8 @@ async function open(path: string) {
 
 beforeEach(() => {
   localStorage.clear();
+  settings.kana = true;
+  settings.hints = true;
   // A real refresh reloads the module; tests share it, so reset it by hand.
   lastResult.value = null;
   retryQueue.value = null;
@@ -51,6 +55,28 @@ describe("routing", () => {
 
     expect(router.currentRoute.value.name).toBe("result");
     expect(wrapper.find(".score h2").text()).toMatch(/^\d+ \/ \d+$/);
+
+    // The session is logged with its answers and whether help was on.
+    const [logged] = loadAttemptLog();
+    expect(logged).toMatchObject({ deckId: deck.id, mode, kana: mode !== "reading", hints: true });
+    expect(logged?.items.every((item) => item.mode === mode)).toBe(true);
+  });
+
+  it("counts kana as used if it is switched on at any point in a session", async () => {
+    settings.kana = false;
+    settings.hints = false;
+    const wrapper = await open(`/deck/${deck.id}/meaning`);
+    settings.kana = true;
+    await flushPromises();
+    settings.kana = false;
+    for (let i = 0; i < deck.items.length + 5; i++) {
+      const choice = wrapper.findAll(".choice")[0];
+      if (!choice) break;
+      await choice.trigger("click");
+      await wrapper.find(".next-row .primary").trigger("click");
+      await flushPromises();
+    }
+    expect(loadAttemptLog()[0]).toMatchObject({ kana: true, hints: false });
   });
 
   it("sends a refreshed result page back to the deck instead of faking a score", async () => {

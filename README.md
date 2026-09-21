@@ -36,8 +36,28 @@ go test ./...
 go vet ./...
 ```
 
-Config comes from env vars: `PORT` (default 8080) and `DB_PATH`
-(default `./data/app.db`).
+Config comes from env vars: `PORT` (default 8080) and `DB_PATH`.
+
+### Where progress is stored
+
+By default the database is `<user config dir>/learnjapanese/app.db`, which is
+`%AppData%\learnjapanese\app.db` on Windows. It is outside the repo and the same
+file whichever directory you start the server from, so stopping the server
+each night (or running `git clean`) loses nothing. The startup log prints the
+path. Set `DB_PATH` to use a different file.
+
+Older versions kept it in `data/app.db` relative to wherever the server was
+started. On first start the server copies that file (`./data/app.db` or
+`./server/data/app.db`) to the new location, logs that it did so, and leaves the
+old file alone.
+
+### Backups
+
+The **Download backup** and **Restore backup** buttons at the bottom of the home
+page save and restore every session, with every answer, as a JSON file. They
+work in both static and HTTP mode, and restoring the same file twice changes
+nothing. The same file moves history between static mode (localStorage) and the
+server.
 
 ## Running both together
 
@@ -77,7 +97,19 @@ attempts that fail to post are queued and retried on the next call.
 - `GET  /api/health`
 - `GET  /api/decks` — deck summaries, optionally `?level=N5`
 - `GET  /api/decks/{id}` — the full deck JSON
-- `POST /api/attempts` — `{clientId, deckId, mode, correct, total, items:[{itemId, correct}]}`
-- `GET  /api/progress?clientId=` — `{decks: {"deckId:mode": {best,last,total,at}}, items: {itemId:{seen,correct}}}`
-  — `total` belongs to the best attempt, and `at` is unix milliseconds (the same
-  as `Date.now()` in the static implementation)
+- `POST /api/attempts` — `{clientId, uid, deckId, mode, correct, total, kana, hints, at, items:[{itemId, mode, correct}]}`
+  — `uid` identifies the session, so posting it twice records it once. `at` is
+  when it was studied, so a session queued offline keeps its real time. Each
+  answer's `mode` defaults to the session's.
+- `GET  /api/attempts?clientId=&since=` — the client's sessions, oldest first:
+  `[{uid, deckId, mode, correct, total, kana, hints, at}]`
+- `GET  /api/progress?clientId=` — `{decks: {"deckId:mode": {best,last,total,at}}, items: {itemId:{seen,correct,streak,firstAt,lastAt,knownAt}}}`
+  — `total` belongs to the best attempt. A unit is *known* once `streak`
+  reaches 3 (see `src/study/mastery.ts`), and `knownAt` records when that
+  first happened.
+- `GET  /api/export?clientId=` — a backup: `{version: 1, exportedAt, baseline, attempts: [... with items]}`
+- `POST /api/import` — `{clientId, ...backup}`; returns `{imported, duplicates, skipped}`
+
+All timestamps are unix milliseconds, the same as `Date.now()` in the static
+implementation. Every answer is stored, and per-item stats are rebuilt from
+them (plus any counts recorded before answers were kept).

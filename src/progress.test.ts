@@ -3,12 +3,17 @@ import {
   correctChoice,
   deckBest,
   filledPrompt,
+  ATTEMPT_LOG_CAP,
   getItemStats,
   getScore,
+  importAttempts,
   itemIdOf,
+  loadAttemptLog,
   loadSettings,
-  recordItems,
+  mergeScore,
+  recordAttempt,
   saveScore,
+  type LoggedAttempt,
   saveSettings,
   shuffle,
 } from "./progress";
@@ -133,26 +138,92 @@ describe("scores", () => {
   });
 });
 
-describe("item stats", () => {
-  it("accumulates seen and correct counts", () => {
-    recordItems([
-      { itemId: "a", correct: true },
-      { itemId: "b", correct: false },
-    ]);
-    recordItems([
-      { itemId: "a", correct: false },
-      { itemId: "b", correct: false },
-    ]);
-    expect(getItemStats()).toEqual({
-      a: { seen: 2, correct: 1 },
-      b: { seen: 2, correct: 0 },
+describe("mergeScore", () => {
+  it("never lets an older run replace the latest one", () => {
+    const latest = { best: 5, last: 5, total: 10, at: 200 };
+    expect(mergeScore(latest, { correct: 9, total: 10, at: 100 })).toEqual({
+      best: 9,
+      last: 5,
+      total: 10,
+      at: 200,
     });
+    expect(mergeScore(latest, { correct: 2, total: 8, at: 300 })).toEqual({
+      best: 5,
+      last: 2,
+      total: 8,
+      at: 300,
+    });
+  });
+});
+
+let nextUid = 0;
+function session(at: number, items: [string, boolean][]): LoggedAttempt {
+  nextUid += 1;
+  return {
+    uid: `s${nextUid}`,
+    deckId: "n5-food",
+    mode: "meaning",
+    correct: items.filter(([, ok]) => ok).length,
+    total: items.length,
+    kana: false,
+    hints: false,
+    at,
+    items: items.map(([itemId, correct]) => ({ itemId, mode: "meaning", correct })),
+  };
+}
+
+describe("item stats and the session log", () => {
+  it("accumulates counts and streaks per unit", () => {
+    recordAttempt(session(1, [["a", true], ["b", false]]));
+    recordAttempt(session(2, [["a", true], ["b", false]]));
+    recordAttempt(session(3, [["a", true], ["b", true]]));
+    expect(getItemStats()).toEqual({
+      a: { seen: 3, correct: 3, streak: 3, firstAt: 1, lastAt: 3, knownAt: 3 },
+      b: { seen: 3, correct: 1, streak: 1, firstAt: 1, lastAt: 3, knownAt: null },
+    });
+  });
+
+  it("keeps totals recorded before the log existed", () => {
+    localStorage.setItem("lj.items", JSON.stringify({ a: { seen: 5, correct: 2 } }));
+    expect(getItemStats().a).toMatchObject({ seen: 5, correct: 2, streak: 0, knownAt: null });
+    recordAttempt(session(10, [["a", true]]));
+    expect(getItemStats().a).toMatchObject({ seen: 6, correct: 3, streak: 1, firstAt: 10 });
   });
 
   it("survives corrupt storage", () => {
     localStorage.setItem("lj.items", "nope");
+    localStorage.setItem("lj.attempts", "{also nope");
     expect(getItemStats()).toEqual({});
-    recordItems([{ itemId: "a", correct: true }]);
-    expect(getItemStats()).toEqual({ a: { seen: 1, correct: 1 } });
+    expect(loadAttemptLog()).toEqual([]);
+    recordAttempt(session(1, [["a", true]]));
+    expect(getItemStats().a).toMatchObject({ seen: 1, correct: 1 });
+  });
+
+  it("drops malformed log entries instead of crashing", () => {
+    localStorage.setItem("lj.attempts", JSON.stringify([{ uid: 3 }, session(1, [["a", true]])]));
+    expect(loadAttemptLog()).toHaveLength(1);
+  });
+
+  it("caps the log, folding the oldest sessions into the baseline", () => {
+    const cap = 5;
+    for (let i = 0; i < cap + 10; i += 1) recordAttempt(session(i, [["a", i % 4 !== 0]]), cap);
+    const log = loadAttemptLog();
+    expect(log).toHaveLength(cap);
+    expect(log[0]?.at).toBe(10);
+    // Every answer still counts, including the folded ones.
+    expect(getItemStats().a).toMatchObject({ seen: 15, correct: 11, firstAt: 0, lastAt: 14 });
+  });
+
+  it("holds the real cap when a backup brings in more sessions", () => {
+    const many = Array.from({ length: ATTEMPT_LOG_CAP + 10 }, (_, i) => session(i, [["a", true]]));
+    expect(importAttempts(many, {}, () => true).imported).toBe(ATTEMPT_LOG_CAP + 10);
+    expect(loadAttemptLog()).toHaveLength(ATTEMPT_LOG_CAP);
+    expect(getItemStats().a?.seen).toBe(ATTEMPT_LOG_CAP + 10);
+  });
+
+  it("replays imported sessions in time order", () => {
+    recordAttempt(session(30, [["a", true]]));
+    importAttempts([session(10, [["a", true]]), session(20, [["a", false]])], {}, () => true);
+    expect(getItemStats().a).toMatchObject({ seen: 3, correct: 2, streak: 1, firstAt: 10 });
   });
 });

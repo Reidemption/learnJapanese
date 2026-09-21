@@ -1,10 +1,22 @@
 import type { Question } from "./types";
 import type { Mode } from "./study/modes";
 import { DEFAULT_FONT, isFontId, type FontId } from "./fonts";
+import { normalizeStat, rebuildStats, type Answer, type ItemStat } from "./study/mastery";
 
 const SETTINGS_KEY = "lj.settings";
 const SCORES_KEY = "lj.scores";
 const ITEMS_KEY = "lj.items";
+const BASE_KEY = "lj.itemsBase";
+const ATTEMPTS_KEY = "lj.attempts";
+
+/**
+ * How many sessions the local log keeps. At ~25 answers a session that is
+ * roughly 1 MB, well inside localStorage's quota; older sessions are folded
+ * into the baseline so their answers still count.
+ */
+export const ATTEMPT_LOG_CAP = 1000;
+
+export type { ItemStat } from "./study/mastery";
 
 export type Settings = {
   kana: boolean;
@@ -20,16 +32,30 @@ export type ModeScore = {
   at: number;
 };
 
-/** Per item, across every mode — the seed of the weak-item review later on. */
-export type ItemStat = {
-  seen: number;
-  correct: number;
-};
-
+/** One answer in a session: which unit, in which mode, and whether it was right. */
 export type ItemResult = {
   itemId: string;
+  mode: Mode;
   correct: boolean;
 };
+
+/** A finished session as listed back: no per-item answers. */
+export type AttemptRecord = {
+  /** Generated per session, so posting or importing it twice is harmless. */
+  uid: string;
+  deckId: string;
+  mode: Mode;
+  correct: number;
+  total: number;
+  /** Whether furigana / hints were on at any point. Null for old sessions. */
+  kana: boolean | null;
+  hints: boolean | null;
+  /** Unix millis. */
+  at: number;
+};
+
+/** A finished session with every answer: what is posted, logged and backed up. */
+export type LoggedAttempt = AttemptRecord & { items: ItemResult[] };
 
 export function read<T>(key: string, fallback: T): T {
   try {
@@ -73,21 +99,28 @@ export function getScore(deckId: string, mode: Mode): ModeScore | undefined {
   return loadScores()[scoreKey(deckId, mode)];
 }
 
+/**
+ * Folds one run into a deck+mode score: the best run is kept, and "last" is
+ * whichever run is newest, so importing old sessions never rewinds it.
+ */
+export function mergeScore(
+  previous: ModeScore | undefined,
+  run: { correct: number; total: number; at: number },
+): ModeScore {
+  const best = Math.max(run.correct, previous?.best ?? 0);
+  if (previous && previous.at > run.at) return { ...previous, best };
+  return { best, last: run.correct, total: run.total, at: run.at };
+}
+
 /** Records a finished session, keeping the best run for the deck+mode. */
 export function saveScore(
   deckId: string,
   mode: Mode,
-  run: { correct: number; total: number },
+  run: { correct: number; total: number; at?: number },
 ): ModeScore {
   const scores = loadScores();
   const key = scoreKey(deckId, mode);
-  const previous = scores[key];
-  const score: ModeScore = {
-    best: Math.max(run.correct, previous?.best ?? 0),
-    last: run.correct,
-    total: run.total,
-    at: Date.now(),
-  };
+  const score = mergeScore(scores[key], { ...run, at: run.at ?? Date.now() });
   scores[key] = score;
   write(SCORES_KEY, scores);
   return score;
@@ -111,19 +144,141 @@ export function deckBest(deckId: string): number | undefined {
   return bestRatioIn(loadScores(), deckId);
 }
 
-export function getItemStats(): Record<string, ItemStat> {
-  return read<Record<string, ItemStat>>(ITEMS_KEY, {});
+function readStats(key: string): Record<string, ItemStat> {
+  const raw = read<unknown>(key, {});
+  const stats: Record<string, ItemStat> = {};
+  if (!raw || typeof raw !== "object" || Array.isArray(raw)) return stats;
+  for (const [id, value] of Object.entries(raw)) {
+    const stat = normalizeStat(value);
+    if (stat) stats[id] = stat;
+  }
+  return stats;
 }
 
-export function recordItems(results: ItemResult[]): void {
-  const stats = getItemStats();
-  for (const result of results) {
-    const stat = stats[result.itemId] ?? { seen: 0, correct: 0 };
-    stat.seen += 1;
-    if (result.correct) stat.correct += 1;
-    stats[result.itemId] = stat;
+/** Per unit, across every mode. A cache of `rebuildStats(log, baseline)`. */
+export function getItemStats(): Record<string, ItemStat> {
+  return readStats(ITEMS_KEY);
+}
+
+function isLoggedAttempt(value: unknown): value is LoggedAttempt {
+  if (!value || typeof value !== "object") return false;
+  const a = value as Record<string, unknown>;
+  return (
+    typeof a.uid === "string" &&
+    typeof a.deckId === "string" &&
+    typeof a.at === "number" &&
+    Array.isArray(a.items)
+  );
+}
+
+/** The local session log, oldest first. */
+export function loadAttemptLog(): LoggedAttempt[] {
+  const raw = read<unknown>(ATTEMPTS_KEY, []);
+  return Array.isArray(raw) ? raw.filter(isLoggedAttempt) : [];
+}
+
+/**
+ * Counts that are not in the log: everything recorded before the log existed
+ * (the old `lj.items` totals) plus sessions folded out by the cap.
+ */
+export function loadBaseline(): Record<string, ItemStat> {
+  let missing = true;
+  try {
+    missing = localStorage.getItem(BASE_KEY) === null;
+  } catch {
+    // Storage unavailable: treat it as empty below.
   }
-  write(ITEMS_KEY, stats);
+  if (missing && loadAttemptLog().length === 0) {
+    // First run with a log: the existing totals become the baseline.
+    const legacy = getItemStats();
+    write(BASE_KEY, legacy);
+    return legacy;
+  }
+  return readStats(BASE_KEY);
+}
+
+function answersOf(attempts: LoggedAttempt[]): Answer[] {
+  return attempts.flatMap((attempt) =>
+    attempt.items.map((item) => ({ itemId: item.itemId, correct: item.correct, at: attempt.at })),
+  );
+}
+
+/**
+ * Writes a new log: sorts it, folds anything past the cap into the baseline,
+ * and rebuilds the per-unit stats from the two.
+ */
+function saveLog(log: LoggedAttempt[], cap: number): void {
+  let baseline = loadBaseline();
+  const sorted = [...log].sort((a, b) => a.at - b.at);
+  const overflow = Math.max(0, sorted.length - cap);
+  if (overflow > 0) {
+    baseline = rebuildStats(answersOf(sorted.slice(0, overflow)), baseline);
+    write(BASE_KEY, baseline);
+  }
+  const kept = sorted.slice(overflow);
+  write(ATTEMPTS_KEY, kept);
+  write(ITEMS_KEY, rebuildStats(answersOf(kept), baseline));
+}
+
+/** Logs a finished session and updates the per-unit stats. */
+export function recordAttempt(attempt: LoggedAttempt, cap = ATTEMPT_LOG_CAP): void {
+  const log = loadAttemptLog();
+  if (log.some((a) => a.uid === attempt.uid)) return;
+  saveLog([...log, attempt], cap);
+}
+
+export type ImportResult = { imported: number; duplicates: number; skipped: number };
+
+/**
+ * Merges sessions (and a baseline) from a backup. Sessions already in the log
+ * are skipped by uid, so importing the same file twice changes nothing.
+ * Sessions for decks that no longer exist are skipped too.
+ */
+export function importAttempts(
+  attempts: LoggedAttempt[],
+  baseline: Record<string, ItemStat>,
+  knownDeck: (id: string) => boolean,
+  cap = ATTEMPT_LOG_CAP,
+): ImportResult {
+  const log = loadAttemptLog();
+  const seen = new Set(log.map((a) => a.uid));
+  const result: ImportResult = { imported: 0, duplicates: 0, skipped: 0 };
+  const fresh: LoggedAttempt[] = [];
+  for (const attempt of attempts) {
+    if (seen.has(attempt.uid)) {
+      result.duplicates += 1;
+    } else if (!knownDeck(attempt.deckId)) {
+      result.skipped += 1;
+    } else {
+      seen.add(attempt.uid);
+      fresh.push(attempt);
+    }
+  }
+
+  // Baseline entries are only ever added, never overwritten, so a repeat
+  // import is a no-op.
+  const base = loadBaseline();
+  let baseChanged = false;
+  for (const [id, stat] of Object.entries(baseline)) {
+    const normal = normalizeStat(stat);
+    if (normal && !base[id]) {
+      base[id] = normal;
+      baseChanged = true;
+    }
+  }
+  if (baseChanged) write(BASE_KEY, base);
+
+  if (fresh.length || baseChanged) {
+    const scores = loadScores();
+    for (const attempt of fresh) {
+      const key = scoreKey(attempt.deckId, attempt.mode);
+      scores[key] = mergeScore(scores[key], attempt);
+    }
+    write(SCORES_KEY, scores);
+    saveLog([...log, ...fresh], cap);
+  }
+  result.imported = fresh.length;
+  return result;
 }
 
 /** Questions are ids of the form `<itemId>:<mode>`. */

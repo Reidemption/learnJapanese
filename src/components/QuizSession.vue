@@ -56,7 +56,7 @@ function pick(id: string): void {
   const right = id === question.correctId;
   if (right) correctCount.value += 1;
   else missed.value.push(question);
-  results.value.push({ itemId: itemIdOf(question), correct: right });
+  results.value.push({ itemId: itemIdOf(question), mode: question.kind, correct: right });
 }
 
 function goNext(): void {

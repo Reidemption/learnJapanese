@@ -1,0 +1,66 @@
+{
+  "knownStreak": 3,
+  "cases": [
+    {
+      "name": "new to known in three correct answers",
+      "answers": [
+        { "correct": true, "at": 1000 },
+        { "correct": true, "at": 2000 },
+        { "correct": true, "at": 3000 }
+      ],
+      "expected": [
+        { "seen": 1, "correct": 1, "streak": 1, "firstAt": 1000, "lastAt": 1000, "knownAt": null },
+        { "seen": 2, "correct": 2, "streak": 2, "firstAt": 1000, "lastAt": 2000, "knownAt": null },
+        { "seen": 3, "correct": 3, "streak": 3, "firstAt": 1000, "lastAt": 3000, "knownAt": 3000 }
+      ]
+    },
+    {
+      "name": "a wrong answer resets the streak but keeps knownAt",
+      "answers": [
+        { "correct": true, "at": 1000 },
+        { "correct": true, "at": 2000 },
+        { "correct": true, "at": 3000 },
+        { "correct": false, "at": 4000 },
+        { "correct": true, "at": 5000 }
+      ],
+      "expected": [
+        { "seen": 1, "correct": 1, "streak": 1, "firstAt": 1000, "lastAt": 1000, "knownAt": null },
+        { "seen": 2, "correct": 2, "streak": 2, "firstAt": 1000, "lastAt": 2000, "knownAt": null },
+        { "seen": 3, "correct": 3, "streak": 3, "firstAt": 1000, "lastAt": 3000, "knownAt": 3000 },
+        { "seen": 4, "correct": 3, "streak": 0, "firstAt": 1000, "lastAt": 4000, "knownAt": 3000 },
+        { "seen": 5, "correct": 4, "streak": 1, "firstAt": 1000, "lastAt": 5000, "knownAt": 3000 }
+      ]
+    },
+    {
+      "name": "a miss in the middle delays known",
+      "answers": [
+        { "correct": true, "at": 1000 },
+        { "correct": true, "at": 2000 },
+        { "correct": false, "at": 3000 },
+        { "correct": true, "at": 4000 },
+        { "correct": true, "at": 5000 },
+        { "correct": true, "at": 6000 }
+      ],
+      "expected": [
+        { "seen": 1, "correct": 1, "streak": 1, "firstAt": 1000, "lastAt": 1000, "knownAt": null },
+        { "seen": 2, "correct": 2, "streak": 2, "firstAt": 1000, "lastAt": 2000, "knownAt": null },
+        { "seen": 3, "correct": 2, "streak": 0, "firstAt": 1000, "lastAt": 3000, "knownAt": null },
+        { "seen": 4, "correct": 3, "streak": 1, "firstAt": 1000, "lastAt": 4000, "knownAt": null },
+        { "seen": 5, "correct": 4, "streak": 2, "firstAt": 1000, "lastAt": 5000, "knownAt": null },
+        { "seen": 6, "correct": 5, "streak": 3, "firstAt": 1000, "lastAt": 6000, "knownAt": 6000 }
+      ]
+    },
+    {
+      "name": "legacy counts are a baseline with no streak or dates",
+      "baseline": { "seen": 5, "correct": 2, "streak": 0, "firstAt": null, "lastAt": null, "knownAt": null },
+      "answers": [
+        { "correct": false, "at": 1000 },
+        { "correct": true, "at": 2000 }
+      ],
+      "expected": [
+        { "seen": 6, "correct": 2, "streak": 0, "firstAt": 1000, "lastAt": 1000, "knownAt": null },
+        { "seen": 7, "correct": 3, "streak": 1, "firstAt": 1000, "lastAt": 2000, "knownAt": null }
+      ]
+    }
+  ]
+}

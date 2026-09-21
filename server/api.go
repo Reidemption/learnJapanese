@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 	"net/http"
+	"strconv"
 	"time"
 )
 
@@ -22,7 +23,10 @@ func (s *server) routes() http.Handler {
 	mux.HandleFunc("GET /api/decks", s.listDecks)
 	mux.HandleFunc("GET /api/decks/{id}", s.getDeck)
 	mux.HandleFunc("POST /api/attempts", s.postAttempt)
+	mux.HandleFunc("GET /api/attempts", s.listAttempts)
 	mux.HandleFunc("GET /api/progress", s.getProgress)
+	mux.HandleFunc("GET /api/export", s.exportProgress)
+	mux.HandleFunc("POST /api/import", s.importProgress)
 	return cors(mux)
 }
 
@@ -121,24 +125,31 @@ func (s *server) getDeck(w http.ResponseWriter, r *http.Request) {
 }
 
 type attemptItem struct {
-	ItemID  string `json:"itemId"`
+	ItemID string `json:"itemId"`
+	// Mode defaults to the session's mode; a mixed session (a test) sets it.
+	Mode    string `json:"mode,omitempty"`
 	Correct bool   `json:"correct"`
 }
 
 type attemptReq struct {
-	ClientID string        `json:"clientId"`
-	DeckID   string        `json:"deckId"`
-	Mode     string        `json:"mode"`
-	Correct  *int          `json:"correct"`
-	Total    *int          `json:"total"`
-	Items    []attemptItem `json:"items"`
+	ClientID string `json:"clientId"`
+	// UID identifies the session, so posting it twice records it once. Old
+	// clients (and queued posts from before uids) omit it.
+	UID     string        `json:"uid"`
+	DeckID  string        `json:"deckId"`
+	Mode    string        `json:"mode"`
+	Correct *int          `json:"correct"`
+	Total   *int          `json:"total"`
+	Kana    *bool         `json:"kana"`
+	Hints   *bool         `json:"hints"`
+	At      *int64        `json:"at"`
+	Items   []attemptItem `json:"items"`
 }
 
 // validate returns a human-readable reason the payload is unusable, or "".
+// The clientId is checked by the caller, since an import carries it once.
 func (a attemptReq) validate() string {
 	switch {
-	case a.ClientID == "":
-		return "clientId is required"
 	case a.DeckID == "":
 		return "deckId is required"
 	case a.Mode == "":
@@ -154,12 +165,78 @@ func (a attemptReq) validate() string {
 	case *a.Correct > *a.Total:
 		return "correct must not exceed total"
 	}
+	seen := map[string]bool{}
 	for _, it := range a.Items {
 		if it.ItemID == "" {
 			return "every item needs an itemId"
 		}
+		key := it.ItemID + "\x00" + it.Mode
+		if seen[key] {
+			return "duplicate answer for " + it.ItemID
+		}
+		seen[key] = true
 	}
 	return ""
+}
+
+// earliestAt is 2020-01-01: anything before it is a seconds-vs-millis bug or
+// junk, not a real session.
+const earliestAt = 1577836800000
+
+// timestamp is the client's `at` when it is plausible, else now. Clients send
+// it so a session queued offline keeps the time it was actually studied.
+func (a attemptReq) timestamp(now int64) int64 {
+	if a.At != nil && *a.At >= earliestAt && *a.At <= now+24*60*60*1000 {
+		return *a.At
+	}
+	return now
+}
+
+func deckExists(q queryer, id string) (bool, error) {
+	var n int
+	err := q.QueryRow(`SELECT COUNT(*) FROM decks WHERE id = ?`, id).Scan(&n)
+	return n > 0, err
+}
+
+// insertAttempt stores a session and its answers. A uid this client already
+// posted is not an error: it returns the existing row with inserted = false.
+func insertAttempt(tx *sql.Tx, clientID string, req attemptReq, at int64) (id int64, inserted bool, err error) {
+	uid := req.UID
+	if uid != "" {
+		err = tx.QueryRow(`SELECT id FROM attempts WHERE client_id = ? AND uid = ?`, clientID, uid).Scan(&id)
+		if err == nil {
+			return id, false, nil
+		}
+		if !errors.Is(err, sql.ErrNoRows) {
+			return 0, false, err
+		}
+	} else {
+		if err = tx.QueryRow(`SELECT lower(hex(randomblob(16)))`).Scan(&uid); err != nil {
+			return 0, false, err
+		}
+	}
+
+	res, err := tx.Exec(`INSERT INTO attempts
+		(client_id, uid, deck_id, mode, correct, total, kana, hints, created_at)
+		VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+		clientID, uid, req.DeckID, req.Mode, *req.Correct, *req.Total, req.Kana, req.Hints, at)
+	if err != nil {
+		return 0, false, err
+	}
+	if id, err = res.LastInsertId(); err != nil {
+		return 0, false, err
+	}
+	for _, it := range req.Items {
+		mode := it.Mode
+		if mode == "" {
+			mode = req.Mode
+		}
+		if _, err := tx.Exec(`INSERT INTO answers (attempt_id, item_id, mode, correct) VALUES (?, ?, ?, ?)`,
+			id, it.ItemID, mode, it.Correct); err != nil {
+			return 0, false, err
+		}
+	}
+	return id, true, nil
 }
 
 func (s *server) postAttempt(w http.ResponseWriter, r *http.Request) {
@@ -168,23 +245,25 @@ func (s *server) postAttempt(w http.ResponseWriter, r *http.Request) {
 		writeError(w, http.StatusBadRequest, "invalid JSON body")
 		return
 	}
+	if req.ClientID == "" {
+		writeError(w, http.StatusBadRequest, "clientId is required")
+		return
+	}
 	if msg := req.validate(); msg != "" {
 		writeError(w, http.StatusBadRequest, msg)
 		return
 	}
-
-	var exists int
-	err := s.db.QueryRow(`SELECT 1 FROM decks WHERE id = ?`, req.DeckID).Scan(&exists)
-	if errors.Is(err, sql.ErrNoRows) {
-		writeError(w, http.StatusBadRequest, "unknown deck: "+req.DeckID)
-		return
-	}
+	ok, err := deckExists(s.db, req.DeckID)
 	if err != nil {
 		writeError(w, http.StatusInternalServerError, "query failed")
 		return
 	}
+	if !ok {
+		writeError(w, http.StatusBadRequest, "unknown deck: "+req.DeckID)
+		return
+	}
 
-	now := time.Now().UnixMilli()
+	at := req.timestamp(time.Now().UnixMilli())
 	tx, err := s.db.Begin()
 	if err != nil {
 		writeError(w, http.StatusInternalServerError, "begin failed")
@@ -192,30 +271,22 @@ func (s *server) postAttempt(w http.ResponseWriter, r *http.Request) {
 	}
 	defer tx.Rollback()
 
-	res, err := tx.Exec(
-		`INSERT INTO attempts (client_id, deck_id, mode, correct, total, created_at) VALUES (?, ?, ?, ?, ?, ?)`,
-		req.ClientID, req.DeckID, req.Mode, *req.Correct, *req.Total, now)
+	id, inserted, err := insertAttempt(tx, req.ClientID, req, at)
 	if err != nil {
 		writeError(w, http.StatusInternalServerError, "insert failed")
 		return
 	}
-	id, _ := res.LastInsertId()
-
+	if !inserted {
+		writeJSON(w, http.StatusOK, map[string]any{"id": id, "duplicate": true})
+		return
+	}
+	ids := make([]string, 0, len(req.Items))
 	for _, it := range req.Items {
-		got := 0
-		if it.Correct {
-			got = 1
-		}
-		_, err := tx.Exec(`
-			INSERT INTO item_stats (client_id, item_id, seen, correct, updated_at)
-			VALUES (?, ?, 1, ?, ?)
-			ON CONFLICT(client_id, item_id) DO UPDATE SET
-				seen = item_stats.seen + 1,
-				correct = item_stats.correct + excluded.correct,
-				updated_at = excluded.updated_at`,
-			req.ClientID, it.ItemID, got, now)
-		if err != nil {
-			writeError(w, http.StatusInternalServerError, "item_stats upsert failed")
+		ids = append(ids, it.ItemID)
+	}
+	if len(ids) > 0 {
+		if err := rebuildItems(tx, req.ClientID, ids); err != nil {
+			writeError(w, http.StatusInternalServerError, "item_stats rebuild failed")
 			return
 		}
 	}
@@ -223,7 +294,71 @@ func (s *server) postAttempt(w http.ResponseWriter, r *http.Request) {
 		writeError(w, http.StatusInternalServerError, "commit failed")
 		return
 	}
-	writeJSON(w, http.StatusCreated, map[string]any{"id": id, "at": now})
+	writeJSON(w, http.StatusCreated, map[string]any{"id": id, "at": at})
+}
+
+// attemptRecord is one session as listed back. kana/hints are null for
+// sessions recorded before the flags existed.
+type attemptRecord struct {
+	UID     string `json:"uid"`
+	DeckID  string `json:"deckId"`
+	Mode    string `json:"mode"`
+	Correct int    `json:"correct"`
+	Total   int    `json:"total"`
+	Kana    *bool  `json:"kana"`
+	Hints   *bool  `json:"hints"`
+	At      int64  `json:"at"`
+}
+
+// attempts returns a client's sessions from since onwards, oldest first.
+func (s *server) attempts(clientID string, since int64) ([]int64, []attemptRecord, error) {
+	rows, err := s.db.Query(`SELECT id, uid, deck_id, mode, correct, total, kana, hints, created_at
+		FROM attempts WHERE client_id = ? AND created_at >= ? ORDER BY created_at, id`, clientID, since)
+	if err != nil {
+		return nil, nil, err
+	}
+	defer rows.Close()
+	ids, out := []int64{}, []attemptRecord{}
+	for rows.Next() {
+		var id int64
+		var a attemptRecord
+		var kana, hints sql.NullBool
+		if err := rows.Scan(&id, &a.UID, &a.DeckID, &a.Mode, &a.Correct, &a.Total, &kana, &hints, &a.At); err != nil {
+			return nil, nil, err
+		}
+		if kana.Valid {
+			a.Kana = &kana.Bool
+		}
+		if hints.Valid {
+			a.Hints = &hints.Bool
+		}
+		ids = append(ids, id)
+		out = append(out, a)
+	}
+	return ids, out, rows.Err()
+}
+
+func (s *server) listAttempts(w http.ResponseWriter, r *http.Request) {
+	clientID := r.URL.Query().Get("clientId")
+	if clientID == "" {
+		writeError(w, http.StatusBadRequest, "clientId is required")
+		return
+	}
+	var since int64
+	if v := r.URL.Query().Get("since"); v != "" {
+		n, err := strconv.ParseInt(v, 10, 64)
+		if err != nil {
+			writeError(w, http.StatusBadRequest, "since must be unix millis")
+			return
+		}
+		since = n
+	}
+	_, out, err := s.attempts(clientID, since)
+	if err != nil {
+		writeError(w, http.StatusInternalServerError, "query failed")
+		return
+	}
+	writeJSON(w, http.StatusOK, out)
 }
 
 // deckProgress mirrors the frontend's ModeScore, field for field, so HTTP mode
@@ -236,10 +371,6 @@ type deckProgress struct {
 	At    int64 `json:"at"`
 }
 
-type itemProgress struct {
-	Seen    int `json:"seen"`
-	Correct int `json:"correct"`
-}
 
 func (s *server) getProgress(w http.ResponseWriter, r *http.Request) {
 	clientID := r.URL.Query().Get("clientId")
@@ -291,20 +422,28 @@ func (s *server) deckProgress(clientID string) (map[string]deckProgress, error) 
 	return out, rows.Err()
 }
 
-func (s *server) itemProgress(clientID string) (map[string]itemProgress, error) {
-	rows, err := s.db.Query(`SELECT item_id, seen, correct FROM item_stats WHERE client_id = ?`, clientID)
+func (s *server) itemProgress(clientID string) (map[string]itemStat, error) {
+	return s.statsFrom(`item_stats`, clientID)
+}
+
+// statsFrom reads item_stats or item_base, which share their columns.
+func (s *server) statsFrom(table, clientID string) (map[string]itemStat, error) {
+	rows, err := s.db.Query(`SELECT item_id, seen, correct, streak, first_at, last_at, known_at
+		FROM `+table+` WHERE client_id = ?`, clientID)
 	if err != nil {
 		return nil, err
 	}
 	defer rows.Close()
 
-	out := map[string]itemProgress{}
+	out := map[string]itemStat{}
 	for rows.Next() {
 		var id string
-		var p itemProgress
-		if err := rows.Scan(&id, &p.Seen, &p.Correct); err != nil {
+		var p itemStat
+		var first, last, known sql.NullInt64
+		if err := rows.Scan(&id, &p.Seen, &p.Correct, &p.Streak, &first, &last, &known); err != nil {
 			return nil, err
 		}
+		p.FirstAt, p.LastAt, p.KnownAt = ptr(first), ptr(last), ptr(known)
 		out[id] = p
 	}
 	return out, rows.Err()
