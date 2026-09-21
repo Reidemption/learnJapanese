@@ -45,7 +45,16 @@ describe("QuizSession", () => {
 
     expect(wrapper.find(".is-wrong").text()).toContain("one-b");
     expect(wrapper.find(".is-correct").text()).toContain("one-a");
+    expect(wrapper.findAll(".is-dim")).toHaveLength(2);
+    expect(wrapper.find(".is-wrong .num").text()).toBe("✗");
+    expect(wrapper.find(".is-correct .num").text()).toBe("✓");
     expect(choices.every((c) => c.attributes("disabled") !== undefined)).toBe(true);
+  });
+
+  it("numbers the choices until an answer is picked", () => {
+    const wrapper = mount(QuizSession, { props: { questions, label: "x" } });
+    expect(wrapper.findAll(".choice .num").map((n) => n.text())).toEqual(["1", "2", "3", "4"]);
+    expect(wrapper.find(".is-dim").exists()).toBe(false);
   });
 
   it("scores a run driven by the keyboard and reports what was missed", async () => {

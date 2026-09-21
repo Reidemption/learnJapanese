@@ -5,6 +5,7 @@
   --ink-soft: #4a4e57;
   --vermillion: #c4452d;
   --vermillion-deep: #9e3320;
+  --pine: #2d7348;
   --line: color-mix(in srgb, var(--ink) 16%, transparent);
   --shadow: color-mix(in srgb, #1a2430 18%, transparent);
   --display: "Shippori Mincho", "Hiragino Mincho ProN", serif;
@@ -275,13 +276,34 @@ select.font-picker {
   color: var(--ink-soft);
 }
 
+/* After answering: the right answer is green, a wrong pick is red, and the
+   choices nobody picked fade back. */
 .choice.is-correct {
-  border-color: var(--vermillion);
-  background: color-mix(in srgb, var(--vermillion) 10%, white);
+  border-color: var(--pine);
+  background: color-mix(in srgb, var(--pine) 14%, white);
 }
 
 .choice.is-wrong {
-  opacity: 0.55;
+  border-color: var(--vermillion);
+  background: color-mix(in srgb, var(--vermillion) 12%, white);
+}
+
+.choice.is-dim {
+  opacity: 0.5;
+}
+
+.choice.is-correct .num,
+.choice.is-wrong .num {
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.choice.is-correct .num {
+  color: var(--pine);
+}
+
+.choice.is-wrong .num {
+  color: var(--vermillion);
 }
 
 .choice:disabled {
@@ -299,6 +321,12 @@ select.font-picker {
 .next-row {
   margin-top: 1.1rem;
   min-height: 2.4rem;
+}
+
+/* The quiz's Next button sits on the right, under the choices. */
+.next-row.align-end {
+  display: flex;
+  justify-content: flex-end;
 }
 
 .score h2 {

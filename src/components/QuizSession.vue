@@ -79,7 +79,15 @@ function choiceClass(id: string): string {
   const right = current.value.question.correctId;
   if (id === right) return "is-correct";
   if (id === picked.value) return "is-wrong";
-  return "";
+  return "is-dim";
+}
+
+/** After answering, the number badge becomes a ✓ or ✗, so the result never relies on colour alone. */
+function badge(id: string, i: number): string {
+  const cls = choiceClass(id);
+  if (cls === "is-correct") return "✓";
+  if (cls === "is-wrong") return "✗";
+  return String(i + 1);
 }
 
 function onKey(event: KeyboardEvent): void {
@@ -127,12 +135,12 @@ onUnmounted(() => window.removeEventListener("keydown", onKey));
         type="button"
         @click="pick(choice.id)"
       >
-        <span class="num">{{ i + 1 }}</span>
+        <span class="num">{{ badge(choice.id, i) }}</span>
         <span v-if="choice.en">{{ choice.en }}</span>
         <RubyText v-else-if="choice.ja" :segments="choice.ja" />
       </button>
     </div>
-    <div class="next-row">
+    <div class="next-row align-end">
       <button v-if="locked" class="primary" type="button" @click="goNext">
         {{ index + 1 >= items.length ? "See score" : "Next" }}
       </button>
