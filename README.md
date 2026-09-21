@@ -41,10 +41,31 @@ Config comes from env vars: `PORT` (default 8080) and `DB_PATH`
 
 ## Running both together
 
+bash / zsh:
+
 ```sh
 cd server && go run .          # terminal 1
 VITE_API_URL=/api npm run dev  # terminal 2 (repo root)
 ```
+
+Windows PowerShell:
+
+```powershell
+# terminal 1
+cd server
+go run .
+
+# terminal 2 (repo root)
+$env:VITE_API_URL = "/api"
+npm run dev
+```
+
+If PowerShell refuses to run `npm` ("running scripts is disabled on this
+system"), use `npm.cmd run dev` instead; it skips the blocked `npm.ps1` wrapper.
+
+To check you are really in HTTP mode, look for `/api/...` requests in the
+browser's Network tab. If the backend is unreachable, the app quietly falls back
+to the bundled content, which looks the same.
 
 The Vite dev server proxies `/api` to `http://localhost:8080`, so there is no
 CORS setup needed. Progress is then stored server-side against an anonymous
@@ -57,4 +78,6 @@ attempts that fail to post are queued and retried on the next call.
 - `GET  /api/decks` — deck summaries, optionally `?level=N5`
 - `GET  /api/decks/{id}` — the full deck JSON
 - `POST /api/attempts` — `{clientId, deckId, mode, correct, total, items:[{itemId, correct}]}`
-- `GET  /api/progress?clientId=` — `{decks: {"deckId:mode": {best,last,at}}, items: {itemId:{seen,correct}}}`
+- `GET  /api/progress?clientId=` — `{decks: {"deckId:mode": {best,last,total,at}}, items: {itemId:{seen,correct}}}`
+  — `total` belongs to the best attempt, and `at` is unix milliseconds (the same
+  as `Date.now()` in the static implementation)
