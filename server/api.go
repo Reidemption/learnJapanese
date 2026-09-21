@@ -78,7 +78,7 @@ func (s *server) listDecks(w http.ResponseWriter, r *http.Request) {
 		query += ` WHERE level = ?`
 		args = append(args, level)
 	}
-	query += ` ORDER BY level, ord, id`
+	query += ` ORDER BY ` + levelRankSQL + `, ord, id`
 
 	rows, err := s.db.Query(query, args...)
 	if err != nil {
@@ -124,6 +124,10 @@ func (s *server) getDeck(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte(raw))
 }
 
+// modes are the study modes a session or an answer can be in, as in
+// src/study/modes.ts.
+var modes = map[string]bool{"meaning": true, "reverse": true, "reading": true, "cloze": true}
+
 type attemptItem struct {
 	ItemID string `json:"itemId"`
 	// Mode defaults to the session's mode; a mixed session (a test) sets it.
@@ -135,15 +139,18 @@ type attemptReq struct {
 	ClientID string `json:"clientId"`
 	// UID identifies the session, so posting it twice records it once. Old
 	// clients (and queued posts from before uids) omit it.
-	UID     string        `json:"uid"`
-	DeckID  string        `json:"deckId"`
-	Mode    string        `json:"mode"`
-	Correct *int          `json:"correct"`
-	Total   *int          `json:"total"`
-	Kana    *bool         `json:"kana"`
-	Hints   *bool         `json:"hints"`
-	At      *int64        `json:"at"`
-	Items   []attemptItem `json:"items"`
+	UID     string `json:"uid"`
+	DeckID  string `json:"deckId"`
+	Mode    string `json:"mode"`
+	Correct *int   `json:"correct"`
+	Total   *int   `json:"total"`
+	Kana    *bool  `json:"kana"`
+	Hints   *bool  `json:"hints"`
+	At      *int64 `json:"at"`
+	// Retry marks a "Retry missed" run: its answers count, but it is not a
+	// score for the deck.
+	Retry bool          `json:"retry"`
+	Items []attemptItem `json:"items"`
 }
 
 // validate returns a human-readable reason the payload is unusable, or "".
@@ -154,6 +161,8 @@ func (a attemptReq) validate() string {
 		return "deckId is required"
 	case a.Mode == "":
 		return "mode is required"
+	case !modes[a.Mode]:
+		return "unknown mode: " + a.Mode
 	case a.Correct == nil:
 		return "correct is required"
 	case a.Total == nil:
@@ -169,6 +178,9 @@ func (a attemptReq) validate() string {
 	for _, it := range a.Items {
 		if it.ItemID == "" {
 			return "every item needs an itemId"
+		}
+		if it.Mode != "" && !modes[it.Mode] {
+			return "unknown mode for " + it.ItemID + ": " + it.Mode
 		}
 		key := it.ItemID + "\x00" + it.Mode
 		if seen[key] {
@@ -217,9 +229,9 @@ func insertAttempt(tx *sql.Tx, clientID string, req attemptReq, at int64) (id in
 	}
 
 	res, err := tx.Exec(`INSERT INTO attempts
-		(client_id, uid, deck_id, mode, correct, total, kana, hints, created_at)
-		VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-		clientID, uid, req.DeckID, req.Mode, *req.Correct, *req.Total, req.Kana, req.Hints, at)
+		(client_id, uid, deck_id, mode, correct, total, kana, hints, retry, created_at)
+		VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+		clientID, uid, req.DeckID, req.Mode, *req.Correct, *req.Total, req.Kana, req.Hints, req.Retry, at)
 	if err != nil {
 		return 0, false, err
 	}
@@ -308,11 +320,12 @@ type attemptRecord struct {
 	Kana    *bool  `json:"kana"`
 	Hints   *bool  `json:"hints"`
 	At      int64  `json:"at"`
+	Retry   bool   `json:"retry,omitempty"`
 }
 
 // attempts returns a client's sessions from since onwards, oldest first.
 func (s *server) attempts(clientID string, since int64) ([]int64, []attemptRecord, error) {
-	rows, err := s.db.Query(`SELECT id, uid, deck_id, mode, correct, total, kana, hints, created_at
+	rows, err := s.db.Query(`SELECT id, uid, deck_id, mode, correct, total, kana, hints, retry, created_at
 		FROM attempts WHERE client_id = ? AND created_at >= ? ORDER BY created_at, id`, clientID, since)
 	if err != nil {
 		return nil, nil, err
@@ -323,7 +336,7 @@ func (s *server) attempts(clientID string, since int64) ([]int64, []attemptRecor
 		var id int64
 		var a attemptRecord
 		var kana, hints sql.NullBool
-		if err := rows.Scan(&id, &a.UID, &a.DeckID, &a.Mode, &a.Correct, &a.Total, &kana, &hints, &a.At); err != nil {
+		if err := rows.Scan(&id, &a.UID, &a.DeckID, &a.Mode, &a.Correct, &a.Total, &kana, &hints, &a.Retry, &a.At); err != nil {
 			return nil, nil, err
 		}
 		if kana.Valid {
@@ -371,7 +384,6 @@ type deckProgress struct {
 	At    int64 `json:"at"`
 }
 
-
 func (s *server) getProgress(w http.ResponseWriter, r *http.Request) {
 	clientID := r.URL.Query().Get("clientId")
 	if clientID == "" {
@@ -394,17 +406,21 @@ func (s *server) getProgress(w http.ResponseWriter, r *http.Request) {
 
 // deckProgress collects the best and most recent score per deck+mode. The
 // correlated subquery keeps this to one round trip, which matters because the
-// pool is limited to a single connection.
+// pool is limited to a single connection. Retry runs cover only the questions
+// just missed, so they are not scores and are left out.
 func (s *server) deckProgress(clientID string) (map[string]deckProgress, error) {
 	rows, err := s.db.Query(`
 		SELECT a.deck_id, a.mode, MAX(a.correct), MAX(a.created_at),
 			(SELECT b.correct FROM attempts b
 			 WHERE b.client_id = a.client_id AND b.deck_id = a.deck_id AND b.mode = a.mode
+			   AND b.retry = 0
 			 ORDER BY b.created_at DESC, b.id DESC LIMIT 1),
 			(SELECT c.total FROM attempts c
 			 WHERE c.client_id = a.client_id AND c.deck_id = a.deck_id AND c.mode = a.mode
+			   AND c.retry = 0
 			 ORDER BY c.correct DESC, c.created_at DESC, c.id DESC LIMIT 1)
-		FROM attempts a WHERE a.client_id = ? GROUP BY a.deck_id, a.mode`, clientID)
+		FROM attempts a WHERE a.client_id = ? AND a.retry = 0
+		GROUP BY a.deck_id, a.mode`, clientID)
 	if err != nil {
 		return nil, err
 	}

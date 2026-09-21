@@ -63,6 +63,8 @@ export type NewAttempt = {
   /** Whether furigana / hints were on at any point during the session. */
   kana: boolean;
   hints: boolean;
+  /** A "Retry missed" run: recorded for mastery, but not a deck score. */
+  retry?: boolean;
   items: ItemResult[];
 };
 
@@ -124,7 +126,7 @@ export const staticApi: StudyApi = {
   },
 
   async postAttempt(attempt) {
-    saveScore(attempt.deckId, attempt.mode, attempt);
+    if (!attempt.retry) saveScore(attempt.deckId, attempt.mode, attempt);
     recordAttempt(attempt);
   },
 
@@ -159,6 +161,27 @@ function readQueue(): QueuedAttempt[] {
   return Array.isArray(queued) ? queued : [];
 }
 
+/** Posts queued before sessions had a uid are told apart by their content. */
+function queueKey(attempt: QueuedAttempt): string {
+  return attempt.uid || JSON.stringify(attempt);
+}
+
+/** A non-2xx response, carrying its status. */
+export class HttpError extends Error {
+  readonly status: number;
+
+  constructor(message: string, status: number) {
+    super(message);
+    this.name = "HttpError";
+    this.status = status;
+  }
+}
+
+/** A 4xx: the request itself is wrong, so sending it again won't help. */
+function isRejected(error: unknown): boolean {
+  return error instanceof HttpError && error.status >= 400 && error.status < 500;
+}
+
 /** Builds an HTTP implementation against `base`, e.g. `/api`. */
 export function createHttpApi(base: string): StudyApi {
   const root = base.replace(/\/$/, "");
@@ -166,7 +189,10 @@ export function createHttpApi(base: string): StudyApi {
   async function json<T>(path: string, init?: RequestInit): Promise<T> {
     const response = await fetch(`${root}${path}`, init);
     if (!response.ok) {
-      throw new Error(`${init?.method ?? "GET"} ${root}${path} failed: ${response.status}`);
+      throw new HttpError(
+        `${init?.method ?? "GET"} ${root}${path} failed: ${response.status}`,
+        response.status,
+      );
     }
     return (await response.json()) as T;
   }
@@ -179,19 +205,33 @@ export function createHttpApi(base: string): StudyApi {
     });
   }
 
-  /** Retries anything a previous offline post left behind. */
-  async function flushQueue(): Promise<void> {
+  /**
+   * Retries anything a previous offline post left behind. Only one flush runs
+   * at a time; a caller that arrives mid-flush waits for that one.
+   */
+  let flushing: Promise<void> | null = null;
+  function flushQueue(): Promise<void> {
+    flushing ??= drainQueue().finally(() => {
+      flushing = null;
+    });
+    return flushing;
+  }
+
+  async function drainQueue(): Promise<void> {
     const queued = readQueue();
     if (!queued.length) return;
-    const failed: QueuedAttempt[] = [];
+    const done = new Set<string>();
     for (const attempt of queued) {
       try {
         await send(attempt);
-      } catch {
-        failed.push(attempt);
+        done.add(queueKey(attempt));
+      } catch (error) {
+        // The server refused it outright: resending can never succeed.
+        if (isRejected(error)) done.add(queueKey(attempt));
       }
     }
-    write(QUEUE_KEY, failed);
+    // Re-read, so a post queued while this flush ran is kept.
+    write(QUEUE_KEY, readQueue().filter((attempt) => !done.has(queueKey(attempt))));
   }
 
   return {
@@ -214,7 +254,8 @@ export function createHttpApi(base: string): StudyApi {
         await send(payload);
       } catch (error) {
         // Offline: keep it for the next call rather than losing the session.
-        write(QUEUE_KEY, [...readQueue(), payload]);
+        // A rejected post would only be rejected again, so it is not kept.
+        if (!isRejected(error)) write(QUEUE_KEY, [...readQueue(), payload]);
         throw error;
       }
     },

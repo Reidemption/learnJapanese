@@ -307,3 +307,103 @@ func TestImportSkipsUnknownDecksAndRejectsJunk(t *testing.T) {
 		})
 	}
 }
+
+func TestRetryRunsAreNotScores(t *testing.T) {
+	_, h := newTestServer(t)
+	deckID := firstDeckID(t)
+
+	mustPost(t, h, attemptBody("c1", "full", deckID, day,
+		[3]string{"a", "meaning", "1"}, [3]string{"b", "meaning", "0"},
+		[3]string{"c", "meaning", "1"}, [3]string{"d", "meaning", "0"}), http.StatusCreated)
+	retry := map[string]any{
+		"clientId": "c1", "uid": "retry", "deckId": deckID, "mode": "meaning",
+		"correct": 2, "total": 2, "retry": true, "at": day + 1000,
+		"items": []map[string]any{
+			{"itemId": "b", "mode": "meaning", "correct": true},
+			{"itemId": "d", "mode": "meaning", "correct": true},
+		},
+	}
+	body, _ := json.Marshal(retry)
+	mustPost(t, h, string(body), http.StatusCreated)
+
+	p := progressOf(t, h, "c1")
+	got := p.Decks[deckID+":meaning"]
+	if got.Best != 2 || got.Last != 2 || got.Total != 4 || got.At != day {
+		t.Fatalf("score = %+v, want the full run only (2/4 at %d)", got, day)
+	}
+	// Its answers still count.
+	if p.Items["b"].Seen != 2 || p.Items["b"].Correct != 1 {
+		t.Fatalf("b = %s, want the retry answer counted", show(p.Items["b"]))
+	}
+
+	// The flag survives export and import.
+	w := do(t, h, "GET", "/api/export?clientId=c1", "")
+	b := decode[backup](t, w)
+	if len(b.Attempts) != 2 || b.Attempts[0].Retry || !b.Attempts[1].Retry {
+		t.Fatalf("exported retry flags = %v, %v", b.Attempts[0].Retry, b.Attempts[1].Retry)
+	}
+	req, _ := json.Marshal(importReq{ClientID: "c2", backup: b})
+	if w := do(t, h, "POST", "/api/import", string(req)); w.Code != http.StatusOK {
+		t.Fatalf("import: %d (%s)", w.Code, w.Body.String())
+	}
+	if again := progressOf(t, h, "c2").Decks[deckID+":meaning"]; again != got {
+		t.Fatalf("imported score = %+v, want %+v", again, got)
+	}
+}
+
+// legacyWithRetry is a Phase 4 database holding a full run and then a
+// "Retry missed" run over the 2 questions it missed.
+func legacyWithRetry(t *testing.T, deckID string) string {
+	t.Helper()
+	path := filepath.Join(t.TempDir(), "legacy.db")
+	db, err := sql.Open("sqlite", path)
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer db.Close()
+	for _, stmt := range []string{
+		schema,
+		fmt.Sprintf(`INSERT INTO attempts (client_id, deck_id, mode, correct, total, created_at)
+			VALUES ('c1', '%s', 'meaning', 18, 20, %d)`, deckID, day),
+		fmt.Sprintf(`INSERT INTO attempts (client_id, deck_id, mode, correct, total, created_at)
+			VALUES ('c1', '%s', 'meaning', 2, 2, %d)`, deckID, day+1000),
+	} {
+		if _, err := db.Exec(stmt); err != nil {
+			t.Fatal(err)
+		}
+	}
+	return path
+}
+
+func TestMigrateMarksShortLegacySessionsAsRetries(t *testing.T) {
+	deckID := firstDeckID(t)
+	db, err := openDB(legacyWithRetry(t, deckID))
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer db.Close()
+	decks, _ := loadDecks()
+	if err := seed(db, decks); err != nil {
+		t.Fatal(err)
+	}
+	s := &server{db: db}
+	got := progressOf(t, s.routes(), "c1").Decks[deckID+":meaning"]
+	if got.Best != 18 || got.Total != 20 || got.Last != 18 {
+		t.Fatalf("score = %+v, want 18/20 with the retry left out", got)
+	}
+
+	// The guess runs once: a later migration leaves the flags alone.
+	if _, err := db.Exec(`UPDATE attempts SET retry = 0`); err != nil {
+		t.Fatal(err)
+	}
+	if err := migrate(db); err != nil {
+		t.Fatal(err)
+	}
+	var flagged int
+	if err := db.QueryRow(`SELECT COUNT(*) FROM attempts WHERE retry = 1`).Scan(&flagged); err != nil {
+		t.Fatal(err)
+	}
+	if flagged != 0 {
+		t.Fatalf("second migration re-flagged %d sessions", flagged)
+	}
+}

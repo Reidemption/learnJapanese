@@ -27,6 +27,21 @@ type Deck struct {
 	raw []byte
 }
 
+// levelRank orders levels the way the course runs, N5 first, as content.ts
+// does. Sorting the level names as text would put N4 first.
+func levelRank(level string) int {
+	switch level {
+	case "N5":
+		return 0
+	case "N4":
+		return 1
+	}
+	return 2
+}
+
+// levelRankSQL is levelRank for ORDER BY on the decks table.
+const levelRankSQL = `CASE level WHEN 'N5' THEN 0 WHEN 'N4' THEN 1 ELSE 2 END`
+
 // loadDecks reads every embedded deck, sorted by level then order then id.
 func loadDecks() ([]Deck, error) {
 	entries, err := fs.Glob(learnjapanese.Decks, "content/decks/*.json")
@@ -49,15 +64,20 @@ func loadDecks() ([]Deck, error) {
 		d.raw = raw
 		decks = append(decks, d)
 	}
+	sortDecks(decks)
+	return decks, nil
+}
+
+// sortDecks orders decks by level (N5 first), then order, then id.
+func sortDecks(decks []Deck) {
 	sort.Slice(decks, func(i, j int) bool {
 		a, b := decks[i], decks[j]
-		if a.Level != b.Level {
-			return a.Level < b.Level
+		if ra, rb := levelRank(a.Level), levelRank(b.Level); ra != rb {
+			return ra < rb
 		}
 		if a.Order != b.Order {
 			return a.Order < b.Order
 		}
 		return a.ID < b.ID
 	})
-	return decks, nil
 }

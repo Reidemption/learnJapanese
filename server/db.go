@@ -87,10 +87,15 @@ func migrate(db *sql.DB) error {
 		_, err = tx.Exec(fmt.Sprintf(`ALTER TABLE %s ADD COLUMN %s %s`, table, column, def))
 		return err
 	}
+	hadRetry, err := hasColumn(tx, "attempts", "retry")
+	if err != nil {
+		return err
+	}
 	for _, c := range []struct{ table, column, def string }{
 		{"attempts", "uid", "TEXT"},
 		{"attempts", "kana", "INTEGER"},
 		{"attempts", "hints", "INTEGER"},
+		{"attempts", "retry", "INTEGER NOT NULL DEFAULT 0"},
 		{"item_stats", "streak", "INTEGER NOT NULL DEFAULT 0"},
 		{"item_stats", "first_at", "INTEGER"},
 		{"item_stats", "last_at", "INTEGER"},
@@ -127,6 +132,15 @@ func migrate(db *sql.DB) error {
 			known_at  INTEGER,
 			PRIMARY KEY (client_id, item_id)
 		)`,
+	}
+	if !hadRetry {
+		// Only the first time: sessions from before the flag. A "Retry missed"
+		// run is shorter than a full run of the same deck and mode, so any
+		// session shorter than that client's longest one was a retry.
+		stmts = append(stmts, `UPDATE attempts SET retry = 1
+			WHERE total < (SELECT MAX(b.total) FROM attempts b
+				WHERE b.client_id = attempts.client_id
+				  AND b.deck_id = attempts.deck_id AND b.mode = attempts.mode)`)
 	}
 	if !baseExists {
 		// Only the first time: whatever item_stats holds now predates answers.
@@ -172,8 +186,10 @@ func hasTable(q queryer, name string) (bool, error) {
 	return n > 0, err
 }
 
-// seed upserts every embedded deck into the decks table. It is idempotent:
-// running it twice updates rows in place rather than inserting duplicates.
+// seed upserts every embedded deck into the decks table and removes decks
+// that are no longer in the content. It is idempotent: running it twice
+// updates rows in place rather than inserting duplicates. Sessions for a
+// removed deck stay in attempts; they just no longer match a deck.
 func seed(db *sql.DB, decks []Deck) error {
 	tx, err := db.Begin()
 	if err != nil {
@@ -196,10 +212,19 @@ func seed(db *sql.DB, decks []Deck) error {
 	}
 	defer stmt.Close()
 
+	ids := make([]any, 0, len(decks))
 	for _, d := range decks {
 		if _, err := stmt.Exec(d.ID, d.Level, d.Group, d.Title, d.TitleJa, d.Order, string(d.raw)); err != nil {
 			return err
 		}
+		ids = append(ids, d.ID)
+	}
+	remove := `DELETE FROM decks`
+	if len(ids) > 0 {
+		remove += ` WHERE id NOT IN (?` + strings.Repeat(`, ?`, len(ids)-1) + `)`
+	}
+	if _, err := tx.Exec(remove, ids...); err != nil {
+		return err
 	}
 	return tx.Commit()
 }

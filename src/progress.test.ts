@@ -150,8 +150,20 @@ describe("mergeScore", () => {
     expect(mergeScore(latest, { correct: 2, total: 8, at: 300 })).toEqual({
       best: 5,
       last: 2,
-      total: 8,
+      total: 10,
       at: 300,
+    });
+  });
+
+  it("keeps the total of the best run, so best never exceeds it", () => {
+    const full = { best: 18, last: 18, total: 20, at: 100 };
+    expect(mergeScore(full, { correct: 2, total: 2, at: 200 })).toMatchObject({
+      best: 18,
+      total: 20,
+    });
+    expect(mergeScore(full, { correct: 19, total: 20, at: 200 })).toMatchObject({
+      best: 19,
+      total: 20,
     });
   });
 });
@@ -219,6 +231,13 @@ describe("item stats and the session log", () => {
     expect(importAttempts(many, {}, () => true).imported).toBe(ATTEMPT_LOG_CAP + 10);
     expect(loadAttemptLog()).toHaveLength(ATTEMPT_LOG_CAP);
     expect(getItemStats().a?.seen).toBe(ATTEMPT_LOG_CAP + 10);
+  });
+
+  it("imports retry sessions for mastery but not as deck scores", () => {
+    const retry = { ...session(10, [["a", true]]), retry: true };
+    importAttempts([retry], {}, () => true);
+    expect(getScore("n5-food", "meaning")).toBeUndefined();
+    expect(getItemStats()["a"]).toMatchObject({ seen: 1, correct: 1 });
   });
 
   it("replays imported sessions in time order", () => {

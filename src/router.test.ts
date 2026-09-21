@@ -1,23 +1,33 @@
 import { flushPromises, mount } from "@vue/test-utils";
-import { beforeEach, describe, expect, it } from "vitest";
+import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import App from "./App.vue";
 import { decks } from "./content";
-import { loadAttemptLog } from "./progress";
+import { getScore, loadAttemptLog } from "./progress";
 import { router } from "./router";
 import { lastResult, retryQueue } from "./session";
 import { settings } from "./settings";
-import { availableModes } from "./study/modes";
+import { availableModes, buildQuestions } from "./study/modes";
+import { seeded } from "./study/rng";
 
 const deck = decks[0]!;
 const mode = availableModes(deck)[0]!;
+
+// Every test shares one router, so an App left mounted would keep reacting to
+// the next test's navigation (and, say, take its retry queue).
+const mounted: { unmount(): void }[] = [];
 
 async function open(path: string) {
   router.push(path);
   await router.isReady();
   const wrapper = mount(App, { global: { plugins: [router] } });
+  mounted.push(wrapper);
   await flushPromises();
   return wrapper;
 }
+
+afterEach(() => {
+  for (const wrapper of mounted.splice(0)) wrapper.unmount();
+});
 
 beforeEach(() => {
   localStorage.clear();
@@ -77,6 +87,19 @@ describe("routing", () => {
       await flushPromises();
     }
     expect(loadAttemptLog()[0]).toMatchObject({ kana: true, hints: false });
+  });
+
+  it("logs a Retry missed run as a retry, which is not a deck score", async () => {
+    retryQueue.value = buildQuestions(deck, mode, seeded(1)).slice(0, 2);
+    const wrapper = await open(`/deck/${deck.id}/${mode}`);
+    for (let i = 0; i < 2; i++) {
+      await wrapper.findAll(".choice")[0]!.trigger("click");
+      await wrapper.find(".next-row .primary").trigger("click");
+      await flushPromises();
+    }
+    expect(router.currentRoute.value.name).toBe("result");
+    expect(loadAttemptLog()[0]).toMatchObject({ total: 2, retry: true });
+    expect(getScore(deck.id, mode)).toBeUndefined();
   });
 
   it("opens the dashboard from the header link", async () => {
