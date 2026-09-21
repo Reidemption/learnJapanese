@@ -435,10 +435,12 @@ ruby {
   gap: 0.5rem 1.5rem;
 }
 
+/* Two fixed columns, so every English gloss starts at the same x, however
+   long the Japanese is and whether or not either side wraps. */
 .item-list li {
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   align-items: baseline;
-  justify-content: space-between;
   gap: 1rem;
   padding: 0.4rem 0;
   border-bottom: 1px solid rgba(0, 0, 0, 0.06);
