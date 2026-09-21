@@ -89,10 +89,32 @@ describe.each(cases)("deck %s", (id, deck) => {
       expect(item.ja, `${deck.id} / ${item.id}`).not.toMatch(/[A-Za-z]{3,}\|/);
     }
     for (const question of deck.questions ?? []) {
-      expect(question.en ?? "", `${deck.id} / ${question.id}`).not.toMatch(
-        /placeholder|TODO|FIXME/i,
-      );
-      expect(question.prompt, `${deck.id} / ${question.id}`).not.toMatch(/[A-Za-z]{3,}\}/);
+      const where = `${deck.id} / ${question.id}`;
+      expect(question.en ?? "", where).not.toMatch(/placeholder|TODO|FIXME/i);
+      // English belongs only in a gloss slot; Latin letters in the Japanese
+      // text or reading itself mean a stub was left behind.
+      for (const segment of parseRuby(question.prompt)) {
+        expect(segment.ja, `${where} has Latin text in its Japanese`).not.toMatch(/[A-Za-z]{3,}/);
+        expect(segment.reading ?? "", `${where} has Latin text in a reading`).not.toMatch(/[A-Za-z]/);
+        expect(segment.en ?? "", `${where} has a placeholder gloss`).not.toMatch(/placeholder|TODO|FIXME|xxx/i);
+      }
+    }
+  });
+
+  // Hints (hover glosses) help with the words around a cloze blank. Anywhere
+  // else they would give the answer away: in meaning mode an item's gloss *is*
+  // the answer, and a gloss on a choice labels it.
+  it("puts hints on cloze prompts only", () => {
+    const glossed = (source: string) => parseRuby(source).some((s) => s.en);
+    for (const item of deck.items) {
+      expect(glossed(item.ja), `${deck.id} / ${item.id}: items must not carry a hint`).toBe(false);
+    }
+    for (const question of deck.questions ?? []) {
+      const where = `${deck.id} / ${question.id}`;
+      for (const choice of [question.answer, ...question.distractors]) {
+        expect(glossed(choice), `${where}: choice "${choice}" must not carry a hint`).toBe(false);
+      }
+      expect(glossed(question.prompt), `${where}: prompt needs at least one hint`).toBe(true);
     }
   });
 

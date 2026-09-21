@@ -80,7 +80,7 @@
   "questions": [
     {
       "id": "n5-grammar-copula-q1",
-      "prompt": "{今|いま}、わたしは{学生|がくせい}___。",
+      "prompt": "{今|いま|now}、{わたし||I}は{学生|がくせい|student}___。",
       "en": "I am a student now.",
       "answer": "です",
       "distractors": [
@@ -91,7 +91,7 @@
     },
     {
       "id": "n5-grammar-copula-q2",
-      "prompt": "{昨日|きのう}は{雨|あめ}___。",
+      "prompt": "{昨日|きのう|yesterday}は{雨|あめ|rain}___。",
       "en": "It was rainy yesterday.",
       "answer": "でした",
       "distractors": [
@@ -102,7 +102,7 @@
     },
     {
       "id": "n5-grammar-copula-q3",
-      "prompt": "これはわたしの{本|ほん}じゃ___です。",
+      "prompt": "これは{わたし||I}の{本|ほん|book}じゃ___です。",
       "en": "This is not my book.",
       "answer": "ない",
       "distractors": [
@@ -113,7 +113,7 @@
     },
     {
       "id": "n5-grammar-copula-q4",
-      "prompt": "すみません、トイレはどこ___か。",
+      "prompt": "{すみません||excuse me}、{トイレ||toilet}は{どこ||where}___か。",
       "en": "Excuse me, where is the toilet?",
       "answer": "です",
       "distractors": [
@@ -124,7 +124,7 @@
     },
     {
       "id": "n5-grammar-copula-q5",
-      "prompt": "これは{日本語|にほんご}___{本|ほん}です。",
+      "prompt": "これは{日本語|にほんご|Japanese (language)}___{本|ほん|book}です。",
       "en": "This is a Japanese book.",
       "answer": "の",
       "distractors": [
@@ -135,7 +135,7 @@
     },
     {
       "id": "n5-grammar-copula-q6",
-      "prompt": "___はわたしのかばんです。",
+      "prompt": "___は{わたし||I}の{かばん||bag}です。",
       "en": "This one is my bag.",
       "answer": "これ",
       "distractors": [
@@ -146,7 +146,7 @@
     },
     {
       "id": "n5-grammar-copula-q7",
-      "prompt": "___かばんはわたしのです。",
+      "prompt": "___{かばん||bag}は{わたし||I}のです。",
       "en": "This bag is mine.",
       "answer": "この",
       "distractors": [
@@ -157,7 +157,7 @@
     },
     {
       "id": "n5-grammar-copula-q8",
-      "prompt": "{先週|せんしゅう}のテストは{簡単|かんたん}___。",
+      "prompt": "{先週|せんしゅう|last week}の{テスト||test}は{簡単|かんたん|easy}___。",
       "en": "Last week's test was easy.",
       "answer": "でした",
       "distractors": [
@@ -168,7 +168,7 @@
     },
     {
       "id": "n5-grammar-copula-q9",
-      "prompt": "これは{誰|だれ}___かさですか。",
+      "prompt": "これは{誰|だれ|who}___{かさ||umbrella}ですか。",
       "en": "Whose umbrella is this?",
       "answer": "の",
       "distractors": [
@@ -179,7 +179,7 @@
     },
     {
       "id": "n5-grammar-copula-q10",
-      "prompt": "{山田|やまだ}さんは{医者|いしゃ}___ありません。",
+      "prompt": "{山田|やまだ|Yamada (a surname)}さんは{医者|いしゃ|doctor}___ありません。",
       "en": "Mr Yamada is not a doctor.",
       "answer": "では",
       "distractors": [
@@ -190,7 +190,7 @@
     },
     {
       "id": "n5-grammar-copula-q11",
-      "prompt": "わたしの{名前|なまえ}は{田中|たなか}___。",
+      "prompt": "{わたし||I}の{名前|なまえ|name}は{田中|たなか|Tanaka (a surname)}___。",
       "en": "My name is Tanaka.",
       "answer": "です",
       "distractors": [
@@ -201,7 +201,7 @@
     },
     {
       "id": "n5-grammar-copula-q12",
-      "prompt": "___は{何|なん}ですか。",
+      "prompt": "___は{何|なん|what}ですか。",
       "en": "What is that over there?",
       "answer": "あれ",
       "distractors": [

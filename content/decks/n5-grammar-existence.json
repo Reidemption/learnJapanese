@@ -70,7 +70,7 @@
   "questions": [
     {
       "id": "n5-grammar-existence-q1",
-      "prompt": "{部屋|へや}に{猫|ねこ}が___。",
+      "prompt": "{部屋|へや|room}に{猫|ねこ|cat}が___。",
       "en": "There is a cat in the room.",
       "answer": "います",
       "distractors": [
@@ -81,7 +81,7 @@
     },
     {
       "id": "n5-grammar-existence-q2",
-      "prompt": "つくえの{上|うえ}に{本|ほん}が___。",
+      "prompt": "{つくえ||desk}の{上|うえ|on top of}に{本|ほん|book}が___。",
       "en": "There is a book on the desk.",
       "answer": "あります",
       "distractors": [
@@ -92,7 +92,7 @@
     },
     {
       "id": "n5-grammar-existence-q3",
-      "prompt": "{公園|こうえん}に{子|こ}どもが___か。",
+      "prompt": "{公園|こうえん|park}に{子|こ|child}どもが___か。",
       "en": "Are there children in the park?",
       "answer": "います",
       "distractors": [
@@ -103,7 +103,7 @@
     },
     {
       "id": "n5-grammar-existence-q4",
-      "prompt": "{冷蔵庫|れいぞうこ}の{中|なか}に{何|なに}も___。",
+      "prompt": "{冷蔵庫|れいぞうこ|fridge}の{中|なか|inside}に{何|なに}も___。",
       "en": "There is nothing in the fridge.",
       "answer": "ありません",
       "distractors": [
@@ -114,7 +114,7 @@
     },
     {
       "id": "n5-grammar-existence-q5",
-      "prompt": "{銀行|ぎんこう}は{駅|えき}___{前|まえ}にあります。",
+      "prompt": "{銀行|ぎんこう|bank}は{駅|えき|station}___{前|まえ|in front of}にあります。",
       "en": "The bank is in front of the station.",
       "answer": "の",
       "distractors": [
@@ -125,7 +125,7 @@
     },
     {
       "id": "n5-grammar-existence-q6",
-      "prompt": "{教室|きょうしつ}___{学生|がくせい}がいます。",
+      "prompt": "{教室|きょうしつ|classroom}___{学生|がくせい|student}がいます。",
       "en": "There are students in the classroom.",
       "answer": "に",
       "distractors": [
@@ -136,7 +136,7 @@
     },
     {
       "id": "n5-grammar-existence-q7",
-      "prompt": "トイレはどこ___ありますか。",
+      "prompt": "{トイレ||toilet}は{どこ||where}___ありますか。",
       "en": "Where is the toilet?",
       "answer": "に",
       "distractors": [
@@ -147,7 +147,7 @@
     },
     {
       "id": "n5-grammar-existence-q8",
-      "prompt": "{今日|きょう}は{授業|じゅぎょう}が___。",
+      "prompt": "{今日|きょう|today}は{授業|じゅぎょう|class / lesson}が___。",
       "en": "There is no class today.",
       "answer": "ありません",
       "distractors": [
@@ -158,7 +158,7 @@
     },
     {
       "id": "n5-grammar-existence-q9",
-      "prompt": "いすの{下|した}に{犬|いぬ}が___。",
+      "prompt": "{いす||chair}の{下|した|under}に{犬|いぬ|dog}が___。",
       "en": "There's a dog under the chair.",
       "answer": "います",
       "distractors": [
@@ -169,7 +169,7 @@
     },
     {
       "id": "n5-grammar-existence-q10",
-      "prompt": "{駅|えき}の{近|ちか}く___コンビニがあります。",
+      "prompt": "{駅|えき|station}の{近|ちか|near}く___{コンビニ||convenience store}があります。",
       "en": "There's a convenience store near the station.",
       "answer": "に",
       "distractors": [
@@ -180,7 +180,7 @@
     },
     {
       "id": "n5-grammar-existence-q11",
-      "prompt": "かばんの{中|なか}に{何|なに}が___か。",
+      "prompt": "{かばん||bag}の{中|なか|inside}に{何|なに|what}が___か。",
       "en": "What is in the bag?",
       "answer": "あります",
       "distractors": [
@@ -191,7 +191,7 @@
     },
     {
       "id": "n5-grammar-existence-q12",
-      "prompt": "{山田|やまだ}さんは{今|いま}{会社|かいしゃ}に___。",
+      "prompt": "{山田|やまだ|Yamada (a surname)}さんは{今|いま|now}{会社|かいしゃ|office / company}に___。",
       "en": "Mr Yamada is at the office now.",
       "answer": "います",
       "distractors": [

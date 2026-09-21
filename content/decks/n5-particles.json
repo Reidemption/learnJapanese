@@ -80,7 +80,7 @@
   "questions": [
     {
       "id": "n5-particles-q1",
-      "prompt": "わたし___{学生|がくせい}です。",
+      "prompt": "{わたし||I}___{学生|がくせい|student}です。",
       "en": "I am a student.",
       "answer": "は",
       "distractors": [
@@ -91,7 +91,7 @@
     },
     {
       "id": "n5-particles-q2",
-      "prompt": "ごはん___{食|た}べます。",
+      "prompt": "{ごはん||meal / rice}___{食|た|eat}べます。",
       "en": "I eat a meal.",
       "answer": "を",
       "distractors": [
@@ -102,7 +102,7 @@
     },
     {
       "id": "n5-particles-q3",
-      "prompt": "{毎朝|まいあさ}７{時|じ}___{起|お}きます。",
+      "prompt": "{毎朝|まいあさ|every morning}７{時|じ|o'clock}___{起|お|get up}きます。",
       "en": "I get up at 7 every morning.",
       "answer": "に",
       "distractors": [
@@ -113,7 +113,7 @@
     },
     {
       "id": "n5-particles-q4",
-      "prompt": "バス___{会社|かいしゃ}に{行|い}きます。",
+      "prompt": "{バス||bus}___{会社|かいしゃ|office / company}に{行|い|go}きます。",
       "en": "I go to the office by bus.",
       "answer": "で",
       "distractors": [
@@ -124,7 +124,7 @@
     },
     {
       "id": "n5-particles-q5",
-      "prompt": "{図書館|としょかん}___{本|ほん}を{読|よ}みます。",
+      "prompt": "{図書館|としょかん|library}___{本|ほん|book}を{読|よ|read}みます。",
       "en": "I read books at the library.",
       "answer": "で",
       "distractors": [
@@ -135,7 +135,7 @@
     },
     {
       "id": "n5-particles-q6",
-      "prompt": "{友|とも}だち___{話|はな}します。",
+      "prompt": "{友|とも|friend}だち___{話|はな|talk}します。",
       "en": "I talk with a friend.",
       "answer": "と",
       "distractors": [
@@ -146,7 +146,7 @@
     },
     {
       "id": "n5-particles-q7",
-      "prompt": "これはわたし___{本|ほん}です。",
+      "prompt": "これは{わたし||I}___{本|ほん|book}です。",
       "en": "This is my book.",
       "answer": "の",
       "distractors": [
@@ -157,7 +157,7 @@
     },
     {
       "id": "n5-particles-q8",
-      "prompt": "９{時|じ}___５{時|じ}まで{働|はたら}きます。",
+      "prompt": "９{時|じ|o'clock}___５{時|じ|o'clock}まで{働|はたら|work}きます。",
       "en": "I work from 9 until 5.",
       "answer": "から",
       "distractors": [
@@ -168,7 +168,7 @@
     },
     {
       "id": "n5-particles-q9",
-      "prompt": "わたし___コーヒーが{好|す}きです。",
+      "prompt": "{わたし||I}___{コーヒー||coffee}が{好|す|like}きです。",
       "en": "I like coffee too.",
       "answer": "も",
       "distractors": [
@@ -179,7 +179,7 @@
     },
     {
       "id": "n5-particles-q10",
-      "prompt": "{部屋|へや}に{犬|いぬ}___います。",
+      "prompt": "{部屋|へや|room}に{犬|いぬ|dog}___います。",
       "en": "There is a dog in the room.",
       "answer": "が",
       "distractors": [
@@ -190,7 +190,7 @@
     },
     {
       "id": "n5-particles-q11",
-      "prompt": "この{電車|でんしゃ}は{東京|とうきょう}___{行|い}きます。",
+      "prompt": "この{電車|でんしゃ|train}は{東京|とうきょう|Tokyo}___{行|い|go}きます。",
       "en": "This train goes as far as Tokyo.",
       "answer": "まで",
       "distractors": [
@@ -201,7 +201,7 @@
     },
     {
       "id": "n5-particles-q12",
-      "prompt": "パン___{牛乳|ぎゅうにゅう}を{買|か}いました。",
+      "prompt": "{パン||bread}___{牛乳|ぎゅうにゅう|milk}を{買|か|buy}いました。",
       "en": "I bought bread and milk.",
       "answer": "と",
       "distractors": [

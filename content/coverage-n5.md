@@ -84,6 +84,10 @@ Worth a human eye when reviewing content:
 
 - Cloze questions rely on the English gloss to disambiguate tense and politeness.
   Where two choices could both be grammatical, the gloss is what makes one correct.
+- Cloze hints (the hover glosses in `{base|reading|gloss}`) are hand-written and short,
+  e.g. `{食|た|eat}`. They deliberately skip particles, demonstratives (これ/この/ここ…)
+  and grammar words, since those are what the decks test. The content test keeps
+  hints off vocab items and answer choices, where they would give the answer away.
 - Kanji decks teach one representative reading per character, not every on/kun reading.
 - A few words appear in two decks with different senses (そば = noodles / nearby).
   That is deliberate; ids stay unique per deck.
