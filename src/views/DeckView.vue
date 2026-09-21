@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import { computed, ref, watch } from "vue";
+import MasteryLegend from "../components/MasteryLegend.vue";
 import RubyText from "../components/RubyText.vue";
+import StackedBar from "../components/charts/StackedBar.vue";
 import { emptyProgress, getDeck, getProgress, scoreKeyOf, type Progress } from "../api";
+import { splitOf, unitsOf } from "../study/analytics";
 import { MODE_HINTS, MODE_LABELS, availableModes, buildQuestions, sessionRng } from "../study/modes";
 import { parseRuby } from "../study/ruby";
 import type { Mode } from "../study/modes";
@@ -12,6 +15,9 @@ const props = defineProps<{ id: string }>();
 const deck = ref<Deck | undefined>();
 const progress = ref<Progress>(emptyProgress());
 const modes = computed(() => (deck.value ? availableModes(deck.value) : []));
+const mastery = computed(() =>
+  deck.value ? splitOf(unitsOf(deck.value), progress.value.items) : undefined,
+);
 
 watch(
   () => props.id,
@@ -42,6 +48,11 @@ function scoreLabel(mode: Mode): string {
     <section class="hero">
       <h1 class="ja">{{ deck.titleJa }}</h1>
       <p>{{ deck.level }} · {{ deck.title }} · {{ deck.items.length }} items</p>
+    </section>
+
+    <section v-if="mastery" class="deck-mastery">
+      <StackedBar :split="mastery" />
+      <MasteryLegend :split="mastery" />
     </section>
 
     <div v-for="mode in modes" :key="mode" class="level-row">

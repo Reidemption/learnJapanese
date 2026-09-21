@@ -6,6 +6,11 @@
   --vermillion: #c4452d;
   --vermillion-deep: #9e3320;
   --pine: #2d7348;
+  --ochre: #b07a1f;
+  /* Mastery colours, shared by every chart and legend. */
+  --known: var(--pine);
+  --learning: var(--ochre);
+  --new: color-mix(in srgb, var(--ink) 13%, transparent);
   --line: color-mix(in srgb, var(--ink) 16%, transparent);
   --shadow: color-mix(in srgb, #1a2430 18%, transparent);
   --display: "Shippori Mincho", "Hiragino Mincho ProN", serif;
@@ -58,6 +63,7 @@ button {
 
 .site-header {
   display: flex;
+  flex-wrap: wrap;
   align-items: baseline;
   justify-content: space-between;
   gap: 1rem;
@@ -87,6 +93,7 @@ button {
 
 .toggles {
   display: flex;
+  flex-wrap: wrap;
   gap: 0.4rem;
 }
 
@@ -527,4 +534,285 @@ a.ghost {
   overflow: hidden;
   clip: rect(0 0 0 0);
   white-space: nowrap;
+}
+
+/* Header link to the dashboard: a pill like the toggles, lit on its own page. */
+.nav-link {
+  text-decoration: none;
+}
+
+.nav-link.router-link-active {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+/* Charts: hand-written SVG, coloured only through the tokens above. */
+.chart {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.chart.stacked-bar {
+  border-radius: 2px;
+}
+
+.chart .known {
+  fill: var(--known);
+}
+
+.chart .learning {
+  fill: var(--learning);
+}
+
+.chart .new {
+  fill: var(--new);
+}
+
+.heatmap {
+  max-width: 22rem;
+}
+
+.heatmap .heat-0 {
+  fill: var(--new);
+}
+
+.heatmap .heat-1 {
+  fill: color-mix(in srgb, var(--known) 30%, transparent);
+}
+
+.heatmap .heat-2 {
+  fill: color-mix(in srgb, var(--known) 55%, transparent);
+}
+
+.heatmap .heat-3 {
+  fill: color-mix(in srgb, var(--known) 78%, transparent);
+}
+
+.heatmap .heat-4 {
+  fill: var(--known);
+}
+
+/* Drawn in viewBox units, so it's capped: wider, and its text would balloon. */
+.line-chart {
+  max-width: 28rem;
+}
+
+.line-chart .line {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 1.6;
+  stroke-linejoin: round;
+}
+
+.line-chart .dot {
+  fill: var(--ink);
+}
+
+.line-chart .axis {
+  stroke: color-mix(in srgb, var(--ink) 35%, transparent);
+}
+
+.line-chart .grid {
+  stroke: var(--line);
+  stroke-dasharray: 2 3;
+}
+
+.line-chart .tick {
+  fill: var(--ink-soft);
+  font-family: var(--body);
+  font-size: 9px;
+}
+
+.mastery-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1rem;
+  margin: 0.5rem 0 0;
+  color: var(--ink-soft);
+  font-size: 0.8rem;
+}
+
+.swatch {
+  display: inline-block;
+  width: 0.65rem;
+  height: 0.65rem;
+  margin-right: 0.35rem;
+  border-radius: 2px;
+  vertical-align: -0.05rem;
+}
+
+.swatch.known {
+  background: var(--known);
+}
+
+.swatch.learning {
+  background: var(--learning);
+}
+
+.swatch.new {
+  background: var(--new);
+}
+
+/* The dashboard. */
+.dashboard .hero {
+  padding-bottom: 1rem;
+}
+
+.level-switch {
+  display: flex;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+}
+
+.dash-section {
+  margin: 0 0 2.2rem;
+}
+
+.headline-count {
+  margin: 0 0 0.7rem;
+  font-family: var(--display);
+  font-size: 1.45rem;
+  line-height: 1.35;
+}
+
+.headline-count small {
+  color: var(--ink-soft);
+  font-size: 0.8em;
+  font-weight: 400;
+}
+
+.streak,
+.dash-note,
+.chart-caption {
+  margin: 0.6rem 0;
+  color: var(--ink-soft);
+  font-size: 0.85rem;
+}
+
+.chart-caption {
+  margin-top: 1.2rem;
+}
+
+.headline .primary {
+  margin-top: 0.6rem;
+}
+
+.group-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.group-bar {
+  display: grid;
+  grid-template-columns: 6.5rem minmax(0, 1fr) 4.2rem;
+  align-items: center;
+  gap: 0.7rem;
+  font-size: 0.88rem;
+}
+
+.group-count {
+  color: var(--ink-soft);
+  font-size: 0.8rem;
+  text-align: right;
+}
+
+.section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.section-head .ghost {
+  font-size: 0.8rem;
+}
+
+.deck-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr));
+  gap: 0.6rem;
+}
+
+.deck-tile {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  min-width: 0;
+  padding: 0.7rem 0.75rem;
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, white 22%, transparent);
+  text-decoration: none;
+}
+
+.deck-tile:hover .deck-tile-title {
+  color: var(--vermillion);
+}
+
+.deck-tile-title {
+  font-size: 0.88rem;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.deck-tile-ja {
+  font-family: var(--ja);
+  color: var(--ink-soft);
+  font-size: 0.82rem;
+}
+
+.deck-tile-meta {
+  color: var(--ink-soft);
+  font-size: 0.72rem;
+}
+
+.weak-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--line);
+}
+
+.weak-list li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 0.2rem 1rem;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.weak-ja {
+  font-size: 1.1rem;
+  line-height: 1.9;
+}
+
+.weak-en {
+  align-self: center;
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+}
+
+.weak-meta {
+  grid-column: 1 / -1;
+  color: var(--ink-soft);
+  font-size: 0.78rem;
+}
+
+.weak-meta a:hover {
+  color: var(--vermillion);
+}
+
+.last-backup {
+  display: block;
+  margin-top: 0.2rem;
+}
+
+/* Deck page: how much of this deck is known, above the modes. */
+.deck-mastery {
+  margin: 0 0 0.6rem;
 }

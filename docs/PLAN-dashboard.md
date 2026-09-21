@@ -117,6 +117,16 @@ While the server is off:
 
 ## Dashboard Phase 2: Dashboard page
 
+**Built as:** these are the choices made where the list below left room.
+- **Signatures:** every analytics function takes its inputs explicitly, e.g. `coverage(decks, stats, level)` and `activity(attempts, days, now)`. `statsAt(decks, stats, level)` narrows the stats to one level, so learned-over-time and "Needs work" never mix N5 and N4.
+- **Loading:** the page loads `listDecks()` and then `getDeck()` for each deck (cached), since units need the items and questions. `getProgress()` and `listAttempts()` follow, all through the `api.ts` fallback wrappers.
+- **Streak** counts study days across every level. Activity, coverage and the deck grid are per level.
+- **Order:** the sections follow the list below. In the empty state the "Start with …" button sits in the headline, and the activity, learned-over-time, needs-work and next-up sections are hidden. The group bars and deck grid stay, all grey.
+- **Learned over time** is cumulative `knownAt`, so it can run ahead of the headline's current "known" count. A caption on the chart says so.
+- **Colours:** `--known` (pine), `--learning` (a new ochre) and `--new` (faint ink) are tokens in `style.css`. The charts use nothing else. The app has no dark theme yet, so "legible in dark" means the charts are ready for one: a dark theme only has to redefine the tokens.
+- **Tests** run with `TZ=America/Denver` (set in `vite.config.ts`), so the midnight and DST cases mean the same thing on every machine.
+- The backup section shows "Last downloaded <date>" from `lj.lastBackupAt`, which is kept on the device only.
+
 - Add `src/study/analytics.ts`, pure functions over `(decks, progress, attempts, now)`:
   - `coverage(level)`: known / learning / new counts over the level's universe
   - `byGroup(level)`: the same split per home-page section (vocab, kanji, grammar, and so on)
@@ -141,16 +151,16 @@ While the server is off:
 - The deck page gains a small mastery bar (known / learning / new) above the mode buttons.
 
 **A/C**
-- [ ] `analytics.test.ts` covers each function with fixed data, including:
+- [x] `analytics.test.ts` covers each function with fixed data, including:
   - day bucketing across midnight and across a DST change (run with a fixed `TZ`)
   - a streak broken by one missed day
   - a streak still alive when yesterday had a session but today has none yet
   - empty progress
-- [ ] `coverage("N5").total` equals the item+question count of every N5 deck, asserted against `content.ts`, so new content updates it automatically.
-- [ ] A component test mounts `DashboardView` with a stubbed API and checks the headline numbers, one row per group, and the empty state.
-- [ ] The dashboard loads through the `api.ts` wrappers: it works in static and HTTP mode, and falls back to local data when the server is down.
-- [ ] `router.test.ts` covers `/dashboard`.
-- [ ] Manual: at 375px wide there's no horizontal scroll, and the charts are legible in light and dark.
+- [x] `coverage("N5").total` equals the item+question count of every N5 deck, asserted against `content.ts`, so new content updates it automatically.
+- [x] A component test mounts `DashboardView` with a stubbed API and checks the headline numbers, one row per group, and the empty state.
+- [x] The dashboard loads through the `api.ts` wrappers: it works in static and HTTP mode, and falls back to local data when the server is down.
+- [x] `router.test.ts` covers `/dashboard`.
+- [ ] Manual: at 375px wide there's no horizontal scroll, and the charts are legible in light and dark. *(Checked in headless Edge with 70 days of synthetic sessions: in a 375px frame the page's `scrollWidth` equals its width and no element overflows, and the charts read clearly at 375px and 900px. Dark isn't checked, since the app has no dark theme yet (see above). A real phone or devtools click-through is still worth doing.)*
 
 ## Later
 - **Test understanding:** planned in `docs/PLAN-test-understanding.md`. It covers deck tests with no help on screen, harder choices, typed answers and a `mastered` tier above `known`. It needs Dashboard Phase 1 first.

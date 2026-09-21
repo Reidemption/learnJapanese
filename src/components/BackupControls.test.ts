@@ -74,6 +74,7 @@ describe("BackupControls", () => {
     const click = vi.spyOn(HTMLAnchorElement.prototype, "click").mockImplementation(() => {});
 
     const wrapper = mount(BackupControls);
+    expect(wrapper.text()).toContain("No backup downloaded on this device yet.");
     await wrapper.findAll("button")[0]!.trigger("click");
     await flushPromises();
 
@@ -83,6 +84,9 @@ describe("BackupControls", () => {
     const saved = JSON.parse(await created[0]!.text());
     expect(saved.attempts).toHaveLength(1);
     expect(wrapper.text()).toContain("Saved 1 session.");
+    // The date of the download is remembered, as a nudge for next time.
+    expect(wrapper.text()).toContain("Last downloaded");
+    expect(mount(BackupControls).text()).toContain("Last downloaded");
     vi.unstubAllGlobals();
   });
 });

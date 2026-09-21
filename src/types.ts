@@ -52,6 +52,16 @@ export const DECK_GROUPS = [
 
 export type DeckGroup = (typeof DECK_GROUPS)[number];
 
+export const GROUP_LABELS: Record<DeckGroup, string> = {
+  phrases: "Phrases",
+  vocab: "Vocabulary",
+  verbs: "Verbs",
+  numbers: "Numbers",
+  kanji: "Kanji",
+  grammar: "Grammar",
+  particles: "Particles",
+};
+
 /** A single thing to learn. `ja` uses the {base|reading|gloss} markup. */
 export type Item = {
   id: string;

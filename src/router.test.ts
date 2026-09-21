@@ -79,6 +79,26 @@ describe("routing", () => {
     expect(loadAttemptLog()[0]).toMatchObject({ kana: true, hints: false });
   });
 
+  it("opens the dashboard from the header link", async () => {
+    const wrapper = await open("/");
+    await wrapper.find(".nav-link").trigger("click");
+    await flushPromises();
+    expect(router.currentRoute.value.name).toBe("dashboard");
+    expect(wrapper.find(".headline-count").text()).toMatch(/^0 of [\d,]+ N5 units known/);
+  });
+
+  it("opens the dashboard straight from its URL", async () => {
+    const wrapper = await open("/dashboard");
+    expect(wrapper.find(".headline-count").exists()).toBe(true);
+    expect(wrapper.findAll(".deck-tile").length).toBe(decks.filter((d) => d.level === "N5").length);
+  });
+
+  it("shows how much of a deck is known above its modes", async () => {
+    const wrapper = await open(`/deck/${deck.id}`);
+    const units = deck.items.length + (deck.questions?.length ?? 0);
+    expect(wrapper.find(".deck-mastery .mastery-legend").text()).toContain(`${units} new`);
+  });
+
   it("sends a refreshed result page back to the deck instead of faking a score", async () => {
     const wrapper = await open(`/deck/${deck.id}/${mode}/result`);
     expect(wrapper.text()).toContain("No score to show");

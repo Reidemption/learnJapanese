@@ -17,5 +17,8 @@ export default defineConfig({
   test: {
     environment: "jsdom",
     include: ["src/**/*.test.ts"],
+    // Day bucketing is local time; a fixed zone with DST keeps the analytics
+    // tests (midnight and DST edges) meaning the same on every machine.
+    env: { TZ: "America/Denver" },
   },
 });

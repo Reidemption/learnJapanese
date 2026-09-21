@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import { exportProgress, importProgress } from "../api";
+import { read, write } from "../progress";
 import { backupFileName, parseBackup } from "../study/backup";
 
 const emit = defineEmits<{ restored: [] }>();
@@ -8,6 +9,16 @@ const emit = defineEmits<{ restored: [] }>();
 const message = ref("");
 const busy = ref(false);
 const fileInput = ref<HTMLInputElement | null>(null);
+
+// Kept on this device only: it's a nudge to download another, not a record.
+const LAST_BACKUP_KEY = "lj.lastBackupAt";
+const lastBackupAt = ref(read<number | null>(LAST_BACKUP_KEY, null));
+const lastBackupLabel = computed(() => {
+  const at = lastBackupAt.value;
+  if (typeof at !== "number") return "No backup downloaded on this device yet.";
+  const date = new Date(at).toLocaleDateString(undefined, { dateStyle: "medium" });
+  return `Last downloaded ${date}.`;
+});
 
 async function download(): Promise<void> {
   busy.value = true;
@@ -20,6 +31,8 @@ async function download(): Promise<void> {
     link.download = backupFileName(backup.exportedAt || Date.now());
     link.click();
     URL.revokeObjectURL(url);
+    lastBackupAt.value = Date.now();
+    write(LAST_BACKUP_KEY, lastBackupAt.value);
     const sessions = backup.attempts.length;
     message.value = `Saved ${sessions} session${sessions === 1 ? "" : "s"}.`;
   } catch (error) {
@@ -52,9 +65,10 @@ async function restore(event: Event): Promise<void> {
 
 <template>
   <section class="backup">
-    <h3 class="group-heading">Your progress</h3>
+    <h3 class="group-heading">Backup</h3>
     <p class="backup-note">
       Progress is saved as you study. A backup file keeps it safe if browser data is cleared.
+      <span class="last-backup">{{ lastBackupLabel }}</span>
     </p>
     <div class="actions">
       <button class="ghost" type="button" :disabled="busy" @click="download">
