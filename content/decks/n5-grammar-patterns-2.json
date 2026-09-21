@@ -70,7 +70,7 @@
   "questions": [
     {
       "id": "n5-grammar-patterns-2-q1",
-      "prompt": "{明日|あした}は{雨|あめ}___。",
+      "prompt": "{明日|あした|tomorrow}は{雨|あめ|rain}___。",
       "en": "It will probably rain tomorrow.",
       "answer": "でしょう",
       "distractors": [
@@ -81,7 +81,7 @@
     },
     {
       "id": "n5-grammar-patterns-2-q2",
-      "prompt": "{山田|やまだ}さんは{来|こ}ないと___。",
+      "prompt": "{山田|やまだ|Yamada (a surname)}さんは{来|こ|come}ないと___。",
       "en": "I think Mr Yamada won't come.",
       "answer": "{思|おも}います",
       "distractors": [
@@ -92,7 +92,7 @@
     },
     {
       "id": "n5-grammar-patterns-2-q3",
-      "prompt": "{夏休|なつやす}みに{国|くに}へ{帰|かえ}る___です。",
+      "prompt": "{夏休|なつやす|summer vacation}みに{国|くに|home country}へ{帰|かえ|go home}る___です。",
       "en": "I intend to go home over the summer.",
       "answer": "つもり",
       "distractors": [
@@ -103,7 +103,7 @@
     },
     {
       "id": "n5-grammar-patterns-2-q4",
-      "prompt": "{薬|くすり}を{飲|の}んだ___がいいです。",
+      "prompt": "{薬|くすり|medicine}を{飲|の|take (medicine)}んだ___がいいです。",
       "en": "You had better take medicine.",
       "answer": "ほう",
       "distractors": [
@@ -114,7 +114,7 @@
     },
     {
       "id": "n5-grammar-patterns-2-q5",
-      "prompt": "{寒|さむ}___なりました。",
+      "prompt": "{寒|さむ|cold}___なりました。",
       "en": "It has gotten cold.",
       "answer": "く",
       "distractors": [
@@ -125,7 +125,7 @@
     },
     {
       "id": "n5-grammar-patterns-2-q6",
-      "prompt": "{医者|いしゃ}___なりたいです。",
+      "prompt": "{医者|いしゃ|doctor}___なりたいです。",
       "en": "I want to become a doctor.",
       "answer": "に",
       "distractors": [
@@ -136,7 +136,7 @@
     },
     {
       "id": "n5-grammar-patterns-2-q7",
-      "prompt": "{日曜日|にちようび}は{本|ほん}を{読|よ}んだり{音楽|おんがく}を{聞|き}い___します。",
+      "prompt": "{日曜日|にちようび|Sunday}は{本|ほん|book}を{読|よ|read}んだり{音楽|おんがく|music}を{聞|き|listen}い___します。",
       "en": "On Sundays I do things like read books and listen to music.",
       "answer": "たり",
       "distractors": [
@@ -147,7 +147,7 @@
     },
     {
       "id": "n5-grammar-patterns-2-q8",
-      "prompt": "___{飲|の}みませんか。",
+      "prompt": "___{飲|の|drink}みませんか。",
       "en": "Won't you drink something?",
       "answer": "{何|なに}か",
       "distractors": [
@@ -158,7 +158,7 @@
     },
     {
       "id": "n5-grammar-patterns-2-q9",
-      "prompt": "{週末|しゅうまつ}は___{行|い}きましたか。",
+      "prompt": "{週末|しゅうまつ|weekend}は___{行|い|go}きましたか。",
       "en": "Did you go somewhere at the weekend?",
       "answer": "どこか",
       "distractors": [
@@ -169,7 +169,7 @@
     },
     {
       "id": "n5-grammar-patterns-2-q10",
-      "prompt": "{部屋|へや}がきれい___なりました。",
+      "prompt": "{部屋|へや|room}が{きれい||clean / pretty}___なりました。",
       "en": "The room has become clean.",
       "answer": "に",
       "distractors": [
@@ -180,7 +180,7 @@
     },
     {
       "id": "n5-grammar-patterns-2-q11",
-      "prompt": "この{仕事|しごと}は{明日|あした}までに{終|お}わる___。",
+      "prompt": "この{仕事|しごと|work / job}は{明日|あした|tomorrow}までに{終|お|finish}わる___。",
       "en": "This work will probably be finished by tomorrow.",
       "answer": "でしょう",
       "distractors": [
@@ -191,7 +191,7 @@
     },
     {
       "id": "n5-grammar-patterns-2-q12",
-      "prompt": "ケーキ___{買|か}いましょう。",
+      "prompt": "{ケーキ||cake}___{買|か|buy}いましょう。",
       "en": "Let's buy cake and so on.",
       "answer": "など",
       "distractors": [

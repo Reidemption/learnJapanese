@@ -70,7 +70,7 @@
   "questions": [
     {
       "id": "n5-grammar-te-form-q1",
-      "prompt": "ちょっと{待|ま}___ください。",
+      "prompt": "{ちょっと||a little / a moment}{待|ま|wait}___ください。",
       "en": "Please wait a moment.",
       "answer": "って",
       "distractors": [
@@ -81,7 +81,7 @@
     },
     {
       "id": "n5-grammar-te-form-q2",
-      "prompt": "{本|ほん}を{読|よ}___ください。",
+      "prompt": "{本|ほん|book}を{読|よ|read}___ください。",
       "en": "Please read the book.",
       "answer": "んで",
       "distractors": [
@@ -92,7 +92,7 @@
     },
     {
       "id": "n5-grammar-te-form-q3",
-      "prompt": "ここに{名前|なまえ}を{書|か}___ください。",
+      "prompt": "ここに{名前|なまえ|name}を{書|か|write}___ください。",
       "en": "Please write your name here.",
       "answer": "いて",
       "distractors": [
@@ -103,7 +103,7 @@
     },
     {
       "id": "n5-grammar-te-form-q4",
-      "prompt": "ここで{泳|およ}___はいけません。",
+      "prompt": "ここで{泳|およ|swim}___はいけません。",
       "en": "You must not swim here.",
       "answer": "いで",
       "distractors": [
@@ -114,7 +114,7 @@
     },
     {
       "id": "n5-grammar-te-form-q5",
-      "prompt": "もっとゆっくり{話|はな}___ください。",
+      "prompt": "{もっと||more}{ゆっくり||slowly}{話|はな|speak}___ください。",
       "en": "Please speak more slowly.",
       "answer": "して",
       "distractors": [
@@ -125,7 +125,7 @@
     },
     {
       "id": "n5-grammar-te-form-q6",
-      "prompt": "{駅|えき}へ{行|い}___、{切符|きっぷ}を{買|か}います。",
+      "prompt": "{駅|えき|station}へ{行|い|go}___、{切符|きっぷ|ticket}を{買|か|buy}います。",
       "en": "I'll go to the station and buy a ticket.",
       "answer": "って",
       "distractors": [
@@ -136,7 +136,7 @@
     },
     {
       "id": "n5-grammar-te-form-q7",
-      "prompt": "{今|いま}ごはんを{食|た}べ___います。",
+      "prompt": "{今|いま|now}{ごはん||meal}を{食|た|eat}べ___います。",
       "en": "I'm eating a meal right now.",
       "answer": "て",
       "distractors": [
@@ -147,7 +147,7 @@
     },
     {
       "id": "n5-grammar-te-form-q8",
-      "prompt": "{東京|とうきょう}に{住|す}___います。",
+      "prompt": "{東京|とうきょう|Tokyo}に{住|す|live}___います。",
       "en": "I live in Tokyo.",
       "answer": "んで",
       "distractors": [
@@ -158,7 +158,7 @@
     },
     {
       "id": "n5-grammar-te-form-q9",
-      "prompt": "ここでたばこを{吸|す}っては___。",
+      "prompt": "ここで{たばこ||cigarette}を{吸|す|smoke}っては___。",
       "en": "You must not smoke here.",
       "answer": "いけません",
       "distractors": [
@@ -169,7 +169,7 @@
     },
     {
       "id": "n5-grammar-te-form-q10",
-      "prompt": "これを{使|つか}っ___いいですか。",
+      "prompt": "これを{使|つか|use}っ___いいですか。",
       "en": "May I use this?",
       "answer": "ても",
       "distractors": [
@@ -180,7 +180,7 @@
     },
     {
       "id": "n5-grammar-te-form-q11",
-      "prompt": "ここに{入|はい}ら___ください。",
+      "prompt": "ここに{入|はい|enter}ら___ください。",
       "en": "Please don't come in here.",
       "answer": "ないで",
       "distractors": [
@@ -191,7 +191,7 @@
     },
     {
       "id": "n5-grammar-te-form-q12",
-      "prompt": "{宿題|しゅくだい}をし___{遊|あそ}びます。",
+      "prompt": "{宿題|しゅくだい|homework}をし___{遊|あそ|play}びます。",
       "en": "I'll play after doing my homework.",
       "answer": "てから",
       "distractors": [

@@ -70,7 +70,7 @@
   "questions": [
     {
       "id": "n5-grammar-verb-forms-q1",
-      "prompt": "{毎日|まいにち}コーヒーを{飲|の}___。",
+      "prompt": "{毎日|まいにち|every day}{コーヒー||coffee}を{飲|の|drink}___。",
       "en": "I drink coffee every day.",
       "answer": "みます",
       "distractors": [
@@ -81,7 +81,7 @@
     },
     {
       "id": "n5-grammar-verb-forms-q2",
-      "prompt": "{昨日|きのう}、{映画|えいが}を{見|み}___。",
+      "prompt": "{昨日|きのう|yesterday}、{映画|えいが|movie}を{見|み|watch / see}___。",
       "en": "I watched a movie yesterday.",
       "answer": "ました",
       "distractors": [
@@ -92,7 +92,7 @@
     },
     {
       "id": "n5-grammar-verb-forms-q3",
-      "prompt": "お{酒|さけ}は{飲|の}___。",
+      "prompt": "お{酒|さけ|alcohol / sake}は{飲|の|drink}___。",
       "en": "I don't drink alcohol.",
       "answer": "みません",
       "distractors": [
@@ -103,7 +103,7 @@
     },
     {
       "id": "n5-grammar-verb-forms-q4",
-      "prompt": "{先週|せんしゅう}は{学校|がっこう}へ{行|い}___。",
+      "prompt": "{先週|せんしゅう|last week}は{学校|がっこう|school}へ{行|い|go}___。",
       "en": "I didn't go to school last week.",
       "answer": "きませんでした",
       "distractors": [
@@ -114,7 +114,7 @@
     },
     {
       "id": "n5-grammar-verb-forms-q5",
-      "prompt": "いっしょに{昼|ひる}ごはんを{食|た}べ___。",
+      "prompt": "{いっしょに||together}{昼|ひる|lunch}ごはんを{食|た|eat}べ___。",
       "en": "Let's eat lunch together.",
       "answer": "ましょう",
       "distractors": [
@@ -125,7 +125,7 @@
     },
     {
       "id": "n5-grammar-verb-forms-q6",
-      "prompt": "{窓|まど}を{開|あ}け___か。",
+      "prompt": "{窓|まど|window}を{開|あ|open}け___か。",
       "en": "Shall I open the window?",
       "answer": "ましょう",
       "distractors": [
@@ -136,7 +136,7 @@
     },
     {
       "id": "n5-grammar-verb-forms-q7",
-      "prompt": "{今晩|こんばん}、{飲|の}みに{行|い}き___か。",
+      "prompt": "{今晩|こんばん|tonight}、{飲|の|drink}みに{行|い|go}き___か。",
       "en": "Won't you go out for a drink tonight?",
       "answer": "ません",
       "distractors": [
@@ -147,7 +147,7 @@
     },
     {
       "id": "n5-grammar-verb-forms-q8",
-      "prompt": "{水|みず}が{飲|の}み___です。",
+      "prompt": "{水|みず|water}が{飲|の|drink}み___です。",
       "en": "I want to drink water.",
       "answer": "たい",
       "distractors": [
@@ -158,7 +158,7 @@
     },
     {
       "id": "n5-grammar-verb-forms-q9",
-      "prompt": "デパートへ{買|か}い{物|もの}___{行|い}きます。",
+      "prompt": "{デパート||department store}へ{買|か|shopping}い{物|もの}___{行|い|go}きます。",
       "en": "I'm going to the department store to shop.",
       "answer": "に",
       "distractors": [
@@ -169,7 +169,7 @@
     },
     {
       "id": "n5-grammar-verb-forms-q10",
-      "prompt": "もうレポートを{書|か}き___。",
+      "prompt": "{もう||already}{レポート||report}を{書|か|write}き___。",
       "en": "I have already written the report.",
       "answer": "ました",
       "distractors": [
@@ -180,7 +180,7 @@
     },
     {
       "id": "n5-grammar-verb-forms-q11",
-      "prompt": "{母|はは}はよく{手紙|てがみ}を{書|か}き___。",
+      "prompt": "{母|はは|(my) mother}は{よく||often}{手紙|てがみ|letter}を{書|か|write}き___。",
       "en": "My mother often writes letters.",
       "answer": "ます",
       "distractors": [
@@ -191,7 +191,7 @@
     },
     {
       "id": "n5-grammar-verb-forms-q12",
-      "prompt": "{明日|あした}は{何時|なんじ}に{起|お}き___か。",
+      "prompt": "{明日|あした|tomorrow}は{何時|なんじ|what time}に{起|お|get up}き___か。",
       "en": "What time will you get up tomorrow?",
       "answer": "ます",
       "distractors": [

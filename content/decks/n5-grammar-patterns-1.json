@@ -70,7 +70,7 @@
   "questions": [
     {
       "id": "n5-grammar-patterns-1-q1",
-      "prompt": "{日本|にほん}へ{行|い}き___です。",
+      "prompt": "{日本|にほん|Japan}へ{行|い|go}き___です。",
       "en": "I want to go to Japan.",
       "answer": "たい",
       "distractors": [
@@ -81,7 +81,7 @@
     },
     {
       "id": "n5-grammar-patterns-1-q2",
-      "prompt": "わたしはピアノをひくこと___できます。",
+      "prompt": "{わたし||I}は{ピアノ||piano}を{ひく||play (an instrument)}こと___できます。",
       "en": "I can play the piano.",
       "answer": "が",
       "distractors": [
@@ -92,7 +92,7 @@
     },
     {
       "id": "n5-grammar-patterns-1-q3",
-      "prompt": "{寝|ね}る___に{歯|は}をみがきます。",
+      "prompt": "{寝|ね|go to bed}る___に{歯|は|teeth}を{みがき||brush}ます。",
       "en": "I brush my teeth before going to bed.",
       "answer": "{前|まえ}",
       "distractors": [
@@ -103,7 +103,7 @@
     },
     {
       "id": "n5-grammar-patterns-1-q4",
-      "prompt": "ごはんを{食|た}べた___で{薬|くすり}を{飲|の}みます。",
+      "prompt": "{ごはん||meal}を{食|た|eat}べた___で{薬|くすり|medicine}を{飲|の|take (medicine)}みます。",
       "en": "I take medicine after eating.",
       "answer": "{後|あと}",
       "distractors": [
@@ -114,7 +114,7 @@
     },
     {
       "id": "n5-grammar-patterns-1-q5",
-      "prompt": "{音楽|おんがく}を{聞|き}き___、{勉強|べんきょう}します。",
+      "prompt": "{音楽|おんがく|music}を{聞|き|listen}き___、{勉強|べんきょう|study}します。",
       "en": "I study while listening to music.",
       "answer": "ながら",
       "distractors": [
@@ -125,7 +125,7 @@
     },
     {
       "id": "n5-grammar-patterns-1-q6",
-      "prompt": "{雨|あめ}が{降|ふ}っています___、{出|で}かけません。",
+      "prompt": "{雨|あめ|rain}が{降|ふ|fall (rain)}っています___、{出|で|go out}かけません。",
       "en": "It's raining, so I won't go out.",
       "answer": "から",
       "distractors": [
@@ -136,7 +136,7 @@
     },
     {
       "id": "n5-grammar-patterns-1-q7",
-      "prompt": "{時間|じかん}がありません___、タクシーで{行|い}きます。",
+      "prompt": "{時間|じかん|time}がありません___、{タクシー||taxi}で{行|い|go}きます。",
       "en": "I don't have time, so I'll go by taxi.",
       "answer": "から",
       "distractors": [
@@ -147,7 +147,7 @@
     },
     {
       "id": "n5-grammar-patterns-1-q8",
-      "prompt": "このかばんは{高|たか}いです___、いいです。",
+      "prompt": "この{かばん||bag}は{高|たか|expensive}いです___、いいです。",
       "en": "This bag is expensive, but it's nice.",
       "answer": "が",
       "distractors": [
@@ -158,7 +158,7 @@
     },
     {
       "id": "n5-grammar-patterns-1-q9",
-      "prompt": "___{昼|ひる}ごはんを{食|た}べましたか。",
+      "prompt": "___{昼|ひる|lunch}ごはんを{食|た|eat}べましたか。",
       "en": "Have you eaten lunch yet?",
       "answer": "もう",
       "distractors": [
@@ -169,7 +169,7 @@
     },
     {
       "id": "n5-grammar-patterns-1-q10",
-      "prompt": "___{食|た}べていません。",
+      "prompt": "___{食|た|eat}べていません。",
       "en": "I haven't eaten yet.",
       "answer": "まだ",
       "distractors": [
@@ -180,7 +180,7 @@
     },
     {
       "id": "n5-grammar-patterns-1-q11",
-      "prompt": "この{漢字|かんじ}の{読|よ}み___が{分|わ}かりません。",
+      "prompt": "この{漢字|かんじ|kanji}の{読|よ|read}み___が{分|わ|understand}かりません。",
       "en": "I don't know how to read this kanji.",
       "answer": "{方|かた}",
       "distractors": [
@@ -191,7 +191,7 @@
     },
     {
       "id": "n5-grammar-patterns-1-q12",
-      "prompt": "わたしは{泳|およ}ぐことが___。",
+      "prompt": "{わたし||I}は{泳|およ|swim}ぐことが___。",
       "en": "I can swim.",
       "answer": "できます",
       "distractors": [
