@@ -5,7 +5,9 @@ single-topic decks (10–30 items) studied through multiple-choice modes.
 
 **Read `docs/PLAN.md` first.** It is the source of truth for the roadmap, the
 content format, and the acceptance criteria for each phase. Tick A/C items there
-as you finish them.
+as you finish them. The dashboard initiative (Dashboard Phase 1, 2, …) lives in
+`docs/PLAN-dashboard.md`; test understanding (Test Phase 1, 2, …) lives in
+`docs/PLAN-test-understanding.md`.
 
 ## Layout
 - `src/` — Vue 3 + Vite + TS frontend
