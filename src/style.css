@@ -266,15 +266,18 @@ select.font-picker {
 .choice {
   display: flex;
   align-items: center;
-  gap: 0.8rem;
-  padding: 0.85rem 0.95rem;
+  gap: 0.9rem;
+  padding: 1rem 1.1rem;
   border: 1px solid var(--line);
   background: color-mix(in srgb, white 28%, transparent);
+  font-size: 1.25rem;
+  /* Room for furigana above the Japanese choices. */
+  line-height: 1.9;
   text-align: left;
 }
 
 .choice .num {
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   color: var(--ink-soft);
 }
 
