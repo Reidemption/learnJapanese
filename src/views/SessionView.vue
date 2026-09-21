@@ -2,22 +2,22 @@
 import { computed, ref, watch } from "vue";
 import { useRouter } from "vue-router";
 import QuizSession from "../components/QuizSession.vue";
-import { getDeck } from "../content";
-import { recordItems, saveScore } from "../progress";
+import { getDeck, postAttempt } from "../api";
 import type { ItemResult } from "../progress";
 import { lastResult, takeRetryQueue } from "../session";
 import { MODE_LABELS, buildQuestions, isMode } from "../study/modes";
 import { seeded } from "../study/rng";
-import type { Question } from "../types";
+import type { Deck, Question } from "../types";
 
 const props = defineProps<{ id: string; mode: string }>();
 const router = useRouter();
 
-const deck = computed(() => getDeck(props.id));
+const deck = ref<Deck | undefined>();
 const mode = computed(() => (isMode(props.mode) ? props.mode : undefined));
 const questions = ref<Question[]>([]);
 
-function build(): void {
+async function build(): Promise<void> {
+  deck.value = await getDeck(props.id);
   if (!deck.value || !mode.value) return;
   // A retry session replays the missed questions; a fresh one gets a new seed
   // so the order differs every time.
@@ -34,8 +34,15 @@ function finish(payload: {
   results: ItemResult[];
 }): void {
   if (!mode.value) return;
-  saveScore(props.id, mode.value, payload);
-  recordItems(payload.results);
+  // Recording is fire-and-forget: a slow or missing backend must not hold up
+  // the score screen, and the API layer keeps a local copy either way.
+  void postAttempt({
+    deckId: props.id,
+    mode: mode.value,
+    correct: payload.correct,
+    total: payload.total,
+    items: payload.results,
+  });
   lastResult.value = {
     deckId: props.id,
     mode: mode.value,

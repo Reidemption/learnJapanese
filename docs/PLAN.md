@@ -168,12 +168,13 @@ This is the phase that makes the app actually useful, and it's mostly authoring.
 - `src/api.ts` gets two implementations of the same interface, `listDecks`, `getDeck`, `postAttempt` and `getProgress`: `staticApi` (JSON + localStorage) and `httpApi`. `VITE_API_URL` chooses between them. If it's unset, the app uses static mode, so the frontend still works on its own.
 - Add a Vite dev proxy from `/api` to `localhost:8080`, and generate and persist the anonymous `clientId` in localStorage.
 - In HTTP mode, localStorage stays as an offline fallback: failed posts are queued and retried later. Keep it simple, and it's fine to drop this if it gets hairy.
+- Two contract details the frontend treats as optional, so it works either way: a deck summary may carry `itemCount` (the home page shows "N items" only when it does), and a score entry may carry `total` (the deck page falls back to the generated question count). If the server sends both, the HTTP and static modes look identical.
 
 **A/C**
-- [ ] Unit tests cover `httpApi` with a mocked `fetch` (correct URLs and payloads, and errors surface without crashing the UI).
+- [x] Unit tests cover `httpApi` with a mocked `fetch` (correct URLs and payloads, and errors surface without crashing the UI). See `src/api.test.ts`.
 - [ ] Manual check with the backend running: complete a session, refresh, and the best score still shows; it also appears via `GET /api/progress`.
-- [ ] With `VITE_API_URL` unset, the app behaves exactly as it did at the end of Phase 3.
-- [ ] A root-level `README.md` lists the dev commands for both halves.
+- [x] With `VITE_API_URL` unset, the app behaves exactly as it did at the end of Phase 3 (the whole suite runs in static mode).
+- [x] A root-level `README.md` lists the dev commands for both halves.
 
 ### Phase 6: N4 content (only after Phase 3.5's checklist is complete)
 Same shape as Phase 3.5, with `level: "N4"` and `content/coverage-n4.md`. N4 is roughly 1,500 more words, about 200 more kanji and about 100 more grammar points, so expect it to be bigger than all of N5. Suggested starting decks: Work & school · Health & illness · Travel · Shopping & services · Feelings & personality · Transitive/intransitive pairs · Giving & receiving (あげる/くれる/もらう) · て-form patterns II · Conditionals たら/ば/と/なら · Potential, passive & causative · Volitional & plain-form patterns · Keigo basics · N4 kanji sets. No code changes should be needed. If any are, that's a bug in the level-agnostic design.

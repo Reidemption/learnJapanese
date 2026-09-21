@@ -1,17 +1,18 @@
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, ref, watch } from "vue";
 import { useRouter } from "vue-router";
 import RubyText from "../components/RubyText.vue";
-import { getDeck } from "../content";
+import { getDeck } from "../api";
 import { correctChoice, filledPrompt } from "../progress";
 import { lastResult, retryQueue } from "../session";
 import { MODE_LABELS, isMode } from "../study/modes";
-import type { Question } from "../types";
+import type { Deck, Question } from "../types";
 
 const props = defineProps<{ id: string; mode: string }>();
 const router = useRouter();
 
-const deck = computed(() => getDeck(props.id));
+const deck = ref<Deck | undefined>();
+watch(() => props.id, async (id) => (deck.value = await getDeck(id)), { immediate: true });
 const mode = computed(() => (isMode(props.mode) ? props.mode : undefined));
 
 /** Only the result for this deck+mode: a refresh leaves nothing to show. */
