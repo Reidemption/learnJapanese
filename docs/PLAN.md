@@ -145,7 +145,7 @@ This is the phase that makes the app actually useful, and it's mostly authoring.
 
 ### Phase 4: Go + SQLite backend (can run in parallel with Phases 2–3.5)
 - Set up `server/` with Go ≥1.22, using the standard `net/http` pattern routing (no framework) and **`modernc.org/sqlite`**. It's pure Go, so it needs no CGO and builds cleanly on Windows.
-- `content/` is embedded via a small Go package at the repo root, or copied with `go generate`. Pick whichever is simpler, since `go:embed` can't reach `../`. On startup the server upserts decks into SQLite, and running it twice is safe.
+- `content/` is embedded via a small Go package at the repo root, or copied with `go generate`. Pick whichever is simpler, since `go:embed` can't reach `../`. **Built as:** one module `learnjapanese` at the repo root (not `learnjapanese/server`), with `embed.go` at the root owning the embedded `content/decks/*.json` and `server/` as `package main` importing it. `go run ./server`, `go test ./...` and `go vet ./...` all run from the repo root. On startup the server upserts decks into SQLite, and running it twice is safe.
 - Schema:
   - `decks(id PK, level, grp, title, title_ja, ord, json)`
   - `attempts(id PK, client_id, deck_id, mode, correct, total, created_at)`
@@ -159,10 +159,10 @@ This is the phase that makes the app actually useful, and it's mostly authoring.
 - Config comes from env vars: `PORT` (default 8080) and `DB_PATH` (default `./data/app.db`; `:memory:` in tests). Allow CORS for the Vite dev origin.
 
 **A/C**
-- [ ] `go test ./...` passes. It uses `httptest` + an in-memory DB and covers every endpoint's happy path, 404 for an unknown deck, and 400 for a bad attempt payload (missing fields, `correct > total`, unknown deck).
-- [ ] Seeding is idempotent: the test seeds twice and counts rows.
-- [ ] `go run ./server` (or `cd server && go run .`) serves `/api/decks` with all decks from `content/`.
-- [ ] `go vet ./...` is clean.
+- [x] `go test ./...` passes. It uses `httptest` + an in-memory DB and covers every endpoint's happy path, 404 for an unknown deck, and 400 for a bad attempt payload (missing fields, `correct > total`, unknown deck).
+- [x] Seeding is idempotent: the test seeds twice and counts rows.
+- [x] `go run ./server` (or `cd server && go run .`) serves `/api/decks` with all decks from `content/`.
+- [x] `go vet ./...` is clean.
 
 ### Phase 5: Connect frontend ↔ backend
 - `src/api.ts` gets two implementations of the same interface, `listDecks`, `getDeck`, `postAttempt` and `getProgress`: `staticApi` (JSON + localStorage) and `httpApi`. `VITE_API_URL` chooses between them. If it's unset, the app uses static mode, so the frontend still works on its own.
