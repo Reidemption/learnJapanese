@@ -180,7 +180,7 @@ func TestPostAttemptAndProgress(t *testing.T) {
 	}
 	var got struct {
 		Decks map[string]deckProgress `json:"decks"`
-		Items map[string]itemProgress `json:"items"`
+		Items map[string]itemStat `json:"items"`
 	}
 	if err := json.Unmarshal(w.Body.Bytes(), &got); err != nil {
 		t.Fatal(err)
@@ -208,7 +208,7 @@ func TestProgressEmptyClient(t *testing.T) {
 	}
 	var got struct {
 		Decks map[string]deckProgress `json:"decks"`
-		Items map[string]itemProgress `json:"items"`
+		Items map[string]itemStat `json:"items"`
 	}
 	if err := json.Unmarshal(w.Body.Bytes(), &got); err != nil {
 		t.Fatal(err)

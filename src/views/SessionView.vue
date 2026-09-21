@@ -7,6 +7,7 @@ import type { ItemResult } from "../progress";
 import { lastResult, takeRetryQueue } from "../session";
 import { MODE_LABELS, buildQuestions, isMode } from "../study/modes";
 import { seeded } from "../study/rng";
+import { settings } from "../settings";
 import type { Deck, Question } from "../types";
 
 const props = defineProps<{ id: string; mode: string }>();
@@ -16,7 +17,22 @@ const deck = ref<Deck | undefined>();
 const mode = computed(() => (isMode(props.mode) ? props.mode : undefined));
 const questions = ref<Question[]>([]);
 
+// Whether furigana / hints were on at any point during the session. Reading
+// mode hides furigana whatever the toggle says, so it never counts as kana.
+const kanaUsed = ref(false);
+const hintsUsed = ref(false);
+watch(
+  () => [settings.kana, settings.hints, mode.value],
+  () => {
+    if (settings.kana && mode.value !== "reading") kanaUsed.value = true;
+    if (settings.hints) hintsUsed.value = true;
+  },
+  { immediate: true },
+);
+
 async function build(): Promise<void> {
+  kanaUsed.value = settings.kana && mode.value !== "reading";
+  hintsUsed.value = settings.hints;
   deck.value = await getDeck(props.id);
   if (!deck.value || !mode.value) return;
   // A retry session replays the missed questions; a fresh one gets a new seed
@@ -41,6 +57,8 @@ function finish(payload: {
     mode: mode.value,
     correct: payload.correct,
     total: payload.total,
+    kana: kanaUsed.value,
+    hints: hintsUsed.value,
     items: payload.results,
   });
   lastResult.value = {

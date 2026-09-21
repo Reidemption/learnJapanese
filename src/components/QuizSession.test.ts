@@ -74,14 +74,14 @@ describe("QuizSession", () => {
       correct: number;
       total: number;
       missed: Question[];
-      results: { itemId: string; correct: boolean }[];
+      results: { itemId: string; mode: string; correct: boolean }[];
     };
     expect(payload).toMatchObject({ correct: 2, total: 3 });
     expect(payload.missed.map((q) => q.id)).toEqual(["two:meaning"]);
     expect(payload.results).toEqual([
-      { itemId: "one", correct: true },
-      { itemId: "two", correct: false },
-      { itemId: "three", correct: true },
+      { itemId: "one", mode: "meaning", correct: true },
+      { itemId: "two", mode: "meaning", correct: false },
+      { itemId: "three", mode: "meaning", correct: true },
     ]);
   });
 

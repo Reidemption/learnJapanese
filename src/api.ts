@@ -1,16 +1,27 @@
 import { decks as staticDecks, getDeck as getStaticDeck } from "./content";
 import {
   getItemStats,
+  importAttempts,
+  loadAttemptLog,
+  loadBaseline,
   loadScores,
   read,
-  recordItems,
+  recordAttempt,
   saveScore,
   write,
+  type AttemptRecord,
+  type ImportResult,
   type ItemResult,
   type ItemStat,
+  type LoggedAttempt,
 } from "./progress";
+import { BACKUP_VERSION, type Backup } from "./study/backup";
+import { normalizeStat } from "./study/mastery";
 import type { Mode } from "./study/modes";
 import type { Deck, Jlpt } from "./types";
+
+export type { AttemptRecord, ImportResult, LoggedAttempt } from "./progress";
+export type { Backup } from "./study/backup";
 
 const CLIENT_KEY = "lj.clientId";
 const QUEUE_KEY = "lj.queue";
@@ -40,20 +51,30 @@ export type Progress = {
   items: Record<string, ItemStat>;
 };
 
-/** What a finished session reports. The `clientId` is added by the API layer. */
-export type Attempt = {
+/**
+ * What a finished session reports. The API layer adds the `uid` and `at` (and
+ * the `clientId`, in HTTP mode).
+ */
+export type NewAttempt = {
   deckId: string;
   mode: Mode;
   correct: number;
   total: number;
+  /** Whether furigana / hints were on at any point during the session. */
+  kana: boolean;
+  hints: boolean;
   items: ItemResult[];
 };
 
 export interface StudyApi {
   listDecks(level?: Jlpt): Promise<DeckSummary[]>;
   getDeck(id: string): Promise<Deck | undefined>;
-  postAttempt(attempt: Attempt): Promise<void>;
+  postAttempt(attempt: LoggedAttempt): Promise<void>;
   getProgress(): Promise<Progress>;
+  /** Finished sessions, oldest first, optionally from `since` (unix millis). */
+  listAttempts(since?: number): Promise<AttemptRecord[]>;
+  exportProgress(): Promise<Backup>;
+  importProgress(backup: Backup): Promise<ImportResult>;
 }
 
 /** The key both implementations use for a deck+mode score. */
@@ -84,7 +105,7 @@ export function clientId(): string {
   return fresh;
 }
 
-function randomId(): string {
+export function randomId(): string {
   const webCrypto: Crypto | undefined = globalThis.crypto;
   if (typeof webCrypto?.randomUUID === "function") return webCrypto.randomUUID();
   // jsdom and older browsers: good enough for an anonymous key.
@@ -104,15 +125,34 @@ export const staticApi: StudyApi = {
 
   async postAttempt(attempt) {
     saveScore(attempt.deckId, attempt.mode, attempt);
-    recordItems(attempt.items);
+    recordAttempt(attempt);
   },
 
   async getProgress() {
     return { decks: loadScores(), items: getItemStats() };
   },
+
+  async listAttempts(since) {
+    return loadAttemptLog()
+      .filter((attempt) => since === undefined || attempt.at >= since)
+      .map(({ items: _items, ...record }) => record);
+  },
+
+  async exportProgress() {
+    return {
+      version: BACKUP_VERSION,
+      exportedAt: Date.now(),
+      baseline: loadBaseline(),
+      attempts: loadAttemptLog(),
+    };
+  },
+
+  async importProgress(backup) {
+    return importAttempts(backup.attempts, backup.baseline, (id) => !!getStaticDeck(id));
+  },
 };
 
-type QueuedAttempt = Attempt & { clientId: string };
+type QueuedAttempt = LoggedAttempt & { clientId: string };
 
 function readQueue(): QueuedAttempt[] {
   const queued = read<QueuedAttempt[]>(QUEUE_KEY, []);
@@ -181,9 +221,42 @@ export function createHttpApi(base: string): StudyApi {
 
     async getProgress() {
       await flushQueue();
-      return json<Progress>(`/progress?clientId=${encodeURIComponent(clientId())}`);
+      const progress = await json<Progress>(`/progress?clientId=${encodeURIComponent(clientId())}`);
+      return { decks: progress.decks ?? {}, items: normalizeItems(progress.items) };
+    },
+
+    async listAttempts(since) {
+      await flushQueue();
+      const query = since === undefined ? "" : `&since=${since}`;
+      return json<AttemptRecord[]>(
+        `/attempts?clientId=${encodeURIComponent(clientId())}${query}`,
+      );
+    },
+
+    async exportProgress() {
+      await flushQueue();
+      return json<Backup>(`/export?clientId=${encodeURIComponent(clientId())}`);
+    },
+
+    async importProgress(backup) {
+      return json<ImportResult>("/import", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ clientId: clientId(), ...backup }),
+      });
     },
   };
+}
+
+/** Fills in fields an older server leaves out, so views see one shape. */
+function normalizeItems(raw: unknown): Record<string, ItemStat> {
+  const items: Record<string, ItemStat> = {};
+  if (!raw || typeof raw !== "object") return items;
+  for (const [id, value] of Object.entries(raw)) {
+    const stat = normalizeStat(value);
+    if (stat) items[id] = stat;
+  }
+  return items;
 }
 
 const apiUrl = import.meta.env.VITE_API_URL;
@@ -230,12 +303,14 @@ export async function getDeck(id: string): Promise<Deck | undefined> {
   return deck;
 }
 
-export async function postAttempt(attempt: Attempt): Promise<void> {
+export async function postAttempt(attempt: NewAttempt): Promise<void> {
+  // One uid for both copies, so a retried post is recognised as the same session.
+  const logged: LoggedAttempt = { ...attempt, uid: randomId(), at: Date.now() };
   // localStorage is written either way, so scores survive an offline session.
-  await staticApi.postAttempt(attempt);
+  await staticApi.postAttempt(logged);
   if (active === staticApi) return;
   try {
-    await active.postAttempt(attempt);
+    await active.postAttempt(logged);
   } catch {
     // Already queued for a retry by `createHttpApi`.
   }
@@ -247,4 +322,32 @@ export async function getProgress(): Promise<Progress> {
   } catch {
     return staticApi.getProgress();
   }
+}
+
+export async function listAttempts(since?: number): Promise<AttemptRecord[]> {
+  try {
+    return await active.listAttempts(since);
+  } catch {
+    return staticApi.listAttempts(since);
+  }
+}
+
+/** The server holds the full history; the local copy is the fallback. */
+export async function exportProgress(): Promise<Backup> {
+  try {
+    return await active.exportProgress();
+  } catch {
+    return staticApi.exportProgress();
+  }
+}
+
+/**
+ * Restores a backup into the local copy and, in HTTP mode, the server. Unlike
+ * the other wrappers a server failure is thrown, so the person restoring
+ * knows it did not reach the server.
+ */
+export async function importProgress(backup: Backup): Promise<ImportResult> {
+  const local = await staticApi.importProgress(backup);
+  if (active === staticApi) return local;
+  return active.importProgress(backup);
 }

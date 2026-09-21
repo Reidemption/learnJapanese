@@ -506,3 +506,25 @@ a.ghost {
   display: inline-block;
   text-decoration: none;
 }
+
+/* Backup / restore, at the foot of the home page. */
+.backup {
+  margin: 2.5rem 0 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+}
+
+.backup-note {
+  margin: 0.3rem 0 0.6rem;
+  color: var(--ink-soft);
+  font-size: 0.85rem;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from "vue";
 import { emptyProgress, getProgress, listDecks, type DeckSummary, type Progress } from "../api";
+import BackupControls from "../components/BackupControls.vue";
 import { bestRatioIn } from "../progress";
 import type { DeckGroup, Jlpt } from "../types";
 
@@ -20,9 +21,13 @@ type LevelBlock = { level: Jlpt; sections: Section[]; count: number };
 const decks = ref<DeckSummary[]>([]);
 const progress = ref<Progress>(emptyProgress());
 
+async function loadProgress(): Promise<void> {
+  progress.value = await getProgress();
+}
+
 onMounted(async () => {
   decks.value = await listDecks();
-  progress.value = await getProgress();
+  await loadProgress();
 });
 
 const levels = computed<LevelBlock[]>(() => {
@@ -79,5 +84,7 @@ function bestLabel(deck: DeckSummary): string {
         </div>
       </div>
     </section>
+
+    <BackupControls @restored="loadProgress" />
   </main>
 </template>

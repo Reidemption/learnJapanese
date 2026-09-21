@@ -16,7 +16,13 @@ func env(key, fallback string) string {
 
 func main() {
 	port := env("PORT", "8080")
-	dbPath := env("DB_PATH", filepath.Join("data", "app.db"))
+	dbPath, copiedFrom, err := resolveDBPath(os.Getenv("DB_PATH"), os.UserConfigDir, legacyDBPaths)
+	if err != nil {
+		log.Fatalf("resolve database path: %v", err)
+	}
+	if copiedFrom != "" {
+		log.Printf("copied existing database %s to %s (the old file is left in place)", copiedFrom, dbPath)
+	}
 
 	if dir := filepath.Dir(dbPath); dbPath != ":memory:" && dir != "." {
 		if err := os.MkdirAll(dir, 0o755); err != nil {
