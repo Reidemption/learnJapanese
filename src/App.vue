@@ -1,9 +1,13 @@
 <script setup lang="ts">
+import { computed } from "vue";
+import { FONTS, fontStack } from "./fonts";
 import { settings } from "./settings";
+
+const fontVars = computed(() => ({ "--ja": fontStack(settings.font) }));
 </script>
 
 <template>
-  <div class="shell">
+  <div class="shell" :style="fontVars">
     <header class="site-header">
       <RouterLink class="brand" :to="{ name: 'home' }">
         習い
@@ -26,6 +30,11 @@ import { settings } from "./settings";
         >
           Hints
         </button>
+        <select v-model="settings.font" class="toggle font-picker" aria-label="Japanese font">
+          <option v-for="font in FONTS" :key="font.id" :value="font.id">
+            {{ font.label }}
+          </option>
+        </select>
       </div>
     </header>
 

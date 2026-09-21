@@ -9,6 +9,8 @@
   --shadow: color-mix(in srgb, #1a2430 18%, transparent);
   --display: "Shippori Mincho", "Hiragino Mincho ProN", serif;
   --body: "Zen Kaku Gothic New", "Hiragino Sans", sans-serif;
+  /* Japanese study text. App.vue overrides it with the font picker's choice. */
+  --ja: var(--display);
   --space: 1.15rem;
 }
 
@@ -101,6 +103,19 @@ button {
   color: var(--vermillion);
 }
 
+select.font-picker {
+  appearance: none;
+  padding-right: 1.6rem;
+  background: transparent
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%234a4e57' stroke-width='1.4'/%3E%3C/svg%3E")
+    no-repeat right 0.65rem center;
+  font: inherit;
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+  cursor: pointer;
+}
+
 .page {
   animation: rise 0.6s ease both;
 }
@@ -116,6 +131,10 @@ button {
   font-weight: 700;
   line-height: 1.15;
   letter-spacing: 0.04em;
+}
+
+.hero h1.ja {
+  font-family: var(--ja);
 }
 
 .hero p {
@@ -153,7 +172,7 @@ button {
 
 .category-row .ja {
   margin-left: 0.55rem;
-  font-family: var(--display);
+  font-family: var(--ja);
   color: var(--ink-soft);
 }
 
@@ -331,7 +350,7 @@ button {
 }
 
 .ruby-text {
-  font-family: var(--display);
+  font-family: var(--ja);
 }
 
 ruby {

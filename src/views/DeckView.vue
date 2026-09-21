@@ -40,7 +40,7 @@ function scoreLabel(mode: Mode): string {
     <RouterLink class="back" :to="{ name: 'home' }">← All decks</RouterLink>
 
     <section class="hero">
-      <h1>{{ deck.titleJa }}</h1>
+      <h1 class="ja">{{ deck.titleJa }}</h1>
       <p>{{ deck.level }} · {{ deck.title }} · {{ deck.items.length }} items</p>
     </section>
 

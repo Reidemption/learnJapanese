@@ -1,5 +1,6 @@
 import type { Question } from "./types";
 import type { Mode } from "./study/modes";
+import { DEFAULT_FONT, isFontId, type FontId } from "./fonts";
 
 const SETTINGS_KEY = "lj.settings";
 const SCORES_KEY = "lj.scores";
@@ -8,6 +9,7 @@ const ITEMS_KEY = "lj.items";
 export type Settings = {
   kana: boolean;
   hints: boolean;
+  font: FontId;
 };
 
 /** One deck+mode: the best run so far and the most recent one. */
@@ -51,6 +53,7 @@ export function loadSettings(): Settings {
   return {
     kana: parsed.kana !== false,
     hints: parsed.hints !== false,
+    font: isFontId(parsed.font) ? parsed.font : DEFAULT_FONT,
   };
 }
 
