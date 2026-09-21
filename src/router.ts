@@ -1,6 +1,7 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 import { getDeck } from "./api";
 import { availableModes, isMode } from "./study/modes";
+import DashboardView from "./views/DashboardView.vue";
 import DeckView from "./views/DeckView.vue";
 import HomeView from "./views/HomeView.vue";
 import ResultView from "./views/ResultView.vue";
@@ -11,6 +12,7 @@ export const router = createRouter({
   history: createWebHashHistory(),
   routes: [
     { path: "/", name: "home", component: HomeView },
+    { path: "/dashboard", name: "dashboard", component: DashboardView },
     { path: "/deck/:id", name: "deck", component: DeckView, props: true },
     { path: "/deck/:id/:mode", name: "session", component: SessionView, props: true },
     { path: "/deck/:id/:mode/result", name: "result", component: ResultView, props: true },

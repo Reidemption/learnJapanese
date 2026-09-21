@@ -14,6 +14,7 @@ const fontVars = computed(() => ({ "--ja": fontStack(settings.font) }));
         <small>N5 study</small>
       </RouterLink>
       <div class="toggles">
+        <RouterLink class="toggle nav-link" :to="{ name: 'dashboard' }">Progress</RouterLink>
         <button
           class="toggle"
           type="button"

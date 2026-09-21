@@ -53,8 +53,8 @@ old file alone.
 
 ### Backups
 
-The **Download backup** and **Restore backup** buttons at the bottom of the home
-page save and restore every session, with every answer, as a JSON file. They
+The **Download backup** and **Restore backup** buttons at the bottom of the
+**Progress** page (`/#/dashboard`) save and restore every session, with every answer, as a JSON file. They
 work in both static and HTTP mode, and restoring the same file twice changes
 nothing. The same file moves history between static mode (localStorage) and the
 server.
