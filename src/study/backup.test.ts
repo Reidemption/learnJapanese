@@ -33,6 +33,17 @@ describe("parseBackup", () => {
     expect(backup.attempts[1]).not.toHaveProperty("retry");
   });
 
+  it("keeps a Custom session, which has no deckId, and rejects other scopes", () => {
+    const custom = { ...session, deckId: "", scope: "custom" };
+    const backup = parseBackup(file({ attempts: [custom, { ...session, scope: "deck" }] }));
+    expect(backup.attempts[0]).toMatchObject({ deckId: "", scope: "custom" });
+    expect(backup.attempts[1]).not.toHaveProperty("scope");
+    expect(() => parseBackup(file({ attempts: [{ ...session, deckId: "" }] }))).toThrow(/no deckId/);
+    expect(() => parseBackup(file({ attempts: [{ ...session, scope: "words" }] }))).toThrow(
+      /unknown scope: words/,
+    );
+  });
+
   it("fills in a missing answer mode and missing assist flags", () => {
     const { kana: _k, hints: _h, ...rest } = session;
     const backup = parseBackup(

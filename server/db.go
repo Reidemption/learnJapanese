@@ -67,8 +67,9 @@ func openDB(path string) (*sql.DB, error) {
 // migrate adds the answer log and mastery columns. Every step checks before
 // it acts, so running it on an up-to-date database changes nothing.
 //
-//   - attempts gains uid (per session, so a repeat post is ignored) and the
-//     kana/hints flags. Old rows get a random uid.
+//   - attempts gains uid (per session, so a repeat post is ignored), the
+//     kana/hints flags, and scope ("custom" for a Custom study session, which
+//     has no deck). Old rows get a random uid and scope "deck".
 //   - answers holds every individual answer; item_stats is rebuilt from it.
 //   - item_base keeps the per-item counts recorded before answers were logged,
 //     so rebuilding never loses them.
@@ -96,6 +97,7 @@ func migrate(db *sql.DB) error {
 		{"attempts", "kana", "INTEGER"},
 		{"attempts", "hints", "INTEGER"},
 		{"attempts", "retry", "INTEGER NOT NULL DEFAULT 0"},
+		{"attempts", "scope", "TEXT NOT NULL DEFAULT 'deck'"},
 		{"item_stats", "streak", "INTEGER NOT NULL DEFAULT 0"},
 		{"item_stats", "first_at", "INTEGER"},
 		{"item_stats", "last_at", "INTEGER"},

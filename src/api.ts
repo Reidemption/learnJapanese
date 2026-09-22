@@ -2,6 +2,7 @@ import { decks as staticDecks, getDeck as getStaticDeck } from "./content";
 import {
   getItemStats,
   importAttempts,
+  isDeckScore,
   loadAttemptLog,
   loadBaseline,
   loadScores,
@@ -10,6 +11,7 @@ import {
   saveScore,
   write,
   type AttemptRecord,
+  type AttemptScope,
   type ImportResult,
   type ItemResult,
   type ItemStat,
@@ -20,7 +22,7 @@ import { normalizeStat } from "./study/mastery";
 import type { Mode } from "./study/modes";
 import type { Deck, Jlpt } from "./types";
 
-export type { AttemptRecord, ImportResult, LoggedAttempt } from "./progress";
+export type { AttemptRecord, AttemptScope, ImportResult, LoggedAttempt } from "./progress";
 export type { Backup } from "./study/backup";
 
 const CLIENT_KEY = "lj.clientId";
@@ -65,6 +67,8 @@ export type NewAttempt = {
   hints: boolean;
   /** A "Retry missed" run: recorded for mastery, but not a deck score. */
   retry?: boolean;
+  /** "custom" for a Custom study session, whose `deckId` is empty. */
+  scope?: AttemptScope;
   items: ItemResult[];
 };
 
@@ -126,7 +130,7 @@ export const staticApi: StudyApi = {
   },
 
   async postAttempt(attempt) {
-    if (!attempt.retry) saveScore(attempt.deckId, attempt.mode, attempt);
+    if (isDeckScore(attempt)) saveScore(attempt.deckId, attempt.mode, attempt);
     recordAttempt(attempt);
   },
 

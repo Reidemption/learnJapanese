@@ -149,16 +149,39 @@ type attemptReq struct {
 	At      *int64 `json:"at"`
 	// Retry marks a "Retry missed" run: its answers count, but it is not a
 	// score for the deck.
-	Retry bool          `json:"retry"`
+	Retry bool `json:"retry"`
+	// Scope is "deck" (the default when empty) or "custom": a Custom study
+	// session over words from several decks, which has no deckId and is not
+	// a deck score.
+	Scope string        `json:"scope"`
 	Items []attemptItem `json:"items"`
+}
+
+const (
+	scopeDeck   = "deck"
+	scopeCustom = "custom"
+)
+
+// scope is the session's scope with the default filled in.
+func (a attemptReq) scope() string {
+	if a.Scope == "" {
+		return scopeDeck
+	}
+	return a.Scope
 }
 
 // validate returns a human-readable reason the payload is unusable, or "".
 // The clientId is checked by the caller, since an import carries it once.
 func (a attemptReq) validate() string {
 	switch {
-	case a.DeckID == "":
+	case a.scope() != scopeDeck && a.scope() != scopeCustom:
+		return "unknown scope: " + a.Scope
+	case a.scope() == scopeDeck && a.DeckID == "":
 		return "deckId is required"
+	case a.scope() == scopeCustom && a.DeckID != "":
+		return "a custom session has no deckId"
+	case a.scope() == scopeCustom && len(a.Items) == 0:
+		return "a custom session needs its answers"
 	case a.Mode == "":
 		return "mode is required"
 	case !modes[a.Mode]:
@@ -229,9 +252,9 @@ func insertAttempt(tx *sql.Tx, clientID string, req attemptReq, at int64) (id in
 	}
 
 	res, err := tx.Exec(`INSERT INTO attempts
-		(client_id, uid, deck_id, mode, correct, total, kana, hints, retry, created_at)
-		VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-		clientID, uid, req.DeckID, req.Mode, *req.Correct, *req.Total, req.Kana, req.Hints, req.Retry, at)
+		(client_id, uid, deck_id, mode, correct, total, kana, hints, retry, scope, created_at)
+		VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+		clientID, uid, req.DeckID, req.Mode, *req.Correct, *req.Total, req.Kana, req.Hints, req.Retry, req.scope(), at)
 	if err != nil {
 		return 0, false, err
 	}
@@ -265,14 +288,16 @@ func (s *server) postAttempt(w http.ResponseWriter, r *http.Request) {
 		writeError(w, http.StatusBadRequest, msg)
 		return
 	}
-	ok, err := deckExists(s.db, req.DeckID)
-	if err != nil {
-		writeError(w, http.StatusInternalServerError, "query failed")
-		return
-	}
-	if !ok {
-		writeError(w, http.StatusBadRequest, "unknown deck: "+req.DeckID)
-		return
+	if req.scope() == scopeDeck {
+		ok, err := deckExists(s.db, req.DeckID)
+		if err != nil {
+			writeError(w, http.StatusInternalServerError, "query failed")
+			return
+		}
+		if !ok {
+			writeError(w, http.StatusBadRequest, "unknown deck: "+req.DeckID)
+			return
+		}
 	}
 
 	at := req.timestamp(time.Now().UnixMilli())
@@ -321,11 +346,14 @@ type attemptRecord struct {
 	Hints   *bool  `json:"hints"`
 	At      int64  `json:"at"`
 	Retry   bool   `json:"retry,omitempty"`
+	// Scope is left out for deck sessions, like retry, so they look the same
+	// as before the column existed.
+	Scope string `json:"scope,omitempty"`
 }
 
 // attempts returns a client's sessions from since onwards, oldest first.
 func (s *server) attempts(clientID string, since int64) ([]int64, []attemptRecord, error) {
-	rows, err := s.db.Query(`SELECT id, uid, deck_id, mode, correct, total, kana, hints, retry, created_at
+	rows, err := s.db.Query(`SELECT id, uid, deck_id, mode, correct, total, kana, hints, retry, scope, created_at
 		FROM attempts WHERE client_id = ? AND created_at >= ? ORDER BY created_at, id`, clientID, since)
 	if err != nil {
 		return nil, nil, err
@@ -336,8 +364,11 @@ func (s *server) attempts(clientID string, since int64) ([]int64, []attemptRecor
 		var id int64
 		var a attemptRecord
 		var kana, hints sql.NullBool
-		if err := rows.Scan(&id, &a.UID, &a.DeckID, &a.Mode, &a.Correct, &a.Total, &kana, &hints, &a.Retry, &a.At); err != nil {
+		if err := rows.Scan(&id, &a.UID, &a.DeckID, &a.Mode, &a.Correct, &a.Total, &kana, &hints, &a.Retry, &a.Scope, &a.At); err != nil {
 			return nil, nil, err
+		}
+		if a.Scope == scopeDeck {
+			a.Scope = ""
 		}
 		if kana.Valid {
 			a.Kana = &kana.Bool
@@ -407,7 +438,7 @@ func (s *server) getProgress(w http.ResponseWriter, r *http.Request) {
 // deckProgress collects the best and most recent score per deck+mode. The
 // correlated subquery keeps this to one round trip, which matters because the
 // pool is limited to a single connection. Retry runs cover only the questions
-// just missed, so they are not scores and are left out.
+// just missed, and Custom sessions belong to no deck, so neither is a score.
 func (s *server) deckProgress(clientID string) (map[string]deckProgress, error) {
 	rows, err := s.db.Query(`
 		SELECT a.deck_id, a.mode, MAX(a.correct), MAX(a.created_at),
@@ -419,7 +450,7 @@ func (s *server) deckProgress(clientID string) (map[string]deckProgress, error) 
 			 WHERE c.client_id = a.client_id AND c.deck_id = a.deck_id AND c.mode = a.mode
 			   AND c.retry = 0
 			 ORDER BY c.correct DESC, c.created_at DESC, c.id DESC LIMIT 1)
-		FROM attempts a WHERE a.client_id = ? AND a.retry = 0
+		FROM attempts a WHERE a.client_id = ? AND a.retry = 0 AND a.scope = 'deck'
 		GROUP BY a.deck_id, a.mode`, clientID)
 	if err != nil {
 		return nil, err

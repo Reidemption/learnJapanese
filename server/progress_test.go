@@ -117,6 +117,13 @@ func TestMigrateLegacyDatabase(t *testing.T) {
 	if baseRows != 1 {
 		t.Fatalf("item_base rows = %d, want 1 (copied once)", baseRows)
 	}
+	var scope string
+	if err := db.QueryRow(`SELECT scope FROM attempts`).Scan(&scope); err != nil {
+		t.Fatal(err)
+	}
+	if scope != "deck" {
+		t.Fatalf("legacy session scope = %q, want deck", scope)
+	}
 
 	// The old session is still there, now with a uid, and the old counts show.
 	w := do(t, h, "GET", "/api/attempts?clientId=c1", "")
@@ -405,5 +412,65 @@ func TestMigrateMarksShortLegacySessionsAsRetries(t *testing.T) {
 	}
 	if flagged != 0 {
 		t.Fatalf("second migration re-flagged %d sessions", flagged)
+	}
+}
+
+// customBody is a Custom study session: no deck, answers from anywhere.
+func customBody(clientID, uid string, at int64, items ...map[string]any) string {
+	correct := 0
+	for _, it := range items {
+		if it["correct"] == true {
+			correct++
+		}
+	}
+	body, _ := json.Marshal(map[string]any{
+		"clientId": clientID, "uid": uid, "scope": "custom", "mode": "meaning",
+		"correct": correct, "total": len(items), "kana": false, "hints": false, "at": at,
+		"items": items,
+	})
+	return string(body)
+}
+
+func TestCustomSessions(t *testing.T) {
+	_, h := newTestServer(t)
+	deckID := firstDeckID(t)
+
+	mustPost(t, h, attemptBody("c1", "deck", deckID, day, [3]string{"a", "meaning", "1"}, [3]string{"b", "meaning", "0"}), http.StatusCreated)
+	mustPost(t, h, customBody("c1", "custom", day+1000,
+		map[string]any{"itemId": "a", "mode": "meaning", "correct": true},
+		map[string]any{"itemId": "z", "mode": "meaning", "correct": true},
+		map[string]any{"itemId": "y", "mode": "meaning", "correct": true}), http.StatusCreated)
+
+	// Its answers count, but it is no deck's score.
+	p := progressOf(t, h, "c1")
+	if p.Items["a"].Seen != 2 || p.Items["z"].Seen != 1 {
+		t.Fatalf("items a = %s, z = %s: the custom answers should count", show(p.Items["a"]), show(p.Items["z"]))
+	}
+	if len(p.Decks) != 1 {
+		t.Fatalf("deck scores = %+v, want only %s:meaning", p.Decks, deckID)
+	}
+	if got := p.Decks[deckID+":meaning"]; got.Best != 1 || got.Total != 2 || got.At != day {
+		t.Fatalf("deck score = %+v, want the deck session only", got)
+	}
+
+	// Listed back with its scope; deck sessions leave it out.
+	list := decode[[]attemptRecord](t, do(t, h, "GET", "/api/attempts?clientId=c1", ""))
+	if len(list) != 2 || list[0].Scope != "" || list[1].Scope != "custom" || list[1].DeckID != "" {
+		t.Fatalf("attempts = %+v", list)
+	}
+
+	// It survives export and import, and is not skipped as an unknown deck.
+	b := decode[backup](t, do(t, h, "GET", "/api/export?clientId=c1", ""))
+	if len(b.Attempts) != 2 || b.Attempts[1].Scope != "custom" || len(b.Attempts[1].Items) != 3 {
+		t.Fatalf("exported = %+v", b.Attempts)
+	}
+	_, fresh := newTestServer(t)
+	req, _ := json.Marshal(importReq{ClientID: "c2", backup: b})
+	w := do(t, fresh, "POST", "/api/import", string(req))
+	if got := decode[importResult](t, w); got != (importResult{Imported: 2}) {
+		t.Fatalf("import = %+v", got)
+	}
+	if got := progressOf(t, fresh, "c2"); !reflect.DeepEqual(got, p) {
+		t.Fatalf("restored progress differs:\n got %+v\nwant %+v", got, p)
 	}
 }

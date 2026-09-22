@@ -123,6 +123,21 @@ describe("staticApi", () => {
     expect(getItemStats()["n5-food-1"]).toMatchObject({ seen: 2 });
   });
 
+  it("records a Custom session's answers but no deck score", async () => {
+    const custom: LoggedAttempt = { ...logged, uid: "custom", deckId: "", scope: "custom" };
+    await staticApi.postAttempt(custom);
+    const progress = await staticApi.getProgress();
+    expect(progress.decks).toEqual({});
+    expect(progress.items["n5-food-1"]).toMatchObject({ seen: 1, correct: 1 });
+    expect(await staticApi.listAttempts()).toMatchObject([{ uid: "custom", scope: "custom" }]);
+
+    // Restoring it keeps it: a Custom session has no deck to be missing.
+    const backup = await staticApi.exportProgress();
+    localStorage.clear();
+    expect(await staticApi.importProgress(backup)).toMatchObject({ imported: 1, skipped: 0 });
+    expect(await staticApi.getProgress()).toEqual(progress);
+  });
+
   it("ignores the same session posted twice", async () => {
     await staticApi.postAttempt(logged);
     await staticApi.postAttempt(logged);

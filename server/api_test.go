@@ -243,6 +243,10 @@ func TestPostAttemptBadPayload(t *testing.T) {
 		{"unknown mode", `{"clientId":"c1","deckId":"` + id + `","mode":"flashcards","correct":1,"total":2}`},
 		{"unknown answer mode", `{"clientId":"c1","deckId":"` + id + `","mode":"meaning","correct":1,"total":2,"items":[{"itemId":"x","mode":"nope","correct":true}]}`},
 		{"item without id", `{"clientId":"c1","deckId":"` + id + `","mode":"meaning","correct":1,"total":2,"items":[{"correct":true}]}`},
+		{"unknown scope", `{"clientId":"c1","deckId":"` + id + `","scope":"words","mode":"meaning","correct":1,"total":1,"items":[{"itemId":"x","correct":true}]}`},
+		{"deck scope without a deck", `{"clientId":"c1","deckId":"","scope":"deck","mode":"meaning","correct":1,"total":1,"items":[{"itemId":"x","correct":true}]}`},
+		{"custom with a deck", `{"clientId":"c1","deckId":"` + id + `","scope":"custom","mode":"meaning","correct":1,"total":1,"items":[{"itemId":"x","correct":true}]}`},
+		{"custom without answers", `{"clientId":"c1","scope":"custom","mode":"meaning","correct":1,"total":1}`},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

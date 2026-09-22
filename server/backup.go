@@ -94,7 +94,8 @@ type importResult struct {
 
 // importProgress merges a backup into a client's history. Sessions already
 // present (by uid) are skipped, so importing the same file twice is a no-op;
-// sessions for decks that no longer exist are skipped too. Baseline entries
+// deck sessions for decks that no longer exist are skipped too (a Custom
+// session has no deck, so it is always kept). Baseline entries
 // are only added, never overwritten.
 func (s *server) importProgress(w http.ResponseWriter, r *http.Request) {
 	var req importReq
@@ -133,6 +134,9 @@ func (s *server) importProgress(w http.ResponseWriter, r *http.Request) {
 	known := map[string]bool{}
 	for _, a := range req.Attempts {
 		exists, seen := known[a.DeckID]
+		if a.request().scope() == scopeCustom {
+			exists, seen = true, true
+		}
 		if !seen {
 			if exists, err = deckExists(tx, a.DeckID); err != nil {
 				writeError(w, http.StatusInternalServerError, "query failed")
@@ -195,6 +199,7 @@ func (a backupAttempt) request() attemptReq {
 		Hints:   a.Hints,
 		At:      &at,
 		Retry:   a.Retry,
+		Scope:   a.Scope,
 		Items:   a.Items,
 	}
 }

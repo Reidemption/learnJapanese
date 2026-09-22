@@ -29,7 +29,14 @@ function parseAttempt(raw: unknown, index: number): LoggedAttempt {
   if (!raw || typeof raw !== "object") throw new Error(`${where} is not an object.`);
   const a = raw as Record<string, unknown>;
   if (typeof a.uid !== "string" || !a.uid) throw new Error(`${where} has no uid.`);
-  if (typeof a.deckId !== "string" || !a.deckId) throw new Error(`${where} has no deckId.`);
+  if (a.scope !== undefined && a.scope !== "deck" && a.scope !== "custom") {
+    throw new Error(`${where} has an unknown scope: ${String(a.scope)}.`);
+  }
+  const custom = a.scope === "custom";
+  // A Custom session spans decks, so it is the one kind without a deckId.
+  if (typeof a.deckId !== "string" || (!custom && !a.deckId)) {
+    throw new Error(`${where} has no deckId.`);
+  }
   if (typeof a.mode !== "string" || !isMode(a.mode)) {
     throw new Error(`${where} has an unknown mode: ${String(a.mode)}.`);
   }
@@ -61,6 +68,7 @@ function parseAttempt(raw: unknown, index: number): LoggedAttempt {
     hints: flag(a.hints),
     at: a.at,
     ...(a.retry === true ? { retry: true } : {}),
+    ...(custom ? { scope: "custom" as const } : {}),
     items,
   };
 }

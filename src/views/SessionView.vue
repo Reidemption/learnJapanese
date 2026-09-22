@@ -4,13 +4,14 @@ import { useRouter } from "vue-router";
 import QuizSession from "../components/QuizSession.vue";
 import { getDeck, postAttempt } from "../api";
 import type { ItemResult } from "../progress";
-import { lastResult, takeRetryQueue } from "../session";
+import { customDeck, lastResult, takeRetryQueue } from "../session";
 import { MODE_LABELS, buildQuestions, isMode } from "../study/modes";
 import { seeded } from "../study/rng";
 import { settings } from "../settings";
 import type { Deck, Question } from "../types";
 
-const props = defineProps<{ id: string; mode: string }>();
+/** `custom`: play the Custom deck in `session.ts` rather than deck `id`. */
+const props = defineProps<{ id: string; mode: string; custom?: boolean }>();
 const router = useRouter();
 
 const deck = ref<Deck | undefined>();
@@ -35,7 +36,7 @@ watch(
 async function build(): Promise<void> {
   kanaUsed.value = settings.kana && mode.value !== "reading";
   hintsUsed.value = settings.hints;
-  deck.value = await getDeck(props.id);
+  deck.value = props.custom ? (customDeck.value ?? undefined) : await getDeck(props.id);
   if (!deck.value || !mode.value) return;
   // A retry session replays the missed questions; a fresh one gets a new seed
   // so the order differs every time.
@@ -44,7 +45,11 @@ async function build(): Promise<void> {
   questions.value = retry ?? buildQuestions(deck.value, mode.value, seeded(Date.now() >>> 0));
 }
 
-watch(() => [props.id, props.mode], build, { immediate: true });
+watch(() => [props.id, props.mode, props.custom], build, { immediate: true });
+
+const backTo = computed(() =>
+  props.custom ? { name: "custom" } : { name: "deck", params: { id: props.id } },
+);
 
 function finish(payload: {
   correct: number;
@@ -56,7 +61,9 @@ function finish(payload: {
   // Recording is fire-and-forget: a slow or missing backend must not hold up
   // the score screen, and the API layer keeps a local copy either way.
   void postAttempt({
-    deckId: props.id,
+    // A Custom session spans decks, so it belongs to none.
+    deckId: props.custom ? "" : props.id,
+    ...(props.custom ? { scope: "custom" as const } : {}),
     mode: mode.value,
     correct: payload.correct,
     total: payload.total,
@@ -72,7 +79,11 @@ function finish(payload: {
     total: payload.total,
     missed: payload.missed,
   };
-  router.push({ name: "result", params: { id: props.id, mode: mode.value } });
+  router.push(
+    props.custom
+      ? { name: "custom-result", params: { mode: mode.value } }
+      : { name: "result", params: { id: props.id, mode: mode.value } },
+  );
 }
 </script>
 
@@ -84,7 +95,7 @@ function finish(payload: {
     @done="finish"
   />
   <main v-else class="page">
-    <RouterLink class="back" :to="{ name: 'deck', params: { id } }">← Back to deck</RouterLink>
+    <RouterLink class="back" :to="backTo">{{ custom ? "← Custom study" : "← Back to deck" }}</RouterLink>
     <p class="prompt-en">Nothing to study here yet.</p>
   </main>
 </template>

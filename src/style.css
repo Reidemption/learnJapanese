@@ -849,3 +849,56 @@ a.ghost {
 .deck-mastery {
   margin: 0 0 0.6rem;
 }
+
+/* Custom study: tag chips, the deck summary and its words. */
+.tag-group {
+  margin: 0 0 1rem;
+}
+
+.tag-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.tag-chip small {
+  margin-left: 0.2rem;
+  opacity: 0.6;
+}
+
+.tag-note {
+  margin: 0 0 1.5rem;
+}
+
+.custom-summary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.3rem 1rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.custom-summary h2 {
+  margin: 0;
+  font-family: var(--display);
+  font-size: 1.5rem;
+}
+
+.custom-summary p {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.85rem;
+}
+
+.custom-summary .ghost {
+  margin-left: auto;
+}
+
+.custom-word {
+  min-width: 0;
+}
+
+.custom .mastery-legend {
+  margin-bottom: 0.6rem;
+}
