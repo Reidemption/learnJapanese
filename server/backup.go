@@ -194,6 +194,7 @@ func (a backupAttempt) request() attemptReq {
 		Kana:    a.Kana,
 		Hints:   a.Hints,
 		At:      &at,
+		Retry:   a.Retry,
 		Items:   a.Items,
 	}
 }

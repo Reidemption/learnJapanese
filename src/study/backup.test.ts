@@ -27,6 +27,12 @@ describe("parseBackup", () => {
     expect(backup.exportedAt).toBe(5);
   });
 
+  it("keeps the retry flag, and leaves it off ordinary sessions", () => {
+    const backup = parseBackup(file({ attempts: [{ ...session, retry: true }, session] }));
+    expect(backup.attempts[0]?.retry).toBe(true);
+    expect(backup.attempts[1]).not.toHaveProperty("retry");
+  });
+
   it("fills in a missing answer mode and missing assist flags", () => {
     const { kana: _k, hints: _h, ...rest } = session;
     const backup = parseBackup(

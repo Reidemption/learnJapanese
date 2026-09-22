@@ -16,6 +16,8 @@ const router = useRouter();
 const deck = ref<Deck | undefined>();
 const mode = computed(() => (isMode(props.mode) ? props.mode : undefined));
 const questions = ref<Question[]>([]);
+/** A "Retry missed" run, which is recorded but is not a score for the deck. */
+const isRetry = ref(false);
 
 // Whether furigana / hints were on at any point during the session. Reading
 // mode hides furigana whatever the toggle says, so it never counts as kana.
@@ -37,8 +39,9 @@ async function build(): Promise<void> {
   if (!deck.value || !mode.value) return;
   // A retry session replays the missed questions; a fresh one gets a new seed
   // so the order differs every time.
-  questions.value =
-    takeRetryQueue() ?? buildQuestions(deck.value, mode.value, seeded(Date.now() >>> 0));
+  const retry = takeRetryQueue();
+  isRetry.value = retry !== null;
+  questions.value = retry ?? buildQuestions(deck.value, mode.value, seeded(Date.now() >>> 0));
 }
 
 watch(() => [props.id, props.mode], build, { immediate: true });
@@ -59,6 +62,7 @@ function finish(payload: {
     total: payload.total,
     kana: kanaUsed.value,
     hints: hintsUsed.value,
+    ...(isRetry.value ? { retry: true } : {}),
     items: payload.results,
   });
   lastResult.value = {

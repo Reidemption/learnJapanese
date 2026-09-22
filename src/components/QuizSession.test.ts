@@ -21,8 +21,8 @@ function question(id: string, correct: string): Question {
 
 const questions = [question("one", "a"), question("two", "b"), question("three", "c")];
 
-function press(key: string): void {
-  window.dispatchEvent(new KeyboardEvent("keydown", { key }));
+function press(key: string, init: KeyboardEventInit = {}): void {
+  window.dispatchEvent(new KeyboardEvent("keydown", { key, ...init }));
 }
 
 beforeEach(() => {
@@ -35,6 +35,18 @@ describe("QuizSession", () => {
     expect(wrapper.findAll(".choice")).toHaveLength(4);
     expect(wrapper.find(".session-bar").text()).toContain("1 / 3");
     expect(wrapper.find(".session-bar").text()).toContain("Food · Meaning");
+  });
+
+  it("ignores number keys pressed with Ctrl, Alt or Meta", async () => {
+    const wrapper = mount(QuizSession, { props: { questions, label: "x" } });
+    press("1", { ctrlKey: true });
+    press("2", { altKey: true });
+    press("3", { metaKey: true });
+    await wrapper.vm.$nextTick();
+    expect(wrapper.find(".is-correct").exists()).toBe(false);
+    press("1");
+    await wrapper.vm.$nextTick();
+    expect(wrapper.find(".is-correct").exists()).toBe(true);
   });
 
   it("marks the picked choice right or wrong and locks the rest", async () => {

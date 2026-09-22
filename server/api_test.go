@@ -240,6 +240,8 @@ func TestPostAttemptBadPayload(t *testing.T) {
 		{"negative correct", `{"clientId":"c1","deckId":"` + id + `","mode":"meaning","correct":-1,"total":2}`},
 		{"correct > total", `{"clientId":"c1","deckId":"` + id + `","mode":"meaning","correct":5,"total":2}`},
 		{"unknown deck", `{"clientId":"c1","deckId":"nope","mode":"meaning","correct":1,"total":2}`},
+		{"unknown mode", `{"clientId":"c1","deckId":"` + id + `","mode":"flashcards","correct":1,"total":2}`},
+		{"unknown answer mode", `{"clientId":"c1","deckId":"` + id + `","mode":"meaning","correct":1,"total":2,"items":[{"itemId":"x","mode":"nope","correct":true}]}`},
 		{"item without id", `{"clientId":"c1","deckId":"` + id + `","mode":"meaning","correct":1,"total":2,"items":[{"correct":true}]}`},
 	}
 	for _, tt := range tests {

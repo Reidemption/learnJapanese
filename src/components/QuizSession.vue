@@ -92,6 +92,9 @@ function badge(id: string, i: number): string {
 
 function onKey(event: KeyboardEvent): void {
   if (!current.value) return;
+  // Leave browser shortcuts (Ctrl+1 switches tabs) and form controls alone.
+  if (event.ctrlKey || event.metaKey || event.altKey) return;
+  if (event.target instanceof HTMLSelectElement) return;
   if (event.key === "Enter") {
     event.preventDefault();
     goNext();

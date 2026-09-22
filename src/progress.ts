@@ -52,6 +52,11 @@ export type AttemptRecord = {
   hints: boolean | null;
   /** Unix millis. */
   at: number;
+  /**
+   * A "Retry missed" run over only the questions just missed. Its answers
+   * count towards mastery, but it is not a score for the deck. Absent = false.
+   */
+  retry?: boolean;
 };
 
 /** A finished session with every answer: what is posted, logged and backed up. */
@@ -102,14 +107,17 @@ export function getScore(deckId: string, mode: Mode): ModeScore | undefined {
 /**
  * Folds one run into a deck+mode score: the best run is kept, and "last" is
  * whichever run is newest, so importing old sessions never rewinds it.
+ * `total` belongs to the best run, as on the server.
  */
 export function mergeScore(
   previous: ModeScore | undefined,
   run: { correct: number; total: number; at: number },
 ): ModeScore {
-  const best = Math.max(run.correct, previous?.best ?? 0);
-  if (previous && previous.at > run.at) return { ...previous, best };
-  return { best, last: run.correct, total: run.total, at: run.at };
+  const newBest = !previous || run.correct > previous.best;
+  const best = newBest ? run.correct : previous.best;
+  const total = newBest ? run.total : previous.total;
+  if (previous && previous.at > run.at) return { ...previous, best, total };
+  return { best, last: run.correct, total, at: run.at };
 }
 
 /** Records a finished session, keeping the best run for the deck+mode. */
@@ -271,6 +279,7 @@ export function importAttempts(
   if (fresh.length || baseChanged) {
     const scores = loadScores();
     for (const attempt of fresh) {
+      if (attempt.retry) continue;
       const key = scoreKey(attempt.deckId, attempt.mode);
       scores[key] = mergeScore(scores[key], attempt);
     }

@@ -60,6 +60,7 @@ function parseAttempt(raw: unknown, index: number): LoggedAttempt {
     kana: flag(a.kana),
     hints: flag(a.hints),
     at: a.at,
+    ...(a.retry === true ? { retry: true } : {}),
     items,
   };
 }

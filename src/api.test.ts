@@ -109,6 +109,20 @@ describe("staticApi", () => {
     });
   });
 
+  it("records a retry session's answers but not its score", async () => {
+    await staticApi.postAttempt({ ...logged, uid: "full" });
+    await staticApi.postAttempt({
+      ...logged,
+      uid: "retry",
+      correct: 1,
+      total: 1,
+      retry: true,
+      at: logged.at + 1,
+    });
+    expect(getScore("n5-food", "meaning")).toMatchObject({ best: 8, last: 8, total: 10 });
+    expect(getItemStats()["n5-food-1"]).toMatchObject({ seen: 2 });
+  });
+
   it("ignores the same session posted twice", async () => {
     await staticApi.postAttempt(logged);
     await staticApi.postAttempt(logged);
@@ -260,6 +274,60 @@ describe("httpApi", () => {
 
     expect(fetchMock.mock.calls[0]?.[0]).toBe(`${BASE}/attempts`);
     expect(JSON.parse(localStorage.getItem("lj.queue") ?? "[]")).toHaveLength(0);
+  });
+
+  it("does not queue a post the server rejects", async () => {
+    mockFetch(jsonResponse({ error: "unknown deck" }, 400));
+    await expect(http.postAttempt(logged)).rejects.toThrow(/400/);
+    expect(JSON.parse(localStorage.getItem("lj.queue") ?? "[]")).toHaveLength(0);
+  });
+
+  it("drops a queued post the server rejects, and keeps one that is still offline", async () => {
+    localStorage.setItem(
+      "lj.queue",
+      JSON.stringify([
+        { ...logged, uid: "bad", clientId: "c" },
+        { ...logged, uid: "later", clientId: "c" },
+      ]),
+    );
+    const fetchMock = vi
+      .fn()
+      .mockResolvedValueOnce(jsonResponse({ error: "unknown deck" }, 400))
+      .mockRejectedValueOnce(new TypeError("offline"))
+      .mockResolvedValueOnce(jsonResponse({ decks: {}, items: {} }));
+    vi.stubGlobal("fetch", fetchMock);
+    await http.getProgress();
+    const queue = JSON.parse(localStorage.getItem("lj.queue") ?? "[]");
+    expect(queue.map((a: LoggedAttempt) => a.uid)).toEqual(["later"]);
+  });
+
+  it("runs one flush at a time and keeps a post queued meanwhile", async () => {
+    localStorage.setItem("lj.queue", JSON.stringify([{ ...logged, uid: "old", clientId: "c" }]));
+    let release: (r: Response) => void = () => {};
+    const fetchMock = vi.fn((url: string) => {
+      if (url.endsWith("/attempts")) {
+        return new Promise<Response>((resolve) => {
+          release = resolve;
+        });
+      }
+      const body = url.includes("/progress") ? { decks: {}, items: {} } : [];
+      return Promise.resolve(jsonResponse(body));
+    });
+    vi.stubGlobal("fetch", fetchMock);
+
+    const both = Promise.all([http.getProgress(), http.listAttempts()]);
+    await Promise.resolve();
+    // Something queued while the flush is still sending.
+    const queued = JSON.parse(localStorage.getItem("lj.queue") ?? "[]");
+    const extra = { ...logged, uid: "new", clientId: "c" };
+    localStorage.setItem("lj.queue", JSON.stringify([...queued, extra]));
+    release(jsonResponse({}));
+    await both;
+
+    const posts = fetchMock.mock.calls.filter(([url]) => String(url).endsWith("/attempts"));
+    expect(posts).toHaveLength(1);
+    const queue = JSON.parse(localStorage.getItem("lj.queue") ?? "[]");
+    expect(queue.map((a: LoggedAttempt) => a.uid)).toEqual(["new"]);
   });
 });
 

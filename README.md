@@ -97,14 +97,16 @@ attempts that fail to post are queued and retried on the next call.
 - `GET  /api/health`
 - `GET  /api/decks` — deck summaries, optionally `?level=N5`
 - `GET  /api/decks/{id}` — the full deck JSON
-- `POST /api/attempts` — `{clientId, uid, deckId, mode, correct, total, kana, hints, at, items:[{itemId, mode, correct}]}`
+- `POST /api/attempts` — `{clientId, uid, deckId, mode, correct, total, kana, hints, retry, at, items:[{itemId, mode, correct}]}`
   — `uid` identifies the session, so posting it twice records it once. `at` is
   when it was studied, so a session queued offline keeps its real time. Each
-  answer's `mode` defaults to the session's.
+  answer's `mode` defaults to the session's. `retry: true` marks a "Retry
+  missed" run: its answers count towards mastery, but it is not a deck score.
+  An unknown `mode` is a 400.
 - `GET  /api/attempts?clientId=&since=` — the client's sessions, oldest first:
-  `[{uid, deckId, mode, correct, total, kana, hints, at}]`
+  `[{uid, deckId, mode, correct, total, kana, hints, at, retry?}]`
 - `GET  /api/progress?clientId=` — `{decks: {"deckId:mode": {best,last,total,at}}, items: {itemId:{seen,correct,streak,firstAt,lastAt,knownAt}}}`
-  — `total` belongs to the best attempt. A unit is *known* once `streak`
+  — `total` belongs to the best attempt; retry runs are left out. A unit is *known* once `streak`
   reaches 3 (see `src/study/mastery.ts`), and `knownAt` records when that
   first happened.
 - `GET  /api/export?clientId=` — a backup: `{version: 1, exportedAt, baseline, attempts: [... with items]}`
