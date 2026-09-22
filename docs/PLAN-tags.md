@@ -150,6 +150,7 @@ Pure functions with a colocated `tags.test.ts`:
 - **Weak-words review:** the one home for this idea, which `docs/PLAN.md`'s backlog and the dashboard plan's Later point to. It's `customDeckFrom(pickUnits(weak units))`, e.g. a "Weak words" option on the Custom page. The test version is the **Weak** word test in Test Phase 3.
 - A **mastery filter** on the Custom page (new / learning / weak only).
 - **Saved Custom decks**, if re-running the same selection turns out to be common.
+- **A `kanji` tag** for reviewing kanji across all six kanji decks, weakest first, which no single deck can do. Make it a *type* tag declared once on each kanji deck, and take `kanji` out of `UNTAGGED_GROUPS`. Because types widen and themes narrow, `kanji` alone gives only kanji, and `kanji` + `nature` gives nature kanji. Kanji only mix with vocabulary if you also pick a word type, and the collision rule drops one of a pair like 行 / 行く ("to go"). Theme tags on individual kanji (山 → `nature`) are optional on top. This is different from "words written in kanji", which reading mode already filters for with `hasKanji`.
 
 ## Verification (end-to-end)
 1. `npm test`, `npm run build`, `go vet ./...` and `go test ./...` pass at the repo root.
