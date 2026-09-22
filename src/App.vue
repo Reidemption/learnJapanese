@@ -2,6 +2,7 @@
 import { computed } from "vue";
 import { FONTS, fontStack } from "./fonts";
 import { settings } from "./settings";
+import { THEMES } from "./theme";
 
 const fontVars = computed(() => ({ "--ja": fontStack(settings.font) }));
 </script>
@@ -31,9 +32,14 @@ const fontVars = computed(() => ({ "--ja": fontStack(settings.font) }));
         >
           Hints
         </button>
-        <select v-model="settings.font" class="toggle font-picker" aria-label="Japanese font">
+        <select v-model="settings.font" class="toggle picker" aria-label="Japanese font">
           <option v-for="font in FONTS" :key="font.id" :value="font.id">
             {{ font.label }}
+          </option>
+        </select>
+        <select v-model="settings.theme" class="toggle picker" aria-label="Colour theme">
+          <option v-for="theme in THEMES" :key="theme.id" :value="theme.id">
+            {{ theme.label }}
           </option>
         </select>
       </div>
