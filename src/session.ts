@@ -1,5 +1,5 @@
 import { ref } from "vue";
-import type { Question } from "./types";
+import type { Deck, Question, Tag } from "./types";
 import type { Mode } from "./study/modes";
 
 export type SessionResult = {
@@ -19,6 +19,16 @@ export const lastResult = ref<SessionResult | null>(null);
 
 /** Questions queued by "Retry missed", consumed by the next session. */
 export const retryQueue = ref<Question[] | null>(null);
+
+/**
+ * The deck a Custom session plays. Any screen can start one by setting this
+ * and opening `/study/:mode`. In memory only, like `lastResult`: after a
+ * refresh the router sends you back to the Custom page.
+ */
+export const customDeck = ref<Deck | null>(null);
+
+/** The tags picked on the Custom page, kept while you study and come back. */
+export const customTags = ref<Tag[]>([]);
 
 export function takeRetryQueue(): Question[] | null {
   const queued = retryQueue.value;

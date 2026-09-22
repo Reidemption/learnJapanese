@@ -4,15 +4,27 @@ import { useRouter } from "vue-router";
 import RubyText from "../components/RubyText.vue";
 import { getDeck } from "../api";
 import { correctChoice, filledPrompt } from "../progress";
-import { lastResult, retryQueue } from "../session";
+import { customDeck, lastResult, retryQueue } from "../session";
 import { MODE_LABELS, isMode } from "../study/modes";
 import type { Deck, Question } from "../types";
 
-const props = defineProps<{ id: string; mode: string }>();
+/** `custom`: the result of a Custom session, whose deck lives in `session.ts`. */
+const props = defineProps<{ id: string; mode: string; custom?: boolean }>();
 const router = useRouter();
 
 const deck = ref<Deck | undefined>();
-watch(() => props.id, async (id) => (deck.value = await getDeck(id)), { immediate: true });
+watch(
+  () => [props.id, props.custom],
+  async () => {
+    deck.value = props.custom ? (customDeck.value ?? undefined) : await getDeck(props.id);
+  },
+  { immediate: true },
+);
+
+const backTo = computed(() =>
+  props.custom ? { name: "custom" } : { name: "deck", params: { id: props.id } },
+);
+const backLabel = computed(() => (props.custom ? "Custom study" : "Back to deck"));
 const mode = computed(() => (isMode(props.mode) ? props.mode : undefined));
 
 /** Only the result for this deck+mode: a refresh leaves nothing to show. */
@@ -35,16 +47,22 @@ function promptOf(question: Question) {
 function retryMissed(): void {
   if (!result.value?.missed.length || !mode.value) return;
   retryQueue.value = result.value.missed;
-  router.push({ name: "session", params: { id: props.id, mode: mode.value } });
+  router.push(
+    props.custom
+      ? { name: "custom-session", params: { mode: mode.value } }
+      : { name: "session", params: { id: props.id, mode: mode.value } },
+  );
 }
 </script>
 
 <template>
   <main v-if="deck && result" class="page score">
-    <RouterLink class="back" :to="{ name: 'deck', params: { id } }">← {{ deck.title }}</RouterLink>
+    <RouterLink class="back" :to="backTo">← {{ custom ? "Custom study" : deck.title }}</RouterLink>
 
     <h2>{{ result.correct }} / {{ result.total }}</h2>
-    <p class="prompt-en">{{ deck.level }} · {{ mode ? MODE_LABELS[mode] : "" }}</p>
+    <p class="prompt-en">
+      {{ deck.level }} · <template v-if="custom">{{ deck.title }} · </template>{{ mode ? MODE_LABELS[mode] : "" }}
+    </p>
 
     <ul v-if="result.missed.length" class="misses">
       <li v-for="question in result.missed" :key="question.id">
@@ -59,7 +77,7 @@ function retryMissed(): void {
       <button v-if="result.missed.length" class="ghost" type="button" @click="retryMissed">
         Retry missed ({{ result.missed.length }})
       </button>
-      <RouterLink class="primary" :to="{ name: 'deck', params: { id } }">Back to deck</RouterLink>
+      <RouterLink class="primary" :to="backTo">{{ backLabel }}</RouterLink>
     </div>
   </main>
 
@@ -67,7 +85,7 @@ function retryMissed(): void {
     <h2>No score to show</h2>
     <p class="prompt-en">Results live for the session only, so a refresh clears them.</p>
     <div class="next-row">
-      <RouterLink class="primary" :to="{ name: 'deck', params: { id } }">Back to deck</RouterLink>
+      <RouterLink class="primary" :to="backTo">{{ backLabel }}</RouterLink>
     </div>
   </main>
 </template>

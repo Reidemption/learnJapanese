@@ -97,6 +97,14 @@ Pure functions with a colocated `tags.test.ts`:
 
 ## Tags Phase 2: Custom study page
 
+**Built as:** these are the choices made where the list below left room.
+- **Pick order:** new words come in a **random** order rather than course order, so "New set" gives a different deck even before anything has been studied. "New set" also passes the current words as `avoid` to `pickUnits`, so the next set is all different words when there are enough of them. Weak words sort by accuracy (lowest first); learning and known words by least recently seen.
+- **Signatures:** `buildCustomDeck(decks, stats, level, selected, rng, { size, order, avoid })`. `pickUnits` takes the same options. `order` is a comparator (`UnitOrder`), which is what Test Phase 3's `wordSet` passes. `CUSTOM_SIZE` (20) and `CUSTOM_DECK_ID` ("custom") live in `tags.ts`.
+- **Selection:** the picked tags are kept in `session.ts` (`customTags`), next to `customDeck`, so coming back from a result keeps them. Each chip shows its word count at the current level, and tags with no words there are hidden.
+- **Page:** the deck's words show a mastery dot, with the usual known / learning / new legend above them. If fewer than 4 words match, the page says so instead of offering modes.
+- **Dashboard levels:** the session list doesn't say which level a Custom session drew from, so Custom sessions count towards activity at **every** level. Only N5 has content today. When N4 arrives, record the level with the session (or map its answers) instead.
+- **Server:** `listAttempts` and export leave `scope` out for deck sessions (like `retry`), so they look exactly as they did before.
+
 - `src/study/tags.ts` + `tags.test.ts`, as described in Design: `matchingUnits`, `pickUnits`, `customDeckFrom`, `buildCustomDeck` (`tagsOf` is already there).
 - **Routes** (`src/router.ts`):
   - `/study` → `CustomView.vue`, with a "Custom" link in the header (`src/App.vue`) next to "Progress"
@@ -125,25 +133,25 @@ Pure functions with a colocated `tags.test.ts`:
   - export and import carry `scope`
 
 **A/C**
-- [ ] `tags.test.ts` covers:
+- [x] `tags.test.ts` covers:
   - OR within a facet and AND across facets
   - skipping collisions across decks: the same `ja` (そば) or the same `en` (万 / 一万)
   - the pick order (weak → learning → new → known), a caller-supplied order, and the size cap
   - `customDeckFrom` with a mix of items and cloze questions from different decks
   - a different seed gives a different pick when there's a choice
   - a matching set smaller than the cap gives all of it
-- [ ] A component test mounts `CustomView` with a stubbed API: selecting chips updates the count and the word list, and a mode button starts a session.
-- [ ] `router.test.ts`: `/study` renders, and `/study/meaning` with no built deck redirects to `/study`.
-- [ ] Static mode: a custom session updates item stats and the attempt log, but no deck score.
-- [ ] Go:
+- [x] A component test mounts `CustomView` with a stubbed API: selecting chips updates the count and the word list, and a mode button starts a session.
+- [x] `router.test.ts`: `/study` renders, and `/study/meaning` with no built deck redirects to `/study`. *(Also: a whole Custom session runs to its result, is logged with `scope: "custom"` and no deck, and "Custom study" goes back to the page with the tags still picked.)*
+- [x] Static mode: a custom session updates item stats and the attempt log, but no deck score.
+- [x] Go:
   - a custom attempt is stored and updates `item_stats`
   - it doesn't appear in `/api/progress` deck scores
   - it survives export → import
   - a `deck` attempt with an empty or unknown deck is still rejected
   - the migration runs twice safely on an existing database
-- [ ] The dashboard's activity and streak count custom sessions.
-- [ ] `npm test`, `npm run build`, `go test ./...` and `go vet ./...` pass.
-- [ ] Manual: build "verb + u-verb", finish the session, and see those words' mastery change on the dashboard. At 375px wide, in light and dark, nothing overflows.
+- [x] The dashboard's activity and streak count custom sessions. *(Checked that the test fails without the fix.)*
+- [x] `npm test`, `npm run build`, `go test ./...` and `go vet ./...` pass.
+- [ ] Manual: build "verb + u-verb", finish the session, and see those words' mastery change on the dashboard. At 375px wide, in light and dark, nothing overflows. *(Checked in headless Chrome at 375px and 1100px, in light and dark, with no tags, with Verbs, with Verbs + Time, and with no matches: `scrollWidth` equals the width and nothing overflows. Finishing a session and seeing the dashboard change is covered by the router test and not yet clicked through by hand.)*
 
 ## Later (not planned yet)
 - **Mastery per tag** on the dashboard, with a "Practise these" link to `/study?tags=…`.

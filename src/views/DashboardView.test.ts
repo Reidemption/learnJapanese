@@ -120,6 +120,31 @@ describe("DashboardView", () => {
     expect(wrapper.findAll(".group-bar")).toHaveLength(n5Groups);
   });
 
+  it("counts Custom sessions, which have no deck, in activity and the streak", async () => {
+    const now = Date.now();
+    const unit = unitsOf(first)[0]!;
+    setApi(
+      stubApi({ [unit.id]: { ...known(now), streak: 1, knownAt: null } }, [
+        {
+          uid: "c1",
+          deckId: "",
+          scope: "custom",
+          mode: "meaning",
+          correct: 15,
+          total: 20,
+          kana: false,
+          hints: false,
+          at: now,
+        },
+      ]),
+    );
+    const wrapper = await render();
+
+    expect(wrapper.find(".heatmap").exists()).toBe(true);
+    expect(wrapper.find(".dash-note").text()).toContain("1 session · 20 answers");
+    expect(wrapper.find(".streak").text()).toContain("1 day in a row");
+  });
+
   it("sorts the deck grid by least learned", async () => {
     const last = n5[n5.length - 1]!;
     const items = Object.fromEntries(unitsOf(first).map((unit) => [unit.id, known(Date.now())]));

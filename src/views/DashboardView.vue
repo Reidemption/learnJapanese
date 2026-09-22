@@ -65,8 +65,13 @@ const levels = computed(() => [
 const levelDecks = computed(() => decks.value.filter((deck) => deck.level === level.value));
 const stats = computed(() => statsAt(decks.value, progress.value.items, level.value));
 const levelDeckIds = computed(() => new Set(levelDecks.value.map((deck) => deck.id)));
+// A Custom session has no deck. It's built from one level's words, but the
+// session list doesn't say which, so it counts at every level. Only N5 has
+// content so far; give sessions a level when N4 arrives.
 const levelAttempts = computed(() =>
-  attempts.value.filter((attempt) => levelDeckIds.value.has(attempt.deckId)),
+  attempts.value.filter(
+    (attempt) => attempt.scope === "custom" || levelDeckIds.value.has(attempt.deckId),
+  ),
 );
 
 const headline = computed(() => coverage(decks.value, stats.value, level.value));

@@ -59,7 +59,19 @@ export type AttemptRecord = {
    * count towards mastery, but it is not a score for the deck. Absent = false.
    */
   retry?: boolean;
+  /**
+   * "custom": a Custom study session over words from several decks. Its
+   * `deckId` is empty and it is not a deck score. Absent = a deck session.
+   */
+  scope?: AttemptScope;
 };
+
+export type AttemptScope = "deck" | "custom";
+
+/** Whether a session is a score for its deck: not a retry, not a Custom session. */
+export function isDeckScore(attempt: Pick<AttemptRecord, "retry" | "scope">): boolean {
+  return !attempt.retry && (attempt.scope ?? "deck") === "deck";
+}
 
 /** A finished session with every answer: what is posted, logged and backed up. */
 export type LoggedAttempt = AttemptRecord & { items: ItemResult[] };
@@ -243,7 +255,8 @@ export type ImportResult = { imported: number; duplicates: number; skipped: numb
 /**
  * Merges sessions (and a baseline) from a backup. Sessions already in the log
  * are skipped by uid, so importing the same file twice changes nothing.
- * Sessions for decks that no longer exist are skipped too.
+ * Deck sessions for decks that no longer exist are skipped too; a Custom
+ * session has no deck, so it is always kept.
  */
 export function importAttempts(
   attempts: LoggedAttempt[],
@@ -258,7 +271,7 @@ export function importAttempts(
   for (const attempt of attempts) {
     if (seen.has(attempt.uid)) {
       result.duplicates += 1;
-    } else if (!knownDeck(attempt.deckId)) {
+    } else if (attempt.scope !== "custom" && !knownDeck(attempt.deckId)) {
       result.skipped += 1;
     } else {
       seen.add(attempt.uid);
@@ -282,7 +295,7 @@ export function importAttempts(
   if (fresh.length || baseChanged) {
     const scores = loadScores();
     for (const attempt of fresh) {
-      if (attempt.retry) continue;
+      if (!isDeckScore(attempt)) continue;
       const key = scoreKey(attempt.deckId, attempt.mode);
       scores[key] = mergeScore(scores[key], attempt);
     }
