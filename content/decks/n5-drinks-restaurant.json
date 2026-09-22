@@ -5,116 +5,139 @@
   "title": "Drinks & eating out",
   "titleJa": "飲み物と外食",
   "order": 43,
+  "tags": ["food"],
   "items": [
     {
       "id": "n5-drinks-restaurant-1",
       "ja": "{紅茶|こうちゃ}",
-      "en": "black tea"
+      "en": "black tea",
+      "tags": ["noun"]
     },
     {
       "id": "n5-drinks-restaurant-2",
       "ja": "ジュース",
-      "en": "juice"
+      "en": "juice",
+      "tags": ["noun"]
     },
     {
       "id": "n5-drinks-restaurant-3",
       "ja": "ミルク",
-      "en": "milk (in a drink)"
+      "en": "milk (in a drink)",
+      "tags": ["noun"]
     },
     {
       "id": "n5-drinks-restaurant-4",
       "ja": "ワイン",
-      "en": "wine"
+      "en": "wine",
+      "tags": ["noun"]
     },
     {
       "id": "n5-drinks-restaurant-5",
       "ja": "{氷|こおり}",
-      "en": "ice"
+      "en": "ice",
+      "tags": ["noun"]
     },
     {
       "id": "n5-drinks-restaurant-6",
       "ja": "メニュー",
-      "en": "menu"
+      "en": "menu",
+      "tags": ["noun"]
     },
     {
       "id": "n5-drinks-restaurant-7",
       "ja": "{注文|ちゅうもん}",
-      "en": "order"
+      "en": "order",
+      "tags": ["noun"]
     },
     {
       "id": "n5-drinks-restaurant-8",
       "ja": "{食堂|しょくどう}",
-      "en": "canteen / dining hall"
+      "en": "canteen / dining hall",
+      "tags": ["noun", "place"]
     },
     {
       "id": "n5-drinks-restaurant-9",
       "ja": "ウエーター",
-      "en": "waiter"
+      "en": "waiter",
+      "tags": ["noun"]
     },
     {
       "id": "n5-drinks-restaurant-10",
       "ja": "カウンター",
-      "en": "counter seat"
+      "en": "counter seat",
+      "tags": ["noun"]
     },
     {
       "id": "n5-drinks-restaurant-11",
       "ja": "{席|せき}",
-      "en": "seat"
+      "en": "seat",
+      "tags": ["noun"]
     },
     {
       "id": "n5-drinks-restaurant-12",
       "ja": "おしぼり",
-      "en": "wet towel"
+      "en": "wet towel",
+      "tags": ["noun"]
     },
     {
       "id": "n5-drinks-restaurant-13",
       "ja": "{予約|よやく}",
-      "en": "reservation"
+      "en": "reservation",
+      "tags": ["noun", "shopping"]
     },
     {
       "id": "n5-drinks-restaurant-14",
       "ja": "{持|も}ち{帰|かえ}り",
-      "en": "takeaway"
+      "en": "takeaway",
+      "tags": ["noun"]
     },
     {
       "id": "n5-drinks-restaurant-15",
       "ja": "おいしそう",
-      "en": "looks delicious"
+      "en": "looks delicious",
+      "tags": ["na-adj"]
     },
     {
       "id": "n5-drinks-restaurant-16",
       "ja": "いっぱい",
-      "en": "full / a lot"
+      "en": "full / a lot",
+      "tags": ["adverb"]
     },
     {
       "id": "n5-drinks-restaurant-17",
       "ja": "{朝食|ちょうしょく}",
-      "en": "breakfast (formal)"
+      "en": "breakfast (formal)",
+      "tags": ["noun"]
     },
     {
       "id": "n5-drinks-restaurant-18",
       "ja": "{昼食|ちゅうしょく}",
-      "en": "lunch (formal)"
+      "en": "lunch (formal)",
+      "tags": ["noun"]
     },
     {
       "id": "n5-drinks-restaurant-19",
       "ja": "{夕食|ゆうしょく}",
-      "en": "dinner (formal)"
+      "en": "dinner (formal)",
+      "tags": ["noun"]
     },
     {
       "id": "n5-drinks-restaurant-20",
       "ja": "{食事|しょくじ}",
-      "en": "a meal"
+      "en": "a meal",
+      "tags": ["noun"]
     },
     {
       "id": "n5-drinks-restaurant-21",
       "ja": "{飲|の}み{会|かい}",
-      "en": "drinking party"
+      "en": "drinking party",
+      "tags": ["noun"]
     },
     {
       "id": "n5-drinks-restaurant-22",
       "ja": "かんぱい",
-      "en": "cheers!"
+      "en": "cheers!",
+      "tags": ["expression"]
     }
   ]
 }

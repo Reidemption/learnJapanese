@@ -5,6 +5,7 @@
   "title": "Food & drink",
   "titleJa": "食べ物と飲み物",
   "order": 40,
+  "tags": ["noun", "food"],
   "items": [
     {
       "id": "n5-food-1",
@@ -124,7 +125,8 @@
     {
       "id": "n5-food-24",
       "ja": "レストラン",
-      "en": "restaurant"
+      "en": "restaurant",
+      "tags": ["place"]
     }
   ]
 }

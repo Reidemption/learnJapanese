@@ -5,138 +5,161 @@
   "title": "Verbs III: communication & study",
   "titleJa": "動詞３",
   "order": 74,
+  "tags": ["verb"],
   "items": [
     {
       "id": "n5-verbs-3-1",
       "ja": "{言|い}う",
       "en": "to say",
-      "note": "u-verb"
+      "note": "u-verb",
+      "tags": ["u-verb"]
     },
     {
       "id": "n5-verbs-3-2",
       "ja": "{教|おし}える",
       "en": "to teach / tell",
-      "note": "ru-verb"
+      "note": "ru-verb",
+      "tags": ["ru-verb", "school"]
     },
     {
       "id": "n5-verbs-3-3",
       "ja": "{習|なら}う",
       "en": "to learn",
-      "note": "u-verb"
+      "note": "u-verb",
+      "tags": ["u-verb", "school"]
     },
     {
       "id": "n5-verbs-3-4",
       "ja": "{覚|おぼ}える",
       "en": "to memorise",
-      "note": "ru-verb"
+      "note": "ru-verb",
+      "tags": ["ru-verb", "school"]
     },
     {
       "id": "n5-verbs-3-5",
       "ja": "{忘|わす}れる",
       "en": "to forget",
-      "note": "ru-verb"
+      "note": "ru-verb",
+      "tags": ["ru-verb", "school"]
     },
     {
       "id": "n5-verbs-3-6",
       "ja": "{知|し}る",
       "en": "to know / find out",
-      "note": "u-verb"
+      "note": "u-verb",
+      "tags": ["u-verb"]
     },
     {
       "id": "n5-verbs-3-7",
       "ja": "{思|おも}う",
       "en": "to think",
-      "note": "u-verb"
+      "note": "u-verb",
+      "tags": ["u-verb"]
     },
     {
       "id": "n5-verbs-3-8",
       "ja": "{分|わ}かる",
       "en": "to understand",
-      "note": "u-verb"
+      "note": "u-verb",
+      "tags": ["u-verb"]
     },
     {
       "id": "n5-verbs-3-9",
       "ja": "{答|こた}える",
       "en": "to answer",
-      "note": "ru-verb"
+      "note": "ru-verb",
+      "tags": ["ru-verb", "school"]
     },
     {
       "id": "n5-verbs-3-10",
       "ja": "{聞|き}こえる",
       "en": "to be audible",
-      "note": "ru-verb"
+      "note": "ru-verb",
+      "tags": ["ru-verb"]
     },
     {
       "id": "n5-verbs-3-11",
       "ja": "{見|み}える",
       "en": "to be visible",
-      "note": "ru-verb"
+      "note": "ru-verb",
+      "tags": ["ru-verb"]
     },
     {
       "id": "n5-verbs-3-12",
       "ja": "{調|しら}べる",
       "en": "to look up / check",
-      "note": "ru-verb"
+      "note": "ru-verb",
+      "tags": ["ru-verb", "school"]
     },
     {
       "id": "n5-verbs-3-13",
       "ja": "{呼|よ}ぶ",
       "en": "to call / invite",
-      "note": "u-verb"
+      "note": "u-verb",
+      "tags": ["u-verb"]
     },
     {
       "id": "n5-verbs-3-14",
       "ja": "{頼|たの}む",
       "en": "to request",
-      "note": "u-verb"
+      "note": "u-verb",
+      "tags": ["u-verb"]
     },
     {
       "id": "n5-verbs-3-15",
       "ja": "{手伝|てつだ}う",
       "en": "to help out",
-      "note": "u-verb"
+      "note": "u-verb",
+      "tags": ["u-verb"]
     },
     {
       "id": "n5-verbs-3-16",
       "ja": "{相談|そうだん}する",
       "en": "to consult",
-      "note": "irregular"
+      "note": "irregular",
+      "tags": ["irregular-verb"]
     },
     {
       "id": "n5-verbs-3-17",
       "ja": "{説明|せつめい}する",
       "en": "to explain",
-      "note": "irregular"
+      "note": "irregular",
+      "tags": ["irregular-verb"]
     },
     {
       "id": "n5-verbs-3-18",
       "ja": "{練習|れんしゅう}する",
       "en": "to practise",
-      "note": "irregular"
+      "note": "irregular",
+      "tags": ["irregular-verb", "school"]
     },
     {
       "id": "n5-verbs-3-19",
       "ja": "{質問|しつもん}する",
       "en": "to ask a question",
-      "note": "irregular"
+      "note": "irregular",
+      "tags": ["irregular-verb", "school"]
     },
     {
       "id": "n5-verbs-3-20",
       "ja": "{電話|でんわ}する",
       "en": "to phone",
-      "note": "irregular"
+      "note": "irregular",
+      "tags": ["irregular-verb"]
     },
     {
       "id": "n5-verbs-3-21",
       "ja": "{話|はな}し{合|あ}う",
       "en": "to discuss",
-      "note": "u-verb"
+      "note": "u-verb",
+      "tags": ["u-verb"]
     },
     {
       "id": "n5-verbs-3-22",
       "ja": "{書|か}き{直|なお}す",
       "en": "to rewrite",
-      "note": "u-verb"
+      "note": "u-verb",
+      "tags": ["u-verb"]
     }
   ]
 }

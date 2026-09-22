@@ -5,6 +5,7 @@
   "title": "Classroom & travel phrases",
   "titleJa": "教室と旅行の表現",
   "order": 64,
+  "tags": ["expression"],
   "items": [
     {
       "id": "n5-daily-phrases-1",
@@ -69,12 +70,14 @@
     {
       "id": "n5-daily-phrases-13",
       "ja": "おいくらですか",
-      "en": "how much is it?"
+      "en": "how much is it?",
+      "tags": ["shopping"]
     },
     {
       "id": "n5-daily-phrases-14",
       "ja": "これをください",
-      "en": "I'll take this one"
+      "en": "I'll take this one",
+      "tags": ["shopping"]
     },
     {
       "id": "n5-daily-phrases-15",
@@ -109,7 +112,8 @@
     {
       "id": "n5-daily-phrases-21",
       "ja": "{何時|なんじ}からですか",
-      "en": "what time does it start?"
+      "en": "what time does it start?",
+      "tags": ["time"]
     },
     {
       "id": "n5-daily-phrases-22",

@@ -5,6 +5,7 @@
   "title": "Family",
   "titleJa": "家族",
   "order": 30,
+  "tags": ["noun", "people"],
   "items": [
     {
       "id": "n5-family-1",

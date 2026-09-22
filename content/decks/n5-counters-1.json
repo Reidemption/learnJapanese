@@ -5,6 +5,7 @@
   "title": "Counters I: things & people",
   "titleJa": "助数詞（一つ・人）",
   "order": 24,
+  "tags": ["counter"],
   "items": [
     {
       "id": "n5-counters-1-1",
@@ -59,23 +60,27 @@
     {
       "id": "n5-counters-1-11",
       "ja": "{一人|ひとり}",
-      "en": "one person"
+      "en": "one person",
+      "tags": ["people"]
     },
     {
       "id": "n5-counters-1-12",
       "ja": "{二人|ふたり}",
-      "en": "two people"
+      "en": "two people",
+      "tags": ["people"]
     },
     {
       "id": "n5-counters-1-13",
       "ja": "{三人|さんにん}",
-      "en": "three people"
+      "en": "three people",
+      "tags": ["people"]
     },
     {
       "id": "n5-counters-1-14",
       "ja": "{四人|よにん}",
       "en": "four people",
-      "note": "よにん, not しにん"
+      "note": "よにん, not しにん",
+      "tags": ["people"]
     },
     {
       "id": "n5-counters-1-15",
@@ -90,7 +95,8 @@
     {
       "id": "n5-counters-1-17",
       "ja": "{何枚|なんまい}",
-      "en": "how many flat objects"
+      "en": "how many flat objects",
+      "tags": ["question-word"]
     },
     {
       "id": "n5-counters-1-18",
@@ -105,7 +111,8 @@
     {
       "id": "n5-counters-1-20",
       "ja": "{何個|なんこ}",
-      "en": "how many pieces"
+      "en": "how many pieces",
+      "tags": ["question-word"]
     },
     {
       "id": "n5-counters-1-21",
@@ -121,7 +128,8 @@
     {
       "id": "n5-counters-1-23",
       "ja": "{何歳|なんさい}",
-      "en": "how old"
+      "en": "how old",
+      "tags": ["question-word"]
     }
   ]
 }

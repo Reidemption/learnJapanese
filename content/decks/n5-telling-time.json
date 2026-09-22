@@ -5,118 +5,141 @@
   "title": "Telling time",
   "titleJa": "時間の言い方",
   "order": 32,
+  "tags": ["time"],
   "items": [
     {
       "id": "n5-telling-time-1",
       "ja": "{一時|いちじ}",
-      "en": "one o'clock"
+      "en": "one o'clock",
+      "tags": ["counter"]
     },
     {
       "id": "n5-telling-time-2",
       "ja": "{二時|にじ}",
-      "en": "two o'clock"
+      "en": "two o'clock",
+      "tags": ["counter"]
     },
     {
       "id": "n5-telling-time-3",
       "ja": "{四時|よじ}",
       "en": "four o'clock",
-      "note": "よじ, not よんじ"
+      "note": "よじ, not よんじ",
+      "tags": ["counter"]
     },
     {
       "id": "n5-telling-time-4",
       "ja": "{七時|しちじ}",
-      "en": "seven o'clock"
+      "en": "seven o'clock",
+      "tags": ["counter"]
     },
     {
       "id": "n5-telling-time-5",
       "ja": "{九時|くじ}",
       "en": "nine o'clock",
-      "note": "くじ, not きゅうじ"
+      "note": "くじ, not きゅうじ",
+      "tags": ["counter"]
     },
     {
       "id": "n5-telling-time-6",
       "ja": "{一分|いっぷん}",
-      "en": "one minute"
+      "en": "one minute",
+      "tags": ["counter"]
     },
     {
       "id": "n5-telling-time-7",
       "ja": "{三分|さんぷん}",
-      "en": "three minutes"
+      "en": "three minutes",
+      "tags": ["counter"]
     },
     {
       "id": "n5-telling-time-8",
       "ja": "{十分|じゅっぷん}",
-      "en": "ten minutes"
+      "en": "ten minutes",
+      "tags": ["counter"]
     },
     {
       "id": "n5-telling-time-9",
       "ja": "{半|はん}",
-      "en": "half past"
+      "en": "half past",
+      "tags": ["noun"]
     },
     {
       "id": "n5-telling-time-10",
       "ja": "{午前|ごぜん}",
-      "en": "a.m. / morning"
+      "en": "a.m. / morning",
+      "tags": ["noun"]
     },
     {
       "id": "n5-telling-time-11",
       "ja": "{午後|ごご}",
-      "en": "p.m. / afternoon"
+      "en": "p.m. / afternoon",
+      "tags": ["noun"]
     },
     {
       "id": "n5-telling-time-12",
       "ja": "{朝|あさ}",
-      "en": "morning"
+      "en": "morning",
+      "tags": ["noun"]
     },
     {
       "id": "n5-telling-time-13",
       "ja": "{昼|ひる}",
-      "en": "noon / daytime"
+      "en": "noon / daytime",
+      "tags": ["noun"]
     },
     {
       "id": "n5-telling-time-14",
       "ja": "{夕方|ゆうがた}",
-      "en": "early evening"
+      "en": "early evening",
+      "tags": ["noun"]
     },
     {
       "id": "n5-telling-time-15",
       "ja": "{夜|よる}",
-      "en": "night"
+      "en": "night",
+      "tags": ["noun"]
     },
     {
       "id": "n5-telling-time-16",
       "ja": "{時間|じかん}",
-      "en": "time / hour"
+      "en": "time / hour",
+      "tags": ["noun"]
     },
     {
       "id": "n5-telling-time-17",
       "ja": "{秒|びょう}",
-      "en": "second"
+      "en": "second",
+      "tags": ["noun"]
     },
     {
       "id": "n5-telling-time-18",
       "ja": "ちょうど",
-      "en": "exactly (on the hour)"
+      "en": "exactly (on the hour)",
+      "tags": ["adverb"]
     },
     {
       "id": "n5-telling-time-19",
       "ja": "ごろ",
-      "en": "about (a point in time)"
+      "en": "about (a point in time)",
+      "tags": ["adverb"]
     },
     {
       "id": "n5-telling-time-20",
       "ja": "{早|はや}く",
-      "en": "early"
+      "en": "early",
+      "tags": ["adverb"]
     },
     {
       "id": "n5-telling-time-21",
       "ja": "{遅|おそ}く",
-      "en": "late"
+      "en": "late",
+      "tags": ["adverb"]
     },
     {
       "id": "n5-telling-time-22",
       "ja": "{時計|とけい}",
-      "en": "clock / watch"
+      "en": "clock / watch",
+      "tags": ["noun"]
     }
   ]
 }

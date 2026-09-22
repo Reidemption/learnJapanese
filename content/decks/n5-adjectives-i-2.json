@@ -5,6 +5,7 @@
   "title": "い-adjectives II",
   "titleJa": "形容詞２",
   "order": 56,
+  "tags": ["i-adj"],
   "items": [
     {
       "id": "n5-adjectives-i-2-1",
@@ -99,7 +100,8 @@
     {
       "id": "n5-adjectives-i-2-19",
       "ja": "{痛|いた}い",
-      "en": "painful"
+      "en": "painful",
+      "tags": ["body"]
     },
     {
       "id": "n5-adjectives-i-2-20",
@@ -119,7 +121,8 @@
     {
       "id": "n5-adjectives-i-2-23",
       "ja": "{涼|すず}しい",
-      "en": "cool (weather)"
+      "en": "cool (weather)",
+      "tags": ["nature"]
     }
   ]
 }

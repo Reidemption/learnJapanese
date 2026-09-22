@@ -5,121 +5,144 @@
   "title": "Money & big numbers",
   "titleJa": "お金と大きい数",
   "order": 22,
+  "tags": ["shopping"],
   "items": [
     {
       "id": "n5-money-1",
       "ja": "{値段|ねだん}",
-      "en": "price"
+      "en": "price",
+      "tags": ["noun"]
     },
     {
       "id": "n5-money-2",
       "ja": "お{金|かね}",
-      "en": "money"
+      "en": "money",
+      "tags": ["noun"]
     },
     {
       "id": "n5-money-3",
       "ja": "{円|えん}",
-      "en": "yen"
+      "en": "yen",
+      "tags": ["noun"]
     },
     {
       "id": "n5-money-4",
       "ja": "ドル",
-      "en": "dollar"
+      "en": "dollar",
+      "tags": ["noun"]
     },
     {
       "id": "n5-money-5",
       "ja": "{財布|さいふ}",
-      "en": "wallet"
+      "en": "wallet",
+      "tags": ["noun"]
     },
     {
       "id": "n5-money-6",
       "ja": "{現金|げんきん}",
-      "en": "cash"
+      "en": "cash",
+      "tags": ["noun"]
     },
     {
       "id": "n5-money-7",
       "ja": "カード",
-      "en": "card"
+      "en": "card",
+      "tags": ["noun"]
     },
     {
       "id": "n5-money-8",
       "ja": "おつり",
-      "en": "change (money back)"
+      "en": "change (money back)",
+      "tags": ["noun"]
     },
     {
       "id": "n5-money-9",
       "ja": "レジ",
-      "en": "checkout / register"
+      "en": "checkout / register",
+      "tags": ["noun"]
     },
     {
       "id": "n5-money-10",
       "ja": "{会計|かいけい}",
-      "en": "the bill"
+      "en": "the bill",
+      "tags": ["noun"]
     },
     {
       "id": "n5-money-11",
       "ja": "{半分|はんぶん}",
-      "en": "half"
+      "en": "half",
+      "tags": ["noun"]
     },
     {
       "id": "n5-money-12",
       "ja": "{全部|ぜんぶ}",
-      "en": "all / everything"
+      "en": "all / everything",
+      "tags": ["noun"]
     },
     {
       "id": "n5-money-13",
       "ja": "{二百|にひゃく}",
-      "en": "two hundred"
+      "en": "two hundred",
+      "tags": ["number"]
     },
     {
       "id": "n5-money-14",
       "ja": "{三百|さんびゃく}",
       "en": "three hundred",
-      "note": "sound change: さんびゃく"
+      "note": "sound change: さんびゃく",
+      "tags": ["number"]
     },
     {
       "id": "n5-money-15",
       "ja": "{六百|ろっぴゃく}",
       "en": "six hundred",
-      "note": "sound change: ろっぴゃく"
+      "note": "sound change: ろっぴゃく",
+      "tags": ["number"]
     },
     {
       "id": "n5-money-16",
       "ja": "{八百|はっぴゃく}",
       "en": "eight hundred",
-      "note": "sound change: はっぴゃく"
+      "note": "sound change: はっぴゃく",
+      "tags": ["number"]
     },
     {
       "id": "n5-money-17",
       "ja": "{三千|さんぜん}",
       "en": "three thousand",
-      "note": "sound change: さんぜん"
+      "note": "sound change: さんぜん",
+      "tags": ["number"]
     },
     {
       "id": "n5-money-18",
       "ja": "{八千|はっせん}",
       "en": "eight thousand",
-      "note": "sound change: はっせん"
+      "note": "sound change: はっせん",
+      "tags": ["number"]
     },
     {
       "id": "n5-money-19",
       "ja": "{一万|いちまん}",
-      "en": "ten thousand"
+      "en": "ten thousand",
+      "tags": ["number"]
     },
     {
       "id": "n5-money-20",
       "ja": "{十万|じゅうまん}",
-      "en": "one hundred thousand"
+      "en": "one hundred thousand",
+      "tags": ["number"]
     },
     {
       "id": "n5-money-21",
       "ja": "{百万|ひゃくまん}",
-      "en": "one million"
+      "en": "one million",
+      "tags": ["number"]
     },
     {
       "id": "n5-money-22",
       "ja": "{番号|ばんごう}",
-      "en": "number (phone, room)"
+      "en": "number (phone, room)",
+      "tags": ["noun"]
     }
   ]
 }

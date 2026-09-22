@@ -5,11 +5,13 @@
   "title": "School & stationery",
   "titleJa": "学校と文房具",
   "order": 46,
+  "tags": ["noun", "school"],
   "items": [
     {
       "id": "n5-school-1",
       "ja": "{教室|きょうしつ}",
-      "en": "classroom"
+      "en": "classroom",
+      "tags": ["place"]
     },
     {
       "id": "n5-school-2",
@@ -119,7 +121,8 @@
     {
       "id": "n5-school-23",
       "ja": "{留学生|りゅうがくせい}",
-      "en": "international student"
+      "en": "international student",
+      "tags": ["people"]
     },
     {
       "id": "n5-school-24",

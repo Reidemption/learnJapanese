@@ -9,123 +9,147 @@
     {
       "id": "n5-positions-1",
       "ja": "{上|うえ}",
-      "en": "on top / above"
+      "en": "on top / above",
+      "tags": ["noun"]
     },
     {
       "id": "n5-positions-2",
       "ja": "{下|した}",
-      "en": "under / below"
+      "en": "under / below",
+      "tags": ["noun"]
     },
     {
       "id": "n5-positions-3",
       "ja": "{中|なか}",
-      "en": "inside"
+      "en": "inside",
+      "tags": ["noun"]
     },
     {
       "id": "n5-positions-4",
       "ja": "{外|そと}",
-      "en": "outside"
+      "en": "outside",
+      "tags": ["noun"]
     },
     {
       "id": "n5-positions-5",
       "ja": "{前|まえ}",
-      "en": "in front / before"
+      "en": "in front / before",
+      "tags": ["noun"]
     },
     {
       "id": "n5-positions-6",
       "ja": "{後|うし}ろ",
-      "en": "behind"
+      "en": "behind",
+      "tags": ["noun"]
     },
     {
       "id": "n5-positions-7",
       "ja": "{右|みぎ}",
-      "en": "right"
+      "en": "right",
+      "tags": ["noun"]
     },
     {
       "id": "n5-positions-8",
       "ja": "{左|ひだり}",
-      "en": "left"
+      "en": "left",
+      "tags": ["noun"]
     },
     {
       "id": "n5-positions-9",
       "ja": "となり",
-      "en": "next door / beside"
+      "en": "next door / beside",
+      "tags": ["noun"]
     },
     {
       "id": "n5-positions-10",
       "ja": "そば",
-      "en": "close by"
+      "en": "close by",
+      "tags": ["noun"]
     },
     {
       "id": "n5-positions-11",
       "ja": "{近|ちか}く",
-      "en": "nearby"
+      "en": "nearby",
+      "tags": ["noun"]
     },
     {
       "id": "n5-positions-12",
       "ja": "{遠|とお}く",
-      "en": "far away"
+      "en": "far away",
+      "tags": ["noun"]
     },
     {
       "id": "n5-positions-13",
       "ja": "{間|あいだ}",
-      "en": "between"
+      "en": "between",
+      "tags": ["noun"]
     },
     {
       "id": "n5-positions-14",
       "ja": "{向|む}かい",
-      "en": "across from"
+      "en": "across from",
+      "tags": ["noun"]
     },
     {
       "id": "n5-positions-15",
       "ja": "{東|ひがし}",
-      "en": "east"
+      "en": "east",
+      "tags": ["noun"]
     },
     {
       "id": "n5-positions-16",
       "ja": "{西|にし}",
-      "en": "west"
+      "en": "west",
+      "tags": ["noun"]
     },
     {
       "id": "n5-positions-17",
       "ja": "{南|みなみ}",
-      "en": "south"
+      "en": "south",
+      "tags": ["noun"]
     },
     {
       "id": "n5-positions-18",
       "ja": "{北|きた}",
-      "en": "north"
+      "en": "north",
+      "tags": ["noun"]
     },
     {
       "id": "n5-positions-19",
       "ja": "こちら",
-      "en": "this way"
+      "en": "this way",
+      "tags": ["noun"]
     },
     {
       "id": "n5-positions-20",
       "ja": "そちら",
-      "en": "that way"
+      "en": "that way",
+      "tags": ["noun"]
     },
     {
       "id": "n5-positions-21",
       "ja": "あちら",
-      "en": "that way over there"
+      "en": "that way over there",
+      "tags": ["noun"]
     },
     {
       "id": "n5-positions-22",
       "ja": "まっすぐ",
-      "en": "straight ahead"
+      "en": "straight ahead",
+      "tags": ["adverb"]
     },
     {
       "id": "n5-positions-23",
       "ja": "{角|かど}",
-      "en": "corner"
+      "en": "corner",
+      "tags": ["noun"]
     },
     {
       "id": "n5-positions-24",
       "ja": "{曲|ま}がる",
       "en": "to turn",
-      "note": "u-verb"
+      "note": "u-verb",
+      "tags": ["verb", "u-verb"]
     }
   ]
 }

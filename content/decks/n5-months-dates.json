@@ -5,136 +5,162 @@
   "title": "Months & dates",
   "titleJa": "月と日",
   "order": 30,
+  "tags": ["time"],
   "items": [
     {
       "id": "n5-months-dates-1",
       "ja": "{一月|いちがつ}",
-      "en": "January"
+      "en": "January",
+      "tags": ["noun"]
     },
     {
       "id": "n5-months-dates-2",
       "ja": "{二月|にがつ}",
-      "en": "February"
+      "en": "February",
+      "tags": ["noun"]
     },
     {
       "id": "n5-months-dates-3",
       "ja": "{三月|さんがつ}",
-      "en": "March"
+      "en": "March",
+      "tags": ["noun"]
     },
     {
       "id": "n5-months-dates-4",
       "ja": "{四月|しがつ}",
       "en": "April",
-      "note": "しがつ, not よんがつ"
+      "note": "しがつ, not よんがつ",
+      "tags": ["noun"]
     },
     {
       "id": "n5-months-dates-5",
       "ja": "{五月|ごがつ}",
-      "en": "May"
+      "en": "May",
+      "tags": ["noun"]
     },
     {
       "id": "n5-months-dates-6",
       "ja": "{六月|ろくがつ}",
-      "en": "June"
+      "en": "June",
+      "tags": ["noun"]
     },
     {
       "id": "n5-months-dates-7",
       "ja": "{七月|しちがつ}",
       "en": "July",
-      "note": "しちがつ"
+      "note": "しちがつ",
+      "tags": ["noun"]
     },
     {
       "id": "n5-months-dates-8",
       "ja": "{八月|はちがつ}",
-      "en": "August"
+      "en": "August",
+      "tags": ["noun"]
     },
     {
       "id": "n5-months-dates-9",
       "ja": "{九月|くがつ}",
       "en": "September",
-      "note": "くがつ, not きゅうがつ"
+      "note": "くがつ, not きゅうがつ",
+      "tags": ["noun"]
     },
     {
       "id": "n5-months-dates-10",
       "ja": "{十月|じゅうがつ}",
-      "en": "October"
+      "en": "October",
+      "tags": ["noun"]
     },
     {
       "id": "n5-months-dates-11",
       "ja": "{十一月|じゅういちがつ}",
-      "en": "November"
+      "en": "November",
+      "tags": ["noun"]
     },
     {
       "id": "n5-months-dates-12",
       "ja": "{十二月|じゅうにがつ}",
-      "en": "December"
+      "en": "December",
+      "tags": ["noun"]
     },
     {
       "id": "n5-months-dates-13",
       "ja": "{何月|なんがつ}",
-      "en": "what month"
+      "en": "what month",
+      "tags": ["noun", "question-word"]
     },
     {
       "id": "n5-months-dates-14",
       "ja": "{一日|ついたち}",
       "en": "1st of the month",
-      "note": "irregular"
+      "note": "irregular",
+      "tags": ["counter"]
     },
     {
       "id": "n5-months-dates-15",
       "ja": "{二日|ふつか}",
-      "en": "2nd of the month"
+      "en": "2nd of the month",
+      "tags": ["counter"]
     },
     {
       "id": "n5-months-dates-16",
       "ja": "{三日|みっか}",
-      "en": "3rd of the month"
+      "en": "3rd of the month",
+      "tags": ["counter"]
     },
     {
       "id": "n5-months-dates-17",
       "ja": "{四日|よっか}",
-      "en": "4th of the month"
+      "en": "4th of the month",
+      "tags": ["counter"]
     },
     {
       "id": "n5-months-dates-18",
       "ja": "{五日|いつか}",
-      "en": "5th of the month"
+      "en": "5th of the month",
+      "tags": ["counter"]
     },
     {
       "id": "n5-months-dates-19",
       "ja": "{六日|むいか}",
-      "en": "6th of the month"
+      "en": "6th of the month",
+      "tags": ["counter"]
     },
     {
       "id": "n5-months-dates-20",
       "ja": "{七日|なのか}",
-      "en": "7th of the month"
+      "en": "7th of the month",
+      "tags": ["counter"]
     },
     {
       "id": "n5-months-dates-21",
       "ja": "{八日|ようか}",
-      "en": "8th of the month"
+      "en": "8th of the month",
+      "tags": ["counter"]
     },
     {
       "id": "n5-months-dates-22",
       "ja": "{九日|ここのか}",
-      "en": "9th of the month"
+      "en": "9th of the month",
+      "tags": ["counter"]
     },
     {
       "id": "n5-months-dates-23",
       "ja": "{十日|とおか}",
-      "en": "10th of the month"
+      "en": "10th of the month",
+      "tags": ["counter"]
     },
     {
       "id": "n5-months-dates-24",
       "ja": "{二十日|はつか}",
       "en": "20th of the month",
-      "note": "irregular"
+      "note": "irregular",
+      "tags": ["counter"]
     },
     {
       "id": "n5-months-dates-25",
       "ja": "{何日|なんにち}",
-      "en": "what day of the month"
+      "en": "what day of the month",
+      "tags": ["counter", "question-word"]
     }
   ]
 }

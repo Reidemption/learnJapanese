@@ -182,7 +182,7 @@ Same shape as Phase 3.5, with `level: "N4"` and `content/coverage-n4.md`. N4 is 
 ### Backlog (not planned in detail)
 - Redesigned flashcards with spaced repetition (SM-2/FSRS), using `item_stats`
 - A typed-answer mode (kana input with romaji→kana conversion), and a listening mode (Web Speech API TTS)
-- A "weak items" cross-deck review built from `item_stats`, plus hiragana/katakana chart decks
+- A "weak items" cross-deck review built from `item_stats` (now in `docs/PLAN-tags.md`, Later), plus hiragana/katakana chart decks
 - Auth (turning `client_id` into accounts), and deployment (a single Go binary serving the built `dist/`)
 - CI (GitHub Actions running `npm test`, `npm run build` and `go test ./...`)
 

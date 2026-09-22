@@ -9,120 +9,143 @@
     {
       "id": "n5-clothing-1",
       "ja": "{服|ふく}",
-      "en": "clothes"
+      "en": "clothes",
+      "tags": ["noun"]
     },
     {
       "id": "n5-clothing-2",
       "ja": "{洋服|ようふく}",
-      "en": "Western clothes"
+      "en": "Western clothes",
+      "tags": ["noun"]
     },
     {
       "id": "n5-clothing-3",
       "ja": "シャツ",
-      "en": "shirt"
+      "en": "shirt",
+      "tags": ["noun"]
     },
     {
       "id": "n5-clothing-4",
       "ja": "Tシャツ",
-      "en": "T-shirt"
+      "en": "T-shirt",
+      "tags": ["noun"]
     },
     {
       "id": "n5-clothing-5",
       "ja": "セーター",
-      "en": "sweater"
+      "en": "sweater",
+      "tags": ["noun"]
     },
     {
       "id": "n5-clothing-6",
       "ja": "コート",
-      "en": "coat"
+      "en": "coat",
+      "tags": ["noun"]
     },
     {
       "id": "n5-clothing-7",
       "ja": "ジャケット",
-      "en": "jacket"
+      "en": "jacket",
+      "tags": ["noun"]
     },
     {
       "id": "n5-clothing-8",
       "ja": "ズボン",
-      "en": "trousers"
+      "en": "trousers",
+      "tags": ["noun"]
     },
     {
       "id": "n5-clothing-9",
       "ja": "スカート",
-      "en": "skirt"
+      "en": "skirt",
+      "tags": ["noun"]
     },
     {
       "id": "n5-clothing-10",
       "ja": "ワンピース",
-      "en": "dress"
+      "en": "dress",
+      "tags": ["noun"]
     },
     {
       "id": "n5-clothing-11",
       "ja": "{着物|きもの}",
-      "en": "kimono"
+      "en": "kimono",
+      "tags": ["noun"]
     },
     {
       "id": "n5-clothing-12",
       "ja": "{靴|くつ}",
-      "en": "shoes"
+      "en": "shoes",
+      "tags": ["noun"]
     },
     {
       "id": "n5-clothing-13",
       "ja": "{靴下|くつした}",
-      "en": "socks"
+      "en": "socks",
+      "tags": ["noun"]
     },
     {
       "id": "n5-clothing-14",
       "ja": "{帽子|ぼうし}",
-      "en": "hat / cap"
+      "en": "hat / cap",
+      "tags": ["noun"]
     },
     {
       "id": "n5-clothing-15",
       "ja": "めがね",
-      "en": "glasses"
+      "en": "glasses",
+      "tags": ["noun"]
     },
     {
       "id": "n5-clothing-16",
       "ja": "ネクタイ",
-      "en": "necktie"
+      "en": "necktie",
+      "tags": ["noun"]
     },
     {
       "id": "n5-clothing-17",
       "ja": "{手袋|てぶくろ}",
-      "en": "gloves"
+      "en": "gloves",
+      "tags": ["noun"]
     },
     {
       "id": "n5-clothing-18",
       "ja": "かばん",
-      "en": "bag"
+      "en": "bag",
+      "tags": ["noun"]
     },
     {
       "id": "n5-clothing-19",
       "ja": "{傘|かさ}",
-      "en": "umbrella"
+      "en": "umbrella",
+      "tags": ["noun"]
     },
     {
       "id": "n5-clothing-20",
       "ja": "{指輪|ゆびわ}",
-      "en": "ring"
+      "en": "ring",
+      "tags": ["noun"]
     },
     {
       "id": "n5-clothing-21",
       "ja": "{着|き}る",
       "en": "to wear (upper body)",
-      "note": "ru-verb"
+      "note": "ru-verb",
+      "tags": ["verb", "ru-verb"]
     },
     {
       "id": "n5-clothing-22",
       "ja": "はく",
       "en": "to wear (lower body, shoes)",
-      "note": "u-verb"
+      "note": "u-verb",
+      "tags": ["verb", "u-verb"]
     },
     {
       "id": "n5-clothing-23",
       "ja": "かぶる",
       "en": "to wear (on the head)",
-      "note": "u-verb"
+      "note": "u-verb",
+      "tags": ["verb", "u-verb"]
     }
   ]
 }

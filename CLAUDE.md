@@ -7,7 +7,8 @@ single-topic decks (10–30 items) studied through multiple-choice modes.
 content format, and the acceptance criteria for each phase. Tick A/C items there
 as you finish them. The dashboard initiative (Dashboard Phase 1, 2, …) lives in
 `docs/PLAN-dashboard.md`; test understanding (Test Phase 1, 2, …) lives in
-`docs/PLAN-test-understanding.md`.
+`docs/PLAN-test-understanding.md`; word tags and Custom study (Tags Phase 1, 2, …)
+live in `docs/PLAN-tags.md`.
 
 ## Layout
 - `src/` — Vue 3 + Vite + TS frontend

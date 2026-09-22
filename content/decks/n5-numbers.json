@@ -5,6 +5,7 @@
   "title": "Numbers 1–100",
   "titleJa": "数字",
   "order": 20,
+  "tags": ["number"],
   "items": [
     {
       "id": "n5-numbers-1",
