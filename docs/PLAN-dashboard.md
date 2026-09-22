@@ -166,7 +166,7 @@ While the server is off:
 - **Test understanding:** planned in `docs/PLAN-test-understanding.md`. It covers deck tests with no help on screen, harder choices, typed answers and a `mastered` tier above `known`. It needs Dashboard Phase 1 first.
 
 Not written yet:
-- **Weak-items review:** a cross-deck session built from `weakest()`.
+- **Weak-items review:** a cross-deck session built from `weakest()`. Now planned in `docs/PLAN-tags.md` (Later), as a Custom deck filled with weak words; the test version is the **Weak** word test in `docs/PLAN-test-understanding.md`.
 - **Accounts:** login, and progress across devices. This would reuse the per-client answer log and the backup format to claim anonymous history.
 - Spaced repetition, deployment and CI stay in `docs/PLAN.md`'s backlog.
 
