@@ -123,7 +123,7 @@ While the server is off:
 - **Streak** counts study days across every level. Activity, coverage and the deck grid are per level.
 - **Order:** the sections follow the list below. In the empty state the "Start with …" button sits in the headline, and the activity, learned-over-time, needs-work and next-up sections are hidden. The group bars and deck grid stay, all grey.
 - **Learned over time** is cumulative `knownAt`, so it can run ahead of the headline's current "known" count. A caption on the chart says so.
-- **Colours:** `--known` (pine), `--learning` (a new ochre) and `--new` (faint ink) are tokens in `style.css`. The charts use nothing else. The app has no dark theme yet, so "legible in dark" means the charts are ready for one: a dark theme only has to redefine the tokens.
+- **Colours:** `--known` (pine), `--learning` (a new ochre) and `--new` (faint ink) are tokens in `style.css`. The charts use nothing else. The dark theme (`:root[data-theme="dark"]`) only redefines these tokens; the charts need nothing of their own.
 - **Tests** run with `TZ=America/Denver` (set in `vite.config.ts`), so the midnight and DST cases mean the same thing on every machine.
 - The backup section shows "Last downloaded <date>" from `lj.lastBackupAt`, which is kept on the device only.
 
@@ -160,7 +160,7 @@ While the server is off:
 - [x] A component test mounts `DashboardView` with a stubbed API and checks the headline numbers, one row per group, and the empty state.
 - [x] The dashboard loads through the `api.ts` wrappers: it works in static and HTTP mode, and falls back to local data when the server is down.
 - [x] `router.test.ts` covers `/dashboard`.
-- [ ] Manual: at 375px wide there's no horizontal scroll, and the charts are legible in light and dark. *(Checked in headless Edge with 70 days of synthetic sessions: in a 375px frame the page's `scrollWidth` equals its width and no element overflows, and the charts read clearly at 375px and 900px. Dark isn't checked, since the app has no dark theme yet (see above). A real phone or devtools click-through is still worth doing.)*
+- [ ] Manual: at 375px wide there's no horizontal scroll, and the charts are legible in light and dark. *(Checked in headless Edge with 70 days of synthetic sessions: in a 375px frame the page's `scrollWidth` equals its width and no element overflows, and the charts read clearly at 375px and 900px. In dark, the dashboard (empty progress) renders with the dark tokens in headless Chrome; the charts with real data in dark still want a look. A real phone or devtools click-through is still worth doing.)*
 
 ## Later
 - **Test understanding:** planned in `docs/PLAN-test-understanding.md`. It covers deck tests with no help on screen, harder choices, typed answers and a `mastered` tier above `known`. It needs Dashboard Phase 1 first.

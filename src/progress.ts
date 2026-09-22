@@ -1,6 +1,7 @@
 import type { Question } from "./types";
 import type { Mode } from "./study/modes";
 import { DEFAULT_FONT, isFontId, type FontId } from "./fonts";
+import { DEFAULT_THEME, isThemeId, type ThemeId } from "./theme";
 import { normalizeStat, rebuildStats, type Answer, type ItemStat } from "./study/mastery";
 
 const SETTINGS_KEY = "lj.settings";
@@ -22,6 +23,7 @@ export type Settings = {
   kana: boolean;
   hints: boolean;
   font: FontId;
+  theme: ThemeId;
 };
 
 /** One deck+mode: the best run so far and the most recent one. */
@@ -85,6 +87,7 @@ export function loadSettings(): Settings {
     kana: parsed.kana !== false,
     hints: parsed.hints !== false,
     font: isFontId(parsed.font) ? parsed.font : DEFAULT_FONT,
+    theme: isThemeId(parsed.theme) ? parsed.theme : DEFAULT_THEME,
   };
 }
 

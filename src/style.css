@@ -13,11 +13,43 @@
   --new: color-mix(in srgb, var(--ink) 13%, transparent);
   --line: color-mix(in srgb, var(--ink) 16%, transparent);
   --shadow: color-mix(in srgb, #1a2430 18%, transparent);
+  /* Text on an ink background: the primary button and the hint tooltips. */
+  --on-ink: #f7f1ea;
+  /* What choices, cards and tiles are washed with to lift them off the paper. */
+  --raise: white;
+  --paper-glow: #d7dde6;
+  --correct-bg: color-mix(in srgb, var(--pine) 14%, white);
+  --wrong-bg: color-mix(in srgb, var(--vermillion) 12%, white);
+  --chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%234a4e57' stroke-width='1.4'/%3E%3C/svg%3E");
   --display: "Shippori Mincho", "Hiragino Mincho ProN", serif;
   --body: "Zen Kaku Gothic New", "Hiragino Sans", sans-serif;
   /* Japanese study text. App.vue overrides it with the font picker's choice. */
   --ja: var(--display);
   --space: 1.15rem;
+  color-scheme: light;
+}
+
+/* Dark: night ink on sumi. Only the tokens change; every rule below reads them.
+   settings.ts sets data-theme from the theme picker (or the system on auto). */
+:root[data-theme="dark"] {
+  --paper: #1a1d23;
+  --paper-deep: #121418;
+  --paper-glow: #22262e;
+  --ink: #e6e1d8;
+  --ink-soft: #a3a8b2;
+  --vermillion: #e8694f;
+  --vermillion-deep: #c4452d;
+  --pine: #5cb57e;
+  --ochre: #d9a444;
+  --new: color-mix(in srgb, var(--ink) 14%, transparent);
+  --line: color-mix(in srgb, var(--ink) 15%, transparent);
+  --shadow: color-mix(in srgb, black 45%, transparent);
+  --on-ink: #16181d;
+  --raise: #3b414d;
+  --correct-bg: color-mix(in srgb, var(--pine) 20%, var(--paper));
+  --wrong-bg: color-mix(in srgb, var(--vermillion) 18%, var(--paper));
+  --chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%23a3a8b2' stroke-width='1.4'/%3E%3C/svg%3E");
+  color-scheme: dark;
 }
 
 *,
@@ -39,7 +71,7 @@ body {
   background-color: var(--paper);
   background-image:
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.09'/%3E%3C/svg%3E"),
-    linear-gradient(165deg, #d7dde6 0%, var(--paper) 42%, var(--paper-deep) 100%);
+    linear-gradient(165deg, var(--paper-glow) 0%, var(--paper) 42%, var(--paper-deep) 100%);
   background-attachment: fixed;
 }
 
@@ -111,12 +143,10 @@ button {
   color: var(--vermillion);
 }
 
-select.font-picker {
+select.picker {
   appearance: none;
   padding-right: 1.6rem;
-  background: transparent
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%234a4e57' stroke-width='1.4'/%3E%3C/svg%3E")
-    no-repeat right 0.65rem center;
+  background: transparent var(--chevron) no-repeat right 0.65rem center;
   font: inherit;
   font-size: 0.78rem;
   letter-spacing: 0.06em;
@@ -232,12 +262,12 @@ select.font-picker {
 .primary {
   padding: 0.55rem 1.15rem;
   background: var(--ink);
-  color: #f7f1ea;
+  color: var(--on-ink);
   letter-spacing: 0.08em;
 }
 
 .primary:hover {
-  background: color-mix(in srgb, var(--ink) 82%, white);
+  background: color-mix(in srgb, var(--ink) 82%, var(--raise));
 }
 
 .ghost {
@@ -276,7 +306,7 @@ select.font-picker {
   gap: 0.9rem;
   padding: 1rem 1.1rem;
   border: 1px solid var(--line);
-  background: color-mix(in srgb, white 28%, transparent);
+  background: color-mix(in srgb, var(--raise) 28%, transparent);
   font-size: 1.25rem;
   /* Room for furigana above the Japanese choices. */
   line-height: 1.9;
@@ -292,12 +322,12 @@ select.font-picker {
    choices nobody picked fade back. */
 .choice.is-correct {
   border-color: var(--pine);
-  background: color-mix(in srgb, var(--pine) 14%, white);
+  background: var(--correct-bg);
 }
 
 .choice.is-wrong {
   border-color: var(--vermillion);
-  background: color-mix(in srgb, var(--vermillion) 12%, white);
+  background: var(--wrong-bg);
 }
 
 .choice.is-dim {
@@ -363,7 +393,7 @@ select.font-picker {
   margin: 1.8rem 0 1.2rem;
   padding: 1.6rem 1.2rem;
   border: 1px solid var(--line);
-  background: color-mix(in srgb, white 32%, transparent);
+  background: color-mix(in srgb, var(--raise) 32%, transparent);
   box-shadow: 0 18px 40px var(--shadow);
   display: flex;
   align-items: center;
@@ -414,7 +444,7 @@ ruby {
   transform: translateX(-50%);
   padding: 0.28rem 0.5rem;
   background: var(--ink);
-  color: #f3efe8;
+  color: var(--on-ink);
   font-family: var(--body);
   font-size: 0.75rem;
   letter-spacing: 0.02em;
@@ -457,7 +487,7 @@ ruby {
   font-size: 1.1rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--ink-soft, #6b6257);
+  color: var(--ink-soft);
   margin: 0 0 0.75rem;
 }
 
@@ -502,7 +532,7 @@ ruby {
   align-items: baseline;
   gap: 1rem;
   padding: 0.4rem 0;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  border-bottom: 1px solid color-mix(in srgb, var(--ink) 6%, transparent);
 }
 
 .prompt-lead {
@@ -749,7 +779,7 @@ a.ghost {
   min-width: 0;
   padding: 0.7rem 0.75rem;
   border: 1px solid var(--line);
-  background: color-mix(in srgb, white 22%, transparent);
+  background: color-mix(in srgb, var(--raise) 22%, transparent);
   text-decoration: none;
 }
 
