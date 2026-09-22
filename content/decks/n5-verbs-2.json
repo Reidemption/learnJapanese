@@ -5,138 +5,161 @@
   "title": "Verbs II: movement & daily life",
   "titleJa": "動詞２",
   "order": 72,
+  "tags": ["verb"],
   "items": [
     {
       "id": "n5-verbs-2-1",
       "ja": "{立|た}つ",
       "en": "to stand",
-      "note": "u-verb"
+      "note": "u-verb",
+      "tags": ["u-verb"]
     },
     {
       "id": "n5-verbs-2-2",
       "ja": "{座|すわ}る",
       "en": "to sit",
-      "note": "u-verb"
+      "note": "u-verb",
+      "tags": ["u-verb"]
     },
     {
       "id": "n5-verbs-2-3",
       "ja": "{歩|ある}き{回|まわ}る",
       "en": "to walk around",
-      "note": "u-verb"
+      "note": "u-verb",
+      "tags": ["u-verb"]
     },
     {
       "id": "n5-verbs-2-4",
       "ja": "{登|のぼ}る",
       "en": "to climb",
-      "note": "u-verb"
+      "note": "u-verb",
+      "tags": ["u-verb"]
     },
     {
       "id": "n5-verbs-2-5",
       "ja": "{泳|およ}ぐ",
       "en": "to swim",
-      "note": "u-verb"
+      "note": "u-verb",
+      "tags": ["u-verb"]
     },
     {
       "id": "n5-verbs-2-6",
       "ja": "{飛|と}ぶ",
       "en": "to fly / jump",
-      "note": "u-verb"
+      "note": "u-verb",
+      "tags": ["u-verb"]
     },
     {
       "id": "n5-verbs-2-7",
       "ja": "{開|あ}ける",
       "en": "to open (something)",
-      "note": "ru-verb"
+      "note": "ru-verb",
+      "tags": ["ru-verb"]
     },
     {
       "id": "n5-verbs-2-8",
       "ja": "{閉|し}める",
       "en": "to close (something)",
-      "note": "ru-verb"
+      "note": "ru-verb",
+      "tags": ["ru-verb"]
     },
     {
       "id": "n5-verbs-2-9",
       "ja": "つける",
       "en": "to turn on",
-      "note": "ru-verb"
+      "note": "ru-verb",
+      "tags": ["ru-verb"]
     },
     {
       "id": "n5-verbs-2-10",
       "ja": "{消|け}す",
       "en": "to turn off / erase",
-      "note": "u-verb"
+      "note": "u-verb",
+      "tags": ["u-verb"]
     },
     {
       "id": "n5-verbs-2-11",
       "ja": "{押|お}す",
       "en": "to push",
-      "note": "u-verb"
+      "note": "u-verb",
+      "tags": ["u-verb"]
     },
     {
       "id": "n5-verbs-2-12",
       "ja": "{引|ひ}く",
       "en": "to pull",
-      "note": "u-verb"
+      "note": "u-verb",
+      "tags": ["u-verb"]
     },
     {
       "id": "n5-verbs-2-13",
       "ja": "{持|も}つ",
       "en": "to hold / carry",
-      "note": "u-verb"
+      "note": "u-verb",
+      "tags": ["u-verb"]
     },
     {
       "id": "n5-verbs-2-14",
       "ja": "{置|お}く",
       "en": "to put / place",
-      "note": "u-verb"
+      "note": "u-verb",
+      "tags": ["u-verb"]
     },
     {
       "id": "n5-verbs-2-15",
       "ja": "とる",
       "en": "to take",
-      "note": "u-verb"
+      "note": "u-verb",
+      "tags": ["u-verb"]
     },
     {
       "id": "n5-verbs-2-16",
       "ja": "{入|い}れる",
       "en": "to put in",
-      "note": "ru-verb"
+      "note": "ru-verb",
+      "tags": ["ru-verb"]
     },
     {
       "id": "n5-verbs-2-17",
       "ja": "{出|だ}す",
       "en": "to take out / send",
-      "note": "u-verb"
+      "note": "u-verb",
+      "tags": ["u-verb"]
     },
     {
       "id": "n5-verbs-2-18",
       "ja": "{渡|わた}る",
       "en": "to cross",
-      "note": "u-verb"
+      "note": "u-verb",
+      "tags": ["u-verb"]
     },
     {
       "id": "n5-verbs-2-19",
       "ja": "{止|と}まる",
       "en": "to stop (by itself)",
-      "note": "u-verb"
+      "note": "u-verb",
+      "tags": ["u-verb"]
     },
     {
       "id": "n5-verbs-2-20",
       "ja": "{始|はじ}まる",
       "en": "to begin (by itself)",
-      "note": "u-verb"
+      "note": "u-verb",
+      "tags": ["u-verb"]
     },
     {
       "id": "n5-verbs-2-21",
       "ja": "{終|お}わる",
       "en": "to end",
-      "note": "u-verb"
+      "note": "u-verb",
+      "tags": ["u-verb"]
     },
     {
       "id": "n5-verbs-2-22",
       "ja": "{着|つ}く",
       "en": "to arrive",
-      "note": "u-verb"
+      "note": "u-verb",
+      "tags": ["u-verb"]
     }
   ]
 }

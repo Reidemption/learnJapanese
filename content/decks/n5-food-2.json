@@ -5,123 +5,147 @@
   "title": "Food II: dishes & cooking",
   "titleJa": "食べ物２",
   "order": 41,
+  "tags": ["food"],
   "items": [
     {
       "id": "n5-food-2-1",
       "ja": "{料理|りょうり}",
-      "en": "cooking / a dish"
+      "en": "cooking / a dish",
+      "tags": ["noun"]
     },
     {
       "id": "n5-food-2-2",
       "ja": "{和食|わしょく}",
-      "en": "Japanese food"
+      "en": "Japanese food",
+      "tags": ["noun"]
     },
     {
       "id": "n5-food-2-3",
       "ja": "{弁当|べんとう}",
-      "en": "boxed lunch"
+      "en": "boxed lunch",
+      "tags": ["noun"]
     },
     {
       "id": "n5-food-2-4",
       "ja": "すし",
-      "en": "sushi"
+      "en": "sushi",
+      "tags": ["noun"]
     },
     {
       "id": "n5-food-2-5",
       "ja": "てんぷら",
-      "en": "tempura"
+      "en": "tempura",
+      "tags": ["noun"]
     },
     {
       "id": "n5-food-2-6",
       "ja": "そば",
-      "en": "buckwheat noodles"
+      "en": "buckwheat noodles",
+      "tags": ["noun"]
     },
     {
       "id": "n5-food-2-7",
       "ja": "うどん",
-      "en": "udon noodles"
+      "en": "udon noodles",
+      "tags": ["noun"]
     },
     {
       "id": "n5-food-2-8",
       "ja": "ラーメン",
-      "en": "ramen"
+      "en": "ramen",
+      "tags": ["noun"]
     },
     {
       "id": "n5-food-2-9",
       "ja": "カレー",
-      "en": "curry"
+      "en": "curry",
+      "tags": ["noun"]
     },
     {
       "id": "n5-food-2-10",
       "ja": "サラダ",
-      "en": "salad"
+      "en": "salad",
+      "tags": ["noun"]
     },
     {
       "id": "n5-food-2-11",
       "ja": "スープ",
-      "en": "soup"
+      "en": "soup",
+      "tags": ["noun"]
     },
     {
       "id": "n5-food-2-12",
       "ja": "{卵焼|たまごや}き",
-      "en": "rolled omelette"
+      "en": "rolled omelette",
+      "tags": ["noun"]
     },
     {
       "id": "n5-food-2-13",
       "ja": "バター",
-      "en": "butter"
+      "en": "butter",
+      "tags": ["noun"]
     },
     {
       "id": "n5-food-2-14",
       "ja": "チーズ",
-      "en": "cheese"
+      "en": "cheese",
+      "tags": ["noun"]
     },
     {
       "id": "n5-food-2-15",
       "ja": "{豆腐|とうふ}",
-      "en": "tofu"
+      "en": "tofu",
+      "tags": ["noun"]
     },
     {
       "id": "n5-food-2-16",
       "ja": "{味噌|みそ}",
-      "en": "miso"
+      "en": "miso",
+      "tags": ["noun"]
     },
     {
       "id": "n5-food-2-17",
       "ja": "しょうゆ",
-      "en": "soy sauce"
+      "en": "soy sauce",
+      "tags": ["noun"]
     },
     {
       "id": "n5-food-2-18",
       "ja": "{味|あじ}",
-      "en": "taste / flavour"
+      "en": "taste / flavour",
+      "tags": ["noun"]
     },
     {
       "id": "n5-food-2-19",
       "ja": "{甘|あま}い",
-      "en": "sweet"
+      "en": "sweet",
+      "tags": ["i-adj"]
     },
     {
       "id": "n5-food-2-20",
       "ja": "{辛|から}い",
-      "en": "spicy / salty"
+      "en": "spicy / salty",
+      "tags": ["i-adj"]
     },
     {
       "id": "n5-food-2-21",
       "ja": "{作|つく}り{方|かた}",
-      "en": "how to make something"
+      "en": "how to make something",
+      "tags": ["noun"]
     },
     {
       "id": "n5-food-2-22",
       "ja": "{焼|や}く",
       "en": "to grill / bake",
-      "note": "u-verb"
+      "note": "u-verb",
+      "tags": ["verb", "u-verb"]
     },
     {
       "id": "n5-food-2-23",
       "ja": "{切|き}る",
       "en": "to cut",
-      "note": "u-verb"
+      "note": "u-verb",
+      "tags": ["verb", "u-verb"]
     }
   ]
 }

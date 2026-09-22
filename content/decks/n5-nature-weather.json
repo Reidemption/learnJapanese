@@ -5,6 +5,7 @@
   "title": "Nature & weather",
   "titleJa": "自然と天気",
   "order": 48,
+  "tags": ["noun", "nature"],
   "items": [
     {
       "id": "n5-nature-weather-1",
@@ -94,27 +95,32 @@
     {
       "id": "n5-nature-weather-18",
       "ja": "{春|はる}",
-      "en": "spring"
+      "en": "spring",
+      "tags": ["time"]
     },
     {
       "id": "n5-nature-weather-19",
       "ja": "{夏|なつ}",
-      "en": "summer"
+      "en": "summer",
+      "tags": ["time"]
     },
     {
       "id": "n5-nature-weather-20",
       "ja": "{秋|あき}",
-      "en": "autumn"
+      "en": "autumn",
+      "tags": ["time"]
     },
     {
       "id": "n5-nature-weather-21",
       "ja": "{冬|ふゆ}",
-      "en": "winter"
+      "en": "winter",
+      "tags": ["time"]
     },
     {
       "id": "n5-nature-weather-22",
       "ja": "{季節|きせつ}",
-      "en": "season"
+      "en": "season",
+      "tags": ["time"]
     },
     {
       "id": "n5-nature-weather-23",

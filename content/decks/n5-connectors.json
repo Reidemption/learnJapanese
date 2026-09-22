@@ -9,112 +9,134 @@
     {
       "id": "n5-connectors-1",
       "ja": "そして",
-      "en": "and then"
+      "en": "and then",
+      "tags": ["conjunction"]
     },
     {
       "id": "n5-connectors-2",
       "ja": "それから",
-      "en": "after that"
+      "en": "after that",
+      "tags": ["conjunction"]
     },
     {
       "id": "n5-connectors-3",
       "ja": "でも",
-      "en": "but"
+      "en": "but",
+      "tags": ["conjunction"]
     },
     {
       "id": "n5-connectors-4",
       "ja": "しかし",
-      "en": "however (formal)"
+      "en": "however (formal)",
+      "tags": ["conjunction"]
     },
     {
       "id": "n5-connectors-5",
       "ja": "だから",
-      "en": "so / therefore"
+      "en": "so / therefore",
+      "tags": ["conjunction"]
     },
     {
       "id": "n5-connectors-6",
       "ja": "それで",
-      "en": "and so"
+      "en": "and so",
+      "tags": ["conjunction"]
     },
     {
       "id": "n5-connectors-7",
       "ja": "けれども",
-      "en": "although"
+      "en": "although",
+      "tags": ["conjunction"]
     },
     {
       "id": "n5-connectors-8",
       "ja": "または",
-      "en": "or"
+      "en": "or",
+      "tags": ["conjunction"]
     },
     {
       "id": "n5-connectors-9",
       "ja": "それに",
-      "en": "moreover"
+      "en": "moreover",
+      "tags": ["conjunction"]
     },
     {
       "id": "n5-connectors-10",
       "ja": "じゃあ",
-      "en": "well then"
+      "en": "well then",
+      "tags": ["conjunction"]
     },
     {
       "id": "n5-connectors-11",
       "ja": "ところで",
-      "en": "by the way"
+      "en": "by the way",
+      "tags": ["conjunction"]
     },
     {
       "id": "n5-connectors-12",
       "ja": "{例|たと}えば",
-      "en": "for example"
+      "en": "for example",
+      "tags": ["adverb"]
     },
     {
       "id": "n5-connectors-13",
       "ja": "{最初|さいしょ}に",
-      "en": "first of all"
+      "en": "first of all",
+      "tags": ["adverb"]
     },
     {
       "id": "n5-connectors-14",
       "ja": "{次|つぎ}に",
-      "en": "next"
+      "en": "next",
+      "tags": ["adverb"]
     },
     {
       "id": "n5-connectors-15",
       "ja": "{最後|さいご}に",
-      "en": "finally"
+      "en": "finally",
+      "tags": ["adverb"]
     },
     {
       "id": "n5-connectors-16",
       "ja": "{他|ほか}に",
-      "en": "besides / other than"
+      "en": "besides / other than",
+      "tags": ["adverb"]
     },
     {
       "id": "n5-connectors-17",
       "ja": "もちろん",
-      "en": "of course"
+      "en": "of course",
+      "tags": ["adverb"]
     },
     {
       "id": "n5-connectors-18",
       "ja": "たしかに",
-      "en": "certainly"
+      "en": "certainly",
+      "tags": ["adverb"]
     },
     {
       "id": "n5-connectors-19",
       "ja": "{本当|ほんとう}に",
-      "en": "really"
+      "en": "really",
+      "tags": ["adverb"]
     },
     {
       "id": "n5-connectors-20",
       "ja": "やっぱり",
-      "en": "as expected / after all"
+      "en": "as expected / after all",
+      "tags": ["adverb"]
     },
     {
       "id": "n5-connectors-21",
       "ja": "{実|じつ}は",
-      "en": "actually / to tell the truth"
+      "en": "actually / to tell the truth",
+      "tags": ["adverb"]
     },
     {
       "id": "n5-connectors-22",
       "ja": "そうですね",
-      "en": "let me see / that's right"
+      "en": "let me see / that's right",
+      "tags": ["expression"]
     }
   ]
 }

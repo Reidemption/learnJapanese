@@ -5,6 +5,7 @@
   "title": "The body",
   "titleJa": "体",
   "order": 38,
+  "tags": ["noun", "body"],
   "items": [
     {
       "id": "n5-body-1",
@@ -109,7 +110,8 @@
     {
       "id": "n5-body-21",
       "ja": "{元気|げんき}",
-      "en": "healthy / energetic"
+      "en": "healthy / energetic",
+      "tags": ["na-adj"]
     },
     {
       "id": "n5-body-22",

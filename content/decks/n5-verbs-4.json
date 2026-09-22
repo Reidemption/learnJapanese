@@ -5,138 +5,161 @@
   "title": "Verbs IV: shopping & everyday actions",
   "titleJa": "動詞４",
   "order": 76,
+  "tags": ["verb"],
   "items": [
     {
       "id": "n5-verbs-4-1",
       "ja": "{売|う}る",
       "en": "to sell",
-      "note": "u-verb"
+      "note": "u-verb",
+      "tags": ["u-verb", "shopping"]
     },
     {
       "id": "n5-verbs-4-2",
       "ja": "{払|はら}う",
       "en": "to pay",
-      "note": "u-verb"
+      "note": "u-verb",
+      "tags": ["u-verb", "shopping"]
     },
     {
       "id": "n5-verbs-4-3",
       "ja": "{貸|か}す",
       "en": "to lend",
-      "note": "u-verb"
+      "note": "u-verb",
+      "tags": ["u-verb"]
     },
     {
       "id": "n5-verbs-4-4",
       "ja": "{借|か}りる",
       "en": "to borrow",
-      "note": "ru-verb"
+      "note": "ru-verb",
+      "tags": ["ru-verb"]
     },
     {
       "id": "n5-verbs-4-5",
       "ja": "{返|かえ}す",
       "en": "to give back",
-      "note": "u-verb"
+      "note": "u-verb",
+      "tags": ["u-verb"]
     },
     {
       "id": "n5-verbs-4-6",
       "ja": "あげる",
       "en": "to give (to someone)",
-      "note": "ru-verb"
+      "note": "ru-verb",
+      "tags": ["ru-verb"]
     },
     {
       "id": "n5-verbs-4-7",
       "ja": "もらう",
       "en": "to receive",
-      "note": "u-verb"
+      "note": "u-verb",
+      "tags": ["u-verb"]
     },
     {
       "id": "n5-verbs-4-8",
       "ja": "くれる",
       "en": "to give (to me)",
-      "note": "ru-verb"
+      "note": "ru-verb",
+      "tags": ["ru-verb"]
     },
     {
       "id": "n5-verbs-4-9",
       "ja": "{選|えら}ぶ",
       "en": "to choose",
-      "note": "u-verb"
+      "note": "u-verb",
+      "tags": ["u-verb"]
     },
     {
       "id": "n5-verbs-4-10",
       "ja": "{探|さが}す",
       "en": "to look for",
-      "note": "u-verb"
+      "note": "u-verb",
+      "tags": ["u-verb"]
     },
     {
       "id": "n5-verbs-4-11",
       "ja": "{見|み}つける",
       "en": "to find",
-      "note": "ru-verb"
+      "note": "ru-verb",
+      "tags": ["ru-verb"]
     },
     {
       "id": "n5-verbs-4-12",
       "ja": "なくす",
       "en": "to lose something",
-      "note": "u-verb"
+      "note": "u-verb",
+      "tags": ["u-verb"]
     },
     {
       "id": "n5-verbs-4-13",
       "ja": "{困|こま}る",
       "en": "to be troubled",
-      "note": "u-verb"
+      "note": "u-verb",
+      "tags": ["u-verb"]
     },
     {
       "id": "n5-verbs-4-14",
       "ja": "{遊|あそ}ぶ",
       "en": "to play / hang out",
-      "note": "u-verb"
+      "note": "u-verb",
+      "tags": ["u-verb"]
     },
     {
       "id": "n5-verbs-4-15",
       "ja": "{歌|うた}う",
       "en": "to sing",
-      "note": "u-verb"
+      "note": "u-verb",
+      "tags": ["u-verb"]
     },
     {
       "id": "n5-verbs-4-16",
       "ja": "{踊|おど}る",
       "en": "to dance",
-      "note": "u-verb"
+      "note": "u-verb",
+      "tags": ["u-verb"]
     },
     {
       "id": "n5-verbs-4-17",
       "ja": "{撮|と}る",
       "en": "to take a photo",
-      "note": "u-verb"
+      "note": "u-verb",
+      "tags": ["u-verb"]
     },
     {
       "id": "n5-verbs-4-18",
       "ja": "{送|おく}る",
       "en": "to send",
-      "note": "u-verb"
+      "note": "u-verb",
+      "tags": ["u-verb"]
     },
     {
       "id": "n5-verbs-4-19",
       "ja": "{旅行|りょこう}する",
       "en": "to travel",
-      "note": "irregular"
+      "note": "irregular",
+      "tags": ["irregular-verb"]
     },
     {
       "id": "n5-verbs-4-20",
       "ja": "{買|か}い{物|もの}する",
       "en": "to go shopping",
-      "note": "irregular"
+      "note": "irregular",
+      "tags": ["irregular-verb", "shopping"]
     },
     {
       "id": "n5-verbs-4-21",
       "ja": "{散歩|さんぽ}する",
       "en": "to take a walk",
-      "note": "irregular"
+      "note": "irregular",
+      "tags": ["irregular-verb"]
     },
     {
       "id": "n5-verbs-4-22",
       "ja": "{結婚|けっこん}する",
       "en": "to get married",
-      "note": "irregular"
+      "note": "irregular",
+      "tags": ["irregular-verb"]
     }
   ]
 }

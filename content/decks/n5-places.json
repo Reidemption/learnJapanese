@@ -5,26 +5,31 @@
   "title": "Places in town",
   "titleJa": "町の場所",
   "order": 60,
+  "tags": ["noun", "place"],
   "items": [
     {
       "id": "n5-places-1",
       "ja": "{駅|えき}",
-      "en": "train station"
+      "en": "train station",
+      "tags": ["transport"]
     },
     {
       "id": "n5-places-2",
       "ja": "{学校|がっこう}",
-      "en": "school"
+      "en": "school",
+      "tags": ["school"]
     },
     {
       "id": "n5-places-3",
       "ja": "{大学|だいがく}",
-      "en": "university"
+      "en": "university",
+      "tags": ["school"]
     },
     {
       "id": "n5-places-4",
       "ja": "{病院|びょういん}",
-      "en": "hospital"
+      "en": "hospital",
+      "tags": ["body"]
     },
     {
       "id": "n5-places-5",
@@ -39,7 +44,8 @@
     {
       "id": "n5-places-7",
       "ja": "{図書館|としょかん}",
-      "en": "library"
+      "en": "library",
+      "tags": ["school"]
     },
     {
       "id": "n5-places-8",
@@ -49,22 +55,26 @@
     {
       "id": "n5-places-9",
       "ja": "{店|みせ}",
-      "en": "shop"
+      "en": "shop",
+      "tags": ["shopping"]
     },
     {
       "id": "n5-places-10",
       "ja": "デパート",
-      "en": "department store"
+      "en": "department store",
+      "tags": ["shopping"]
     },
     {
       "id": "n5-places-11",
       "ja": "スーパー",
-      "en": "supermarket"
+      "en": "supermarket",
+      "tags": ["shopping"]
     },
     {
       "id": "n5-places-12",
       "ja": "コンビニ",
-      "en": "convenience store"
+      "en": "convenience store",
+      "tags": ["shopping"]
     },
     {
       "id": "n5-places-13",
@@ -89,7 +99,8 @@
     {
       "id": "n5-places-17",
       "ja": "{空港|くうこう}",
-      "en": "airport"
+      "en": "airport",
+      "tags": ["transport"]
     },
     {
       "id": "n5-places-18",
@@ -109,12 +120,14 @@
     {
       "id": "n5-places-21",
       "ja": "{道|みち}",
-      "en": "road / street"
+      "en": "road / street",
+      "tags": ["transport"]
     },
     {
       "id": "n5-places-22",
       "ja": "{家|いえ}",
-      "en": "house / home"
+      "en": "house / home",
+      "tags": ["home"]
     },
     {
       "id": "n5-places-23",
@@ -124,7 +137,8 @@
     {
       "id": "n5-places-24",
       "ja": "{部屋|へや}",
-      "en": "room"
+      "en": "room",
+      "tags": ["home"]
     }
   ]
 }

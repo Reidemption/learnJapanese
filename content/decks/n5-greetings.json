@@ -5,6 +5,7 @@
   "title": "Greetings & set phrases",
   "titleJa": "あいさつ",
   "order": 10,
+  "tags": ["expression"],
   "items": [
     {
       "id": "n5-greetings-1",
@@ -64,32 +65,38 @@
     {
       "id": "n5-greetings-12",
       "ja": "いただきます",
-      "en": "said before eating"
+      "en": "said before eating",
+      "tags": ["food"]
     },
     {
       "id": "n5-greetings-13",
       "ja": "ごちそうさまでした",
-      "en": "said after eating"
+      "en": "said after eating",
+      "tags": ["food"]
     },
     {
       "id": "n5-greetings-14",
       "ja": "いってきます",
-      "en": "I'm off (leaving home)"
+      "en": "I'm off (leaving home)",
+      "tags": ["home"]
     },
     {
       "id": "n5-greetings-15",
       "ja": "いってらっしゃい",
-      "en": "see you (to someone leaving)"
+      "en": "see you (to someone leaving)",
+      "tags": ["home"]
     },
     {
       "id": "n5-greetings-16",
       "ja": "ただいま",
-      "en": "I'm home"
+      "en": "I'm home",
+      "tags": ["home"]
     },
     {
       "id": "n5-greetings-17",
       "ja": "おかえりなさい",
-      "en": "welcome home"
+      "en": "welcome home",
+      "tags": ["home"]
     },
     {
       "id": "n5-greetings-18",

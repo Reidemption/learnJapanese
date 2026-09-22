@@ -9,132 +9,158 @@
     {
       "id": "n5-colors-adjectives-1",
       "ja": "{赤|あか}い",
-      "en": "red"
+      "en": "red",
+      "tags": ["i-adj"]
     },
     {
       "id": "n5-colors-adjectives-2",
       "ja": "{青|あお}い",
-      "en": "blue"
+      "en": "blue",
+      "tags": ["i-adj"]
     },
     {
       "id": "n5-colors-adjectives-3",
       "ja": "{白|しろ}い",
-      "en": "white"
+      "en": "white",
+      "tags": ["i-adj"]
     },
     {
       "id": "n5-colors-adjectives-4",
       "ja": "{黒|くろ}い",
-      "en": "black"
+      "en": "black",
+      "tags": ["i-adj"]
     },
     {
       "id": "n5-colors-adjectives-5",
       "ja": "{黄色|きいろ}い",
-      "en": "yellow"
+      "en": "yellow",
+      "tags": ["i-adj"]
     },
     {
       "id": "n5-colors-adjectives-6",
       "ja": "{茶色|ちゃいろ}",
-      "en": "brown"
+      "en": "brown",
+      "tags": ["noun"]
     },
     {
       "id": "n5-colors-adjectives-7",
       "ja": "{緑|みどり}",
-      "en": "green"
+      "en": "green",
+      "tags": ["noun"]
     },
     {
       "id": "n5-colors-adjectives-8",
       "ja": "{大|おお}きい",
-      "en": "big"
+      "en": "big",
+      "tags": ["i-adj"]
     },
     {
       "id": "n5-colors-adjectives-9",
       "ja": "{小|ちい}さい",
-      "en": "small"
+      "en": "small",
+      "tags": ["i-adj"]
     },
     {
       "id": "n5-colors-adjectives-10",
       "ja": "{高|たか}い",
-      "en": "expensive / tall"
+      "en": "expensive / tall",
+      "tags": ["i-adj", "shopping"]
     },
     {
       "id": "n5-colors-adjectives-11",
       "ja": "{安|やす}い",
-      "en": "cheap"
+      "en": "cheap",
+      "tags": ["i-adj", "shopping"]
     },
     {
       "id": "n5-colors-adjectives-12",
       "ja": "{新|あたら}しい",
-      "en": "new"
+      "en": "new",
+      "tags": ["i-adj"]
     },
     {
       "id": "n5-colors-adjectives-13",
       "ja": "{古|ふる}い",
-      "en": "old (things)"
+      "en": "old (things)",
+      "tags": ["i-adj"]
     },
     {
       "id": "n5-colors-adjectives-14",
       "ja": "{長|なが}い",
-      "en": "long"
+      "en": "long",
+      "tags": ["i-adj"]
     },
     {
       "id": "n5-colors-adjectives-15",
       "ja": "{短|みじか}い",
-      "en": "short"
+      "en": "short",
+      "tags": ["i-adj"]
     },
     {
       "id": "n5-colors-adjectives-16",
       "ja": "{暑|あつ}い",
-      "en": "hot (weather)"
+      "en": "hot (weather)",
+      "tags": ["i-adj", "nature"]
     },
     {
       "id": "n5-colors-adjectives-17",
       "ja": "{寒|さむ}い",
-      "en": "cold (weather)"
+      "en": "cold (weather)",
+      "tags": ["i-adj", "nature"]
     },
     {
       "id": "n5-colors-adjectives-18",
       "ja": "{冷|つめ}たい",
-      "en": "cold (to the touch)"
+      "en": "cold (to the touch)",
+      "tags": ["i-adj"]
     },
     {
       "id": "n5-colors-adjectives-19",
       "ja": "おいしい",
-      "en": "delicious"
+      "en": "delicious",
+      "tags": ["i-adj", "food"]
     },
     {
       "id": "n5-colors-adjectives-20",
       "ja": "まずい",
-      "en": "bad-tasting"
+      "en": "bad-tasting",
+      "tags": ["i-adj", "food"]
     },
     {
       "id": "n5-colors-adjectives-21",
       "ja": "{面白|おもしろ}い",
-      "en": "interesting / funny"
+      "en": "interesting / funny",
+      "tags": ["i-adj"]
     },
     {
       "id": "n5-colors-adjectives-22",
       "ja": "つまらない",
-      "en": "boring"
+      "en": "boring",
+      "tags": ["i-adj"]
     },
     {
       "id": "n5-colors-adjectives-23",
       "ja": "{難|むずか}しい",
-      "en": "difficult"
+      "en": "difficult",
+      "tags": ["i-adj"]
     },
     {
       "id": "n5-colors-adjectives-24",
       "ja": "やさしい",
-      "en": "easy / kind"
+      "en": "easy / kind",
+      "tags": ["i-adj"]
     },
     {
       "id": "n5-colors-adjectives-25",
       "ja": "{忙|いそが}しい",
-      "en": "busy"
+      "en": "busy",
+      "tags": ["i-adj"]
     },
     {
       "id": "n5-colors-adjectives-26",
       "ja": "{楽|たの}しい",
-      "en": "fun / enjoyable"
+      "en": "fun / enjoyable",
+      "tags": ["i-adj"]
     }
   ]
 }

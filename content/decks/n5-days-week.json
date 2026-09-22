@@ -5,6 +5,7 @@
   "title": "Days of the week",
   "titleJa": "曜日",
   "order": 28,
+  "tags": ["noun", "time"],
   "items": [
     {
       "id": "n5-days-week-1",
@@ -44,7 +45,8 @@
     {
       "id": "n5-days-week-8",
       "ja": "{何曜日|なんようび}",
-      "en": "what day of the week"
+      "en": "what day of the week",
+      "tags": ["question-word"]
     },
     {
       "id": "n5-days-week-9",

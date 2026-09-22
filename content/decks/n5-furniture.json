@@ -5,6 +5,7 @@
   "title": "Furniture & household items",
   "titleJa": "家具と道具",
   "order": 44,
+  "tags": ["noun", "home"],
   "items": [
     {
       "id": "n5-furniture-1",
@@ -79,32 +80,38 @@
     {
       "id": "n5-furniture-15",
       "ja": "{皿|さら}",
-      "en": "plate"
+      "en": "plate",
+      "tags": ["food"]
     },
     {
       "id": "n5-furniture-16",
       "ja": "コップ",
-      "en": "cup / glass"
+      "en": "cup / glass",
+      "tags": ["food"]
     },
     {
       "id": "n5-furniture-17",
       "ja": "はし",
-      "en": "chopsticks"
+      "en": "chopsticks",
+      "tags": ["food"]
     },
     {
       "id": "n5-furniture-18",
       "ja": "スプーン",
-      "en": "spoon"
+      "en": "spoon",
+      "tags": ["food"]
     },
     {
       "id": "n5-furniture-19",
       "ja": "フォーク",
-      "en": "fork"
+      "en": "fork",
+      "tags": ["food"]
     },
     {
       "id": "n5-furniture-20",
       "ja": "ナイフ",
-      "en": "knife"
+      "en": "knife",
+      "tags": ["food"]
     },
     {
       "id": "n5-furniture-21",

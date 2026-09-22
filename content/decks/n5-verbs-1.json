@@ -5,150 +5,175 @@
   "title": "Everyday verbs I",
   "titleJa": "動詞（毎日）",
   "order": 70,
+  "tags": ["verb"],
   "items": [
     {
       "id": "n5-verbs-1-1",
       "ja": "{食|た}べる",
       "en": "to eat",
-      "note": "ru-verb"
+      "note": "ru-verb",
+      "tags": ["ru-verb", "food"]
     },
     {
       "id": "n5-verbs-1-2",
       "ja": "{飲|の}む",
       "en": "to drink",
-      "note": "u-verb"
+      "note": "u-verb",
+      "tags": ["u-verb", "food"]
     },
     {
       "id": "n5-verbs-1-3",
       "ja": "{行|い}く",
       "en": "to go",
-      "note": "u-verb"
+      "note": "u-verb",
+      "tags": ["u-verb"]
     },
     {
       "id": "n5-verbs-1-4",
       "ja": "{来|く}る",
       "en": "to come",
-      "note": "irregular"
+      "note": "irregular",
+      "tags": ["irregular-verb"]
     },
     {
       "id": "n5-verbs-1-5",
       "ja": "{帰|かえ}る",
       "en": "to go home",
-      "note": "u-verb"
+      "note": "u-verb",
+      "tags": ["u-verb"]
     },
     {
       "id": "n5-verbs-1-6",
       "ja": "{見|み}る",
       "en": "to see / watch",
-      "note": "ru-verb"
+      "note": "ru-verb",
+      "tags": ["ru-verb"]
     },
     {
       "id": "n5-verbs-1-7",
       "ja": "{聞|き}く",
       "en": "to listen / to ask",
-      "note": "u-verb"
+      "note": "u-verb",
+      "tags": ["u-verb"]
     },
     {
       "id": "n5-verbs-1-8",
       "ja": "{話|はな}す",
       "en": "to speak",
-      "note": "u-verb"
+      "note": "u-verb",
+      "tags": ["u-verb"]
     },
     {
       "id": "n5-verbs-1-9",
       "ja": "{読|よ}む",
       "en": "to read",
-      "note": "u-verb"
+      "note": "u-verb",
+      "tags": ["u-verb"]
     },
     {
       "id": "n5-verbs-1-10",
       "ja": "{書|か}く",
       "en": "to write",
-      "note": "u-verb"
+      "note": "u-verb",
+      "tags": ["u-verb"]
     },
     {
       "id": "n5-verbs-1-11",
       "ja": "{起|お}きる",
       "en": "to get up",
-      "note": "ru-verb"
+      "note": "ru-verb",
+      "tags": ["ru-verb"]
     },
     {
       "id": "n5-verbs-1-12",
       "ja": "{寝|ね}る",
       "en": "to sleep / go to bed",
-      "note": "ru-verb"
+      "note": "ru-verb",
+      "tags": ["ru-verb"]
     },
     {
       "id": "n5-verbs-1-13",
       "ja": "する",
       "en": "to do",
-      "note": "irregular"
+      "note": "irregular",
+      "tags": ["irregular-verb"]
     },
     {
       "id": "n5-verbs-1-14",
       "ja": "{買|か}う",
       "en": "to buy",
-      "note": "u-verb"
+      "note": "u-verb",
+      "tags": ["u-verb", "shopping"]
     },
     {
       "id": "n5-verbs-1-15",
       "ja": "{会|あ}う",
       "en": "to meet",
-      "note": "u-verb"
+      "note": "u-verb",
+      "tags": ["u-verb"]
     },
     {
       "id": "n5-verbs-1-16",
       "ja": "{待|ま}つ",
       "en": "to wait",
-      "note": "u-verb"
+      "note": "u-verb",
+      "tags": ["u-verb"]
     },
     {
       "id": "n5-verbs-1-17",
       "ja": "{働|はたら}く",
       "en": "to work",
-      "note": "u-verb"
+      "note": "u-verb",
+      "tags": ["u-verb"]
     },
     {
       "id": "n5-verbs-1-18",
       "ja": "{休|やす}む",
       "en": "to rest / take time off",
-      "note": "u-verb"
+      "note": "u-verb",
+      "tags": ["u-verb"]
     },
     {
       "id": "n5-verbs-1-19",
       "ja": "{勉強|べんきょう}する",
       "en": "to study",
-      "note": "irregular"
+      "note": "irregular",
+      "tags": ["irregular-verb", "school"]
     },
     {
       "id": "n5-verbs-1-20",
       "ja": "{洗|あら}う",
       "en": "to wash",
-      "note": "u-verb"
+      "note": "u-verb",
+      "tags": ["u-verb"]
     },
     {
       "id": "n5-verbs-1-21",
       "ja": "{作|つく}る",
       "en": "to make",
-      "note": "u-verb"
+      "note": "u-verb",
+      "tags": ["u-verb"]
     },
     {
       "id": "n5-verbs-1-22",
       "ja": "{使|つか}う",
       "en": "to use",
-      "note": "u-verb"
+      "note": "u-verb",
+      "tags": ["u-verb"]
     },
     {
       "id": "n5-verbs-1-23",
       "ja": "{出|で}る",
       "en": "to leave / go out",
-      "note": "ru-verb"
+      "note": "ru-verb",
+      "tags": ["ru-verb"]
     },
     {
       "id": "n5-verbs-1-24",
       "ja": "{入|はい}る",
       "en": "to enter",
-      "note": "u-verb"
+      "note": "u-verb",
+      "tags": ["u-verb"]
     }
   ]
 }

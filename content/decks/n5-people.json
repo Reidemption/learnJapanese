@@ -5,6 +5,7 @@
   "title": "People & occupations",
   "titleJa": "人と仕事",
   "order": 36,
+  "tags": ["noun", "people"],
   "items": [
     {
       "id": "n5-people-1",
@@ -39,22 +40,26 @@
     {
       "id": "n5-people-7",
       "ja": "{先生|せんせい}",
-      "en": "teacher"
+      "en": "teacher",
+      "tags": ["school"]
     },
     {
       "id": "n5-people-8",
       "ja": "{学生|がくせい}",
-      "en": "student"
+      "en": "student",
+      "tags": ["school"]
     },
     {
       "id": "n5-people-9",
       "ja": "{医者|いしゃ}",
-      "en": "doctor"
+      "en": "doctor",
+      "tags": ["body"]
     },
     {
       "id": "n5-people-10",
       "ja": "{看護師|かんごし}",
-      "en": "nurse"
+      "en": "nurse",
+      "tags": ["body"]
     },
     {
       "id": "n5-people-11",
@@ -64,12 +69,14 @@
     {
       "id": "n5-people-12",
       "ja": "{店員|てんいん}",
-      "en": "shop assistant"
+      "en": "shop assistant",
+      "tags": ["shopping"]
     },
     {
       "id": "n5-people-13",
       "ja": "{駅員|えきいん}",
-      "en": "station attendant"
+      "en": "station attendant",
+      "tags": ["transport"]
     },
     {
       "id": "n5-people-14",
@@ -84,7 +91,8 @@
     {
       "id": "n5-people-16",
       "ja": "{運転手|うんてんしゅ}",
-      "en": "driver"
+      "en": "driver",
+      "tags": ["transport"]
     },
     {
       "id": "n5-people-17",

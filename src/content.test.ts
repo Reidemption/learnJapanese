@@ -1,12 +1,21 @@
 import { describe, expect, it } from "vitest";
 import { decks, decksFor, getDeck } from "./content";
-import { BLANK, isKana, parseRuby } from "./study/ruby";
-import { DECK_GROUPS } from "./types";
-import type { Deck } from "./types";
+import { BLANK, isKana, parseRuby, toPlain } from "./study/ruby";
+import { tagsOf } from "./study/tags";
+import { DECK_GROUPS, TAGS, UNTAGGED_GROUPS, VERB_CLASSES } from "./types";
+import type { Deck, Tag } from "./types";
 
 const LEVELS = ["N5", "N4"];
 const MIN_ITEMS = 10;
 const MAX_ITEMS = 30;
+/** Enough distinct words for a Custom deck of one tag to build 4-choice questions. */
+const MIN_TAG_WORDS = 8;
+/** `note` values that name a verb class, and the tag each one needs. */
+const NOTE_CLASSES: Record<string, Tag> = {
+  "u-verb": "u-verb",
+  "ru-verb": "ru-verb",
+  irregular: "irregular-verb",
+};
 
 /** Every deck, named so a failure points at the file it came from. */
 const cases: [string, Deck][] = decks.map((deck) => [deck.id, deck]);
@@ -50,6 +59,39 @@ describe("deck collection", () => {
     expect(getDeck(decks[0]!.id)).toBe(decks[0]);
     expect(getDeck("nope")).toBeUndefined();
   });
+});
+
+describe("tags", () => {
+  const taggable = decks.filter((d) => !UNTAGGED_GROUPS.includes(d.group));
+
+  /** For each tag: the decks it appears in and its distinct words (plain text). */
+  const usage = new Map<Tag, { decks: Set<string>; words: Set<string> }>();
+  for (const deck of taggable) {
+    for (const item of deck.items) {
+      for (const tag of tagsOf(deck, item)) {
+        const entry = usage.get(tag) ?? { decks: new Set(), words: new Set() };
+        entry.decks.add(deck.id);
+        entry.words.add(toPlain(parseRuby(item.ja)));
+        usage.set(tag, entry);
+      }
+    }
+  }
+  const tagCases = (Object.keys(TAGS) as Tag[]).map((tag) => [tag] as const);
+
+  it.each(tagCases)(`%s has at least ${MIN_TAG_WORDS} distinct words`, (tag) => {
+    const words = usage.get(tag)?.words.size ?? 0;
+    expect(words, `${tag} tags ${words} words`).toBeGreaterThanOrEqual(MIN_TAG_WORDS);
+  });
+
+  // A theme found in one deck is a copy of that deck. Type tags are exempt:
+  // they must cover every word, and a kind of word can live in one deck.
+  it.each(tagCases.filter(([tag]) => TAGS[tag].facet === "theme"))(
+    "theme %s spans at least 2 decks",
+    (tag) => {
+      const spans = [...(usage.get(tag)?.decks ?? [])];
+      expect(spans.length, `${tag} only appears in ${spans.join(", ")}`).toBeGreaterThanOrEqual(2);
+    },
+  );
 });
 
 describe.each(cases)("deck %s", (id, deck) => {
@@ -123,6 +165,45 @@ describe.each(cases)("deck %s", (id, deck) => {
     const en = deck.items.map((i) => i.en);
     expect(ja, `${deck.id} repeats a Japanese entry`).toEqual([...new Set(ja)]);
     expect(en, `${deck.id} repeats a meaning`).toEqual([...new Set(en)]);
+  });
+
+  it("uses tags correctly", () => {
+    const known = Object.keys(TAGS);
+    const untagged = UNTAGGED_GROUPS.includes(deck.group);
+    for (const tag of deck.tags ?? []) {
+      expect(known, `${deck.id} has unknown tag "${tag}"`).toContain(tag);
+    }
+    if (untagged) expect(deck.tags ?? [], `${deck.group} decks carry no tags`).toEqual([]);
+    for (const item of deck.items) {
+      const where = `${deck.id} / ${item.id}`;
+      const own = item.tags ?? [];
+      for (const tag of own) {
+        expect(known, `${where} has unknown tag "${tag}"`).toContain(tag);
+        expect(deck.tags ?? [], `${where} repeats its deck's tag "${tag}"`).not.toContain(tag);
+      }
+      expect(own, `${where} repeats a tag`).toEqual([...new Set(own)]);
+      if (untagged) {
+        expect(own, `${where}: ${deck.group} items carry no tags`).toEqual([]);
+        continue;
+      }
+
+      const tags = tagsOf(deck, item);
+      expect(
+        tags.some((tag) => TAGS[tag].facet === "type"),
+        `${where} needs a type tag (noun, verb, i-adj, ...)`,
+      ).toBe(true);
+
+      const classes = tags.filter((tag) => (VERB_CLASSES as readonly Tag[]).includes(tag));
+      if (tags.includes("verb")) {
+        expect(classes.length, `${where} is a verb, so it needs exactly one verb class`).toBe(1);
+      } else {
+        expect(classes, `${where} has a verb class but no verb tag`).toEqual([]);
+      }
+      const noteClass = item.note ? NOTE_CLASSES[item.note] : undefined;
+      if (noteClass && (item.note !== "irregular" || tags.includes("verb"))) {
+        expect(classes, `${where} has note "${item.note}"`).toEqual([noteClass]);
+      }
+    }
   });
 
   it("has well-formed cloze questions", () => {

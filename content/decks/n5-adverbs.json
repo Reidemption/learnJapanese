@@ -5,6 +5,7 @@
   "title": "Adverbs & frequency",
   "titleJa": "副詞",
   "order": 60,
+  "tags": ["adverb"],
   "items": [
     {
       "id": "n5-adverbs-1",
@@ -74,7 +75,8 @@
     {
       "id": "n5-adverbs-14",
       "ja": "みんな",
-      "en": "everyone / all"
+      "en": "everyone / all",
+      "tags": ["people"]
     },
     {
       "id": "n5-adverbs-15",

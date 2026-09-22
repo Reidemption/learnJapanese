@@ -5,6 +5,7 @@
   "title": "Counters II: long things, animals, times",
   "titleJa": "助数詞（本・匹・回）",
   "order": 26,
+  "tags": ["counter"],
   "items": [
     {
       "id": "n5-counters-2-1",
@@ -25,7 +26,8 @@
     {
       "id": "n5-counters-2-4",
       "ja": "{何本|なんぼん}",
-      "en": "how many long objects"
+      "en": "how many long objects",
+      "tags": ["question-word"]
     },
     {
       "id": "n5-counters-2-5",
@@ -40,7 +42,8 @@
     {
       "id": "n5-counters-2-7",
       "ja": "{何匹|なんびき}",
-      "en": "how many small animals"
+      "en": "how many small animals",
+      "tags": ["question-word"]
     },
     {
       "id": "n5-counters-2-8",
@@ -50,7 +53,8 @@
     {
       "id": "n5-counters-2-9",
       "ja": "{何台|なんだい}",
-      "en": "how many machines"
+      "en": "how many machines",
+      "tags": ["question-word"]
     },
     {
       "id": "n5-counters-2-10",
@@ -65,7 +69,8 @@
     {
       "id": "n5-counters-2-12",
       "ja": "{何回|なんかい}",
-      "en": "how many times"
+      "en": "how many times",
+      "tags": ["question-word"]
     },
     {
       "id": "n5-counters-2-13",
@@ -80,23 +85,27 @@
     {
       "id": "n5-counters-2-15",
       "ja": "{何冊|なんさつ}",
-      "en": "how many books"
+      "en": "how many books",
+      "tags": ["question-word"]
     },
     {
       "id": "n5-counters-2-16",
       "ja": "{一杯|いっぱい}",
-      "en": "one cupful"
+      "en": "one cupful",
+      "tags": ["food"]
     },
     {
       "id": "n5-counters-2-17",
       "ja": "{二杯|にはい}",
-      "en": "two cupfuls"
+      "en": "two cupfuls",
+      "tags": ["food"]
     },
     {
       "id": "n5-counters-2-18",
       "ja": "{三杯|さんばい}",
       "en": "three cupfuls",
-      "note": "sound change: さんばい"
+      "note": "sound change: さんばい",
+      "tags": ["food"]
     },
     {
       "id": "n5-counters-2-19",
@@ -112,7 +121,8 @@
     {
       "id": "n5-counters-2-21",
       "ja": "{何階|なんがい}",
-      "en": "which floor"
+      "en": "which floor",
+      "tags": ["question-word"]
     },
     {
       "id": "n5-counters-2-22",

@@ -5,118 +5,141 @@
   "title": "Home & rooms",
   "titleJa": "家と部屋",
   "order": 42,
+  "tags": ["home"],
   "items": [
     {
       "id": "n5-home-1",
       "ja": "うち",
-      "en": "home / my place"
+      "en": "home / my place",
+      "tags": ["noun"]
     },
     {
       "id": "n5-home-2",
       "ja": "アパート",
-      "en": "apartment"
+      "en": "apartment",
+      "tags": ["noun"]
     },
     {
       "id": "n5-home-3",
       "ja": "マンション",
-      "en": "apartment building"
+      "en": "apartment building",
+      "tags": ["noun"]
     },
     {
       "id": "n5-home-4",
       "ja": "{玄関|げんかん}",
-      "en": "entryway"
+      "en": "entryway",
+      "tags": ["noun", "place"]
     },
     {
       "id": "n5-home-5",
       "ja": "{台所|だいどころ}",
-      "en": "kitchen"
+      "en": "kitchen",
+      "tags": ["noun", "place"]
     },
     {
       "id": "n5-home-6",
       "ja": "{寝室|しんしつ}",
-      "en": "bedroom"
+      "en": "bedroom",
+      "tags": ["noun", "place"]
     },
     {
       "id": "n5-home-7",
       "ja": "お{風呂|ふろ}",
-      "en": "bath"
+      "en": "bath",
+      "tags": ["noun", "place"]
     },
     {
       "id": "n5-home-8",
       "ja": "トイレ",
-      "en": "toilet"
+      "en": "toilet",
+      "tags": ["noun", "place"]
     },
     {
       "id": "n5-home-9",
       "ja": "{庭|にわ}",
-      "en": "garden / yard"
+      "en": "garden / yard",
+      "tags": ["noun", "place"]
     },
     {
       "id": "n5-home-10",
       "ja": "{窓|まど}",
-      "en": "window"
+      "en": "window",
+      "tags": ["noun"]
     },
     {
       "id": "n5-home-11",
       "ja": "ドア",
-      "en": "door"
+      "en": "door",
+      "tags": ["noun"]
     },
     {
       "id": "n5-home-12",
       "ja": "{壁|かべ}",
-      "en": "wall"
+      "en": "wall",
+      "tags": ["noun"]
     },
     {
       "id": "n5-home-13",
       "ja": "{床|ゆか}",
-      "en": "floor"
+      "en": "floor",
+      "tags": ["noun"]
     },
     {
       "id": "n5-home-14",
       "ja": "{階段|かいだん}",
-      "en": "stairs"
+      "en": "stairs",
+      "tags": ["noun"]
     },
     {
       "id": "n5-home-15",
       "ja": "エレベーター",
-      "en": "elevator"
+      "en": "elevator",
+      "tags": ["noun"]
     },
     {
       "id": "n5-home-16",
       "ja": "{鍵|かぎ}",
-      "en": "key"
+      "en": "key",
+      "tags": ["noun"]
     },
     {
       "id": "n5-home-17",
       "ja": "{電気|でんき}",
-      "en": "electricity / light"
+      "en": "electricity / light",
+      "tags": ["noun"]
     },
     {
       "id": "n5-home-18",
       "ja": "{水道|すいどう}",
-      "en": "running water"
+      "en": "running water",
+      "tags": ["noun"]
     },
     {
       "id": "n5-home-19",
       "ja": "{住|す}む",
       "en": "to live / reside",
-      "note": "u-verb"
+      "note": "u-verb",
+      "tags": ["verb", "u-verb"]
     },
     {
       "id": "n5-home-20",
       "ja": "{掃除|そうじ}する",
       "en": "to clean",
-      "note": "irregular"
+      "note": "irregular",
+      "tags": ["verb", "irregular-verb"]
     },
     {
       "id": "n5-home-21",
       "ja": "{洗濯|せんたく}",
-      "en": "laundry"
+      "en": "laundry",
+      "tags": ["noun"]
     },
     {
       "id": "n5-home-22",
       "ja": "ごみ",
-      "en": "rubbish / trash"
+      "en": "rubbish / trash",
+      "tags": ["noun"]
     }
   ]
 }
