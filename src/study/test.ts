@@ -110,7 +110,11 @@ function hardQuestion(
 
   if (mode === "reverse") {
     const shown = (c: Candidate) => levelScript(parseRuby(c.item.ja), kanji);
-    const ranked = rankCandidates(target, pool, "reverse", rng);
+    // A word above the level shows in kana, and if that kana is the answer's
+    // reading it is a right way to write the answer (肩 as かた for 方).
+    const ranked = rankCandidates(target, pool, "reverse", rng).filter(
+      (c) => toPlain(shown(c)) !== target.kana,
+    );
     const picked = distinct(toPlain(shown(target)), ranked.map((c) => toPlain(shown(c))));
     if (!picked) return undefined;
     const segments = new Map([target, ...ranked].map((c) => [toPlain(shown(c)), shown(c)]));

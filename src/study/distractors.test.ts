@@ -135,6 +135,12 @@ describe("every test question in every real deck", () => {
       expect(new Set(texts).size, `${question.id}: ${texts.join(" | ")}`).toBe(4);
       const correct = question.choices.filter((c) => c.id === question.correctId);
       expect(correct, question.id).toHaveLength(1);
+      // No wrong recall choice spells the answer's reading (肩 shown as かた for 方).
+      if (question.kind === "reverse") {
+        const unit = deck.items.find((i) => `${i.id}:reverse` === question.id)!;
+        const wrong = texts.filter((_, i) => question.choices[i]!.id !== question.correctId);
+        expect(wrong, question.id).not.toContain(candidateOf(deck, unit).kana);
+      }
     }
   });
 });
