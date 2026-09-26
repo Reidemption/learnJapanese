@@ -193,20 +193,28 @@ Answers need a **mode**: in a test the same unit is answered in several modes in
 - Deck page: the mastery bar shows mastered as well.
 - Extend the shared `testdata/mastery-cases.json` with test-answer sequences, which both Go and TS read.
 
+**As built**
+- The rebuild marks each answer of a test session with the session's uid (TS) or attempt id (Go). A unit's `testPassed` for that test is whether all of its answers in it were right. Test answers still count towards `seen`, `correct` and the practice streak.
+- `masteryOf` returns `mastered` whenever `testPassed` is true. `isLearned` and `learnedOf(split)` count known or mastered, which is what the dashboard headline ("N of M units known"), the group bars and "least learned" use. The legend splits the two.
+- `strugglingDecks(decks, stats, level)` works from each unit's stats, so a word test's answers count towards each word's own deck with no extra bookkeeping. Decks with nothing failed are left out.
+- A "Test these" word test (`/test/these`) asks the words in `wordTestUnits`, held in memory like the Custom deck. Word tests take `?level=`, N5 by default.
+- `src/practice.ts` holds `practiseUnits`, shared by a test's "Practise the N you missed" and the Struggling decks "Practise" button (that deck's failed and weak words).
+- Server: `item_stats` and `item_base` gain `tested_at`, `test_passed` and `mastered_at`, and `statColumns`/`scanStat` read them in one place. Scope `words` must be a test and has no `deckId`.
+
 **A/C**
-- [ ] `mastery.test.ts`:
+- [x] `mastery.test.ts`:
   - practice-only answers never reach `mastered`
   - passing a test (deck or word) gives `mastered`
   - a later failed test drops it back to the practice state, while `masteredAt` stays
   - practice mistakes don't remove `mastered`
-- [ ] Rebuilding from a log that contains test attempts recorded **before** this phase gives the same result as recording them live.
-- [ ] Analytics tests:
+- [x] Rebuilding from a log that contains test attempts recorded **before** this phase gives the same result as recording them live.
+- [x] Analytics tests:
   - the four-way split
   - each `wordSet` kind, the 20-word cap and oldest-first ordering
   - `strugglingDecks` ranking, the 5-unit minimum, and a word test's results counting towards each word's own deck
-- [ ] The Go server accepts a word-test attempt with an empty `deckId` and rejects an empty `deckId` on a deck test or a deck practice session (`scope: "deck"`). Custom practice sessions (`scope: "custom"`) still post with an empty `deckId`.
-- [ ] Component tests cover the dashboard's four-tier headline and the Struggling decks list (rows and their links).
-- [ ] The TS and Go tests pass against the extended fixture.
+- [x] The Go server accepts a word-test attempt with an empty `deckId` and rejects an empty `deckId` on a deck test or a deck practice session (`scope: "deck"`). Custom practice sessions (`scope: "custom"`) still post with an empty `deckId`.
+- [x] Component tests cover the dashboard's four-tier headline and the Struggling decks list (rows and their links).
+- [x] The TS and Go tests pass against the extended fixture.
 
 ## Test Phase 4: Typed Japanese answers
 

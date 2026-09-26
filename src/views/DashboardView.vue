@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from "vue";
+import { useRouter } from "vue-router";
 import {
+  allDecks,
   emptyProgress,
-  getDeck,
   getProgress,
   listAttempts,
-  listDecks,
+  hasDeck,
   type AttemptRecord,
   type Progress,
 } from "../api";
@@ -15,25 +16,43 @@ import RubyText from "../components/RubyText.vue";
 import CalendarHeatmap from "../components/charts/CalendarHeatmap.vue";
 import LineChart from "../components/charts/LineChart.vue";
 import StackedBar from "../components/charts/StackedBar.vue";
+import { practiseUnits } from "../practice";
 import {
+  WORD_SETS,
+  WORD_TEST_SIZE,
   activity,
   byDeck,
   byGroup,
   coverage,
   knownRatio,
+  learnedOf,
   leastLearned,
   learnedOverTime,
   nextUp,
   statsAt,
   streaks,
+  strugglingDecks,
   unitsOf,
+  unitsToPractise,
   weakest,
+  wordSetSizes,
+  type WordSetKind,
 } from "../study/analytics";
 import { parseRuby } from "../study/ruby";
 import { GROUP_LABELS, type Deck, type Jlpt } from "../types";
 
 const ACTIVITY_DAYS = 12 * 7;
 const WEAK_LIMIT = 10;
+const STRUGGLING_LIMIT = 5;
+
+/** "Test 20 ready words": what each word-test button offers. */
+const WORD_SET_LABELS: Record<WordSetKind, string> = {
+  ready: "ready",
+  missed: "missed",
+  weak: "weak",
+};
+
+const router = useRouter();
 
 const decks = ref<Deck[]>([]);
 const progress = ref<Progress>(emptyProgress());
@@ -45,9 +64,7 @@ const deckOrder = ref<"course" | "least">("course");
 
 async function load(): Promise<void> {
   // Through the api.ts wrappers, so a server that is down falls back to local data.
-  const summaries = await listDecks();
-  const full = await Promise.all(summaries.map((summary) => getDeck(summary.id)));
-  decks.value = full.filter((deck): deck is Deck => deck !== undefined);
+  decks.value = await allDecks();
   const [latest, sessions] = await Promise.all([getProgress(), listAttempts()]);
   progress.value = latest;
   attempts.value = sessions;
@@ -70,7 +87,7 @@ const levelDeckIds = computed(() => new Set(levelDecks.value.map((deck) => deck.
 // content so far; give sessions a level when N4 arrives.
 const levelAttempts = computed(() =>
   attempts.value.filter(
-    (attempt) => attempt.scope === "custom" || levelDeckIds.value.has(attempt.deckId),
+    (attempt) => !hasDeck(attempt.scope) || levelDeckIds.value.has(attempt.deckId),
   ),
 );
 
@@ -82,6 +99,23 @@ const days = computed(() => activity(levelAttempts.value, ACTIVITY_DAYS, now.val
 const learned = computed(() => learnedOverTime(stats.value, now.value));
 const weak = computed(() => weakest(levelDecks.value, stats.value, WEAK_LIMIT));
 const next = computed(() => nextUp(decks.value, stats.value, level.value));
+const struggling = computed(() =>
+  strugglingDecks(decks.value, stats.value, level.value).slice(0, STRUGGLING_LIMIT),
+);
+const setSizes = computed(() => wordSetSizes(decks.value, stats.value, level.value));
+const wordTests = computed(() =>
+  WORD_SETS.filter((set) => setSizes.value[set] > 0).map((set) => ({
+    set,
+    label: `Test ${Math.min(WORD_TEST_SIZE, setSizes.value[set])} ${WORD_SET_LABELS[set]} word${
+      setSizes.value[set] === 1 ? "" : "s"
+    }`,
+  })),
+);
+
+function practise(deck: Deck): void {
+  const ids = unitsToPractise(deck, stats.value).map((unit) => unit.id);
+  practiseUnits(router, decks.value, ids, `Missed in ${deck.title}`);
+}
 
 const deckRows = computed(() => {
   const rows = byDeck(decks.value, stats.value, level.value);
@@ -120,7 +154,7 @@ const nextNote = computed(() => {
   if (!up) return `Every ${level.value} unit is known. おめでとう!`;
   if (up.reason === "learning") return `${up.split.learning} units in progress there.`;
   if (up.reason === "untouched") return `${up.split.total} new units.`;
-  return `${up.split.total - up.split.known} units not known yet.`;
+  return `${up.split.total - learnedOf(up.split)} units not known yet.`;
 });
 
 function shortDate(key: string): string {
@@ -137,7 +171,10 @@ function percent(value: number): string {
   <main v-if="loaded" class="page dashboard">
     <section class="hero">
       <h1>Progress</h1>
-      <p>A unit is <strong>known</strong> once you answer it right three times in a row.</p>
+      <p>
+        A unit is <strong>known</strong> once you answer it right three times in a row, and
+        <strong>mastered</strong> once it passes every question of a test.
+      </p>
     </section>
 
     <div v-if="levels.length > 1" class="level-switch" role="group" aria-label="Level">
@@ -155,7 +192,7 @@ function percent(value: number): string {
 
     <section class="dash-section headline">
       <h2 class="headline-count">
-        {{ headline.known.toLocaleString() }} of {{ headline.total.toLocaleString() }}
+        {{ learnedOf(headline).toLocaleString() }} of {{ headline.total.toLocaleString() }}
         {{ level }} units known <small>({{ percentKnown }}%)</small>
       </h2>
       <StackedBar :split="headline" :height="14" />
@@ -176,7 +213,7 @@ function percent(value: number): string {
         <li v-for="row in groups" :key="row.group" class="group-bar">
           <span class="group-name">{{ GROUP_LABELS[row.group] }}</span>
           <StackedBar :split="row.split" />
-          <span class="group-count">{{ row.split.known }}/{{ row.split.total }}</span>
+          <span class="group-count">{{ learnedOf(row.split) }}/{{ row.split.total }}</span>
         </li>
       </ul>
     </section>
@@ -200,16 +237,21 @@ function percent(value: number): string {
       <section class="dash-section">
         <h3 class="group-heading">Learned over time</h3>
         <p v-if="learned.length" class="dash-note">
-          Units that have reached known at least once. A miss sends a unit back to learning, so
-          this can run ahead of the count above.
+          Units that have reached known, and mastered, at least once. A miss sends a unit back, so
+          these can run ahead of the counts above.
         </p>
         <LineChart
           v-if="learned.length"
           :values="learned.map((point) => point.known)"
+          :second="learned.map((point) => point.mastered)"
           :start-label="shortDate(learned[0]!.day)"
           end-label="Today"
-          label="Units known, cumulative, by the day each was first known"
+          label="Units known and mastered, cumulative, by the day each first got there"
         />
+        <p v-if="learned.length" class="mastery-legend">
+          <span><i class="swatch line-key" />Known</span>
+          <span><i class="swatch mastered" />Mastered</span>
+        </p>
         <p v-else class="dash-note">Nothing known yet. Keep going: three right in a row does it.</p>
       </section>
     </template>
@@ -242,6 +284,30 @@ function percent(value: number): string {
       </div>
     </section>
 
+    <section v-if="struggling.length" class="dash-section">
+      <h3 class="group-heading">Struggling decks</h3>
+      <p class="dash-note">Decks whose words failed their most recent test, worst first.</p>
+      <ul class="struggling-list">
+        <li v-for="row in struggling" :key="row.deck.id" class="struggling-row">
+          <div>
+            <RouterLink class="struggling-title" :to="{ name: 'deck', params: { id: row.deck.id } }">
+              {{ row.deck.title }}
+            </RouterLink>
+            <span class="dash-note">
+              {{ percent(row.passRate) }} passed · {{ row.failed }} of {{ row.tested }} tested words
+              missed<template v-if="row.weak"> · {{ row.weak }} weak</template>
+            </span>
+          </div>
+          <div class="actions">
+            <button class="ghost" type="button" @click="practise(row.deck)">Practise</button>
+            <RouterLink class="primary" :to="{ name: 'test', params: { id: row.deck.id } }">
+              Test again
+            </RouterLink>
+          </div>
+        </li>
+      </ul>
+    </section>
+
     <section v-if="weak.length" class="dash-section">
       <h3 class="group-heading">Needs work</h3>
       <ul class="weak-list">
@@ -261,13 +327,23 @@ function percent(value: number): string {
     <section v-if="!isEmpty" class="dash-section next-up">
       <h3 class="group-heading">Next up</h3>
       <p class="dash-note">{{ nextNote }}</p>
-      <RouterLink
-        v-if="next"
-        class="primary"
-        :to="{ name: 'deck', params: { id: next.deck.id } }"
-      >
-        {{ nextLabel }}
-      </RouterLink>
+      <div class="next-actions">
+        <RouterLink
+          v-if="next"
+          class="primary"
+          :to="{ name: 'deck', params: { id: next.deck.id } }"
+        >
+          {{ nextLabel }}
+        </RouterLink>
+        <RouterLink
+          v-for="test in wordTests"
+          :key="test.set"
+          class="toggle word-test-link"
+          :to="{ name: 'word-test', params: { set: test.set }, query: { level } }"
+        >
+          {{ test.label }}
+        </RouterLink>
+      </div>
     </section>
 
     <BackupControls @restored="load" />

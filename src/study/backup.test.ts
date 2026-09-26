@@ -39,8 +39,8 @@ describe("parseBackup", () => {
     expect(backup.attempts[0]).toMatchObject({ deckId: "", scope: "custom" });
     expect(backup.attempts[1]).not.toHaveProperty("scope");
     expect(() => parseBackup(file({ attempts: [{ ...session, deckId: "" }] }))).toThrow(/no deckId/);
-    expect(() => parseBackup(file({ attempts: [{ ...session, scope: "words" }] }))).toThrow(
-      /unknown scope: words/,
+    expect(() => parseBackup(file({ attempts: [{ ...session, scope: "decks" }] }))).toThrow(
+      /unknown scope: decks/,
     );
   });
 

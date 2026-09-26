@@ -8,6 +8,8 @@ import { computed } from "vue";
 const props = withDefaults(
   defineProps<{
     values: (number | null)[];
+    /** A second line on the same axes, drawn in its own colour (class `second`). */
+    second?: (number | null)[];
     label: string;
     /** Top of the y axis; defaults to the largest value. */
     max?: number;
@@ -26,7 +28,7 @@ const plotW = W - PAD.left - PAD.right;
 const plotH = H - PAD.top - PAD.bottom;
 
 const top = computed(() => {
-  const numbers = props.values.filter((v): v is number => v !== null);
+  const numbers = [...props.values, ...(props.second ?? [])].filter((v): v is number => v !== null);
   return props.max ?? Math.max(1, ...numbers);
 });
 
@@ -39,21 +41,26 @@ function y(value: number): number {
   return PAD.top + plotH - (value / top.value) * plotH;
 }
 
+type Run = { points: string; dots: { x: number; y: number }[] };
+
 /** One polyline per run of non-null values. */
-const runs = computed(() => {
-  const out: { points: string; dots: { x: number; y: number }[] }[] = [];
+function runsOf(values: (number | null)[]): Run[] {
+  const out: Run[] = [];
   let current: { x: number; y: number }[] = [];
   const close = () => {
     if (current.length) out.push({ points: current.map((p) => `${p.x},${p.y}`).join(" "), dots: current });
     current = [];
   };
-  props.values.forEach((value, index) => {
+  values.forEach((value, index) => {
     if (value === null) close();
     else current.push({ x: x(index), y: y(value) });
   });
   close();
   return out;
-});
+}
+
+const runs = computed(() => runsOf(props.values));
+const secondRuns = computed(() => (props.second ? runsOf(props.second) : []));
 </script>
 
 <template>
@@ -65,6 +72,10 @@ const runs = computed(() => {
     <text class="tick" :x="PAD.left - 5" :y="PAD.top + plotH + 4" text-anchor="end">{{ format(0) }}</text>
     <text v-if="startLabel" class="tick" :x="PAD.left" :y="H - 4">{{ startLabel }}</text>
     <text v-if="endLabel" class="tick" :x="W - PAD.right" :y="H - 4" text-anchor="end">{{ endLabel }}</text>
+    <template v-for="(run, i) in secondRuns" :key="`second-${i}`">
+      <polyline v-if="run.dots.length > 1" class="line second" :points="run.points" />
+      <circle v-else class="dot second" :cx="run.dots[0]!.x" :cy="run.dots[0]!.y" r="2.5" />
+    </template>
     <template v-for="(run, i) in runs" :key="i">
       <polyline v-if="run.dots.length > 1" class="line" :points="run.points" />
       <circle v-else class="dot" :cx="run.dots[0]!.x" :cy="run.dots[0]!.y" r="2.5" />

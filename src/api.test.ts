@@ -228,7 +228,17 @@ describe("httpApi", () => {
     expect(await http.getProgress()).toEqual({
       decks: body.decks,
       items: {
-        "n5-food-1": { seen: 2, correct: 1, streak: 0, firstAt: null, lastAt: null, knownAt: null },
+        "n5-food-1": {
+          seen: 2,
+          correct: 1,
+          streak: 0,
+          firstAt: null,
+          lastAt: null,
+          knownAt: null,
+          testedAt: null,
+          testPassed: false,
+          masteredAt: null,
+        },
       },
     });
     expect(fetchMock).toHaveBeenCalledWith(

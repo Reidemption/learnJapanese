@@ -4,7 +4,7 @@ import CustomView from "./CustomView.vue";
 import { setApi, staticApi, summarize, type StudyApi } from "../api";
 import { decks, decksFor, getDeck } from "../content";
 import { customDeck, customTags } from "../session";
-import type { ItemStat } from "../study/mastery";
+import { emptyStat, type ItemStat } from "../study/mastery";
 import { matchingUnits } from "../study/tags";
 
 const push = vi.fn();
@@ -98,7 +98,7 @@ describe("CustomView", () => {
 
   it("puts weak words first and marks each word's mastery", async () => {
     const [weakVerb] = matchingUnits(decks, "N5", ["verb"]).slice(-1);
-    const weak: ItemStat = { seen: 5, correct: 1, streak: 0, firstAt: 1, lastAt: 2, knownAt: null };
+    const weak: ItemStat = { ...emptyStat(), seen: 5, correct: 1, firstAt: 1, lastAt: 2 };
     setApi(stubApi({ [weakVerb!.id]: weak }));
     const wrapper = await render();
     await chip(wrapper, "Verbs").trigger("click");

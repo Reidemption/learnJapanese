@@ -128,7 +128,7 @@ describe("every test question in every real deck", () => {
     return question.choices.map((c) => c.en ?? toPlain(c.ja ?? []));
   }
 
-  it.each(decks.map((d) => [d.id, d] as const))("%s", (_id, deck) => {
+  it.each(decks.map((d) => [d.id, d] as const))("%s", { timeout: 30_000 }, (_id, deck) => {
     for (const question of buildTest(unitsOf(deck), decks, seeded(11))) {
       const texts = shown(question);
       expect(texts, question.id).toHaveLength(4);

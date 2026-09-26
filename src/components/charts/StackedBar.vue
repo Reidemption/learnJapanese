@@ -7,7 +7,7 @@ const props = withDefaults(defineProps<{ split: Split; height?: number }>(), { h
 const parts = computed(() => {
   const total = props.split.total || 1;
   let x = 0;
-  return (["known", "learning", "new"] as const).map((kind) => {
+  return (["mastered", "known", "learning", "new"] as const).map((kind) => {
     const width = (props.split[kind] / total) * 100;
     const part = { kind, x, width };
     x += width;
@@ -16,7 +16,9 @@ const parts = computed(() => {
 });
 
 const label = computed(
-  () => `${props.split.known} known, ${props.split.learning} learning, ${props.split.new} new`,
+  () =>
+    `${props.split.mastered} mastered, ${props.split.known} known, ` +
+    `${props.split.learning} learning, ${props.split.new} new`,
 );
 </script>
 

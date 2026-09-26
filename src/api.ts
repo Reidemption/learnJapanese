@@ -73,7 +73,7 @@ export type NewAttempt = {
   hints: boolean;
   /** A "Retry missed" run: recorded for mastery, but not a deck score. */
   retry?: boolean;
-  /** "custom" for a Custom study session, whose `deckId` is empty. */
+  /** "custom" for a Custom study session, "words" for a word test: both have an empty `deckId`. */
   scope?: AttemptScope;
   items: ItemResult[];
 };
@@ -90,7 +90,7 @@ export interface StudyApi {
 }
 
 /** The key both implementations use for a deck+mode score. */
-export { scoreKey as scoreKeyOf } from "./progress";
+export { hasDeck, scoreKey as scoreKeyOf } from "./progress";
 
 export function emptyProgress(): Progress {
   return { decks: {}, items: {} };

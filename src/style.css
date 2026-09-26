@@ -8,7 +8,9 @@
   --pine: #2d7348;
   --ochre: #b07a1f;
   /* Mastery colours, shared by every chart and legend. */
+  --indigo: #34528a;
   --known: var(--pine);
+  --mastered: var(--indigo);
   --learning: var(--ochre);
   --new: color-mix(in srgb, var(--ink) 13%, transparent);
   --line: color-mix(in srgb, var(--ink) 16%, transparent);
@@ -41,6 +43,7 @@
   --vermillion-deep: #c4452d;
   --pine: #5cb57e;
   --ochre: #d9a444;
+  --indigo: #86a5e0;
   --new: color-mix(in srgb, var(--ink) 14%, transparent);
   --line: color-mix(in srgb, var(--ink) 15%, transparent);
   --shadow: color-mix(in srgb, black 45%, transparent);
@@ -642,6 +645,10 @@ a.ghost {
   border-radius: 2px;
 }
 
+.chart .mastered {
+  fill: var(--mastered);
+}
+
 .chart .known {
   fill: var(--known);
 }
@@ -694,6 +701,14 @@ a.ghost {
   fill: var(--ink);
 }
 
+.line-chart .line.second {
+  stroke: var(--mastered);
+}
+
+.line-chart .dot.second {
+  fill: var(--mastered);
+}
+
 .line-chart .axis {
   stroke: color-mix(in srgb, var(--ink) 35%, transparent);
 }
@@ -727,6 +742,15 @@ a.ghost {
   vertical-align: -0.05rem;
 }
 
+.swatch.mastered {
+  background: var(--mastered);
+}
+
+/* The "known" line in a line chart's key: the line's own ink. */
+.swatch.line-key {
+  background: var(--ink);
+}
+
 .swatch.known {
   background: var(--known);
 }
@@ -740,6 +764,50 @@ a.ghost {
 }
 
 /* The dashboard. */
+.struggling-list {
+  margin: 0.6rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.struggling-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem 1rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.struggling-row > div:first-child {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.struggling-title {
+  font-family: var(--display);
+  font-size: 1.15rem;
+}
+
+.next-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.word-test-link {
+  padding: 0.5rem 0.9rem;
+  text-decoration: none;
+}
+
+.word-test-link:hover {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
 .dashboard .hero {
   padding-bottom: 1rem;
 }

@@ -15,8 +15,9 @@ type masteryFixture struct {
 		Name     string    `json:"name"`
 		Baseline *itemStat `json:"baseline"`
 		Answers  []struct {
-			Correct bool  `json:"correct"`
-			At      int64 `json:"at"`
+			Correct    bool  `json:"correct"`
+			At         int64 `json:"at"`
+			TestPassed *bool `json:"testPassed"`
 		} `json:"answers"`
 		Expected []itemStat `json:"expected"`
 	} `json:"cases"`
@@ -41,7 +42,7 @@ func TestMasteryFixture(t *testing.T) {
 				s = *c.Baseline
 			}
 			for i, a := range c.Answers {
-				s = s.apply(a.Correct, a.At)
+				s = s.apply(a.Correct, a.At, a.TestPassed)
 				if !reflect.DeepEqual(s, c.Expected[i]) {
 					t.Fatalf("after answer %d: got %s, want %s", i+1, show(s), show(c.Expected[i]))
 				}

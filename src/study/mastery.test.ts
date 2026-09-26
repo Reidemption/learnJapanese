@@ -3,6 +3,7 @@ import fixture from "../../testdata/mastery-cases.json";
 import {
   KNOWN_STREAK,
   applyAnswer,
+  emptyStat,
   isWeak,
   masteryOf,
   normalizeStat,
@@ -11,8 +12,10 @@ import {
 } from "./mastery";
 
 function stat(partial: Partial<ItemStat>): ItemStat {
-  return { seen: 0, correct: 0, streak: 0, firstAt: null, lastAt: null, knownAt: null, ...partial };
+  return { ...emptyStat(), ...partial };
 }
+
+type FixtureAnswer = { correct: boolean; at: number; testPassed?: boolean };
 
 describe("shared fixture (also read by the Go tests)", () => {
   it("uses the same threshold", () => {
@@ -22,15 +25,22 @@ describe("shared fixture (also read by the Go tests)", () => {
   for (const c of fixture.cases) {
     it(c.name, () => {
       const baseline = "baseline" in c ? (c.baseline as ItemStat) : undefined;
+      const answers = c.answers as FixtureAnswer[];
       let current = baseline;
-      c.answers.forEach((answer, i) => {
-        current = applyAnswer(current, answer.correct, answer.at);
+      answers.forEach((answer, i) => {
+        current = applyAnswer(current, answer.correct, answer.at, answer.testPassed);
         expect(current, `after answer ${i + 1}`).toEqual(c.expected[i]);
       });
 
       // Replaying the log gives the same result as recording answer by answer.
+      // A test answer's test is the one at the same time; the rebuild works
+      // out whether the unit passed it.
       const rebuilt = rebuildStats(
-        c.answers.map((a) => ({ itemId: "x", ...a })),
+        answers.map(({ testPassed, ...a }) => ({
+          itemId: "x",
+          ...a,
+          ...(testPassed === undefined ? {} : { test: `t${a.at}` }),
+        })),
         baseline ? { x: baseline } : {},
       );
       expect(rebuilt.x).toEqual(c.expected.at(-1));
@@ -49,6 +59,23 @@ describe("masteryOf", () => {
     s = applyAnswer(s, false, 4);
     expect(masteryOf(s)).toBe("learning");
     expect(s.knownAt).toBe(3);
+  });
+
+  it("reaches mastered only through a test, deck or word", () => {
+    let s: ItemStat | undefined;
+    for (let at = 1; at <= 10; at++) s = applyAnswer(s, true, at);
+    expect(masteryOf(s)).toBe("known");
+    s = applyAnswer(s, true, 11, true);
+    expect(masteryOf(s)).toBe("mastered");
+  });
+
+  it("keeps mastered through practice mistakes, and drops it on a failed test", () => {
+    let s = applyAnswer(undefined, true, 1, true);
+    s = applyAnswer(applyAnswer(s, false, 2), false, 3);
+    expect(masteryOf(s)).toBe("mastered");
+    s = applyAnswer(s, false, 4, false);
+    expect(masteryOf(s)).toBe("learning");
+    expect(s.masteredAt).toBe(1);
   });
 
   it("treats an empty stat as new", () => {
@@ -89,6 +116,18 @@ describe("rebuildStats", () => {
   it("keeps baseline units that have no answers", () => {
     const base = { a: stat({ seen: 2, correct: 1 }) };
     expect(rebuildStats([], base)).toEqual(base);
+  });
+
+  it("fails a unit on a test when any of its answers in that test is wrong", () => {
+    const stats = rebuildStats([
+      { itemId: "a", correct: true, at: 1, test: "t1" },
+      { itemId: "b", correct: true, at: 1, test: "t1" },
+      { itemId: "a", correct: false, at: 1, test: "t1" },
+      { itemId: "b", correct: true, at: 1, test: "t1" },
+    ]);
+    expect(masteryOf(stats.a)).toBe("learning");
+    expect(masteryOf(stats.b)).toBe("mastered");
+    expect(stats.a).toMatchObject({ testedAt: 1, testPassed: false, masteredAt: null });
   });
 
   it("does not mutate the baseline", () => {

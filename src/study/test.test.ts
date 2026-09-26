@@ -127,7 +127,8 @@ describe("buildTest", () => {
     );
   });
 
-  it("builds a full test for every real deck", () => {
+  // Ranks the level-wide pool for every question of every deck: slow under a full run.
+  it("builds a full test for every real deck", { timeout: 60_000 }, () => {
     const kanji = levelKanji(decks, "N5");
     for (const deck of decks) {
       const test = buildTest(unitsOf(deck), decks, seeded(3));
