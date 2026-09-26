@@ -1,4 +1,4 @@
-import type { Choice, Deck, Item, Question, RubySegment } from "../types";
+import type { Choice, Deck, DeckQuestion, Item, Question, RubySegment } from "../types";
 import { hasKanji, parseRuby, toKana, toPlain } from "./ruby";
 import { seedFrom, seeded, shuffle, type Rng } from "./rng";
 
@@ -37,22 +37,46 @@ export function isMode(value: string): value is Mode {
  * with fewer than four choices.
  */
 export function buildQuestions(deck: Deck, mode: Mode, rng: Rng): Question[] {
-  switch (mode) {
-    case "meaning":
-      return fromItems(deck, rng, meaningQuestion);
-    case "reverse":
-      return fromItems(deck, rng, reverseQuestion);
-    case "reading":
-      return fromItems(deck, rng, readingQuestion, (item) => hasKanji(item.ja));
-    case "cloze":
-      return clozeQuestions(deck, rng);
+  if (mode === "cloze") {
+    return shuffle(deck.questions ?? [], rng).map((question) => clozeQuestion(deck, question));
   }
+  const usable = USABLE[mode];
+  const pool = poolOf(deck, usable);
+  const questions: Question[] = [];
+  for (const item of shuffle(deck.items.filter(usable), rng)) {
+    const question = BUILDERS[mode](deck, item, pool, rng);
+    if (question) questions.push(question);
+  }
+  return questions;
+}
+
+/**
+ * One question: unit `unitId` of `deck` (an item, or a cloze question for
+ * `cloze`) in `mode`, with distractors from the same deck. Undefined when the
+ * unit can't be asked that way.
+ */
+export function buildQuestion(
+  deck: Deck,
+  unitId: string,
+  mode: Mode,
+  rng: Rng,
+): Question | undefined {
+  if (mode === "cloze") {
+    const question = deck.questions?.find((q) => q.id === unitId);
+    return question && clozeQuestion(deck, question);
+  }
+  const usable = USABLE[mode];
+  const item = deck.items.find((i) => i.id === unitId);
+  if (!item || !usable(item)) return undefined;
+  return BUILDERS[mode](deck, item, poolOf(deck, usable), rng);
 }
 
 /** The modes this deck can actually fill, in display order. */
 export function availableModes(deck: Deck): Mode[] {
   const rng = seeded(seedFrom(deck.id));
-  return MODES.filter((mode) => buildQuestions(deck, mode, rng).length >= MIN_QUESTIONS);
+  // A deck that borrows distractors can quiz on even a single word.
+  const min = deck.pool ? 1 : MIN_QUESTIONS;
+  return MODES.filter((mode) => buildQuestions(deck, mode, rng).length >= min);
 }
 
 /** A stable per-deck/mode seed, so "the same quiz" is reproducible. */
@@ -60,21 +84,18 @@ export function sessionRng(deckId: string, mode: Mode, seed?: number): Rng {
   return seeded(seed ?? seedFrom(`${deckId}:${mode}`));
 }
 
+type ItemMode = Exclude<Mode, "cloze">;
 type Builder = (deck: Deck, item: Item, pool: Item[], rng: Rng) => Question | undefined;
 
-function fromItems(
-  deck: Deck,
-  rng: Rng,
-  build: Builder,
-  usable: (item: Item) => boolean = () => true,
-): Question[] {
-  const pool = deck.items.filter(usable);
-  const questions: Question[] = [];
-  for (const item of shuffle(pool, rng)) {
-    const question = build(deck, item, pool, rng);
-    if (question) questions.push(question);
-  }
-  return questions;
+const USABLE: Record<ItemMode, (item: Item) => boolean> = {
+  meaning: () => true,
+  reverse: () => true,
+  reading: (item) => hasKanji(item.ja),
+};
+
+/** Distractor candidates: the deck's items plus any it borrows. */
+function poolOf(deck: Deck, usable: (item: Item) => boolean): Item[] {
+  return [...deck.items, ...(deck.pool ?? [])].filter(usable);
 }
 
 function meaningQuestion(deck: Deck, item: Item, pool: Item[], rng: Rng): Question | undefined {
@@ -132,22 +153,26 @@ function readingQuestion(deck: Deck, item: Item, pool: Item[], rng: Rng): Questi
   };
 }
 
-function clozeQuestions(deck: Deck, rng: Rng): Question[] {
-  return shuffle(deck.questions ?? [], rng).map((question) => {
-    const choices: Choice[] = [question.answer, ...question.distractors]
-      .slice(0, CHOICE_IDS.length)
-      .map((text, index) => ({ id: CHOICE_IDS[index]!, ja: parseRuby(text) }));
-    return {
-      id: `${question.id}:cloze`,
-      jlpt: deck.level,
-      kind: "cloze",
-      promptJa: parseRuby(question.prompt),
-      promptEn: question.en,
-      choices,
-      correctId: CHOICE_IDS[0]!,
-    };
-  });
+function clozeQuestion(deck: Deck, question: DeckQuestion): Question {
+  const choices: Choice[] = [question.answer, ...question.distractors]
+    .slice(0, CHOICE_IDS.length)
+    .map((text, index) => ({ id: CHOICE_IDS[index]!, ja: parseRuby(text) }));
+  return {
+    id: `${question.id}:cloze`,
+    jlpt: deck.level,
+    kind: "cloze",
+    promptJa: parseRuby(question.prompt),
+    promptEn: question.en,
+    choices,
+    correctId: CHOICE_IDS[0]!,
+  };
 }
+
+const BUILDERS: Record<ItemMode, Builder> = {
+  meaning: meaningQuestion,
+  reverse: reverseQuestion,
+  reading: readingQuestion,
+};
 
 /**
  * Three other items whose displayed text differs from the answer's and from

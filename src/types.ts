@@ -1,4 +1,7 @@
 export type Jlpt = "N5" | "N4";
+
+/** Easiest first: N4 builds on N5. */
+export const JLPT_LEVELS: readonly Jlpt[] = ["N5", "N4"];
 export type QuizKind = "meaning" | "reverse" | "reading" | "cloze";
 export type CardMark = "known" | "learning";
 
@@ -140,4 +143,9 @@ export type Deck = {
   tags?: Tag[];
   items: Item[];
   questions?: DeckQuestion[];
+  /**
+   * Extra items used only as distractors, never asked. Not content: set on a
+   * deck built in memory whose own items are too few to choose between.
+   */
+  pool?: Item[];
 };

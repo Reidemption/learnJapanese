@@ -7,7 +7,13 @@ export const settings = reactive<Settings>(loadSettings());
 watch(
   settings,
   (value) =>
-    saveSettings({ kana: value.kana, hints: value.hints, font: value.font, theme: value.theme }),
+    saveSettings({
+      kana: value.kana,
+      hints: value.hints,
+      font: value.font,
+      theme: value.theme,
+      timer: value.timer,
+    }),
   { deep: true },
 );
 

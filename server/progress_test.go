@@ -474,3 +474,66 @@ func TestCustomSessions(t *testing.T) {
 		t.Fatalf("restored progress differs:\n got %+v\nwant %+v", got, p)
 	}
 }
+
+func testBody(clientID, uid, deckID, scope string, correct, total int, items ...map[string]any) string {
+	body, _ := json.Marshal(map[string]any{
+		"clientId": clientID, "uid": uid, "deckId": deckID, "scope": scope, "mode": "test",
+		"correct": correct, "total": total, "kana": false, "hints": false, "at": day,
+		"items": items,
+	})
+	return string(body)
+}
+
+func TestTestSessions(t *testing.T) {
+	_, h := newTestServer(t)
+	deckID := firstDeckID(t)
+
+	// Unit a passes both questions; b fails one and skips the other.
+	mustPost(t, h, testBody("c1", "t1", deckID, "deck", 1, 2,
+		map[string]any{"itemId": "a", "mode": "meaning", "correct": true},
+		map[string]any{"itemId": "a", "mode": "reading", "correct": true},
+		map[string]any{"itemId": "b", "mode": "meaning", "correct": false},
+		map[string]any{"itemId": "b", "mode": "reverse", "correct": false, "skipped": true}), http.StatusCreated)
+
+	p := progressOf(t, h, "c1")
+	if p.Items["a"].Seen != 2 || p.Items["b"].Correct != 0 {
+		t.Fatalf("items a = %s, b = %s", show(p.Items["a"]), show(p.Items["b"]))
+	}
+	// Units passed out of units tested, as the deck page's "last test".
+	if got := p.Decks[deckID+":test"]; got.Last != 1 || got.Total != 2 || got.At != day {
+		t.Fatalf("test score = %+v", got)
+	}
+
+	// Each answer keeps its own mode and its skip through export and import.
+	b := decode[backup](t, do(t, h, "GET", "/api/export?clientId=c1", ""))
+	items := b.Attempts[0].Items
+	if len(items) != 4 || items[1].Mode != "reading" || !items[3].Skipped || items[2].Skipped {
+		t.Fatalf("exported answers = %+v", items)
+	}
+	_, fresh := newTestServer(t)
+	req, _ := json.Marshal(importReq{ClientID: "c2", backup: b})
+	if got := decode[importResult](t, do(t, fresh, "POST", "/api/import", string(req))); got != (importResult{Imported: 1}) {
+		t.Fatalf("import = %+v", got)
+	}
+	again := decode[backup](t, do(t, fresh, "GET", "/api/export?clientId=c2", ""))
+	if !reflect.DeepEqual(again.Attempts[0].Items, items) {
+		t.Fatalf("re-exported answers = %+v, want %+v", again.Attempts[0].Items, items)
+	}
+}
+
+func TestTestSessionsRejected(t *testing.T) {
+	_, h := newTestServer(t)
+	deckID := firstDeckID(t)
+	for name, body := range map[string]string{
+		"answer without a mode": testBody("c1", "x1", deckID, "deck", 0, 1,
+			map[string]any{"itemId": "a", "correct": false}),
+		"no answers":       testBody("c1", "x2", deckID, "deck", 0, 1),
+		"custom test":      testBody("c1", "x3", "", "custom", 0, 1, map[string]any{"itemId": "a", "mode": "meaning", "correct": false}),
+		"no deck":          testBody("c1", "x4", "", "deck", 0, 1, map[string]any{"itemId": "a", "mode": "meaning", "correct": false}),
+		"correct and skip": testBody("c1", "x5", deckID, "deck", 1, 1, map[string]any{"itemId": "a", "mode": "meaning", "correct": true, "skipped": true}),
+	} {
+		t.Run(name, func(t *testing.T) {
+			mustPost(t, h, body, http.StatusBadRequest)
+		})
+	}
+}

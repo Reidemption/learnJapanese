@@ -61,7 +61,7 @@ func (s *server) buildBackup(clientID string) (backup, error) {
 		out.Attempts[i] = backupAttempt{attemptRecord: rec, Items: []attemptItem{}}
 	}
 
-	rows, err := s.db.Query(`SELECT an.attempt_id, an.item_id, an.mode, an.correct
+	rows, err := s.db.Query(`SELECT an.attempt_id, an.item_id, an.mode, an.correct, an.skipped
 		FROM answers an JOIN attempts a ON a.id = an.attempt_id
 		WHERE a.client_id = ? ORDER BY an.attempt_id, an.rowid`, clientID)
 	if err != nil {
@@ -71,7 +71,7 @@ func (s *server) buildBackup(clientID string) (backup, error) {
 	for rows.Next() {
 		var attemptID int64
 		var it attemptItem
-		if err := rows.Scan(&attemptID, &it.ItemID, &it.Mode, &it.Correct); err != nil {
+		if err := rows.Scan(&attemptID, &it.ItemID, &it.Mode, &it.Correct, &it.Skipped); err != nil {
 			return backup{}, err
 		}
 		if i, ok := index[attemptID]; ok {

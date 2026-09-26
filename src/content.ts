@@ -1,6 +1,4 @@
-import type { Deck, Jlpt } from "./types";
-
-const LEVEL_ORDER: Jlpt[] = ["N5", "N4"];
+import { JLPT_LEVELS, type Deck, type Jlpt } from "./types";
 
 const modules = import.meta.glob<Deck>("../content/decks/*.json", {
   eager: true,
@@ -9,7 +7,7 @@ const modules = import.meta.glob<Deck>("../content/decks/*.json", {
 
 /** Every deck, N5 first, then by the deck's own `order`. */
 export const decks: Deck[] = Object.values(modules).sort((a, b) => {
-  const level = LEVEL_ORDER.indexOf(a.level) - LEVEL_ORDER.indexOf(b.level);
+  const level = JLPT_LEVELS.indexOf(a.level) - JLPT_LEVELS.indexOf(b.level);
   if (level !== 0) return level;
   if (a.order !== b.order) return a.order - b.order;
   return a.id.localeCompare(b.id);

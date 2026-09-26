@@ -1,11 +1,12 @@
 import { flushPromises, mount } from "@vue/test-utils";
-import { afterEach, beforeEach, describe, expect, it } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import App from "./App.vue";
 import { decks } from "./content";
 import { getScore, loadAttemptLog } from "./progress";
 import { router } from "./router";
-import { customDeck, customTags, lastResult, retryQueue } from "./session";
+import { customDeck, customTags, lastResult, lastTest, retryQueue, testRunning } from "./session";
 import { settings } from "./settings";
+import { unitsOf } from "./study/analytics";
 import { availableModes, buildQuestions } from "./study/modes";
 import { seeded } from "./study/rng";
 
@@ -38,6 +39,8 @@ beforeEach(() => {
   retryQueue.value = null;
   customDeck.value = null;
   customTags.value = [];
+  lastTest.value = null;
+  settings.timer = false;
 });
 
 describe("routing", () => {
@@ -49,7 +52,9 @@ describe("routing", () => {
   it("opens a deck straight from its URL, as a refresh would", async () => {
     const wrapper = await open(`/deck/${deck.id}`);
     expect(wrapper.text()).toContain(deck.title);
-    expect(wrapper.findAll(".level-row").length).toBe(availableModes(deck).length);
+    // One row per practice mode, then the Test row.
+    expect(wrapper.findAll(".level-row").length).toBe(availableModes(deck).length + 1);
+    expect(wrapper.find(".test-row").text()).toContain("Test");
   });
 
   it("runs a session to its score screen", async () => {
@@ -184,5 +189,115 @@ describe("routing", () => {
 
     await open(`/deck/${deck.id}/not-a-mode`);
     expect(router.currentRoute.value.name).toBe("deck");
+  });
+
+  describe("deck tests", () => {
+    const units = unitsOf(deck).length;
+
+    /** Answers every question with `click` until the test hands over to its result. */
+    async function finishTest(wrapper: Awaited<ReturnType<typeof open>>, selector: string) {
+      for (let i = 0; i < units * 3 + 5; i++) {
+        const target = wrapper.find(selector);
+        if (!target.exists()) break;
+        await target.trigger("click");
+        await flushPromises();
+      }
+    }
+
+    it("runs a test from the deck page to its result, per unit", async () => {
+      const wrapper = await open(`/deck/${deck.id}`);
+      await wrapper.find(".test-row .primary").trigger("click");
+      await flushPromises();
+      expect(router.currentRoute.value.name).toBe("test");
+      expect(testRunning.value).toBe(true);
+      expect(wrapper.find(".test-badge").exists()).toBe(true);
+
+      await finishTest(wrapper, ".choice.dont-know");
+      expect(router.currentRoute.value.name).toBe("test-result");
+      expect(testRunning.value).toBe(false);
+      expect(wrapper.find(".score h2").text()).toBe(`0 / ${units}`);
+      expect(wrapper.findAll(".unit-result.failed")).toHaveLength(units);
+
+      const [logged] = loadAttemptLog();
+      expect(logged).toMatchObject({
+        deckId: deck.id,
+        scope: "deck",
+        mode: "test",
+        correct: 0,
+        total: units,
+        kana: false,
+        hints: false,
+      });
+      expect(logged!.items.every((item) => item.skipped && !item.correct)).toBe(true);
+      expect(new Set(logged!.items.map((item) => item.mode)).size).toBeGreaterThan(1);
+      // The deck page now shows how the last test went.
+      expect(getScore(deck.id, "test")).toMatchObject({ last: 0, total: units });
+    });
+
+    it("leaves the global settings as they were", async () => {
+      settings.kana = true;
+      settings.hints = true;
+      const wrapper = await open(`/deck/${deck.id}/test`);
+      const kana = wrapper.findAll(".site-header button").find((b) => b.text() === "Kana")!;
+      expect(kana.attributes("disabled")).toBeDefined();
+      await kana.trigger("click");
+      expect(wrapper.find(".prompt .ruby-text").classes()).toContain("kana-off");
+      await finishTest(wrapper, ".choice");
+      expect(router.currentRoute.value.name).toBe("test-result");
+      expect(settings.kana).toBe(true);
+      expect(settings.hints).toBe(true);
+    });
+
+    it("opens a practice session of just the missed words", async () => {
+      const wrapper = await open(`/deck/${deck.id}/test`);
+      await finishTest(wrapper, ".choice.dont-know");
+      await wrapper.find(".next-row .ghost").trigger("click");
+      await flushPromises();
+      expect(router.currentRoute.value.name).toBe("custom-session");
+      expect(customDeck.value?.items.length).toBe(deck.items.length);
+      expect(wrapper.findAll(".choice")).toHaveLength(4);
+    });
+
+    it("has no timer unless it is switched on, and never sends one", async () => {
+      const wrapper = await open(`/deck/${deck.id}/test`);
+      expect(wrapper.find(".stopwatch").exists()).toBe(false);
+      await finishTest(wrapper, ".choice");
+      expect(wrapper.find(".test-time").exists()).toBe(false);
+    });
+
+    it("shows the elapsed time when the timer is on", async () => {
+      vi.useFakeTimers({ toFake: ["Date", "setInterval", "clearInterval"] });
+      try {
+        vi.setSystemTime(new Date(2026, 8, 25, 10, 0, 0));
+        settings.timer = true;
+        const wrapper = await open(`/deck/${deck.id}/test`);
+        expect(wrapper.find(".stopwatch").text()).toBe("0:00");
+        vi.advanceTimersByTime(65_000);
+        await flushPromises();
+        expect(wrapper.find(".stopwatch").text()).toBe("1:05");
+
+        vi.advanceTimersByTime(60_000);
+        await finishTest(wrapper, ".choice");
+        expect(wrapper.find(".test-time").text()).toMatch(/^Time 2:05 · \d+\.\d s per question$/);
+        const [logged] = loadAttemptLog();
+        expect(Object.keys(logged!).sort()).toEqual(
+          ["at", "correct", "deckId", "hints", "items", "kana", "mode", "scope", "total", "uid"].sort(),
+        );
+      } finally {
+        vi.useRealTimers();
+      }
+    });
+
+    it("sends a refreshed test result back to the deck", async () => {
+      const wrapper = await open(`/deck/${deck.id}/test/result`);
+      expect(wrapper.text()).toContain("No result to show");
+    });
+
+    it("redirects a test of an unknown deck", async () => {
+      await open("/deck/not-a-deck/test");
+      expect(router.currentRoute.value.name).toBe("home");
+      await open("/deck/not-a-deck/test/result");
+      expect(router.currentRoute.value.name).toBe("home");
+    });
   });
 });

@@ -10,6 +10,7 @@ import {
   recordAttempt,
   saveScore,
   write,
+  type AttemptMode,
   type AttemptRecord,
   type AttemptScope,
   type ImportResult,
@@ -19,10 +20,15 @@ import {
 } from "./progress";
 import { BACKUP_VERSION, type Backup } from "./study/backup";
 import { normalizeStat } from "./study/mastery";
-import type { Mode } from "./study/modes";
 import type { Deck, Jlpt } from "./types";
 
-export type { AttemptRecord, AttemptScope, ImportResult, LoggedAttempt } from "./progress";
+export type {
+  AttemptMode,
+  AttemptRecord,
+  AttemptScope,
+  ImportResult,
+  LoggedAttempt,
+} from "./progress";
 export type { Backup } from "./study/backup";
 
 const CLIENT_KEY = "lj.clientId";
@@ -59,7 +65,7 @@ export type Progress = {
  */
 export type NewAttempt = {
   deckId: string;
-  mode: Mode;
+  mode: AttemptMode;
   correct: number;
   total: number;
   /** Whether furigana / hints were on at any point during the session. */
@@ -346,6 +352,13 @@ export async function getDeck(id: string): Promise<Deck | undefined> {
   }
   deckCache.set(id, deck);
   return deck;
+}
+
+/** Every deck in full, e.g. to gather words or kanji across decks. */
+export async function allDecks(level?: Jlpt): Promise<Deck[]> {
+  const summaries = await listDecks(level);
+  const full = await Promise.all(summaries.map((summary) => getDeck(summary.id)));
+  return full.filter((deck): deck is Deck => deck !== undefined);
 }
 
 export async function postAttempt(attempt: NewAttempt): Promise<void> {

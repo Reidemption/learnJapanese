@@ -44,6 +44,22 @@ describe("parseBackup", () => {
     );
   });
 
+  it("keeps a test, whose answers each carry a mode and maybe a skip", () => {
+    const test = {
+      ...session,
+      mode: "test",
+      kana: false,
+      hints: false,
+      items: [
+        { itemId: "n5-food-1", mode: "meaning", correct: true },
+        { itemId: "n5-food-1", mode: "reading", correct: false, skipped: true },
+      ],
+    };
+    expect(parseBackup(file({ attempts: [test] })).attempts).toEqual([test]);
+    const modeless = { ...test, items: [{ itemId: "n5-food-1", correct: true }] };
+    expect(() => parseBackup(file({ attempts: [modeless] }))).toThrow(/answer 1 has no mode/);
+  });
+
   it("fills in a missing answer mode and missing assist flags", () => {
     const { kana: _k, hints: _h, ...rest } = session;
     const backup = parseBackup(
