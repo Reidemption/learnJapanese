@@ -163,11 +163,17 @@ Answers need a **mode**: in a test the same unit is answered in several modes in
   - `kanaVariants(kana)`, the minimal pairs
 - Test questions take their 3 distractors from the ranked level-wide pool. Practice modes are unchanged.
 
+**As built**
+- Reading choices come as **two pairs**: the answer and one near miss of it, plus a real reading of similar length and one near miss of *that*. With two near misses of the answer, the answer would be the one every other choice is spelled from, which gives it away.
+- `kanaVariants` returns the likeliest mistakes first: dropped っ, long vowels and ー, and ゃゅょ written full size; then added っ or long vowels inside the word, and dakuten swaps; then long vowels added at the end, and look-alike kana. `nearMiss` picks among the first three.
+- `alsoRight` keeps out candidates that would also be right: the same word (そば twice), or a shared sense after normalising the gloss ("to eat" and "to eat (honorific)"). A homograph's reading is never offered either.
+- `src/study/modes.snapshot.test.ts` snapshots practice questions for a fixed seed, recorded before this phase. Practice is unchanged.
+
 **A/C**
-- [ ] `kanaVariants` produces the expected variants for fixed inputs (きって, おばさん, がっこう, きょう). It never returns the input itself, and every variant is valid kana.
-- [ ] Ranking tests with fixed fixtures: a meaning candidate with the same type tags outranks a different one, and a shared-kanji reverse candidate outranks an unrelated one.
-- [ ] A property test over **every real deck**: every test question has exactly 4 choices, unique by displayed text, exactly one is correct, and the correct text never appears as a distractor, even when glosses or readings collide across decks.
-- [ ] Practice-mode snapshots from the original plan are unchanged.
+- [x] `kanaVariants` produces the expected variants for fixed inputs (きって, おばさん, がっこう, きょう). It never returns the input itself, and every variant is valid kana.
+- [x] Ranking tests with fixed fixtures: a meaning candidate with the same type tags outranks a different one, and a shared-kanji reverse candidate outranks an unrelated one.
+- [x] A property test over **every real deck**: every test question has exactly 4 choices, unique by displayed text, exactly one is correct, and the correct text never appears as a distractor, even when glosses or readings collide across decks.
+- [x] Practice-mode snapshots from the original plan are unchanged.
 
 ## Test Phase 3: Mastered tier, word tests & struggling decks
 

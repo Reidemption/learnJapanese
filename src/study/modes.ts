@@ -21,7 +21,7 @@ export const MODE_HINTS: Record<Mode, string> = {
 
 /** A quiz needs a real choice between options, so anything shorter is not offered. */
 const MIN_QUESTIONS = 4;
-const CHOICE_IDS = ["a", "b", "c", "d"];
+export const CHOICE_IDS = ["a", "b", "c", "d"];
 const DISTRACTORS = CHOICE_IDS.length - 1;
 
 export function isMode(value: string): value is Mode {
