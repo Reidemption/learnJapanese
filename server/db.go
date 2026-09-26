@@ -103,6 +103,9 @@ func migrate(db *sql.DB) error {
 		{"item_stats", "first_at", "INTEGER"},
 		{"item_stats", "last_at", "INTEGER"},
 		{"item_stats", "known_at", "INTEGER"},
+		{"item_stats", "tested_at", "INTEGER"},
+		{"item_stats", "test_passed", "INTEGER NOT NULL DEFAULT 0"},
+		{"item_stats", "mastered_at", "INTEGER"},
 	} {
 		if err := add(c.table, c.column, c.def); err != nil {
 			return fmt.Errorf("add %s.%s: %w", c.table, c.column, err)
@@ -134,6 +137,9 @@ func migrate(db *sql.DB) error {
 			first_at  INTEGER,
 			last_at   INTEGER,
 			known_at  INTEGER,
+			tested_at   INTEGER,
+			test_passed INTEGER NOT NULL DEFAULT 0,
+			mastered_at INTEGER,
 			PRIMARY KEY (client_id, item_id)
 		)`,
 	}
@@ -156,9 +162,16 @@ func migrate(db *sql.DB) error {
 			return err
 		}
 	}
-	// After the CREATE above, which a fresh database needs first.
-	if err := add("answers", "skipped", "INTEGER NOT NULL DEFAULT 0"); err != nil {
-		return fmt.Errorf("add answers.skipped: %w", err)
+	// After the CREATEs above, which a fresh database needs first.
+	for _, c := range []struct{ table, column, def string }{
+		{"answers", "skipped", "INTEGER NOT NULL DEFAULT 0"},
+		{"item_base", "tested_at", "INTEGER"},
+		{"item_base", "test_passed", "INTEGER NOT NULL DEFAULT 0"},
+		{"item_base", "mastered_at", "INTEGER"},
+	} {
+		if err := add(c.table, c.column, c.def); err != nil {
+			return fmt.Errorf("add %s.%s: %w", c.table, c.column, err)
+		}
 	}
 	return tx.Commit()
 }
@@ -258,20 +271,17 @@ func rebuildItems(tx *sql.Tx, clientID string, itemIDs []string) error {
 		}
 	}
 
-	rows, err := tx.Query(`SELECT item_id, seen, correct, streak, first_at, last_at, known_at
+	rows, err := tx.Query(`SELECT item_id, `+statColumns+`
 		FROM item_base WHERE client_id = ?`+filter, args...)
 	if err != nil {
 		return err
 	}
 	for rows.Next() {
-		var id string
-		var s itemStat
-		var first, last, known sql.NullInt64
-		if err := rows.Scan(&id, &s.Seen, &s.Correct, &s.Streak, &first, &last, &known); err != nil {
+		id, s, err := scanStat(rows)
+		if err != nil {
 			rows.Close()
 			return err
 		}
-		s.FirstAt, s.LastAt, s.KnownAt = ptr(first), ptr(last), ptr(known)
 		touch(id)
 		stats[id] = s
 	}
@@ -280,27 +290,56 @@ func rebuildItems(tx *sql.Tx, clientID string, itemIDs []string) error {
 		return err
 	}
 
-	rows, err = tx.Query(`SELECT an.item_id, an.correct, a.created_at
+	type answer struct {
+		itemID    string
+		attemptID int64
+		test      bool
+		correct   bool
+		at        int64
+	}
+	rows, err = tx.Query(`SELECT an.item_id, a.id, a.mode = 'test', an.correct, a.created_at
 		FROM answers an JOIN attempts a ON a.id = an.attempt_id
 		WHERE a.client_id = ?`+strings.ReplaceAll(filter, "item_id", "an.item_id")+`
 		ORDER BY a.created_at, a.id, an.rowid`, args...)
 	if err != nil {
 		return err
 	}
+	var answers []answer
 	for rows.Next() {
-		var id string
-		var correct bool
-		var at int64
-		if err := rows.Scan(&id, &correct, &at); err != nil {
+		var a answer
+		if err := rows.Scan(&a.itemID, &a.attemptID, &a.test, &a.correct, &a.at); err != nil {
 			rows.Close()
 			return err
 		}
-		touch(id)
-		stats[id] = stats[id].apply(correct, at)
+		answers = append(answers, a)
 	}
 	rows.Close()
 	if err := rows.Err(); err != nil {
 		return err
+	}
+
+	// A unit passes a test only if every one of its answers in it is right.
+	type testUnit struct {
+		attemptID int64
+		itemID    string
+	}
+	passed := map[testUnit]bool{}
+	for _, a := range answers {
+		if !a.test {
+			continue
+		}
+		key := testUnit{a.attemptID, a.itemID}
+		prev, seen := passed[key]
+		passed[key] = (prev || !seen) && a.correct
+	}
+	for _, a := range answers {
+		var testPassed *bool
+		if a.test {
+			p := passed[testUnit{a.attemptID, a.itemID}]
+			testPassed = &p
+		}
+		touch(a.itemID)
+		stats[a.itemID] = stats[a.itemID].apply(a.correct, a.at, testPassed)
 	}
 
 	if _, err := tx.Exec(`DELETE FROM item_stats WHERE client_id = ?`+filter, args...); err != nil {
@@ -309,10 +348,10 @@ func rebuildItems(tx *sql.Tx, clientID string, itemIDs []string) error {
 	now := time.Now().UnixMilli()
 	for _, id := range order {
 		s := stats[id]
+		values := append([]any{clientID, id}, s.statValues()...)
 		_, err := tx.Exec(`INSERT INTO item_stats
-			(client_id, item_id, seen, correct, streak, first_at, last_at, known_at, updated_at)
-			VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-			clientID, id, s.Seen, s.Correct, s.Streak, s.FirstAt, s.LastAt, s.KnownAt, now)
+			(client_id, item_id, `+statColumns+`, updated_at)
+			VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`, append(values, now)...)
 		if err != nil {
 			return err
 		}

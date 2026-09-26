@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { decks as realDecks } from "../content";
 import type { Deck, Item } from "../types";
-import type { ItemStat } from "./mastery";
+import { emptyStat, type ItemStat } from "./mastery";
 import { availableModes, buildQuestions } from "./modes";
 import { seeded } from "./rng";
 import {
@@ -29,7 +29,7 @@ function deck(partial: Partial<Deck>): Deck {
 }
 
 function stat(partial: Partial<ItemStat>): ItemStat {
-  return { seen: 0, correct: 0, streak: 0, firstAt: null, lastAt: null, knownAt: null, ...partial };
+  return { ...emptyStat(), ...partial };
 }
 
 const item: Item = { id: "d-1", ja: "{駅|えき}", en: "station" };

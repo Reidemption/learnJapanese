@@ -1,9 +1,11 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 import type { RouteLocationNormalized } from "vue-router";
 import { getDeck } from "./api";
-import { customDeck } from "./session";
+import { customDeck, wordTestUnits } from "./session";
+import { isWordSet } from "./study/analytics";
 import { availableModes, isMode } from "./study/modes";
 import { CUSTOM_DECK_ID } from "./study/tags";
+import { JLPT_LEVELS } from "./types";
 import CustomView from "./views/CustomView.vue";
 import DashboardView from "./views/DashboardView.vue";
 import DeckView from "./views/DeckView.vue";
@@ -20,6 +22,12 @@ const customProps = (route: RouteLocationNormalized) => ({
   custom: true,
 });
 
+/** A word test's set, and the level to take its words from (`?level=N4`; N5 by default). */
+const wordTestProps = (route: RouteLocationNormalized) => ({
+  set: route.params.set,
+  level: JLPT_LEVELS.find((level) => level === route.query.level),
+});
+
 export const router = createRouter({
   // Hash history keeps deep links working on plain static hosting.
   history: createWebHashHistory(),
@@ -33,6 +41,9 @@ export const router = createRouter({
     { path: "/deck/:id/:mode", name: "session", component: SessionView, props: true },
     { path: "/deck/:id/:mode/result", name: "result", component: ResultView, props: true },
     { path: "/study", name: "custom", component: CustomView },
+    // Word tests: up to 20 words from any decks. "these" is a list set in memory.
+    { path: "/test/:set", name: "word-test", component: TestView, props: wordTestProps },
+    { path: "/test/:set/result", name: "word-test-result", component: TestResultView, props: true },
     { path: "/study/:mode", name: "custom-session", component: SessionView, props: customProps },
     {
       path: "/study/:mode/result",
@@ -54,6 +65,13 @@ router.beforeEach(async (to) => {
     const playable =
       deck && typeof mode === "string" && isMode(mode) && availableModes(deck).includes(mode);
     return playable ? true : { name: "custom" };
+  }
+
+  if (to.name === "word-test" || to.name === "word-test-result") {
+    const set = to.params.set;
+    if (typeof set !== "string") return { name: "dashboard" };
+    if (set === "these") return wordTestUnits.value ? true : { name: "dashboard" };
+    return isWordSet(set) ? true : { name: "dashboard" };
   }
 
   const id = to.params.id;

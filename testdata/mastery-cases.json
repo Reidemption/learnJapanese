@@ -9,9 +9,9 @@
         { "correct": true, "at": 3000 }
       ],
       "expected": [
-        { "seen": 1, "correct": 1, "streak": 1, "firstAt": 1000, "lastAt": 1000, "knownAt": null },
-        { "seen": 2, "correct": 2, "streak": 2, "firstAt": 1000, "lastAt": 2000, "knownAt": null },
-        { "seen": 3, "correct": 3, "streak": 3, "firstAt": 1000, "lastAt": 3000, "knownAt": 3000 }
+        { "seen": 1, "correct": 1, "streak": 1, "firstAt": 1000, "lastAt": 1000, "knownAt": null, "testedAt": null, "testPassed": false, "masteredAt": null },
+        { "seen": 2, "correct": 2, "streak": 2, "firstAt": 1000, "lastAt": 2000, "knownAt": null, "testedAt": null, "testPassed": false, "masteredAt": null },
+        { "seen": 3, "correct": 3, "streak": 3, "firstAt": 1000, "lastAt": 3000, "knownAt": 3000, "testedAt": null, "testPassed": false, "masteredAt": null }
       ]
     },
     {
@@ -24,11 +24,11 @@
         { "correct": true, "at": 5000 }
       ],
       "expected": [
-        { "seen": 1, "correct": 1, "streak": 1, "firstAt": 1000, "lastAt": 1000, "knownAt": null },
-        { "seen": 2, "correct": 2, "streak": 2, "firstAt": 1000, "lastAt": 2000, "knownAt": null },
-        { "seen": 3, "correct": 3, "streak": 3, "firstAt": 1000, "lastAt": 3000, "knownAt": 3000 },
-        { "seen": 4, "correct": 3, "streak": 0, "firstAt": 1000, "lastAt": 4000, "knownAt": 3000 },
-        { "seen": 5, "correct": 4, "streak": 1, "firstAt": 1000, "lastAt": 5000, "knownAt": 3000 }
+        { "seen": 1, "correct": 1, "streak": 1, "firstAt": 1000, "lastAt": 1000, "knownAt": null, "testedAt": null, "testPassed": false, "masteredAt": null },
+        { "seen": 2, "correct": 2, "streak": 2, "firstAt": 1000, "lastAt": 2000, "knownAt": null, "testedAt": null, "testPassed": false, "masteredAt": null },
+        { "seen": 3, "correct": 3, "streak": 3, "firstAt": 1000, "lastAt": 3000, "knownAt": 3000, "testedAt": null, "testPassed": false, "masteredAt": null },
+        { "seen": 4, "correct": 3, "streak": 0, "firstAt": 1000, "lastAt": 4000, "knownAt": 3000, "testedAt": null, "testPassed": false, "masteredAt": null },
+        { "seen": 5, "correct": 4, "streak": 1, "firstAt": 1000, "lastAt": 5000, "knownAt": 3000, "testedAt": null, "testPassed": false, "masteredAt": null }
       ]
     },
     {
@@ -42,24 +42,52 @@
         { "correct": true, "at": 6000 }
       ],
       "expected": [
-        { "seen": 1, "correct": 1, "streak": 1, "firstAt": 1000, "lastAt": 1000, "knownAt": null },
-        { "seen": 2, "correct": 2, "streak": 2, "firstAt": 1000, "lastAt": 2000, "knownAt": null },
-        { "seen": 3, "correct": 2, "streak": 0, "firstAt": 1000, "lastAt": 3000, "knownAt": null },
-        { "seen": 4, "correct": 3, "streak": 1, "firstAt": 1000, "lastAt": 4000, "knownAt": null },
-        { "seen": 5, "correct": 4, "streak": 2, "firstAt": 1000, "lastAt": 5000, "knownAt": null },
-        { "seen": 6, "correct": 5, "streak": 3, "firstAt": 1000, "lastAt": 6000, "knownAt": 6000 }
+        { "seen": 1, "correct": 1, "streak": 1, "firstAt": 1000, "lastAt": 1000, "knownAt": null, "testedAt": null, "testPassed": false, "masteredAt": null },
+        { "seen": 2, "correct": 2, "streak": 2, "firstAt": 1000, "lastAt": 2000, "knownAt": null, "testedAt": null, "testPassed": false, "masteredAt": null },
+        { "seen": 3, "correct": 2, "streak": 0, "firstAt": 1000, "lastAt": 3000, "knownAt": null, "testedAt": null, "testPassed": false, "masteredAt": null },
+        { "seen": 4, "correct": 3, "streak": 1, "firstAt": 1000, "lastAt": 4000, "knownAt": null, "testedAt": null, "testPassed": false, "masteredAt": null },
+        { "seen": 5, "correct": 4, "streak": 2, "firstAt": 1000, "lastAt": 5000, "knownAt": null, "testedAt": null, "testPassed": false, "masteredAt": null },
+        { "seen": 6, "correct": 5, "streak": 3, "firstAt": 1000, "lastAt": 6000, "knownAt": 6000, "testedAt": null, "testPassed": false, "masteredAt": null }
       ]
     },
     {
       "name": "legacy counts are a baseline with no streak or dates",
-      "baseline": { "seen": 5, "correct": 2, "streak": 0, "firstAt": null, "lastAt": null, "knownAt": null },
+      "baseline": { "seen": 5, "correct": 2, "streak": 0, "firstAt": null, "lastAt": null, "knownAt": null, "testedAt": null, "testPassed": false, "masteredAt": null },
       "answers": [
         { "correct": false, "at": 1000 },
         { "correct": true, "at": 2000 }
       ],
       "expected": [
-        { "seen": 6, "correct": 2, "streak": 0, "firstAt": 1000, "lastAt": 1000, "knownAt": null },
-        { "seen": 7, "correct": 3, "streak": 1, "firstAt": 1000, "lastAt": 2000, "knownAt": null }
+        { "seen": 6, "correct": 2, "streak": 0, "firstAt": 1000, "lastAt": 1000, "knownAt": null, "testedAt": null, "testPassed": false, "masteredAt": null },
+        { "seen": 7, "correct": 3, "streak": 1, "firstAt": 1000, "lastAt": 2000, "knownAt": null, "testedAt": null, "testPassed": false, "masteredAt": null }
+      ]
+    },
+    {
+      "name": "passing a test masters a unit; practice alone never does",
+      "answers": [
+        { "correct": true, "at": 1000 },
+        { "correct": true, "at": 2000, "testPassed": true },
+        { "correct": true, "at": 2000, "testPassed": true }
+      ],
+      "expected": [
+        { "seen": 1, "correct": 1, "streak": 1, "firstAt": 1000, "lastAt": 1000, "knownAt": null, "testedAt": null, "testPassed": false, "masteredAt": null },
+        { "seen": 2, "correct": 2, "streak": 2, "firstAt": 1000, "lastAt": 2000, "knownAt": null, "testedAt": 2000, "testPassed": true, "masteredAt": 2000 },
+        { "seen": 3, "correct": 3, "streak": 3, "firstAt": 1000, "lastAt": 2000, "knownAt": 2000, "testedAt": 2000, "testPassed": true, "masteredAt": 2000 }
+      ]
+    },
+    {
+      "name": "a practice miss keeps mastered; a failed later test drops it but keeps masteredAt",
+      "answers": [
+        { "correct": true, "at": 1000, "testPassed": true },
+        { "correct": false, "at": 2000 },
+        { "correct": true, "at": 3000, "testPassed": false },
+        { "correct": false, "at": 3000, "testPassed": false }
+      ],
+      "expected": [
+        { "seen": 1, "correct": 1, "streak": 1, "firstAt": 1000, "lastAt": 1000, "knownAt": null, "testedAt": 1000, "testPassed": true, "masteredAt": 1000 },
+        { "seen": 2, "correct": 1, "streak": 0, "firstAt": 1000, "lastAt": 2000, "knownAt": null, "testedAt": 1000, "testPassed": true, "masteredAt": 1000 },
+        { "seen": 3, "correct": 2, "streak": 1, "firstAt": 1000, "lastAt": 3000, "knownAt": null, "testedAt": 3000, "testPassed": false, "masteredAt": 1000 },
+        { "seen": 4, "correct": 2, "streak": 0, "firstAt": 1000, "lastAt": 3000, "knownAt": null, "testedAt": 3000, "testPassed": false, "masteredAt": 1000 }
       ]
     }
   ]

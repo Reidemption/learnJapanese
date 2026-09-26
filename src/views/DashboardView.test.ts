@@ -1,10 +1,12 @@
 import { flushPromises, mount, RouterLinkStub } from "@vue/test-utils";
-import { afterEach, beforeEach, describe, expect, it } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { routerKey } from "vue-router";
 import DashboardView from "./DashboardView.vue";
 import { setApi, staticApi, summarize, type AttemptRecord, type StudyApi } from "../api";
 import { decksFor, getDeck } from "../content";
 import { unitsOf } from "../study/analytics";
-import type { ItemStat } from "../study/mastery";
+import { customDeck } from "../session";
+import { emptyStat, type ItemStat } from "../study/mastery";
 import type { Deck } from "../types";
 
 const n5 = decksFor("N5");
@@ -38,13 +40,21 @@ const failingApi: StudyApi = {
   listAttempts: () => Promise.reject(new Error("down")),
 };
 
+const push = vi.fn();
+
 async function render() {
-  const wrapper = mount(DashboardView, { global: { stubs: { RouterLink: RouterLinkStub } } });
+  const wrapper = mount(DashboardView, {
+    global: {
+      stubs: { RouterLink: RouterLinkStub },
+      provide: { [routerKey as symbol]: { push } },
+    },
+  });
   await flushPromises();
   return wrapper;
 }
 
 const known = (at: number): ItemStat => ({
+  ...emptyStat(),
   seen: 3,
   correct: 3,
   streak: 3,
@@ -206,5 +216,70 @@ describe("DashboardView", () => {
 
     expect(wrapper.find(".headline-count").text()).toContain("1 of");
     expect(wrapper.find(".dash-note").text()).toContain("3 sessions");
+  });
+
+  describe("tests", () => {
+    const tested = (passed: boolean, at = 1): ItemStat => ({
+      ...emptyStat(),
+      seen: 2,
+      correct: passed ? 2 : 1,
+      streak: passed ? 2 : 0,
+      firstAt: at,
+      lastAt: at,
+      testedAt: at,
+      testPassed: passed,
+      masteredAt: passed ? at : null,
+    });
+
+    it("shows mastered as a fourth tier in the headline", async () => {
+      const [a, b, c] = unitsOf(first);
+      setApi(stubApi({ [a!.id]: tested(true), [b!.id]: known(1), [c!.id]: tested(false) }, []));
+      const wrapper = await render();
+      // Known or better counts as known in the headline; the legend splits them.
+      expect(wrapper.find(".headline-count").text()).toContain(`2 of ${n5Total.toLocaleString()} N5 units known`);
+      const legend = wrapper.find(".headline .mastery-legend").text();
+      expect(legend).toContain("1 mastered");
+      expect(legend).toContain("1 known");
+      expect(legend).toContain("1 learning");
+      expect(wrapper.find(".headline .stacked-bar rect.mastered").exists()).toBe(true);
+    });
+
+    it("lists struggling decks with Practise and Test again", async () => {
+      const items: Record<string, ItemStat> = {};
+      unitsOf(first).slice(0, 5).forEach((unit, i) => (items[unit.id] = tested(i >= 2)));
+      setApi(stubApi(items, []));
+      const wrapper = await render();
+
+      const rows = wrapper.findAll(".struggling-row");
+      expect(rows).toHaveLength(1);
+      expect(rows[0]!.text()).toContain(first.title);
+      expect(rows[0]!.text()).toContain("60% passed · 2 of 5 tested words missed");
+      const links = rows[0]!.findAllComponents(RouterLinkStub);
+      expect(links.map((link: { props(name: "to"): unknown }) => link.props("to"))).toEqual([
+        { name: "deck", params: { id: first.id } },
+        { name: "test", params: { id: first.id } },
+      ]);
+
+      await rows[0]!.find("button").trigger("click");
+      expect(push).toHaveBeenCalledWith({ name: "custom-session", params: expect.anything() });
+      expect(customDeck.value?.items.map((item) => item.id)).toEqual(
+        unitsOf(first).slice(0, 2).map((unit) => unit.id),
+      );
+    });
+
+    it("offers word tests for the sets that have words", async () => {
+      const [a, b, c] = unitsOf(first);
+      setApi(stubApi({ [a!.id]: known(1), [b!.id]: known(1), [c!.id]: tested(false) }, [
+        { uid: "u", deckId: first.id, mode: "meaning", correct: 1, total: 1, kana: true, hints: true, at: 1 },
+      ]));
+      const wrapper = await render();
+      const tests = wrapper.findAll(".word-test-link");
+      expect(tests.map((t) => t.text())).toEqual(["Test 2 ready words", "Test 1 missed word"]);
+      expect(tests[0]!.findComponent(RouterLinkStub).props("to")).toEqual({
+        name: "word-test",
+        params: { set: "ready" },
+        query: { level: "N5" },
+      });
+    });
   });
 });

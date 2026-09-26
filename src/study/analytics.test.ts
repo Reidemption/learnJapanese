@@ -14,9 +14,13 @@ import {
   nextUp,
   statsAt,
   streaks,
+  strugglingDecks,
   unitsOf,
   weakest,
+  wordSet,
+  wordSetSizes,
 } from "./analytics";
+import { seeded } from "./rng";
 import { emptyStat, type ItemStat } from "./mastery";
 
 // vite.config.ts pins TZ to America/Denver: DST started 2026-03-08 and ends 2026-11-01.
@@ -67,12 +71,12 @@ describe("units and coverage", () => {
 
   it("splits a level into known / learning / new", () => {
     const stats = { "greet-0": known(), "food-q0": learning(), "n4-verbs-0": known() };
-    expect(coverage(decks, stats, "N5")).toEqual({ known: 1, learning: 1, new: 9, total: 11 });
-    expect(coverage(decks, stats, "N4")).toEqual({ known: 1, learning: 0, new: 4, total: 5 });
+    expect(coverage(decks, stats, "N5")).toEqual({ mastered: 0, known: 1, learning: 1, new: 9, total: 11 });
+    expect(coverage(decks, stats, "N4")).toEqual({ mastered: 0, known: 1, learning: 0, new: 4, total: 5 });
   });
 
   it("treats empty progress as all new", () => {
-    expect(coverage(decks, {}, "N5")).toEqual({ known: 0, learning: 0, new: 11, total: 11 });
+    expect(coverage(decks, {}, "N5")).toEqual({ mastered: 0, known: 0, learning: 0, new: 11, total: 11 });
     expect(nextUp(decks, {}, "N5")).toMatchObject({ deck: greetings, reason: "untouched" });
     expect(weakest(decks, {}, 10)).toEqual([]);
     expect(learnedOverTime({}, local(2026, 5, 1))).toEqual([]);
@@ -90,7 +94,7 @@ describe("units and coverage", () => {
   it("groups in home-page order and leaves out empty groups", () => {
     const rows = byGroup(decks, { "kanji-0": known() }, "N5");
     expect(rows.map((r) => r.group)).toEqual(["phrases", "vocab", "kanji"]);
-    expect(rows[2]!.split).toEqual({ known: 1, learning: 0, new: 1, total: 2 });
+    expect(rows[2]!.split).toEqual({ mastered: 0, known: 1, learning: 0, new: 1, total: 2 });
   });
 
   it("sorts decks by least learned, keeping course order on ties", () => {
@@ -162,10 +166,10 @@ describe("learned over time", () => {
     };
     stats.c.knownAt = local(2026, 5, 3);
     expect(learnedOverTime(stats, local(2026, 5, 4))).toEqual([
-      { day: "2026-05-01", known: 2 },
-      { day: "2026-05-02", known: 2 },
-      { day: "2026-05-03", known: 3 },
-      { day: "2026-05-04", known: 3 },
+      { day: "2026-05-01", known: 2, mastered: 0 },
+      { day: "2026-05-02", known: 2, mastered: 0 },
+      { day: "2026-05-03", known: 3, mastered: 0 },
+      { day: "2026-05-04", known: 3, mastered: 0 },
     ]);
   });
 
@@ -210,5 +214,104 @@ describe("next up", () => {
     const almost = { ...all, "kanji-1": stat({ seen: 1, correct: 1, streak: 1 }) };
     // "kanji-1" is learning, so it's picked for that reason first.
     expect(nextUp(decks, almost, "N5")).toMatchObject({ deck: kanji, reason: "learning" });
+  });
+});
+
+// ——— Tests and the mastered tier (Test Phase 3) ———
+
+const mastered = (at: number) => stat({ seen: 2, correct: 2, streak: 2, testedAt: at, testPassed: true, masteredAt: at });
+const failedTest = (at: number, masteredAt: number | null = null) =>
+  stat({ seen: 4, correct: 3, streak: 0, testedAt: at, testPassed: false, masteredAt });
+const weakStat = () => stat({ seen: 5, correct: 1 });
+
+/** Every word distinct, so picking never drops one as a collision. */
+function wordDeck(id: string, items: number, order = 0): Deck {
+  return {
+    ...deck(id, "vocab", 0, 0, order),
+    items: Array.from({ length: items }, (_, i) => ({ id: `${id}-${i}`, ja: `${id}語${i}`, en: `${id} word ${i}` })),
+  };
+}
+
+describe("the mastered tier", () => {
+  it("splits four ways", () => {
+    const stats = { "greet-0": mastered(5), "greet-1": known(), "food-q0": learning(), "kanji-0": failedTest(9, 5) };
+    expect(coverage(decks, stats, "N5")).toEqual({ mastered: 1, known: 1, learning: 2, new: 7, total: 11 });
+    expect(byGroup(decks, stats, "N5")[0]!.split).toEqual({ mastered: 1, known: 1, learning: 0, new: 2, total: 4 });
+    expect(byDeck(decks, stats, "N5")[0]!.split.mastered).toBe(1);
+  });
+
+  it("draws a mastered line from masteredAt, which a failed test keeps", () => {
+    const stats = { a: mastered(local(2026, 5, 1)), b: failedTest(local(2026, 5, 3), local(2026, 5, 2)) };
+    expect(learnedOverTime(stats, local(2026, 5, 3))).toEqual([
+      { day: "2026-05-01", known: 0, mastered: 1 },
+      { day: "2026-05-02", known: 0, mastered: 2 },
+      { day: "2026-05-03", known: 0, mastered: 2 },
+    ]);
+  });
+});
+
+describe("wordSet", () => {
+  const a = wordDeck("a", 30, 1);
+  const b = wordDeck("b", 10, 2);
+  const both = [a, b];
+
+  it("finds ready (known, not mastered), missed (failed last test) and weak words", () => {
+    const stats = { "a-0": known(), "a-1": mastered(1), "a-2": failedTest(2), "b-0": weakStat(), "b-1": known() };
+    const ids = (kind: "ready" | "missed" | "weak") =>
+      wordSet(both, stats, "N5", kind, seeded(1)).map((u) => u.id).sort();
+    expect(ids("ready")).toEqual(["a-0", "b-1"]);
+    expect(ids("missed")).toEqual(["a-2"]);
+    expect(ids("weak")).toEqual(["b-0"]);
+    expect(wordSetSizes(both, stats, "N5")).toEqual({ ready: 2, missed: 1, weak: 1 });
+  });
+
+  it("caps a set at 20, never-tested and oldest-tested first", () => {
+    const stats: Record<string, ItemStat> = {};
+    a.items.forEach((item, i) => {
+      // 30 missed words, tested at 30, 29, … 1: a-29 is the oldest.
+      stats[item.id] = failedTest(30 - i);
+    });
+    stats["b-0"] = stat({ ...failedTest(0), testedAt: 0 });
+    const picked = wordSet(both, stats, "N5", "missed", seeded(1));
+    expect(picked).toHaveLength(20);
+    expect(picked[0]!.id).toBe("b-0");
+    expect(picked[1]!.id).toBe("a-29");
+    expect(picked.map((u) => stats[u.id]!.testedAt)).toEqual([...picked.map((u) => stats[u.id]!.testedAt)].sort((x, y) => x! - y!));
+  });
+});
+
+describe("strugglingDecks", () => {
+  const a = wordDeck("a", 10, 1);
+  const b = wordDeck("b", 10, 2);
+  const c = wordDeck("c", 10, 3);
+
+  it("ranks decks by the pass rate of their words' most recent tests, worst first", () => {
+    const stats: Record<string, ItemStat> = {};
+    // a: 5 tested, 1 failed (80%). b: 6 tested, 3 failed (50%). c: 4 tested, all failed, but too few.
+    for (let i = 0; i < 5; i++) stats[`a-${i}`] = i < 1 ? failedTest(1) : mastered(1);
+    for (let i = 0; i < 6; i++) stats[`b-${i}`] = i < 3 ? failedTest(1) : mastered(1);
+    for (let i = 0; i < 4; i++) stats[`c-${i}`] = failedTest(1);
+    const rows = strugglingDecks([a, b, c], stats, "N5");
+    expect(rows.map((r) => r.deck.id)).toEqual(["b", "a"]);
+    expect(rows[0]).toMatchObject({ tested: 6, failed: 3, passRate: 0.5 });
+  });
+
+  it("breaks ties on weak words, and leaves out decks with nothing failed", () => {
+    const stats: Record<string, ItemStat> = {};
+    for (const id of ["a", "b"]) for (let i = 0; i < 5; i++) stats[`${id}-${i}`] = i < 1 ? failedTest(1) : mastered(1);
+    stats["b-9"] = weakStat();
+    for (let i = 0; i < 5; i++) stats[`c-${i}`] = mastered(1);
+    expect(strugglingDecks([a, b, c], stats, "N5").map((r) => r.deck.id)).toEqual(["b", "a"]);
+  });
+
+  it("counts a word test's results towards each word's own deck", () => {
+    // One word test over words from both decks: the stats are per word, so each deck sees its own.
+    const stats: Record<string, ItemStat> = {};
+    for (let i = 0; i < 5; i++) {
+      stats[`a-${i}`] = failedTest(7);
+      stats[`b-${i}`] = mastered(7);
+    }
+    const rows = strugglingDecks([a, b], stats, "N5");
+    expect(rows.map((r) => [r.deck.id, r.passRate])).toEqual([["a", 0]]);
   });
 });

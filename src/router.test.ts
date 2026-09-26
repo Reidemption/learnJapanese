@@ -2,13 +2,23 @@ import { flushPromises, mount } from "@vue/test-utils";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import App from "./App.vue";
 import { decks } from "./content";
-import { getScore, loadAttemptLog } from "./progress";
+import { correctChoice, getScore, loadAttemptLog } from "./progress";
 import { router } from "./router";
-import { customDeck, customTags, lastResult, lastTest, retryQueue, testRunning } from "./session";
+import {
+  customDeck,
+  customTags,
+  lastResult,
+  lastTest,
+  retryQueue,
+  testRunning,
+  wordTestUnits,
+} from "./session";
 import { settings } from "./settings";
 import { unitsOf } from "./study/analytics";
 import { availableModes, buildQuestions } from "./study/modes";
 import { seeded } from "./study/rng";
+import { toPlain } from "./study/ruby";
+import type { Question } from "./types";
 
 const deck = decks[0]!;
 const mode = availableModes(deck)[0]!;
@@ -40,6 +50,7 @@ beforeEach(() => {
   customDeck.value = null;
   customTags.value = [];
   lastTest.value = null;
+  wordTestUnits.value = null;
   settings.timer = false;
 });
 
@@ -299,6 +310,71 @@ describe("routing", () => {
       expect(router.currentRoute.value.name).toBe("home");
       await open("/deck/not-a-deck/test/result");
       expect(router.currentRoute.value.name).toBe("home");
+    });
+  });
+
+  describe("word tests", () => {
+    const units = unitsOf(deck).length;
+
+    async function answerAll(wrapper: Awaited<ReturnType<typeof open>>, selector: string) {
+      for (let i = 0; i < units * 3 + 5; i++) {
+        const target = wrapper.find(selector);
+        if (!target.exists()) break;
+        await target.trigger("click");
+        await flushPromises();
+      }
+    }
+
+    it("tests a deck test's misses with Test these, as a word test with no deck", async () => {
+      const wrapper = await open(`/deck/${deck.id}/test`);
+      await answerAll(wrapper, ".choice.dont-know");
+      const testThese = wrapper.findAll(".next-row .ghost").find((b) => b.text() === "Test these")!;
+      await testThese.trigger("click");
+      await flushPromises();
+      expect(router.currentRoute.value.fullPath).toBe("/test/these");
+      expect(wrapper.find(".session-bar").text()).toContain(`Missed in ${deck.title} · Test`);
+
+      await answerAll(wrapper, ".choice.dont-know");
+      expect(router.currentRoute.value.name).toBe("word-test-result");
+      const [, words] = loadAttemptLog();
+      expect(words).toMatchObject({ deckId: "", scope: "words", mode: "test", total: units });
+      // A word test is nobody's deck score.
+      expect(getScore("", "test")).toBeUndefined();
+      expect(wrapper.find(".back").text()).toBe("← Progress");
+    });
+
+    it("tests the missed words after a failed test, and masters what it passes", async () => {
+      const first = await open(`/deck/${deck.id}/test`);
+      await answerAll(first, ".choice.dont-know");
+
+      const wrapper = await open("/test/missed?level=N5");
+      expect(wrapper.find(".session-bar").text()).toContain("Missed words · Test");
+      // Answer every question right, finding the correct choice by its text.
+      const questions = wrapper.findComponent({ name: "QuizSession" }).props("questions") as Question[];
+      for (const question of questions) {
+        const answer = correctChoice(question);
+        const text = answer.en ?? toPlain(answer.ja ?? []);
+        const choice = wrapper
+          .findAll(".choice:not(.dont-know)")
+          .find((c) => c.findAll("span")[1]!.text() === text)!;
+        await choice.trigger("click");
+        await flushPromises();
+      }
+      expect(router.currentRoute.value.name).toBe("word-test-result");
+      const passed = Math.min(20, units);
+      expect(wrapper.find(".score h2").text()).toBe(`${passed} / ${passed}`);
+    });
+
+    it("sends unknown sets, and a refreshed Test these, to the dashboard", async () => {
+      await open("/test/nonsense");
+      expect(router.currentRoute.value.name).toBe("dashboard");
+      await open("/test/these");
+      expect(router.currentRoute.value.name).toBe("dashboard");
+    });
+
+    it("says so when a set is empty", async () => {
+      const wrapper = await open("/test/ready");
+      expect(wrapper.text()).toContain("Nothing to test here yet.");
     });
   });
 });

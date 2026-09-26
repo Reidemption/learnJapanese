@@ -78,7 +78,15 @@ export type AttemptRecord = {
   scope?: AttemptScope;
 };
 
-export type AttemptScope = "deck" | "custom";
+/** "words" is a word test: up to 20 words from any decks, so no deckId either. */
+export type AttemptScope = "deck" | "custom" | "words";
+
+export const ATTEMPT_SCOPES: readonly AttemptScope[] = ["deck", "custom", "words"];
+
+/** Whether sessions of this scope belong to one deck. Absent = a deck session. */
+export function hasDeck(scope: AttemptScope | undefined): boolean {
+  return (scope ?? "deck") === "deck";
+}
 
 /** Whether a session is a score for its deck: not a retry, not a Custom session. */
 export function isDeckScore(attempt: Pick<AttemptRecord, "retry" | "scope">): boolean {
@@ -235,7 +243,12 @@ export function loadBaseline(): Record<string, ItemStat> {
 
 function answersOf(attempts: LoggedAttempt[]): Answer[] {
   return attempts.flatMap((attempt) =>
-    attempt.items.map((item) => ({ itemId: item.itemId, correct: item.correct, at: attempt.at })),
+    attempt.items.map((item) => ({
+      itemId: item.itemId,
+      correct: item.correct,
+      at: attempt.at,
+      ...(attempt.mode === "test" ? { test: attempt.uid } : {}),
+    })),
   );
 }
 
@@ -284,7 +297,7 @@ export function importAttempts(
   for (const attempt of attempts) {
     if (seen.has(attempt.uid)) {
       result.duplicates += 1;
-    } else if (attempt.scope !== "custom" && !knownDeck(attempt.deckId)) {
+    } else if (hasDeck(attempt.scope) && !knownDeck(attempt.deckId)) {
       result.skipped += 1;
     } else {
       seen.add(attempt.uid);

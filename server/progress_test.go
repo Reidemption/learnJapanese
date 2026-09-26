@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"path/filepath"
 	"reflect"
+	"strings"
 	"testing"
 	"time"
 )
@@ -534,6 +535,80 @@ func TestTestSessionsRejected(t *testing.T) {
 	} {
 		t.Run(name, func(t *testing.T) {
 			mustPost(t, h, body, http.StatusBadRequest)
+		})
+	}
+}
+
+func TestWordTestsAndMastered(t *testing.T) {
+	_, h := newTestServer(t)
+	deckID := firstDeckID(t)
+
+	// A deck test masters a; b misses one question.
+	mustPost(t, h, testBody("c1", "t1", deckID, "deck", 1, 2,
+		map[string]any{"itemId": "a", "mode": "meaning", "correct": true},
+		map[string]any{"itemId": "a", "mode": "reverse", "correct": true},
+		map[string]any{"itemId": "b", "mode": "meaning", "correct": true},
+		map[string]any{"itemId": "b", "mode": "reverse", "correct": false}), http.StatusCreated)
+	p := progressOf(t, h, "c1")
+	if a := p.Items["a"]; !a.mastered() || a.MasteredAt == nil || *a.MasteredAt != day {
+		t.Fatalf("a = %s, want mastered at %d", show(a), day)
+	}
+	if b := p.Items["b"]; b.mastered() || b.TestedAt == nil || b.MasteredAt != nil {
+		t.Fatalf("b = %s, want tested and not mastered", show(b))
+	}
+
+	// A later word test, across decks, fails a and passes b. It belongs to no deck.
+	later, _ := json.Marshal(map[string]any{
+		"clientId": "c1", "uid": "w1", "deckId": "", "scope": "words", "mode": "test",
+		"correct": 1, "total": 2, "kana": false, "hints": false, "at": day + 1000,
+		"items": []map[string]any{
+			{"itemId": "a", "mode": "meaning", "correct": false, "skipped": true},
+			{"itemId": "b", "mode": "meaning", "correct": true},
+			{"itemId": "b", "mode": "reverse", "correct": true},
+		},
+	})
+	mustPost(t, h, string(later), http.StatusCreated)
+	p = progressOf(t, h, "c1")
+	if a := p.Items["a"]; a.mastered() || *a.MasteredAt != day || *a.TestedAt != day+1000 {
+		t.Fatalf("a = %s, want dropped from mastered with masteredAt kept", show(a))
+	}
+	if b := p.Items["b"]; !b.mastered() || *b.MasteredAt != day+1000 {
+		t.Fatalf("b = %s, want mastered by the word test", show(b))
+	}
+	if _, ok := p.Decks[":test"]; ok || len(p.Decks) != 1 {
+		t.Fatalf("deck scores = %+v, want the deck test only", p.Decks)
+	}
+
+	// Export and import carry it, and rebuild the same stats.
+	b := decode[backup](t, do(t, h, "GET", "/api/export?clientId=c1", ""))
+	_, fresh := newTestServer(t)
+	req, _ := json.Marshal(importReq{ClientID: "c2", backup: b})
+	if got := decode[importResult](t, do(t, fresh, "POST", "/api/import", string(req))); got != (importResult{Imported: 2}) {
+		t.Fatalf("import = %+v", got)
+	}
+	if got := progressOf(t, fresh, "c2"); !reflect.DeepEqual(got, p) {
+		t.Fatalf("restored progress differs:\n got %+v\nwant %+v", got, p)
+	}
+}
+
+func TestDeckIDRules(t *testing.T) {
+	_, h := newTestServer(t)
+	deckID := firstDeckID(t)
+	answer := map[string]any{"itemId": "a", "mode": "meaning", "correct": true}
+	for name, c := range map[string]struct {
+		body string
+		want int
+	}{
+		"word test without a deck": {testBody("c1", "w1", "", "words", 1, 1, answer), http.StatusCreated},
+		"word test with a deck":    {testBody("c1", "w2", deckID, "words", 1, 1, answer), http.StatusBadRequest},
+		"deck test without a deck": {testBody("c1", "w3", "", "deck", 1, 1, answer), http.StatusBadRequest},
+		"deck practice without a deck": {
+			attemptBody("c1", "w4", "", day, [3]string{"a", "meaning", "1"}), http.StatusBadRequest},
+		"words practice":                 {strings.Replace(customBody("c1", "w5", day, answer), `"custom"`, `"words"`, 1), http.StatusBadRequest},
+		"custom practice without a deck": {customBody("c1", "w6", day, answer), http.StatusCreated},
+	} {
+		t.Run(name, func(t *testing.T) {
+			mustPost(t, h, c.body, c.want)
 		})
 	}
 }

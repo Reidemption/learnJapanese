@@ -1,51 +1,59 @@
 <script setup lang="ts">
-import { computed, ref, watch } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 import RubyText from "../components/RubyText.vue";
-import { allDecks, getDeck } from "../api";
-import { customDeck, lastTest } from "../session";
-import { MODE_LABELS, availableModes } from "../study/modes";
+import { allDecks } from "../api";
+import { practiseUnits } from "../practice";
+import { lastTest, wordTestUnits } from "../session";
+import { MODE_LABELS } from "../study/modes";
 import { parseRuby } from "../study/ruby";
-import { missedDeck, type UnitResult } from "../study/test";
+import type { UnitResult } from "../study/test";
 import { formatAverage, formatElapsed } from "../study/time";
 import type { Deck, RubySegment } from "../types";
 
-const props = defineProps<{ id: string }>();
+/** A deck test's result (`id`) or a word test's (`set`). */
+const props = defineProps<{ id?: string; set?: string }>();
 const router = useRouter();
 
-const deck = ref<Deck | undefined>();
-watch(
-  () => props.id,
-  async (id) => {
-    deck.value = await getDeck(id);
-  },
-  { immediate: true },
-);
-
-/** Only this deck's result: a refresh leaves nothing to show. */
-const result = computed(() => {
-  const value = lastTest.value;
-  return value && value.deckId === props.id ? value : undefined;
+const decks = ref<Deck[]>([]);
+onMounted(async () => {
+  decks.value = await allDecks();
 });
 
+/** Only this test's result: a refresh leaves nothing to show. */
+const result = computed(() => {
+  const value = lastTest.value;
+  if (!value) return undefined;
+  return props.id ? (value.deckId === props.id ? value : undefined) : value.set === props.set ? value : undefined;
+});
+
+const deck = computed(() => decks.value.find((d) => d.id === props.id));
+const level = computed(() => deck.value?.level ?? decks.value[0]?.level ?? "N5");
 const failed = computed(() => result.value?.units.filter((unit) => !unit.passed) ?? []);
 const passed = computed(() => result.value?.units.filter((unit) => unit.passed) ?? []);
 
-/** The unit's Japanese with its answer in: the item, or the cloze sentence filled in. */
-function japaneseOf(unit: UnitResult): RubySegment[] {
-  const found = deck.value?.items.find((item) => item.id === unit.unitId);
-  if (found) return parseRuby(found.ja);
-  const cloze = deck.value?.questions?.find((q) => q.id === unit.unitId);
-  if (!cloze) return [];
-  const answer = parseRuby(cloze.answer);
-  return parseRuby(cloze.prompt).flatMap((part) => (part.blank ? answer : [part]));
-}
+const backTo = computed(() =>
+  props.id ? { name: "deck", params: { id: props.id } } : { name: "dashboard" },
+);
+const backLabel = computed(() => (props.id ? "Back to deck" : "Progress"));
 
-function englishOf(unit: UnitResult): string {
-  const found = deck.value?.items.find((item) => item.id === unit.unitId);
-  if (found) return found.en;
-  return deck.value?.questions?.find((q) => q.id === unit.unitId)?.en ?? "";
-}
+type Shown = { ja: RubySegment[]; en: string };
+
+/** Every unit's Japanese with its answer in (a cloze sentence filled in), and its English. */
+const shown = computed(() => {
+  const out = new Map<string, Shown>();
+  for (const d of decks.value) {
+    for (const item of d.items) out.set(item.id, { ja: parseRuby(item.ja), en: item.en });
+    for (const q of d.questions ?? []) {
+      const answer = parseRuby(q.answer);
+      out.set(q.id, {
+        ja: parseRuby(q.prompt).flatMap((part) => (part.blank ? answer : [part])),
+        en: q.en ?? "",
+      });
+    }
+  }
+  return out;
+});
 
 /** "Missed: Reading, Recall (didn't know)". */
 function missedLabel(unit: UnitResult): string {
@@ -61,26 +69,29 @@ const timing = computed(() => {
   return `${formatElapsed(ms)} · ${formatAverage(ms, result.value.questions)} per question`;
 });
 
-async function practiseMissed(): Promise<void> {
-  if (!deck.value || !failed.value.length) return;
-  const practice = missedDeck(
-    await allDecks(),
-    failed.value.map((unit) => unit.unitId),
-    `Missed in ${deck.value.title}`,
-  );
-  const mode = availableModes(practice)[0];
-  if (!mode) return;
-  customDeck.value = practice;
-  router.push({ name: "custom-session", params: { mode } });
+const failedIds = computed(() => failed.value.map((unit) => unit.unitId));
+
+function practiseMissed(): void {
+  if (!result.value) return;
+  practiseUnits(router, decks.value, failedIds.value, `Missed in ${result.value.title}`);
+}
+
+/** A word test of just the words this deck test missed. */
+function testMissed(): void {
+  if (!result.value) return;
+  wordTestUnits.value = { title: `Missed in ${result.value.title}`, unitIds: failedIds.value };
+  void router.push({ name: "word-test", params: { set: "these" } });
 }
 </script>
 
 <template>
-  <main v-if="deck && result" class="page score test-result">
-    <RouterLink class="back" :to="{ name: 'deck', params: { id } }">← {{ deck.title }}</RouterLink>
+  <main v-if="result" class="page score test-result">
+    <RouterLink class="back" :to="backTo">← {{ id ? result.title : "Progress" }}</RouterLink>
 
     <h2>{{ passed.length }} / {{ result.units.length }}</h2>
-    <p class="prompt-en">{{ deck.level }} · Test · words passed</p>
+    <p class="prompt-en">
+      {{ level }} · <template v-if="!id">{{ result.title }} · </template>Test · words passed
+    </p>
     <p v-if="timing" class="prompt-en test-time">Time {{ timing }}</p>
 
     <template v-if="failed.length">
@@ -89,8 +100,8 @@ async function practiseMissed(): Promise<void> {
         <li v-for="unit in failed" :key="unit.unitId" class="unit-result failed">
           <span class="num" aria-label="Failed">✗</span>
           <div>
-            <RubyText :segments="japaneseOf(unit)" />
-            <div class="prompt-en">{{ englishOf(unit) }}</div>
+            <RubyText :segments="shown.get(unit.unitId)?.ja ?? []" />
+            <div class="prompt-en">{{ shown.get(unit.unitId)?.en }}</div>
             <div class="dash-note">{{ missedLabel(unit) }}</div>
           </div>
         </li>
@@ -104,8 +115,8 @@ async function practiseMissed(): Promise<void> {
         <li v-for="unit in passed" :key="unit.unitId" class="unit-result passed">
           <span class="num" aria-label="Passed">✓</span>
           <div>
-            <RubyText :segments="japaneseOf(unit)" />
-            <div class="prompt-en">{{ englishOf(unit) }}</div>
+            <RubyText :segments="shown.get(unit.unitId)?.ja ?? []" />
+            <div class="prompt-en">{{ shown.get(unit.unitId)?.en }}</div>
           </div>
         </li>
       </ul>
@@ -115,7 +126,10 @@ async function practiseMissed(): Promise<void> {
       <button v-if="failed.length" class="ghost" type="button" @click="practiseMissed">
         Practise the {{ failed.length }} you missed
       </button>
-      <RouterLink class="primary" :to="{ name: 'deck', params: { id } }">Back to deck</RouterLink>
+      <button v-if="failed.length && id" class="ghost" type="button" @click="testMissed">
+        Test these
+      </button>
+      <RouterLink class="primary" :to="backTo">{{ backLabel }}</RouterLink>
     </div>
   </main>
 
@@ -123,7 +137,7 @@ async function practiseMissed(): Promise<void> {
     <h2>No result to show</h2>
     <p class="prompt-en">Test results live for the session only, so a refresh clears them.</p>
     <div class="next-row">
-      <RouterLink class="primary" :to="{ name: 'deck', params: { id } }">Back to deck</RouterLink>
+      <RouterLink class="primary" :to="backTo">{{ backLabel }}</RouterLink>
     </div>
   </main>
 </template>

@@ -134,7 +134,7 @@ func (s *server) importProgress(w http.ResponseWriter, r *http.Request) {
 	known := map[string]bool{}
 	for _, a := range req.Attempts {
 		exists, seen := known[a.DeckID]
-		if a.request().scope() == scopeCustom {
+		if !hasDeck(a.request().scope()) {
 			exists, seen = true, true
 		}
 		if !seen {
@@ -165,10 +165,10 @@ func (s *server) importProgress(w http.ResponseWriter, r *http.Request) {
 			continue
 		}
 		_, err := tx.Exec(`INSERT INTO item_base
-			(client_id, item_id, seen, correct, streak, first_at, last_at, known_at)
-			VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+			(client_id, item_id, `+statColumns+`)
+			VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
 			ON CONFLICT(client_id, item_id) DO NOTHING`,
-			req.ClientID, id, st.Seen, st.Correct, st.Streak, st.FirstAt, st.LastAt, st.KnownAt)
+			append([]any{req.ClientID, id}, st.statValues()...)...)
 		if err != nil {
 			writeError(w, http.StatusInternalServerError, "baseline insert failed")
 			return

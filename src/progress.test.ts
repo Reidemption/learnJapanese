@@ -17,6 +17,7 @@ import {
   saveSettings,
   shuffle,
 } from "./progress";
+import { emptyStat } from "./study/mastery";
 import type { Question } from "./types";
 
 function question(id: string): Question {
@@ -219,8 +220,8 @@ describe("item stats and the session log", () => {
     recordAttempt(session(2, [["a", true], ["b", false]]));
     recordAttempt(session(3, [["a", true], ["b", true]]));
     expect(getItemStats()).toEqual({
-      a: { seen: 3, correct: 3, streak: 3, firstAt: 1, lastAt: 3, knownAt: 3 },
-      b: { seen: 3, correct: 1, streak: 1, firstAt: 1, lastAt: 3, knownAt: null },
+      a: { ...emptyStat(), seen: 3, correct: 3, streak: 3, firstAt: 1, lastAt: 3, knownAt: 3 },
+      b: { ...emptyStat(), seen: 3, correct: 1, streak: 1, firstAt: 1, lastAt: 3 },
     });
   });
 
@@ -273,5 +274,52 @@ describe("item stats and the session log", () => {
     recordAttempt(session(30, [["a", true]]));
     importAttempts([session(10, [["a", true]]), session(20, [["a", false]])], {}, () => true);
     expect(getItemStats().a).toMatchObject({ seen: 3, correct: 2, streak: 1, firstAt: 10 });
+  });
+
+  it("masters a unit from test sessions logged before the mastered tier existed", () => {
+    // A test as Test Phase 1 logged it: per-answer modes, no mastery fields anywhere.
+    const test: LoggedAttempt = {
+      uid: "t1",
+      deckId: "n5-food",
+      scope: "deck",
+      mode: "test",
+      correct: 1,
+      total: 2,
+      kana: false,
+      hints: false,
+      at: 50,
+      items: [
+        { itemId: "a", mode: "meaning", correct: true },
+        { itemId: "a", mode: "reading", correct: true },
+        { itemId: "b", mode: "meaning", correct: true },
+        { itemId: "b", mode: "reverse", correct: false, skipped: true },
+      ],
+    };
+    localStorage.setItem("lj.itemsBase", "{}");
+    localStorage.setItem("lj.attempts", JSON.stringify([test]));
+    localStorage.setItem("lj.items", JSON.stringify({ a: { seen: 2, correct: 2 }, b: { seen: 2, correct: 1 } }));
+
+    // Any new session rebuilds from the log...
+    recordAttempt(session(60, [["c", true]]));
+    const rebuilt = getItemStats();
+    expect(rebuilt.a).toMatchObject({ testedAt: 50, testPassed: true, masteredAt: 50 });
+    expect(rebuilt.b).toMatchObject({ testedAt: 50, testPassed: false, masteredAt: null });
+
+    // ...to the same stats as recording both live.
+    localStorage.clear();
+    recordAttempt(test);
+    recordAttempt(session(60, [["c", true]]));
+    expect(getItemStats()).toEqual(rebuilt);
+  });
+
+  it("imports a word test, which has no deck", () => {
+    const words: LoggedAttempt = {
+      ...session(10, [["a", true]]),
+      deckId: "",
+      scope: "words",
+      mode: "test",
+    };
+    expect(importAttempts([words], {}, () => false)).toMatchObject({ imported: 1, skipped: 0 });
+    expect(getItemStats().a).toMatchObject({ testPassed: true });
   });
 });

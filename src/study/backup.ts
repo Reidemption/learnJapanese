@@ -1,4 +1,11 @@
-import { isAttemptMode, type ItemResult, type LoggedAttempt } from "../progress";
+import {
+  ATTEMPT_SCOPES,
+  hasDeck,
+  isAttemptMode,
+  type AttemptScope,
+  type ItemResult,
+  type LoggedAttempt,
+} from "../progress";
 import { normalizeStat, type ItemStat } from "./mastery";
 import { isMode } from "./modes";
 
@@ -29,11 +36,12 @@ function parseAttempt(raw: unknown, index: number): LoggedAttempt {
   if (!raw || typeof raw !== "object") throw new Error(`${where} is not an object.`);
   const a = raw as Record<string, unknown>;
   if (typeof a.uid !== "string" || !a.uid) throw new Error(`${where} has no uid.`);
-  if (a.scope !== undefined && a.scope !== "deck" && a.scope !== "custom") {
+  if (a.scope !== undefined && !ATTEMPT_SCOPES.includes(a.scope as AttemptScope)) {
     throw new Error(`${where} has an unknown scope: ${String(a.scope)}.`);
   }
-  const custom = a.scope === "custom";
-  // A Custom session spans decks, so it is the one kind without a deckId.
+  const scope = (a.scope ?? "deck") as AttemptScope;
+  const custom = !hasDeck(scope);
+  // Custom sessions and word tests span decks, so they are the kinds without a deckId.
   if (typeof a.deckId !== "string" || (!custom && !a.deckId)) {
     throw new Error(`${where} has no deckId.`);
   }
@@ -76,7 +84,7 @@ function parseAttempt(raw: unknown, index: number): LoggedAttempt {
     hints: flag(a.hints),
     at: a.at,
     ...(a.retry === true ? { retry: true } : {}),
-    ...(custom ? { scope: "custom" as const } : {}),
+    ...(custom ? { scope } : {}),
     items,
   };
 }

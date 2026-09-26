@@ -156,9 +156,10 @@ type attemptReq struct {
 	// Retry marks a "Retry missed" run: its answers count, but it is not a
 	// score for the deck.
 	Retry bool `json:"retry"`
-	// Scope is "deck" (the default when empty) or "custom": a Custom study
-	// session over words from several decks, which has no deckId and is not
-	// a deck score.
+	// Scope is "deck" (the default when empty), "custom" (a Custom study
+	// session over words from several decks) or "words" (a word test, also
+	// across decks). Custom sessions and word tests have no deckId and are
+	// not deck scores.
 	Scope string        `json:"scope"`
 	Items []attemptItem `json:"items"`
 }
@@ -166,7 +167,11 @@ type attemptReq struct {
 const (
 	scopeDeck   = "deck"
 	scopeCustom = "custom"
+	scopeWords  = "words"
 )
+
+// hasDeck is whether sessions of this scope belong to one deck.
+func hasDeck(scope string) bool { return scope == scopeDeck }
 
 // scope is the session's scope with the default filled in.
 func (a attemptReq) scope() string {
@@ -180,20 +185,22 @@ func (a attemptReq) scope() string {
 // The clientId is checked by the caller, since an import carries it once.
 func (a attemptReq) validate() string {
 	switch {
-	case a.scope() != scopeDeck && a.scope() != scopeCustom:
+	case a.scope() != scopeDeck && a.scope() != scopeCustom && a.scope() != scopeWords:
 		return "unknown scope: " + a.Scope
-	case a.scope() == scopeDeck && a.DeckID == "":
+	case hasDeck(a.scope()) && a.DeckID == "":
 		return "deckId is required"
-	case a.scope() == scopeCustom && a.DeckID != "":
-		return "a custom session has no deckId"
-	case a.scope() == scopeCustom && len(a.Items) == 0:
-		return "a custom session needs its answers"
+	case !hasDeck(a.scope()) && a.DeckID != "":
+		return "a " + a.scope() + " session has no deckId"
+	case !hasDeck(a.scope()) && len(a.Items) == 0:
+		return "a " + a.scope() + " session needs its answers"
 	case a.Mode == "":
 		return "mode is required"
 	case !modes[a.Mode] && a.Mode != modeTest:
 		return "unknown mode: " + a.Mode
-	case a.Mode == modeTest && a.scope() != scopeDeck:
-		return "a test belongs to a deck"
+	case a.Mode == modeTest && a.scope() == scopeCustom:
+		return "a test is a deck or word test"
+	case a.scope() == scopeWords && a.Mode != modeTest:
+		return "a words session must be a test"
 	case a.Mode == modeTest && len(a.Items) == 0:
 		return "a test needs its answers"
 	case a.Correct == nil:
@@ -304,7 +311,7 @@ func (s *server) postAttempt(w http.ResponseWriter, r *http.Request) {
 		writeError(w, http.StatusBadRequest, msg)
 		return
 	}
-	if req.scope() == scopeDeck {
+	if hasDeck(req.scope()) {
 		ok, err := deckExists(s.db, req.DeckID)
 		if err != nil {
 			writeError(w, http.StatusInternalServerError, "query failed")
@@ -491,7 +498,7 @@ func (s *server) itemProgress(clientID string) (map[string]itemStat, error) {
 
 // statsFrom reads item_stats or item_base, which share their columns.
 func (s *server) statsFrom(table, clientID string) (map[string]itemStat, error) {
-	rows, err := s.db.Query(`SELECT item_id, seen, correct, streak, first_at, last_at, known_at
+	rows, err := s.db.Query(`SELECT item_id, `+statColumns+`
 		FROM `+table+` WHERE client_id = ?`, clientID)
 	if err != nil {
 		return nil, err
@@ -500,13 +507,10 @@ func (s *server) statsFrom(table, clientID string) (map[string]itemStat, error) 
 
 	out := map[string]itemStat{}
 	for rows.Next() {
-		var id string
-		var p itemStat
-		var first, last, known sql.NullInt64
-		if err := rows.Scan(&id, &p.Seen, &p.Correct, &p.Streak, &first, &last, &known); err != nil {
+		id, p, err := scanStat(rows)
+		if err != nil {
 			return nil, err
 		}
-		p.FirstAt, p.LastAt, p.KnownAt = ptr(first), ptr(last), ptr(known)
 		out[id] = p
 	}
 	return out, rows.Err()

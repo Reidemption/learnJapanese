@@ -33,7 +33,11 @@ export const customTags = ref<Tag[]>([]);
 
 /** A finished test, handed to its result screen. In memory only, like `lastResult`. */
 export type TestResult = {
+  /** `deckId` for a deck test; the empty string for a word test, with `set`. */
   deckId: string;
+  /** A word test's set: "ready", "missed", "weak" or "these". */
+  set?: string;
+  title: string;
   units: UnitResult[];
   questions: number;
   /** Only when the Timer was on. Shown once, never stored or sent. */
@@ -44,6 +48,12 @@ export const lastTest = ref<TestResult | null>(null);
 
 /** True while a test is on screen: the header locks its Kana and Hints toggles. */
 export const testRunning = ref(false);
+
+/**
+ * The words a "these" word test asks, e.g. a deck test's misses. In memory
+ * only: after a refresh the router sends you to the dashboard.
+ */
+export const wordTestUnits = ref<{ title: string; unitIds: string[] } | null>(null);
 
 export function takeRetryQueue(): Question[] | null {
   const queued = retryQueue.value;

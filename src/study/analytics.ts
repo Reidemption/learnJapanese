@@ -9,7 +9,9 @@
 import type { AttemptRecord } from "../progress";
 import type { Deck, DeckGroup, Jlpt } from "../types";
 import { DECK_GROUPS } from "../types";
-import { isWeak, masteryOf, type ItemStat } from "./mastery";
+import { isLearned, isWeak, masteryOf, type ItemStat } from "./mastery";
+import type { Rng } from "./rng";
+import { pickUnits, type UnitOrder } from "./tags";
 
 type Stats = Record<string, ItemStat>;
 
@@ -22,7 +24,13 @@ export type Unit = {
   en: string;
 };
 
-export type Split = { known: number; learning: number; new: number; total: number };
+export type Split = {
+  mastered: number;
+  known: number;
+  learning: number;
+  new: number;
+  total: number;
+};
 
 export function unitsOf(deck: Deck): Unit[] {
   const items = deck.items.map((item) => ({
@@ -41,7 +49,7 @@ export function unitsOf(deck: Deck): Unit[] {
 }
 
 export function emptySplit(): Split {
-  return { known: 0, learning: 0, new: 0, total: 0 };
+  return { mastered: 0, known: 0, learning: 0, new: 0, total: 0 };
 }
 
 export function splitOf(units: Unit[], stats: Stats): Split {
@@ -53,16 +61,21 @@ export function splitOf(units: Unit[], stats: Stats): Split {
   return split;
 }
 
-/** Share of `split` that is known, 0–1; 0 for an empty split. */
+/** Known or mastered: the units with nothing left to practise. */
+export function learnedOf(split: Split): number {
+  return split.mastered + split.known;
+}
+
+/** Share of `split` that is known or mastered, 0–1; 0 for an empty split. */
 export function knownRatio(split: Split): number {
-  return split.total ? split.known / split.total : 0;
+  return split.total ? learnedOf(split) / split.total : 0;
 }
 
 function atLevel(decks: Deck[], level: Jlpt): Deck[] {
   return decks.filter((deck) => deck.level === level);
 }
 
-/** Known / learning / new over every unit of the level. */
+/** Mastered / known / learning / new over every unit of the level. */
 export function coverage(decks: Deck[], stats: Stats, level: Jlpt): Split {
   return splitOf(atLevel(decks, level).flatMap(unitsOf), stats);
 }
@@ -175,29 +188,36 @@ export function streaks(attempts: AttemptRecord[], now: number): Streaks {
   return { current, longest };
 }
 
-export type LearnedPoint = { day: string; known: number };
+export type LearnedPoint = { day: string; known: number; mastered: number };
 
 /**
- * Cumulative units that have reached "known", one point per day from the
- * first one to today. Built from `knownAt`, which is never cleared, so the
- * line only goes up.
+ * Cumulative units that have reached "known", and "mastered", one point per
+ * day from the first one to today. Built from `knownAt` and `masteredAt`,
+ * which are never cleared, so the lines only go up.
  */
 export function learnedOverTime(stats: Stats, now: number): LearnedPoint[] {
-  const perDay = new Map<string, number>();
+  const known = new Map<string, number>();
+  const mastered = new Map<string, number>();
+  const bump = (map: Map<string, number>, at: number | null) => {
+    if (at === null) return;
+    const key = dayKey(at);
+    map.set(key, (map.get(key) ?? 0) + 1);
+  };
   for (const stat of Object.values(stats)) {
-    if (stat.knownAt === null) continue;
-    const key = dayKey(stat.knownAt);
-    perDay.set(key, (perDay.get(key) ?? 0) + 1);
+    bump(known, stat.knownAt);
+    bump(mastered, stat.masteredAt);
   }
-  if (!perDay.size) return [];
-  const days = [...perDay.keys()].sort();
+  if (!known.size && !mastered.size) return [];
+  const days = [...known.keys(), ...mastered.keys()].sort();
   const today = dayKey(now);
   const last = days[days.length - 1]! > today ? days[days.length - 1]! : today;
   const out: LearnedPoint[] = [];
-  let known = 0;
+  let k = 0;
+  let m = 0;
   for (let day = days[0]!; day <= last; day = addDays(day, 1)) {
-    known += perDay.get(day) ?? 0;
-    out.push({ day, known });
+    k += known.get(day) ?? 0;
+    m += mastered.get(day) ?? 0;
+    out.push({ day, known: k, mastered: m });
   }
   return out;
 }
@@ -249,6 +269,108 @@ export function nextUp(decks: Deck[], stats: Stats, level: Jlpt): NextUp | undef
   if (best) return { ...best, reason: "learning" };
   const untouched = rows.find((row) => row.split.total > 0 && row.split.new === row.split.total);
   if (untouched) return { ...untouched, reason: "untouched" };
-  const review = leastLearned(rows).find((row) => row.split.known < row.split.total);
+  const review = leastLearned(rows).find((row) => learnedOf(row.split) < row.split.total);
   return review ? { ...review, reason: "review" } : undefined;
+}
+
+/** The sets a word test can be built from. See docs/PLAN-test-understanding.md. */
+export const WORD_SETS = ["ready", "missed", "weak"] as const;
+export type WordSetKind = (typeof WORD_SETS)[number];
+
+/** How many words a word test holds at most. */
+export const WORD_TEST_SIZE = 20;
+
+export function isWordSet(value: string): value is WordSetKind {
+  return (WORD_SETS as readonly string[]).includes(value);
+}
+
+/**
+ * Whether a unit belongs in a set:
+ *   ready:  known from practice, not yet mastered (the next step up)
+ *   missed: failed its most recent test
+ *   weak:   flagged weak in practice
+ */
+export function inWordSet(kind: WordSetKind, stat: ItemStat | undefined): boolean {
+  if (kind === "ready") return masteryOf(stat) === "known";
+  if (kind === "missed") return !!stat && stat.testedAt !== null && !stat.testPassed;
+  return isWeak(stat);
+}
+
+/** The words tested longest ago (or never) first. */
+export const oldestTested: UnitOrder = (a, b) =>
+  (a.stat?.testedAt ?? -Infinity) - (b.stat?.testedAt ?? -Infinity) || a.tie - b.tie;
+
+/**
+ * Up to `limit` units of the level in one set, the ones tested longest ago
+ * first, never two that would make a question with two right answers.
+ */
+export function wordSet(
+  decks: Deck[],
+  stats: Stats,
+  level: Jlpt,
+  kind: WordSetKind,
+  rng: Rng,
+  limit = WORD_TEST_SIZE,
+): Unit[] {
+  const candidates = atLevel(decks, level)
+    .flatMap(unitsOf)
+    .filter((unit) => inWordSet(kind, stats[unit.id]));
+  return pickUnits(candidates, stats, rng, { size: limit, order: oldestTested });
+}
+
+/** How many units of the level are in each set, before the cap. */
+export function wordSetSizes(decks: Deck[], stats: Stats, level: Jlpt): Record<WordSetKind, number> {
+  const units = atLevel(decks, level).flatMap(unitsOf);
+  const count = (kind: WordSetKind) => units.filter((unit) => inWordSet(kind, stats[unit.id])).length;
+  return { ready: count("ready"), missed: count("missed"), weak: count("weak") };
+}
+
+/** A deck needs this many units tested before its pass rate means anything. */
+export const STRUGGLING_MIN_TESTED = 5;
+
+export type StrugglingDeck = {
+  deck: Deck;
+  tested: number;
+  failed: number;
+  /** passed / tested, of each unit's most recent test. */
+  passRate: number;
+  weak: number;
+};
+
+/**
+ * Decks ranked by how many of their tested units failed their most recent
+ * test, worst first, then by weak units. A word test's results count
+ * towards each word's own deck. Decks with fewer than
+ * STRUGGLING_MIN_TESTED tested units, or with nothing failed, are left out.
+ */
+export function strugglingDecks(decks: Deck[], stats: Stats, level: Jlpt): StrugglingDeck[] {
+  const out: StrugglingDeck[] = [];
+  for (const deck of atLevel(decks, level)) {
+    let tested = 0;
+    let failed = 0;
+    let weak = 0;
+    for (const unit of unitsOf(deck)) {
+      const stat = stats[unit.id];
+      if (isWeak(stat)) weak += 1;
+      if (!stat || stat.testedAt === null) continue;
+      tested += 1;
+      if (!stat.testPassed) failed += 1;
+    }
+    if (tested < STRUGGLING_MIN_TESTED || failed === 0) continue;
+    out.push({ deck, tested, failed, passRate: (tested - failed) / tested, weak });
+  }
+  return out.sort((a, b) => a.passRate - b.passRate || b.weak - a.weak);
+}
+
+/** The units of a deck to practise after a bad test: failed their last test, or weak. */
+export function unitsToPractise(deck: Deck, stats: Stats): Unit[] {
+  return unitsOf(deck).filter((unit) => {
+    const stat = stats[unit.id];
+    return isWeak(stat) || (!!stat && stat.testedAt !== null && !stat.testPassed);
+  });
+}
+
+/** Units that are known or mastered. */
+export function learnedUnits(units: Unit[], stats: Stats): Unit[] {
+  return units.filter((unit) => isLearned(stats[unit.id]));
 }

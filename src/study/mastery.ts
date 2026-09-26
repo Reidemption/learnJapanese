@@ -23,18 +23,47 @@ export type ItemStat = {
   lastAt: number | null;
   /** The first time the streak reached KNOWN_STREAK. Never cleared. */
   knownAt: number | null;
+  /** The unit's most recent test, deck or word, and whether it passed all of it. */
+  testedAt: number | null;
+  testPassed: boolean;
+  /** The first test the unit passed. Never cleared, like `knownAt`. */
+  masteredAt: number | null;
 };
 
-export type Mastery = "new" | "learning" | "known";
+/**
+ * `mastered` sits above `known`: the unit's most recent test passed every
+ * one of its questions. Only tests change it; see docs/PLAN-test-understanding.md.
+ */
+export type Mastery = "new" | "learning" | "known" | "mastered";
 
 export function emptyStat(): ItemStat {
-  return { seen: 0, correct: 0, streak: 0, firstAt: null, lastAt: null, knownAt: null };
+  return {
+    seen: 0,
+    correct: 0,
+    streak: 0,
+    firstAt: null,
+    lastAt: null,
+    knownAt: null,
+    testedAt: null,
+    testPassed: false,
+    masteredAt: null,
+  };
 }
 
-export function applyAnswer(stat: ItemStat | undefined, correct: boolean, at: number): ItemStat {
+/**
+ * Records one answer. `testPassed` is set on a test answer only: whether the
+ * unit passed that whole test (every one of its questions in it right).
+ */
+export function applyAnswer(
+  stat: ItemStat | undefined,
+  correct: boolean,
+  at: number,
+  testPassed?: boolean,
+): ItemStat {
   const prev = stat ?? emptyStat();
   const streak = correct ? prev.streak + 1 : 0;
-  return {
+  const next: ItemStat = {
+    ...prev,
     seen: prev.seen + 1,
     correct: prev.correct + (correct ? 1 : 0),
     streak,
@@ -42,11 +71,24 @@ export function applyAnswer(stat: ItemStat | undefined, correct: boolean, at: nu
     lastAt: at,
     knownAt: prev.knownAt ?? (streak >= KNOWN_STREAK ? at : null),
   };
+  if (testPassed !== undefined) {
+    next.testedAt = at;
+    next.testPassed = testPassed;
+    next.masteredAt = prev.masteredAt ?? (testPassed ? at : null);
+  }
+  return next;
 }
 
 export function masteryOf(stat: ItemStat | undefined): Mastery {
   if (!stat || stat.seen === 0) return "new";
+  if (stat.testPassed) return "mastered";
   return stat.streak >= KNOWN_STREAK ? "known" : "learning";
+}
+
+/** Known or mastered: the practice streak is there, or a test proved it. */
+export function isLearned(stat: ItemStat | undefined): boolean {
+  const mastery = masteryOf(stat);
+  return mastery === "known" || mastery === "mastered";
 }
 
 export function isWeak(stat: ItemStat | undefined): boolean {
@@ -72,10 +114,19 @@ export function normalizeStat(raw: unknown): ItemStat | undefined {
     firstAt: time(value.firstAt),
     lastAt: time(value.lastAt),
     knownAt: time(value.knownAt),
+    testedAt: time(value.testedAt),
+    testPassed: value.testPassed === true,
+    masteredAt: time(value.masteredAt),
   };
 }
 
-export type Answer = { itemId: string; correct: boolean; at: number };
+/** `test`: the uid of the test session the answer belongs to. */
+export type Answer = { itemId: string; correct: boolean; at: number; test?: string };
+
+/** One unit in one test. */
+function testKey(test: string, itemId: string): string {
+  return JSON.stringify([test, itemId]);
+}
 
 /**
  * Replays answers (oldest first) on top of a baseline: counts that predate
@@ -87,8 +138,17 @@ export function rebuildStats(
 ): Record<string, ItemStat> {
   const stats: Record<string, ItemStat> = {};
   for (const [id, stat] of Object.entries(baseline)) stats[id] = { ...stat };
+  // A unit passes a test only if every one of its answers in it is right.
+  const passed = new Map<string, boolean>();
   for (const answer of answers) {
-    stats[answer.itemId] = applyAnswer(stats[answer.itemId], answer.correct, answer.at);
+    if (answer.test === undefined) continue;
+    const key = testKey(answer.test, answer.itemId);
+    passed.set(key, (passed.get(key) ?? true) && answer.correct);
+  }
+  for (const answer of answers) {
+    const testPassed =
+      answer.test === undefined ? undefined : passed.get(testKey(answer.test, answer.itemId));
+    stats[answer.itemId] = applyAnswer(stats[answer.itemId], answer.correct, answer.at, testPassed);
   }
   return stats;
 }
