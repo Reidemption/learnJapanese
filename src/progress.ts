@@ -1,5 +1,5 @@
 import type { Question } from "./types";
-import type { Mode } from "./study/modes";
+import { isMode, type Mode } from "./study/modes";
 import { DEFAULT_FONT, isFontId, type FontId } from "./fonts";
 import { DEFAULT_THEME, isThemeId, type ThemeId } from "./theme";
 import { normalizeStat, rebuildStats, type Answer, type ItemStat } from "./study/mastery";
@@ -24,6 +24,8 @@ export type Settings = {
   hints: boolean;
   font: FontId;
   theme: ThemeId;
+  /** Show a stopwatch during tests. Just for fun: never stored with a result. */
+  timer: boolean;
 };
 
 /** One deck+mode: the best run so far and the most recent one. */
@@ -39,14 +41,24 @@ export type ItemResult = {
   itemId: string;
   mode: Mode;
   correct: boolean;
+  /** "I don't know" in a test. Always `correct: false`. Absent = false. */
+  skipped?: boolean;
 };
+
+/** A session's mode: one study mode, or "test", whose answers each carry their own. */
+export type AttemptMode = Mode | "test";
+
+export function isAttemptMode(value: string): value is AttemptMode {
+  return value === "test" || isMode(value);
+}
 
 /** A finished session as listed back: no per-item answers. */
 export type AttemptRecord = {
   /** Generated per session, so posting or importing it twice is harmless. */
   uid: string;
   deckId: string;
-  mode: Mode;
+  mode: AttemptMode;
+  /** Right answers out of all answers; for a test, units passed out of units tested. */
   correct: number;
   total: number;
   /** Whether furigana / hints were on at any point. Null for old sessions. */
@@ -100,6 +112,7 @@ export function loadSettings(): Settings {
     hints: parsed.hints !== false,
     font: isFontId(parsed.font) ? parsed.font : DEFAULT_FONT,
     theme: isThemeId(parsed.theme) ? parsed.theme : DEFAULT_THEME,
+    timer: parsed.timer === true,
   };
 }
 
@@ -107,7 +120,7 @@ export function saveSettings(settings: Settings): void {
   write(SETTINGS_KEY, settings);
 }
 
-export function scoreKey(deckId: string, mode: Mode): string {
+export function scoreKey(deckId: string, mode: AttemptMode): string {
   return `${deckId}:${mode}`;
 }
 
@@ -115,7 +128,7 @@ export function loadScores(): Record<string, ModeScore> {
   return read<Record<string, ModeScore>>(SCORES_KEY, {});
 }
 
-export function getScore(deckId: string, mode: Mode): ModeScore | undefined {
+export function getScore(deckId: string, mode: AttemptMode): ModeScore | undefined {
   return loadScores()[scoreKey(deckId, mode)];
 }
 
@@ -138,7 +151,7 @@ export function mergeScore(
 /** Records a finished session, keeping the best run for the deck+mode. */
 export function saveScore(
   deckId: string,
-  mode: Mode,
+  mode: AttemptMode,
   run: { correct: number; total: number; at?: number },
 ): ModeScore {
   const scores = loadScores();

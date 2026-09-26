@@ -1,6 +1,7 @@
 import { ref } from "vue";
 import type { Deck, Question, Tag } from "./types";
 import type { Mode } from "./study/modes";
+import type { UnitResult } from "./study/test";
 
 export type SessionResult = {
   deckId: string;
@@ -29,6 +30,20 @@ export const customDeck = ref<Deck | null>(null);
 
 /** The tags picked on the Custom page, kept while you study and come back. */
 export const customTags = ref<Tag[]>([]);
+
+/** A finished test, handed to its result screen. In memory only, like `lastResult`. */
+export type TestResult = {
+  deckId: string;
+  units: UnitResult[];
+  questions: number;
+  /** Only when the Timer was on. Shown once, never stored or sent. */
+  elapsedMs: number | null;
+};
+
+export const lastTest = ref<TestResult | null>(null);
+
+/** True while a test is on screen: the header locks its Kana and Hints toggles. */
+export const testRunning = ref(false);
 
 export function takeRetryQueue(): Question[] | null {
   const queued = retryQueue.value;

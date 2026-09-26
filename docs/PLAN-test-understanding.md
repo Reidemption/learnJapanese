@@ -131,22 +131,29 @@ Answers need a **mode**: in a test the same unit is answered in several modes in
 - Timer: a small `Stopwatch` component shown only when the Timer switch is on. The on/off choice is saved in localStorage (like the font picker), and the elapsed time is shown on the result screen only.
 - Recording: `postAttempt` with `mode: "test"`, `scope: "deck"`, a per-answer `mode` and `skipped`.
 
+**As built (notes for later phases)**
+- `buildQuestion(deck, unitId, mode, rng)` in `modes.ts` builds one question; `buildTest` uses it per unit and mode.
+- When a unit's own deck can't offer three distinct distractors (a small deck's reading questions, say), the question borrows from every deck of the same level and group. Test Phase 2 replaces this with the ranked level-wide pool.
+- A test attempt's `correct`/`total` count **units passed / units tested**, so the deck page's "last 18/25 passed" is the ordinary `deckId:test` score, from `localStorage` or `GET /api/progress`.
+- "Practise the ones you missed" builds the deck with `missedDeck`, which is `customDeckFrom` plus a `pool` of the rest of those words' decks. `Deck.pool` is an in-memory field, never content: distractors only, so a practice deck of two words still has four choices. It opens on the first mode that deck can play.
+- The Timer switch is `settings.timer`, saved with the other settings in `lj.settings`.
+
 **A/C**
-- [ ] `script.test.ts`:
+- [x] `script.test.ts`:
   - the N5 kanji set is derived from content, includes known N5 kanji (日, 水, 食) and excludes a non-N5 one
   - `levelScript` keeps in-set kanji, turns out-of-set segments into their reading, and leaves plain kana alone
-- [ ] `test.test.ts`:
+- [x] `test.test.ts`:
   - every unit appears in every applicable mode exactly once
   - reading questions only use items with in-set kanji
   - nothing in the built test has a reading shown, a hint gloss, or a `promptEn` for reading or cloze
   - the same seed gives the same test
   - a unit with one wrong or skipped question fails
-- [ ] A component test runs a small test with keys, including `0` for "I don't know". It checks that no correct/incorrect feedback appears between questions and that the emitted results are per unit.
-- [ ] Global settings are the same before and after a test session (a test toggles Kana on, runs a test and checks it's still on).
-- [ ] Timer, with fake timers: off by default, the stopwatch shows elapsed time when it's on, the result screen shows the total, and the posted attempt payload contains no timing fields.
-- [ ] The Go server accepts `mode: "test"` with per-answer modes, and rejects a test answer without a mode (400).
-- [ ] `router.test.ts` covers the test and test-result routes, and a bad deck redirect.
-- [ ] `npm test`, `npm run build`, `go test ./...` and `go vet ./...` pass.
+- [x] A component test runs a small test with keys, including `0` for "I don't know". It checks that no correct/incorrect feedback appears between questions and that the emitted results are per unit.
+- [x] Global settings are the same before and after a test session (a test toggles Kana on, runs a test and checks it's still on).
+- [x] Timer, with fake timers: off by default, the stopwatch shows elapsed time when it's on, the result screen shows the total, and the posted attempt payload contains no timing fields.
+- [x] The Go server accepts `mode: "test"` with per-answer modes, and rejects a test answer without a mode (400).
+- [x] `router.test.ts` covers the test and test-result routes, and a bad deck redirect.
+- [x] `npm test`, `npm run build`, `go test ./...` and `go vet ./...` pass.
 
 ## Test Phase 2: Harder choices
 

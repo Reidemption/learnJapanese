@@ -1,4 +1,4 @@
-import type { ItemResult, LoggedAttempt } from "../progress";
+import { isAttemptMode, type ItemResult, type LoggedAttempt } from "../progress";
 import { normalizeStat, type ItemStat } from "./mastery";
 import { isMode } from "./modes";
 
@@ -37,7 +37,7 @@ function parseAttempt(raw: unknown, index: number): LoggedAttempt {
   if (typeof a.deckId !== "string" || (!custom && !a.deckId)) {
     throw new Error(`${where} has no deckId.`);
   }
-  if (typeof a.mode !== "string" || !isMode(a.mode)) {
+  if (typeof a.mode !== "string" || !isAttemptMode(a.mode)) {
     throw new Error(`${where} has an unknown mode: ${String(a.mode)}.`);
   }
   const mode = a.mode;
@@ -54,8 +54,16 @@ function parseAttempt(raw: unknown, index: number): LoggedAttempt {
     if (typeof item.itemId !== "string" || !item.itemId || typeof item.correct !== "boolean") {
       throw new Error(`${where}, answer ${i + 1} is malformed.`);
     }
-    const itemMode = typeof item.mode === "string" && isMode(item.mode) ? item.mode : mode;
-    return { itemId: item.itemId, mode: itemMode, correct: item.correct };
+    const own = typeof item.mode === "string" && isMode(item.mode) ? item.mode : undefined;
+    // A test mixes modes, so each of its answers has to say which.
+    const itemMode = own ?? (mode === "test" ? undefined : mode);
+    if (!itemMode) throw new Error(`${where}, answer ${i + 1} has no mode.`);
+    return {
+      itemId: item.itemId,
+      mode: itemMode,
+      correct: item.correct,
+      ...(item.skipped === true ? { skipped: true } : {}),
+    };
   });
 
   return {

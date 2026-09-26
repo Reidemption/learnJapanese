@@ -143,6 +143,17 @@ button {
   color: var(--vermillion);
 }
 
+.toggle:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* Shown in the header while a test runs, in place of the locked toggles' state. */
+.test-badge {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
 select.picker {
   appearance: none;
   padding-right: 1.6rem;
@@ -360,6 +371,19 @@ select.picker {
   font-size: 0.82rem;
 }
 
+/* A test's "I don't know": set apart from the four real answers. */
+.choice.dont-know {
+  margin-top: 0.35rem;
+  border-style: dashed;
+  background: transparent;
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+}
+
+.stopwatch {
+  font-variant-numeric: tabular-nums;
+}
+
 .next-row {
   margin-top: 1.1rem;
   min-height: 2.4rem;
@@ -386,6 +410,33 @@ select.picker {
 .misses li {
   padding: 0.8rem 0;
   border-bottom: 1px solid var(--line);
+}
+
+.unit-results {
+  margin-top: 0.4rem;
+}
+
+.unit-results li {
+  display: flex;
+  gap: 0.9rem;
+  align-items: baseline;
+}
+
+.unit-result .num {
+  flex: none;
+  font-weight: 700;
+}
+
+.unit-result.passed .num {
+  color: var(--pine);
+}
+
+.unit-result.failed .num {
+  color: var(--vermillion);
+}
+
+.test-result .group-heading {
+  margin-top: 1.6rem;
 }
 
 .card {

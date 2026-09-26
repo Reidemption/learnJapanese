@@ -1,18 +1,24 @@
 <script setup lang="ts">
+import { computed, inject } from "vue";
+import { PRESENTATION } from "../presentation";
 import { settings } from "../settings";
 import type { RubySegment } from "../types";
 
 defineProps<{
   segments: RubySegment[];
 }>();
+
+const override = inject(PRESENTATION, null);
+const kana = computed(() => override?.kana ?? settings.kana);
+const hints = computed(() => override?.hints ?? settings.hints);
 </script>
 
 <template>
-  <span class="ruby-text" :class="{ 'kana-off': !settings.kana }">
+  <span class="ruby-text" :class="{ 'kana-off': !kana }">
     <template v-for="(part, i) in segments" :key="i">
       <span v-if="part.blank" class="blank">＿</span>
       <span
-        v-else-if="settings.hints && part.en"
+        v-else-if="hints && part.en"
         class="hintable"
         tabindex="0"
       >

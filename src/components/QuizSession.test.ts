@@ -115,4 +115,100 @@ describe("QuizSession", () => {
     expect(wrapper.emitted("done")).toBeUndefined();
     expect(wrapper.find(".session-bar").text()).toContain("1 / 3");
   });
+
+  describe("as a test", () => {
+    function testQuestion(id: string, kind: Question["kind"]): Question {
+      return {
+        id: `${id}:${kind}`,
+        jlpt: "N5",
+        kind,
+        // Readings and glosses here would show without the test's override.
+        promptJa: [{ ja: "水", reading: "みず", en: "water" }],
+        choices: [
+          { id: "a", en: `${id}-${kind}-a` },
+          { id: "b", en: `${id}-${kind}-b` },
+          { id: "c", en: `${id}-${kind}-c` },
+          { id: "d", en: `${id}-${kind}-d` },
+        ],
+        correctId: "a",
+      };
+    }
+
+    const testQuestions = [
+      testQuestion("one", "meaning"),
+      testQuestion("one", "reverse"),
+      testQuestion("two", "meaning"),
+      testQuestion("two", "reverse"),
+      testQuestion("three", "meaning"),
+    ];
+
+    it("gives no feedback between questions and adds \"I don't know\"", async () => {
+      const wrapper = mount(QuizSession, { props: { questions: testQuestions, label: "x", test: true } });
+      expect(wrapper.findAll(".choice")).toHaveLength(5);
+      expect(wrapper.find(".dont-know").text()).toContain("I don't know");
+      expect(wrapper.find(".dont-know .num").text()).toBe("0");
+      // No furigana, no hint, whatever the global settings say.
+      expect(wrapper.find(".prompt .ruby-text").classes()).toContain("kana-off");
+      expect(wrapper.find(".tip").exists()).toBe(false);
+
+      press("2");
+      await wrapper.vm.$nextTick();
+      expect(wrapper.find(".is-correct, .is-wrong, .is-dim").exists()).toBe(false);
+      expect(wrapper.find(".next-row").exists()).toBe(false);
+      expect(wrapper.find(".session-bar").text()).toContain("2 / 5");
+    });
+
+    it("scores per unit from keys, with 0 for \"I don't know\"", async () => {
+      const wrapper = mount(QuizSession, { props: { questions: testQuestions, label: "x", test: true } });
+      // one: both right. two: one wrong. three: "I don't know".
+      const plan: Record<string, string> = {
+        "one:meaning": "a",
+        "one:reverse": "a",
+        "two:meaning": "a",
+        "two:reverse": "c",
+      };
+      for (let i = 0; i < testQuestions.length; i++) {
+        const [, count] = wrapper.find(".session-bar").text().match(/(\d+) \/ 5/)!;
+        const question = testQuestions[Number(count) - 1]!;
+        const want = plan[question.id];
+        if (!want) {
+          press("0");
+        } else {
+          const index = wrapper
+            .findAll(".choice")
+            .findIndex((c) => c.text().includes(`${question.id.replace(":", "-")}-${want}`));
+          press(String(index + 1));
+        }
+        await wrapper.vm.$nextTick();
+      }
+
+      const payload = wrapper.emitted("done")![0]![0] as {
+        correct: number;
+        total: number;
+        results: { itemId: string; mode: string; correct: boolean; skipped?: boolean }[];
+        units: { unitId: string; passed: boolean }[];
+      };
+      expect(payload).toMatchObject({ correct: 1, total: 3 });
+      expect(payload.units.map((u) => [u.unitId, u.passed])).toEqual([
+        ["one", true],
+        ["two", false],
+        ["three", false],
+      ]);
+      expect(payload.results).toHaveLength(5);
+      expect(payload.results.at(-1)).toEqual({
+        itemId: "three",
+        mode: "meaning",
+        correct: false,
+        skipped: true,
+      });
+    });
+
+    it("ignores 0 outside a test", async () => {
+      const wrapper = mount(QuizSession, { props: { questions, label: "x" } });
+      press("0");
+      await wrapper.vm.$nextTick();
+      expect(wrapper.find(".is-correct").exists()).toBe(false);
+      expect(wrapper.find(".dont-know").exists()).toBe(false);
+    });
+  });
 });

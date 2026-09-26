@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import { FONTS, fontStack } from "./fonts";
+import { testRunning } from "./session";
 import { settings } from "./settings";
 import { THEMES } from "./theme";
 
@@ -17,10 +18,15 @@ const fontVars = computed(() => ({ "--ja": fontStack(settings.font) }));
       <div class="toggles">
         <RouterLink class="toggle nav-link" :to="{ name: 'custom' }">Custom</RouterLink>
         <RouterLink class="toggle nav-link" :to="{ name: 'dashboard' }">Progress</RouterLink>
+        <span v-if="testRunning" class="toggle test-badge" title="A test shows no kana and no hints">
+          Test: no kana, no hints
+        </span>
+        <!-- Locked during a test, which ignores them; the saved settings stay as they are. -->
         <button
           class="toggle"
           type="button"
-          :aria-pressed="settings.kana"
+          :aria-pressed="settings.kana && !testRunning"
+          :disabled="testRunning"
           @click="settings.kana = !settings.kana"
         >
           Kana
@@ -28,7 +34,8 @@ const fontVars = computed(() => ({ "--ja": fontStack(settings.font) }));
         <button
           class="toggle"
           type="button"
-          :aria-pressed="settings.hints"
+          :aria-pressed="settings.hints && !testRunning"
+          :disabled="testRunning"
           @click="settings.hints = !settings.hints"
         >
           Hints

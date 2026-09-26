@@ -7,6 +7,7 @@ import { emptyProgress, getDeck, getProgress, scoreKeyOf, type Progress } from "
 import { splitOf, unitsOf } from "../study/analytics";
 import { MODE_HINTS, MODE_LABELS, availableModes, buildQuestions, sessionRng } from "../study/modes";
 import { parseRuby } from "../study/ruby";
+import { settings } from "../settings";
 import type { Mode } from "../study/modes";
 import type { Deck } from "../types";
 
@@ -32,6 +33,16 @@ function questionCount(mode: Mode): number {
   if (!deck.value) return 0;
   return buildQuestions(deck.value, mode, sessionRng(props.id, mode)).length;
 }
+
+/** "last 18/25 passed · 24 Sep", or the size of the test before the first one. */
+const testLabel = computed(() => {
+  if (!deck.value) return "";
+  const score = progress.value.decks[scoreKeyOf(props.id, "test")];
+  const units = unitsOf(deck.value).length;
+  if (!score) return `${units} words, every mode`;
+  const date = new Date(score.at).toLocaleDateString(undefined, { day: "numeric", month: "short" });
+  return `last ${score.last}/${score.total ?? units} passed · ${date}`;
+});
 
 function scoreLabel(mode: Mode): string {
   const score = progress.value.decks[scoreKeyOf(props.id, mode)];
@@ -65,6 +76,26 @@ function scoreLabel(mode: Mode): string {
           class="primary"
           :to="{ name: 'session', params: { id: deck.id, mode } }"
         >
+          Start
+        </RouterLink>
+      </div>
+    </div>
+
+    <div class="level-row test-row">
+      <div>
+        <h2>Test</h2>
+        <p>No kana, no hints, no feedback until the end · {{ testLabel }}</p>
+      </div>
+      <div class="actions">
+        <button
+          class="toggle"
+          type="button"
+          :aria-pressed="settings.timer"
+          @click="settings.timer = !settings.timer"
+        >
+          Timer
+        </button>
+        <RouterLink class="primary" :to="{ name: 'test', params: { id: deck.id } }">
           Start
         </RouterLink>
       </div>

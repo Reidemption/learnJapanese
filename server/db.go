@@ -71,6 +71,7 @@ func openDB(path string) (*sql.DB, error) {
 //     kana/hints flags, and scope ("custom" for a Custom study session, which
 //     has no deck). Old rows get a random uid and scope "deck".
 //   - answers holds every individual answer; item_stats is rebuilt from it.
+//     skipped marks a test's "I don't know" (stored as correct = 0).
 //   - item_base keeps the per-item counts recorded before answers were logged,
 //     so rebuilding never loses them.
 func migrate(db *sql.DB) error {
@@ -121,6 +122,7 @@ func migrate(db *sql.DB) error {
 			item_id    TEXT NOT NULL,
 			mode       TEXT NOT NULL,
 			correct    INTEGER NOT NULL,
+			skipped    INTEGER NOT NULL DEFAULT 0,
 			PRIMARY KEY (attempt_id, item_id, mode)
 		)`,
 		`CREATE TABLE IF NOT EXISTS item_base (
@@ -153,6 +155,10 @@ func migrate(db *sql.DB) error {
 		if _, err := tx.Exec(s); err != nil {
 			return err
 		}
+	}
+	// After the CREATE above, which a fresh database needs first.
+	if err := add("answers", "skipped", "INTEGER NOT NULL DEFAULT 0"); err != nil {
+		return fmt.Errorf("add answers.skipped: %w", err)
 	}
 	return tx.Commit()
 }

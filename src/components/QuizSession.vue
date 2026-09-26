@@ -1,25 +1,39 @@
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted, ref, watch } from "vue";
+import { computed, onMounted, onUnmounted, provide, ref, watch } from "vue";
+import { PRESENTATION, TEST_PRESENTATION } from "../presentation";
 import { itemIdOf, shuffle } from "../progress";
 import type { ItemResult } from "../progress";
+import { scoreTest, type TestAnswers, type UnitResult } from "../study/test";
 import type { Choice, Question } from "../types";
 import RubyText from "./RubyText.vue";
 
 const props = defineProps<{
   questions: Question[];
   label: string;
+  /**
+   * A test: no furigana or hints whatever the header says, no feedback until
+   * the end, and an "I don't know" choice (key 0). Scored per unit.
+   */
+  test?: boolean;
 }>();
 
+export type QuizDone = {
+  /** Questions right; for a test, units passed. */
+  correct: number;
+  /** Questions; for a test, units. */
+  total: number;
+  missed: Question[];
+  results: ItemResult[];
+  /** A test's result per unit. */
+  units?: UnitResult[];
+};
+
 const emit = defineEmits<{
-  done: [
-    payload: {
-      correct: number;
-      total: number;
-      missed: Question[];
-      results: ItemResult[];
-    },
-  ];
+  done: [payload: QuizDone];
 }>();
+
+// Fixed for the component's life: a session never turns into a test.
+if (props.test) provide(PRESENTATION, TEST_PRESENTATION);
 
 type Item = {
   question: Question;
@@ -32,6 +46,7 @@ const picked = ref<string | null>(null);
 const correctCount = ref(0);
 const missed = ref<Question[]>([]);
 const results = ref<ItemResult[]>([]);
+const answers = ref<TestAnswers>({});
 
 const current = computed(() => items.value[index.value]);
 const locked = computed(() => picked.value !== null);
@@ -47,22 +62,33 @@ function start(): void {
   correctCount.value = 0;
   missed.value = [];
   results.value = [];
+  answers.value = {};
 }
 
-function pick(id: string): void {
+/** `id` null is "I don't know", offered in tests only. */
+function pick(id: string | null): void {
   if (locked.value || !current.value) return;
-  picked.value = id;
+  if (id === null && !props.test) return;
+  picked.value = id ?? "";
   const question = current.value.question;
   const right = id === question.correctId;
   if (right) correctCount.value += 1;
   else missed.value.push(question);
-  results.value.push({ itemId: itemIdOf(question), mode: question.kind, correct: right });
+  results.value.push({
+    itemId: itemIdOf(question),
+    mode: question.kind,
+    correct: right,
+    ...(id === null ? { skipped: true } : {}),
+  });
+  answers.value[question.id] = id;
+  // A test gives no feedback: straight on to the next question.
+  if (props.test) goNext();
 }
 
 function goNext(): void {
   if (!locked.value) return;
   if (index.value + 1 >= items.value.length) {
-    emit("done", {
+    emit("done", props.test ? testPayload() : {
       correct: correctCount.value,
       total: items.value.length,
       missed: missed.value,
@@ -74,8 +100,19 @@ function goNext(): void {
   picked.value = null;
 }
 
+function testPayload(): QuizDone {
+  const { units } = scoreTest(props.questions, answers.value);
+  return {
+    correct: units.filter((unit) => unit.passed).length,
+    total: units.length,
+    missed: missed.value,
+    results: results.value,
+    units,
+  };
+}
+
 function choiceClass(id: string): string {
-  if (!picked.value || !current.value) return "";
+  if (props.test || !picked.value || !current.value) return "";
   const right = current.value.question.correctId;
   if (id === right) return "is-correct";
   if (id === picked.value) return "is-wrong";
@@ -100,6 +137,10 @@ function onKey(event: KeyboardEvent): void {
     goNext();
     return;
   }
+  if (event.key === "0" && props.test) {
+    pick(null);
+    return;
+  }
   const n = Number(event.key);
   if (n >= 1 && n <= 4 && !locked.value) {
     const choice = current.value.choices[n - 1];
@@ -117,6 +158,7 @@ onUnmounted(() => window.removeEventListener("keydown", onKey));
   <section v-if="current" class="page">
     <p class="session-bar" style="margin-top: 1rem">
       <span>{{ label }}</span>
+      <slot name="bar" />
       <span>{{ index + 1 }} / {{ items.length }}</span>
     </p>
     <div class="prompt">
@@ -142,8 +184,12 @@ onUnmounted(() => window.removeEventListener("keydown", onKey));
         <span v-if="choice.en">{{ choice.en }}</span>
         <RubyText v-else-if="choice.ja" :segments="choice.ja" />
       </button>
+      <button v-if="test" class="choice dont-know" type="button" @click="pick(null)">
+        <span class="num">0</span>
+        <span>I don't know</span>
+      </button>
     </div>
-    <div class="next-row align-end">
+    <div v-if="!test" class="next-row align-end">
       <button v-if="locked" class="primary" type="button" @click="goNext">
         {{ index + 1 >= items.length ? "See score" : "Next" }}
       </button>

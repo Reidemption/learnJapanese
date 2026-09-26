@@ -128,11 +128,17 @@ func (s *server) getDeck(w http.ResponseWriter, r *http.Request) {
 // src/study/modes.ts.
 var modes = map[string]bool{"meaning": true, "reverse": true, "reading": true, "cloze": true}
 
+// modeTest is a test session, which asks each unit in several modes; each of
+// its answers carries its own mode (see docs/PLAN-test-understanding.md).
+const modeTest = "test"
+
 type attemptItem struct {
 	ItemID string `json:"itemId"`
 	// Mode defaults to the session's mode; a mixed session (a test) sets it.
 	Mode    string `json:"mode,omitempty"`
 	Correct bool   `json:"correct"`
+	// Skipped is a test's "I don't know". It is always wrong.
+	Skipped bool `json:"skipped,omitempty"`
 }
 
 type attemptReq struct {
@@ -184,8 +190,12 @@ func (a attemptReq) validate() string {
 		return "a custom session needs its answers"
 	case a.Mode == "":
 		return "mode is required"
-	case !modes[a.Mode]:
+	case !modes[a.Mode] && a.Mode != modeTest:
 		return "unknown mode: " + a.Mode
+	case a.Mode == modeTest && a.scope() != scopeDeck:
+		return "a test belongs to a deck"
+	case a.Mode == modeTest && len(a.Items) == 0:
+		return "a test needs its answers"
 	case a.Correct == nil:
 		return "correct is required"
 	case a.Total == nil:
@@ -204,6 +214,12 @@ func (a attemptReq) validate() string {
 		}
 		if it.Mode != "" && !modes[it.Mode] {
 			return "unknown mode for " + it.ItemID + ": " + it.Mode
+		}
+		if it.Mode == "" && a.Mode == modeTest {
+			return "every test answer needs a mode: " + it.ItemID
+		}
+		if it.Skipped && it.Correct {
+			return "a skipped answer cannot be correct: " + it.ItemID
 		}
 		key := it.ItemID + "\x00" + it.Mode
 		if seen[key] {
@@ -266,8 +282,8 @@ func insertAttempt(tx *sql.Tx, clientID string, req attemptReq, at int64) (id in
 		if mode == "" {
 			mode = req.Mode
 		}
-		if _, err := tx.Exec(`INSERT INTO answers (attempt_id, item_id, mode, correct) VALUES (?, ?, ?, ?)`,
-			id, it.ItemID, mode, it.Correct); err != nil {
+		if _, err := tx.Exec(`INSERT INTO answers (attempt_id, item_id, mode, correct, skipped) VALUES (?, ?, ?, ?, ?)`,
+			id, it.ItemID, mode, it.Correct, it.Skipped); err != nil {
 			return 0, false, err
 		}
 	}

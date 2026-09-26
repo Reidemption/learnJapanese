@@ -3,7 +3,7 @@ import { computed, onMounted, ref, watch } from "vue";
 import { useRouter } from "vue-router";
 import MasteryLegend from "../components/MasteryLegend.vue";
 import RubyText from "../components/RubyText.vue";
-import { emptyProgress, getDeck, getProgress, listDecks, type Progress } from "../api";
+import { allDecks, emptyProgress, getProgress, type Progress } from "../api";
 import { customDeck, customTags } from "../session";
 import { splitOf, unitsOf } from "../study/analytics";
 import { masteryOf } from "../study/mastery";
@@ -27,9 +27,7 @@ const avoid = ref<ReadonlySet<string>>(new Set());
 
 async function load(): Promise<void> {
   // Through the api.ts wrappers, so a server that is down falls back to local data.
-  const summaries = await listDecks();
-  const full = await Promise.all(summaries.map((summary) => getDeck(summary.id)));
-  decks.value = full.filter((deck): deck is Deck => deck !== undefined);
+  decks.value = await allDecks();
   progress.value = await getProgress();
   loaded.value = true;
 }

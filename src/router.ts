@@ -10,6 +10,8 @@ import DeckView from "./views/DeckView.vue";
 import HomeView from "./views/HomeView.vue";
 import ResultView from "./views/ResultView.vue";
 import SessionView from "./views/SessionView.vue";
+import TestResultView from "./views/TestResultView.vue";
+import TestView from "./views/TestView.vue";
 
 /** A Custom session runs the same views as a deck, on the deck built in memory. */
 const customProps = (route: RouteLocationNormalized) => ({
@@ -25,6 +27,9 @@ export const router = createRouter({
     { path: "/", name: "home", component: HomeView },
     { path: "/dashboard", name: "dashboard", component: DashboardView },
     { path: "/deck/:id", name: "deck", component: DeckView, props: true },
+    // Before the mode routes, which would take "test" for a mode.
+    { path: "/deck/:id/test", name: "test", component: TestView, props: true },
+    { path: "/deck/:id/test/result", name: "test-result", component: TestResultView, props: true },
     { path: "/deck/:id/:mode", name: "session", component: SessionView, props: true },
     { path: "/deck/:id/:mode/result", name: "result", component: ResultView, props: true },
     { path: "/study", name: "custom", component: CustomView },

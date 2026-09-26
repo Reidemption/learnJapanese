@@ -86,20 +86,44 @@ describe("itemIdOf", () => {
 });
 
 describe("settings", () => {
-  it("round-trips and defaults to on, in the Mincho font", () => {
-    expect(loadSettings()).toEqual({ kana: true, hints: true, font: "mincho", theme: "auto" });
-    saveSettings({ kana: false, hints: true, font: "rounded", theme: "dark" });
-    expect(loadSettings()).toEqual({ kana: false, hints: true, font: "rounded", theme: "dark" });
+  it("round-trips and defaults to on, in the Mincho font, with the test timer off", () => {
+    expect(loadSettings()).toEqual({
+      kana: true,
+      hints: true,
+      font: "mincho",
+      theme: "auto",
+      timer: false,
+    });
+    saveSettings({ kana: false, hints: true, font: "rounded", theme: "dark", timer: true });
+    expect(loadSettings()).toEqual({
+      kana: false,
+      hints: true,
+      font: "rounded",
+      theme: "dark",
+      timer: true,
+    });
   });
 
   it("falls back to defaults on corrupt storage", () => {
     localStorage.setItem("lj.settings", "{not json");
-    expect(loadSettings()).toEqual({ kana: true, hints: true, font: "mincho", theme: "auto" });
+    expect(loadSettings()).toEqual({
+      kana: true,
+      hints: true,
+      font: "mincho",
+      theme: "auto",
+      timer: false,
+    });
   });
 
   it("keeps settings saved before the font picker existed", () => {
     localStorage.setItem("lj.settings", JSON.stringify({ kana: false, hints: false }));
-    expect(loadSettings()).toEqual({ kana: false, hints: false, font: "mincho", theme: "auto" });
+    expect(loadSettings()).toEqual({
+      kana: false,
+      hints: false,
+      font: "mincho",
+      theme: "auto",
+      timer: false,
+    });
   });
 
   it("ignores an unknown font", () => {
