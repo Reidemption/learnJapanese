@@ -1,6 +1,7 @@
 import type { Deck, Item, Question } from "../types";
 import type { Unit } from "./analytics";
-import { buildQuestion, type Mode } from "./modes";
+import { candidateOf, levelPool, nearMiss, rankCandidates, type Candidate } from "./distractors";
+import { CHOICE_IDS, buildQuestion, type Mode } from "./modes";
 import { shuffle, type Rng } from "./rng";
 import { hasKanji, parseRuby, toPlain } from "./ruby";
 import { levelKanji, levelScript } from "./script";
@@ -47,23 +48,34 @@ function readable(item: Item, kanjiSet: ReadonlySet<string>): boolean {
 }
 
 /**
- * Every question for `units`, shuffled together. Each question takes its
- * distractors from its unit's own deck, or, when that deck is too small to
- * offer three, from every deck of its level and group. It is shown as a test shows it: no
+ * Every question for `units`, shuffled together, shown as a test shows it: no
  * furigana or glosses, kanji above the level in kana, and no English line on
  * a reading or cloze prompt.
+ *
+ * Wrong choices come from every deck of the unit's level and group, the
+ * closest first (`rankCandidates`, `kanaVariants`), so topic, length or shape
+ * can't rule them out. Cloze keeps its authored distractors.
  */
 export function buildTest(units: Unit[], decks: Deck[], rng: Rng): Question[] {
   const byId = new Map(decks.map((deck) => [deck.id, deck]));
   const level = byId.get(units[0]?.deckId ?? "")?.level ?? "N5";
   const kanji = levelKanji(decks, level);
+  const pools = new Map<string, Candidate[]>();
+  const poolOf = (deck: Deck): Candidate[] => {
+    const key = `${deck.level}:${deck.group}`;
+    if (!pools.has(key)) pools.set(key, levelPool(decks, deck.level, deck.group));
+    return pools.get(key)!;
+  };
+
   const questions: Question[] = [];
   for (const unit of units) {
     const deck = byId.get(unit.deckId);
     if (!deck) continue;
+    const item = deck.items.find((i) => i.id === unit.id);
     for (const mode of testModes(deck, unit.id, kanji)) {
       const question =
-        buildQuestion(deck, unit.id, mode, rng) ??
+        (item && mode !== "cloze" && hardQuestion(deck, item, mode, poolOf(deck), kanji, rng)) ||
+        buildQuestion(deck, unit.id, mode, rng) ||
         buildQuestion(borrowing(deck, decks), unit.id, mode, rng);
       if (question) questions.push(strict(question, deck, unit.id, kanji));
     }
@@ -71,7 +83,88 @@ export function buildTest(units: Unit[], decks: Deck[], rng: Rng): Question[] {
   return shuffle(questions, rng);
 }
 
-/** `deck` with the rest of its level and group as extra distractors. */
+/**
+ * A test question with ranked, level-wide distractors, or undefined when the
+ * pool can't give three distinct ones (the caller falls back to the deck's).
+ */
+function hardQuestion(
+  deck: Deck,
+  item: Item,
+  mode: Exclude<Mode, "cloze">,
+  pool: Candidate[],
+  kanji: ReadonlySet<string>,
+  rng: Rng,
+): Question | undefined {
+  const target = candidateOf(deck, item);
+  const base = { id: `${item.id}:${mode}`, jlpt: deck.level, kind: mode, correctId: CHOICE_IDS[0]! };
+
+  if (mode === "meaning") {
+    const picked = distinct(item.en, rankCandidates(target, pool, "meaning", rng).map((c) => c.item.en));
+    if (!picked) return undefined;
+    return {
+      ...base,
+      promptJa: parseRuby(item.ja),
+      choices: picked.map((en, i) => ({ id: CHOICE_IDS[i]!, en })),
+    };
+  }
+
+  if (mode === "reverse") {
+    const shown = (c: Candidate) => levelScript(parseRuby(c.item.ja), kanji);
+    // A word above the level shows in kana, and if that kana is the answer's
+    // reading it is a right way to write the answer (肩 as かた for 方).
+    const ranked = rankCandidates(target, pool, "reverse", rng).filter(
+      (c) => toPlain(shown(c)) !== target.kana,
+    );
+    const picked = distinct(toPlain(shown(target)), ranked.map((c) => toPlain(shown(c))));
+    if (!picked) return undefined;
+    const segments = new Map([target, ...ranked].map((c) => [toPlain(shown(c)), shown(c)]));
+    return {
+      ...base,
+      promptEn: item.en,
+      promptJa: [],
+      choices: picked.map((text, i) => ({ id: CHOICE_IDS[i]!, ja: segments.get(text)! })),
+    };
+  }
+
+  // Reading: two pairs, each a reading and a near miss of it, so the answer
+  // is never the one every other choice is spelled from. A homograph's
+  // reading would also be right, so it is never offered.
+  const right = new Set(pool.filter((c) => c.plain === target.plain).map((c) => c.kana));
+  right.add(target.kana);
+  const others = pool
+    .filter((c) => !right.has(c.kana))
+    .map((c) => ({ kana: c.kana, gap: Math.abs(c.kana.length - target.kana.length), tie: rng() }))
+    .sort((a, b) => a.gap - b.gap || a.tie - b.tie)
+    .map((c) => c.kana);
+  const decoy = others[0];
+  const taken = new Set([...right, ...(decoy ? [decoy] : [])]);
+  const miss = nearMiss(target.kana, rng, (v) => !taken.has(v));
+  if (miss) taken.add(miss);
+  const decoyMiss = decoy ? nearMiss(decoy, rng, (v) => !taken.has(v)) : undefined;
+  const picked = distinct(
+    target.kana,
+    [miss, decoy, decoyMiss, ...others.slice(1)].filter((k): k is string => k !== undefined),
+  );
+  if (!picked) return undefined;
+  return {
+    ...base,
+    promptJa: [{ ja: target.plain }],
+    promptEn: item.en,
+    choices: picked.map((kana, i) => ({ id: CHOICE_IDS[i]!, ja: [{ ja: kana }] })),
+  };
+}
+
+/** The answer then the first three candidates that differ from it and from each other. */
+function distinct(answer: string, candidates: string[]): string[] | undefined {
+  const picked = [answer];
+  for (const text of candidates) {
+    if (picked.length === CHOICE_IDS.length) break;
+    if (!picked.includes(text)) picked.push(text);
+  }
+  return picked.length === CHOICE_IDS.length ? picked : undefined;
+}
+
+/** `deck` with the rest of its level and group as extra distractors: the last resort. */
 function borrowing(deck: Deck, decks: Deck[]): Deck {
   const pool = decks
     .filter((d) => d.id !== deck.id && d.level === deck.level && d.group === deck.group)

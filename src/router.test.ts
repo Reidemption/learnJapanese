@@ -241,7 +241,8 @@ describe("routing", () => {
       const kana = wrapper.findAll(".site-header button").find((b) => b.text() === "Kana")!;
       expect(kana.attributes("disabled")).toBeDefined();
       await kana.trigger("click");
-      expect(wrapper.find(".prompt .ruby-text").classes()).toContain("kana-off");
+      // The prompt or the choices, whichever holds the Japanese.
+      expect(wrapper.find(".ruby-text").classes()).toContain("kana-off");
       await finishTest(wrapper, ".choice");
       expect(router.currentRoute.value.name).toBe("test-result");
       expect(settings.kana).toBe(true);

@@ -103,11 +103,21 @@ describe("buildTest", () => {
     expect(toPlain(movie.promptJa)).toBe("えいが");
   });
 
-  it("borrows distractors from the level's other decks when its own deck is too small", () => {
-    // vocab has only three kanji words, so a reading needs a fourth from elsewhere.
+  it("takes distractors from every deck of the level and group", () => {
+    // more-vocab's three words can't fill four choices on their own.
+    const small = buildTest(unitsOf(moreVocab), fixture, seeded(1));
+    expect(small.map((q) => q.id).sort()).toEqual(
+      ["m1:meaning", "m1:reverse", "m2:meaning", "m2:reverse", "m3:meaning", "m3:reverse"].sort(),
+    );
+    for (const q of small) expect(q.choices, q.id).toHaveLength(4);
+  });
+
+  it("pairs a reading's near miss with a real reading and its near miss", () => {
     const reading = questions.find((q) => q.id === "v1:reading")!;
     const texts = reading.choices.map((c) => toPlain(c.ja ?? []));
-    expect(texts.some((t) => ["ひ", "き", "かね"].includes(t))).toBe(true);
+    expect(texts[0]).toBe("みず");
+    // Exactly one other choice starts like the answer, so it isn't the odd one in.
+    expect(texts.filter((t) => t !== "みず" && t.startsWith("み")).length).toBeLessThanOrEqual(1);
   });
 
   it("gives the same test for the same seed", () => {
