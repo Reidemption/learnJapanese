@@ -1,0 +1,2164 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`practice questions > n5-food is unchanged 1`] = `
+[
+  [
+    {
+      "choices": [
+        "sweets / snacks",
+        "cooked rice / meal",
+        "restaurant",
+        "salt",
+      ],
+      "id": "n5-food-18:meaning",
+    },
+    {
+      "choices": [
+        "milk",
+        "mandarin orange",
+        "drink",
+        "lunch",
+      ],
+      "id": "n5-food-10:meaning",
+    },
+    {
+      "choices": [
+        "fish",
+        "meat",
+        "drink",
+        "coffee",
+      ],
+      "id": "n5-food-6:meaning",
+    },
+    {
+      "choices": [
+        "green tea",
+        "coffee",
+        "egg",
+        "vegetables",
+      ],
+      "id": "n5-food-12:meaning",
+    },
+    {
+      "choices": [
+        "sugar",
+        "alcohol / sake",
+        "salt",
+        "dinner",
+      ],
+      "id": "n5-food-17:meaning",
+    },
+    {
+      "choices": [
+        "dinner",
+        "apple",
+        "green tea",
+        "salt",
+      ],
+      "id": "n5-food-23:meaning",
+    },
+    {
+      "choices": [
+        "vegetables",
+        "green tea",
+        "salt",
+        "meat",
+      ],
+      "id": "n5-food-7:meaning",
+    },
+    {
+      "choices": [
+        "mandarin orange",
+        "lunch",
+        "meat",
+        "fish",
+      ],
+      "id": "n5-food-20:meaning",
+    },
+    {
+      "choices": [
+        "cooked rice / meal",
+        "salt",
+        "coffee",
+        "bread",
+      ],
+      "id": "n5-food-3:meaning",
+    },
+    {
+      "choices": [
+        "restaurant",
+        "sweets / snacks",
+        "egg",
+        "fruit",
+      ],
+      "id": "n5-food-24:meaning",
+    },
+    {
+      "choices": [
+        "drink",
+        "mandarin orange",
+        "bread",
+        "apple",
+      ],
+      "id": "n5-food-2:meaning",
+    },
+    {
+      "choices": [
+        "salt",
+        "coffee",
+        "vegetables",
+        "bread",
+      ],
+      "id": "n5-food-16:meaning",
+    },
+    {
+      "choices": [
+        "egg",
+        "sweets / snacks",
+        "dinner",
+        "lunch",
+      ],
+      "id": "n5-food-9:meaning",
+    },
+    {
+      "choices": [
+        "lunch",
+        "mandarin orange",
+        "meat",
+        "restaurant",
+      ],
+      "id": "n5-food-22:meaning",
+    },
+    {
+      "choices": [
+        "food",
+        "breakfast",
+        "lunch",
+        "beer",
+      ],
+      "id": "n5-food-1:meaning",
+    },
+    {
+      "choices": [
+        "apple",
+        "cooked rice / meal",
+        "breakfast",
+        "bread",
+      ],
+      "id": "n5-food-19:meaning",
+    },
+    {
+      "choices": [
+        "alcohol / sake",
+        "breakfast",
+        "dinner",
+        "meat",
+      ],
+      "id": "n5-food-14:meaning",
+    },
+    {
+      "choices": [
+        "breakfast",
+        "beer",
+        "dinner",
+        "restaurant",
+      ],
+      "id": "n5-food-21:meaning",
+    },
+    {
+      "choices": [
+        "meat",
+        "sweets / snacks",
+        "sugar",
+        "mandarin orange",
+      ],
+      "id": "n5-food-5:meaning",
+    },
+    {
+      "choices": [
+        "bread",
+        "water",
+        "food",
+        "dinner",
+      ],
+      "id": "n5-food-4:meaning",
+    },
+    {
+      "choices": [
+        "coffee",
+        "fruit",
+        "restaurant",
+        "green tea",
+      ],
+      "id": "n5-food-13:meaning",
+    },
+    {
+      "choices": [
+        "beer",
+        "alcohol / sake",
+        "egg",
+        "restaurant",
+      ],
+      "id": "n5-food-15:meaning",
+    },
+    {
+      "choices": [
+        "fruit",
+        "alcohol / sake",
+        "beer",
+        "restaurant",
+      ],
+      "id": "n5-food-8:meaning",
+    },
+    {
+      "choices": [
+        "water",
+        "cooked rice / meal",
+        "alcohol / sake",
+        "milk",
+      ],
+      "id": "n5-food-11:meaning",
+    },
+  ],
+  [
+    {
+      "choices": [
+        "お菓子",
+        "ごはん",
+        "レストラン",
+        "塩",
+      ],
+      "id": "n5-food-18:reverse",
+    },
+    {
+      "choices": [
+        "牛乳",
+        "みかん",
+        "飲み物",
+        "昼ごはん",
+      ],
+      "id": "n5-food-10:reverse",
+    },
+    {
+      "choices": [
+        "魚",
+        "肉",
+        "飲み物",
+        "コーヒー",
+      ],
+      "id": "n5-food-6:reverse",
+    },
+    {
+      "choices": [
+        "お茶",
+        "コーヒー",
+        "たまご",
+        "野菜",
+      ],
+      "id": "n5-food-12:reverse",
+    },
+    {
+      "choices": [
+        "砂糖",
+        "お酒",
+        "塩",
+        "晩ごはん",
+      ],
+      "id": "n5-food-17:reverse",
+    },
+    {
+      "choices": [
+        "晩ごはん",
+        "りんご",
+        "お茶",
+        "塩",
+      ],
+      "id": "n5-food-23:reverse",
+    },
+    {
+      "choices": [
+        "野菜",
+        "お茶",
+        "塩",
+        "肉",
+      ],
+      "id": "n5-food-7:reverse",
+    },
+    {
+      "choices": [
+        "みかん",
+        "昼ごはん",
+        "肉",
+        "魚",
+      ],
+      "id": "n5-food-20:reverse",
+    },
+    {
+      "choices": [
+        "ごはん",
+        "塩",
+        "コーヒー",
+        "パン",
+      ],
+      "id": "n5-food-3:reverse",
+    },
+    {
+      "choices": [
+        "レストラン",
+        "お菓子",
+        "たまご",
+        "果物",
+      ],
+      "id": "n5-food-24:reverse",
+    },
+    {
+      "choices": [
+        "飲み物",
+        "みかん",
+        "パン",
+        "りんご",
+      ],
+      "id": "n5-food-2:reverse",
+    },
+    {
+      "choices": [
+        "塩",
+        "コーヒー",
+        "野菜",
+        "パン",
+      ],
+      "id": "n5-food-16:reverse",
+    },
+    {
+      "choices": [
+        "たまご",
+        "お菓子",
+        "晩ごはん",
+        "昼ごはん",
+      ],
+      "id": "n5-food-9:reverse",
+    },
+    {
+      "choices": [
+        "昼ごはん",
+        "みかん",
+        "肉",
+        "レストラン",
+      ],
+      "id": "n5-food-22:reverse",
+    },
+    {
+      "choices": [
+        "食べ物",
+        "朝ごはん",
+        "昼ごはん",
+        "ビール",
+      ],
+      "id": "n5-food-1:reverse",
+    },
+    {
+      "choices": [
+        "りんご",
+        "ごはん",
+        "朝ごはん",
+        "パン",
+      ],
+      "id": "n5-food-19:reverse",
+    },
+    {
+      "choices": [
+        "お酒",
+        "朝ごはん",
+        "晩ごはん",
+        "肉",
+      ],
+      "id": "n5-food-14:reverse",
+    },
+    {
+      "choices": [
+        "朝ごはん",
+        "ビール",
+        "晩ごはん",
+        "レストラン",
+      ],
+      "id": "n5-food-21:reverse",
+    },
+    {
+      "choices": [
+        "肉",
+        "お菓子",
+        "砂糖",
+        "みかん",
+      ],
+      "id": "n5-food-5:reverse",
+    },
+    {
+      "choices": [
+        "パン",
+        "水",
+        "食べ物",
+        "晩ごはん",
+      ],
+      "id": "n5-food-4:reverse",
+    },
+    {
+      "choices": [
+        "コーヒー",
+        "果物",
+        "レストラン",
+        "お茶",
+      ],
+      "id": "n5-food-13:reverse",
+    },
+    {
+      "choices": [
+        "ビール",
+        "お酒",
+        "たまご",
+        "レストラン",
+      ],
+      "id": "n5-food-15:reverse",
+    },
+    {
+      "choices": [
+        "果物",
+        "お酒",
+        "ビール",
+        "レストラン",
+      ],
+      "id": "n5-food-8:reverse",
+    },
+    {
+      "choices": [
+        "水",
+        "ごはん",
+        "お酒",
+        "牛乳",
+      ],
+      "id": "n5-food-11:reverse",
+    },
+  ],
+  [
+    {
+      "choices": [
+        "ひるごはん",
+        "おさけ",
+        "さとう",
+        "さかな",
+      ],
+      "id": "n5-food-22:reading",
+    },
+    {
+      "choices": [
+        "おかし",
+        "あさごはん",
+        "ばんごはん",
+        "のみもの",
+      ],
+      "id": "n5-food-18:reading",
+    },
+    {
+      "choices": [
+        "くだもの",
+        "たべもの",
+        "おかし",
+        "さとう",
+      ],
+      "id": "n5-food-8:reading",
+    },
+    {
+      "choices": [
+        "さとう",
+        "にく",
+        "さかな",
+        "くだもの",
+      ],
+      "id": "n5-food-17:reading",
+    },
+    {
+      "choices": [
+        "さかな",
+        "のみもの",
+        "ぎゅうにゅう",
+        "しお",
+      ],
+      "id": "n5-food-6:reading",
+    },
+    {
+      "choices": [
+        "あさごはん",
+        "おかし",
+        "みず",
+        "さかな",
+      ],
+      "id": "n5-food-21:reading",
+    },
+    {
+      "choices": [
+        "たべもの",
+        "ぎゅうにゅう",
+        "おかし",
+        "ばんごはん",
+      ],
+      "id": "n5-food-1:reading",
+    },
+    {
+      "choices": [
+        "しお",
+        "みず",
+        "さとう",
+        "さかな",
+      ],
+      "id": "n5-food-16:reading",
+    },
+    {
+      "choices": [
+        "ばんごはん",
+        "やさい",
+        "さかな",
+        "くだもの",
+      ],
+      "id": "n5-food-23:reading",
+    },
+    {
+      "choices": [
+        "ぎゅうにゅう",
+        "さかな",
+        "おさけ",
+        "のみもの",
+      ],
+      "id": "n5-food-10:reading",
+    },
+    {
+      "choices": [
+        "にく",
+        "みず",
+        "やさい",
+        "おちゃ",
+      ],
+      "id": "n5-food-5:reading",
+    },
+    {
+      "choices": [
+        "のみもの",
+        "ひるごはん",
+        "たべもの",
+        "あさごはん",
+      ],
+      "id": "n5-food-2:reading",
+    },
+    {
+      "choices": [
+        "おちゃ",
+        "あさごはん",
+        "おさけ",
+        "さとう",
+      ],
+      "id": "n5-food-12:reading",
+    },
+    {
+      "choices": [
+        "おさけ",
+        "おちゃ",
+        "おかし",
+        "たべもの",
+      ],
+      "id": "n5-food-14:reading",
+    },
+    {
+      "choices": [
+        "やさい",
+        "にく",
+        "たべもの",
+        "しお",
+      ],
+      "id": "n5-food-7:reading",
+    },
+    {
+      "choices": [
+        "みず",
+        "しお",
+        "にく",
+        "ひるごはん",
+      ],
+      "id": "n5-food-11:reading",
+    },
+  ],
+  [],
+]
+`;
+
+exports[`practice questions > n5-kanji-body is unchanged 1`] = `
+[
+  [
+    {
+      "choices": [
+        "heart / mind",
+        "right side",
+        "above / up",
+        "ear",
+      ],
+      "id": "n5-kanji-body-7:meaning",
+    },
+    {
+      "choices": [
+        "above / up",
+        "front / before",
+        "heart / mind",
+        "inside / middle",
+      ],
+      "id": "n5-kanji-body-8:meaning",
+    },
+    {
+      "choices": [
+        "east",
+        "hand",
+        "body",
+        "left side",
+      ],
+      "id": "n5-kanji-body-16:meaning",
+    },
+    {
+      "choices": [
+        "foot / leg",
+        "mouth",
+        "left side",
+        "east",
+      ],
+      "id": "n5-kanji-body-5:meaning",
+    },
+    {
+      "choices": [
+        "below / down",
+        "right side",
+        "body",
+        "above / up",
+      ],
+      "id": "n5-kanji-body-9:meaning",
+    },
+    {
+      "choices": [
+        "ear",
+        "behind / after",
+        "inside / middle",
+        "east",
+      ],
+      "id": "n5-kanji-body-2:meaning",
+    },
+    {
+      "choices": [
+        "front / before",
+        "heart / mind",
+        "foot / leg",
+        "east",
+      ],
+      "id": "n5-kanji-body-14:meaning",
+    },
+    {
+      "choices": [
+        "south",
+        "hand",
+        "behind / after",
+        "body",
+      ],
+      "id": "n5-kanji-body-18:meaning",
+    },
+    {
+      "choices": [
+        "north",
+        "below / down",
+        "eye",
+        "foot / leg",
+      ],
+      "id": "n5-kanji-body-19:meaning",
+    },
+    {
+      "choices": [
+        "left side",
+        "near",
+        "west",
+        "heart / mind",
+      ],
+      "id": "n5-kanji-body-13:meaning",
+    },
+    {
+      "choices": [
+        "eye",
+        "behind / after",
+        "front / before",
+        "mouth",
+      ],
+      "id": "n5-kanji-body-1:meaning",
+    },
+    {
+      "choices": [
+        "behind / after",
+        "ear",
+        "right side",
+        "left side",
+      ],
+      "id": "n5-kanji-body-15:meaning",
+    },
+    {
+      "choices": [
+        "west",
+        "left side",
+        "near",
+        "above / up",
+      ],
+      "id": "n5-kanji-body-17:meaning",
+    },
+    {
+      "choices": [
+        "near",
+        "south",
+        "ear",
+        "behind / after",
+      ],
+      "id": "n5-kanji-body-20:meaning",
+    },
+    {
+      "choices": [
+        "hand",
+        "south",
+        "behind / after",
+        "below / down",
+      ],
+      "id": "n5-kanji-body-4:meaning",
+    },
+    {
+      "choices": [
+        "mouth",
+        "below / down",
+        "left side",
+        "right side",
+      ],
+      "id": "n5-kanji-body-3:meaning",
+    },
+    {
+      "choices": [
+        "outside",
+        "east",
+        "mouth",
+        "foot / leg",
+      ],
+      "id": "n5-kanji-body-11:meaning",
+    },
+    {
+      "choices": [
+        "right side",
+        "front / before",
+        "body",
+        "north",
+      ],
+      "id": "n5-kanji-body-12:meaning",
+    },
+    {
+      "choices": [
+        "body",
+        "mouth",
+        "outside",
+        "near",
+      ],
+      "id": "n5-kanji-body-6:meaning",
+    },
+    {
+      "choices": [
+        "inside / middle",
+        "south",
+        "body",
+        "above / up",
+      ],
+      "id": "n5-kanji-body-10:meaning",
+    },
+  ],
+  [
+    {
+      "choices": [
+        "心",
+        "右",
+        "上",
+        "耳",
+      ],
+      "id": "n5-kanji-body-7:reverse",
+    },
+    {
+      "choices": [
+        "上",
+        "前",
+        "心",
+        "中",
+      ],
+      "id": "n5-kanji-body-8:reverse",
+    },
+    {
+      "choices": [
+        "東",
+        "手",
+        "体",
+        "左",
+      ],
+      "id": "n5-kanji-body-16:reverse",
+    },
+    {
+      "choices": [
+        "足",
+        "口",
+        "左",
+        "東",
+      ],
+      "id": "n5-kanji-body-5:reverse",
+    },
+    {
+      "choices": [
+        "下",
+        "右",
+        "体",
+        "上",
+      ],
+      "id": "n5-kanji-body-9:reverse",
+    },
+    {
+      "choices": [
+        "耳",
+        "後",
+        "中",
+        "東",
+      ],
+      "id": "n5-kanji-body-2:reverse",
+    },
+    {
+      "choices": [
+        "前",
+        "心",
+        "足",
+        "東",
+      ],
+      "id": "n5-kanji-body-14:reverse",
+    },
+    {
+      "choices": [
+        "南",
+        "手",
+        "後",
+        "体",
+      ],
+      "id": "n5-kanji-body-18:reverse",
+    },
+    {
+      "choices": [
+        "北",
+        "下",
+        "目",
+        "足",
+      ],
+      "id": "n5-kanji-body-19:reverse",
+    },
+    {
+      "choices": [
+        "左",
+        "近",
+        "西",
+        "心",
+      ],
+      "id": "n5-kanji-body-13:reverse",
+    },
+    {
+      "choices": [
+        "目",
+        "後",
+        "前",
+        "口",
+      ],
+      "id": "n5-kanji-body-1:reverse",
+    },
+    {
+      "choices": [
+        "後",
+        "耳",
+        "右",
+        "左",
+      ],
+      "id": "n5-kanji-body-15:reverse",
+    },
+    {
+      "choices": [
+        "西",
+        "左",
+        "近",
+        "上",
+      ],
+      "id": "n5-kanji-body-17:reverse",
+    },
+    {
+      "choices": [
+        "近",
+        "南",
+        "耳",
+        "後",
+      ],
+      "id": "n5-kanji-body-20:reverse",
+    },
+    {
+      "choices": [
+        "手",
+        "南",
+        "後",
+        "下",
+      ],
+      "id": "n5-kanji-body-4:reverse",
+    },
+    {
+      "choices": [
+        "口",
+        "下",
+        "左",
+        "右",
+      ],
+      "id": "n5-kanji-body-3:reverse",
+    },
+    {
+      "choices": [
+        "外",
+        "東",
+        "口",
+        "足",
+      ],
+      "id": "n5-kanji-body-11:reverse",
+    },
+    {
+      "choices": [
+        "右",
+        "前",
+        "体",
+        "北",
+      ],
+      "id": "n5-kanji-body-12:reverse",
+    },
+    {
+      "choices": [
+        "体",
+        "口",
+        "外",
+        "近",
+      ],
+      "id": "n5-kanji-body-6:reverse",
+    },
+    {
+      "choices": [
+        "中",
+        "南",
+        "体",
+        "上",
+      ],
+      "id": "n5-kanji-body-10:reverse",
+    },
+  ],
+  [
+    {
+      "choices": [
+        "こころ",
+        "みぎ",
+        "うえ",
+        "みみ",
+      ],
+      "id": "n5-kanji-body-7:reading",
+    },
+    {
+      "choices": [
+        "うえ",
+        "まえ",
+        "こころ",
+        "なか",
+      ],
+      "id": "n5-kanji-body-8:reading",
+    },
+    {
+      "choices": [
+        "ひがし",
+        "て",
+        "からだ",
+        "ひだり",
+      ],
+      "id": "n5-kanji-body-16:reading",
+    },
+    {
+      "choices": [
+        "あし",
+        "くち",
+        "ひだり",
+        "ひがし",
+      ],
+      "id": "n5-kanji-body-5:reading",
+    },
+    {
+      "choices": [
+        "した",
+        "みぎ",
+        "からだ",
+        "うえ",
+      ],
+      "id": "n5-kanji-body-9:reading",
+    },
+    {
+      "choices": [
+        "みみ",
+        "うし",
+        "なか",
+        "ひがし",
+      ],
+      "id": "n5-kanji-body-2:reading",
+    },
+    {
+      "choices": [
+        "まえ",
+        "こころ",
+        "あし",
+        "ひがし",
+      ],
+      "id": "n5-kanji-body-14:reading",
+    },
+    {
+      "choices": [
+        "みなみ",
+        "て",
+        "うし",
+        "からだ",
+      ],
+      "id": "n5-kanji-body-18:reading",
+    },
+    {
+      "choices": [
+        "きた",
+        "した",
+        "め",
+        "あし",
+      ],
+      "id": "n5-kanji-body-19:reading",
+    },
+    {
+      "choices": [
+        "ひだり",
+        "ちか",
+        "にし",
+        "こころ",
+      ],
+      "id": "n5-kanji-body-13:reading",
+    },
+    {
+      "choices": [
+        "め",
+        "うし",
+        "まえ",
+        "くち",
+      ],
+      "id": "n5-kanji-body-1:reading",
+    },
+    {
+      "choices": [
+        "うし",
+        "みみ",
+        "みぎ",
+        "ひだり",
+      ],
+      "id": "n5-kanji-body-15:reading",
+    },
+    {
+      "choices": [
+        "にし",
+        "ひだり",
+        "ちか",
+        "うえ",
+      ],
+      "id": "n5-kanji-body-17:reading",
+    },
+    {
+      "choices": [
+        "ちか",
+        "みなみ",
+        "みみ",
+        "うし",
+      ],
+      "id": "n5-kanji-body-20:reading",
+    },
+    {
+      "choices": [
+        "て",
+        "みなみ",
+        "うし",
+        "した",
+      ],
+      "id": "n5-kanji-body-4:reading",
+    },
+    {
+      "choices": [
+        "くち",
+        "した",
+        "ひだり",
+        "みぎ",
+      ],
+      "id": "n5-kanji-body-3:reading",
+    },
+    {
+      "choices": [
+        "そと",
+        "ひがし",
+        "くち",
+        "あし",
+      ],
+      "id": "n5-kanji-body-11:reading",
+    },
+    {
+      "choices": [
+        "みぎ",
+        "まえ",
+        "からだ",
+        "きた",
+      ],
+      "id": "n5-kanji-body-12:reading",
+    },
+    {
+      "choices": [
+        "からだ",
+        "くち",
+        "そと",
+        "ちか",
+      ],
+      "id": "n5-kanji-body-6:reading",
+    },
+    {
+      "choices": [
+        "なか",
+        "みなみ",
+        "からだ",
+        "うえ",
+      ],
+      "id": "n5-kanji-body-10:reading",
+    },
+  ],
+  [],
+]
+`;
+
+exports[`practice questions > n5-particles is unchanged 1`] = `
+[
+  [
+    {
+      "choices": [
+        "direct object marker",
+        "also / too",
+        "of / possessive",
+        "right? (seeking agreement)",
+      ],
+      "id": "n5-particles-3:meaning",
+    },
+    {
+      "choices": [
+        "at / to (time, destination)",
+        "and (partial list)",
+        "until / as far as",
+        "of / possessive",
+      ],
+      "id": "n5-particles-4:meaning",
+    },
+    {
+      "choices": [
+        "until / as far as",
+        "direct object marker",
+        "and (partial list)",
+        "from",
+      ],
+      "id": "n5-particles-11:meaning",
+    },
+    {
+      "choices": [
+        "right? (seeking agreement)",
+        "subject marker",
+        "topic marker",
+        "at / to (time, destination)",
+      ],
+      "id": "n5-particles-13:meaning",
+    },
+    {
+      "choices": [
+        "topic marker",
+        "at / by means of",
+        "and (partial list)",
+        "right? (seeking agreement)",
+      ],
+      "id": "n5-particles-1:meaning",
+    },
+    {
+      "choices": [
+        "of / possessive",
+        "and (partial list)",
+        "subject marker",
+        "also / too",
+      ],
+      "id": "n5-particles-9:meaning",
+    },
+    {
+      "choices": [
+        "and (partial list)",
+        "at / by means of",
+        "right? (seeking agreement)",
+        "from",
+      ],
+      "id": "n5-particles-12:meaning",
+    },
+    {
+      "choices": [
+        "toward",
+        "and (partial list)",
+        "right? (seeking agreement)",
+        "until / as far as",
+      ],
+      "id": "n5-particles-6:meaning",
+    },
+    {
+      "choices": [
+        "from",
+        "and (partial list)",
+        "of / possessive",
+        "also / too",
+      ],
+      "id": "n5-particles-10:meaning",
+    },
+    {
+      "choices": [
+        "subject marker",
+        "also / too",
+        "and (partial list)",
+        "you know (emphasis)",
+      ],
+      "id": "n5-particles-2:meaning",
+    },
+    {
+      "choices": [
+        "you know (emphasis)",
+        "until / as far as",
+        "of / possessive",
+        "at / by means of",
+      ],
+      "id": "n5-particles-14:meaning",
+    },
+    {
+      "choices": [
+        "also / too",
+        "direct object marker",
+        "at / by means of",
+        "with / and (full list)",
+      ],
+      "id": "n5-particles-8:meaning",
+    },
+    {
+      "choices": [
+        "at / by means of",
+        "from",
+        "until / as far as",
+        "of / possessive",
+      ],
+      "id": "n5-particles-5:meaning",
+    },
+    {
+      "choices": [
+        "with / and (full list)",
+        "direct object marker",
+        "subject marker",
+        "topic marker",
+      ],
+      "id": "n5-particles-7:meaning",
+    },
+  ],
+  [
+    {
+      "choices": [
+        "を",
+        "も",
+        "の",
+        "ね",
+      ],
+      "id": "n5-particles-3:reverse",
+    },
+    {
+      "choices": [
+        "に",
+        "や",
+        "まで",
+        "の",
+      ],
+      "id": "n5-particles-4:reverse",
+    },
+    {
+      "choices": [
+        "まで",
+        "を",
+        "や",
+        "から",
+      ],
+      "id": "n5-particles-11:reverse",
+    },
+    {
+      "choices": [
+        "ね",
+        "が",
+        "は",
+        "に",
+      ],
+      "id": "n5-particles-13:reverse",
+    },
+    {
+      "choices": [
+        "は",
+        "で",
+        "や",
+        "ね",
+      ],
+      "id": "n5-particles-1:reverse",
+    },
+    {
+      "choices": [
+        "の",
+        "や",
+        "が",
+        "も",
+      ],
+      "id": "n5-particles-9:reverse",
+    },
+    {
+      "choices": [
+        "や",
+        "で",
+        "ね",
+        "から",
+      ],
+      "id": "n5-particles-12:reverse",
+    },
+    {
+      "choices": [
+        "へ",
+        "や",
+        "ね",
+        "まで",
+      ],
+      "id": "n5-particles-6:reverse",
+    },
+    {
+      "choices": [
+        "から",
+        "や",
+        "の",
+        "も",
+      ],
+      "id": "n5-particles-10:reverse",
+    },
+    {
+      "choices": [
+        "が",
+        "も",
+        "や",
+        "よ",
+      ],
+      "id": "n5-particles-2:reverse",
+    },
+    {
+      "choices": [
+        "よ",
+        "まで",
+        "の",
+        "で",
+      ],
+      "id": "n5-particles-14:reverse",
+    },
+    {
+      "choices": [
+        "も",
+        "を",
+        "で",
+        "と",
+      ],
+      "id": "n5-particles-8:reverse",
+    },
+    {
+      "choices": [
+        "で",
+        "から",
+        "まで",
+        "の",
+      ],
+      "id": "n5-particles-5:reverse",
+    },
+    {
+      "choices": [
+        "と",
+        "を",
+        "が",
+        "は",
+      ],
+      "id": "n5-particles-7:reverse",
+    },
+  ],
+  [],
+  [
+    {
+      "choices": [
+        "まで",
+        "を",
+        "が",
+        "の",
+      ],
+      "id": "n5-particles-q11:cloze",
+    },
+    {
+      "choices": [
+        "に",
+        "で",
+        "を",
+        "へ",
+      ],
+      "id": "n5-particles-q3:cloze",
+    },
+    {
+      "choices": [
+        "は",
+        "を",
+        "に",
+        "で",
+      ],
+      "id": "n5-particles-q1:cloze",
+    },
+    {
+      "choices": [
+        "が",
+        "を",
+        "へ",
+        "と",
+      ],
+      "id": "n5-particles-q10:cloze",
+    },
+    {
+      "choices": [
+        "も",
+        "を",
+        "へ",
+        "と",
+      ],
+      "id": "n5-particles-q9:cloze",
+    },
+    {
+      "choices": [
+        "で",
+        "に",
+        "へ",
+        "を",
+      ],
+      "id": "n5-particles-q5:cloze",
+    },
+    {
+      "choices": [
+        "から",
+        "まで",
+        "で",
+        "に",
+      ],
+      "id": "n5-particles-q8:cloze",
+    },
+    {
+      "choices": [
+        "を",
+        "は",
+        "に",
+        "へ",
+      ],
+      "id": "n5-particles-q2:cloze",
+    },
+    {
+      "choices": [
+        "と",
+        "は",
+        "が",
+        "で",
+      ],
+      "id": "n5-particles-q12:cloze",
+    },
+    {
+      "choices": [
+        "の",
+        "は",
+        "を",
+        "に",
+      ],
+      "id": "n5-particles-q7:cloze",
+    },
+    {
+      "choices": [
+        "で",
+        "を",
+        "に",
+        "が",
+      ],
+      "id": "n5-particles-q4:cloze",
+    },
+    {
+      "choices": [
+        "と",
+        "を",
+        "の",
+        "へ",
+      ],
+      "id": "n5-particles-q6:cloze",
+    },
+  ],
+]
+`;
+
+exports[`practice questions > n5-verbs-1 is unchanged 1`] = `
+[
+  [
+    {
+      "choices": [
+        "to rest / take time off",
+        "to go",
+        "to enter",
+        "to wait",
+      ],
+      "id": "n5-verbs-1-18:meaning",
+    },
+    {
+      "choices": [
+        "to write",
+        "to wash",
+        "to drink",
+        "to use",
+      ],
+      "id": "n5-verbs-1-10:meaning",
+    },
+    {
+      "choices": [
+        "to see / watch",
+        "to go home",
+        "to drink",
+        "to do",
+      ],
+      "id": "n5-verbs-1-6:meaning",
+    },
+    {
+      "choices": [
+        "to sleep / go to bed",
+        "to do",
+        "to read",
+        "to listen / to ask",
+      ],
+      "id": "n5-verbs-1-12:meaning",
+    },
+    {
+      "choices": [
+        "to work",
+        "to buy",
+        "to wait",
+        "to leave / go out",
+      ],
+      "id": "n5-verbs-1-17:meaning",
+    },
+    {
+      "choices": [
+        "to leave / go out",
+        "to study",
+        "to sleep / go to bed",
+        "to wait",
+      ],
+      "id": "n5-verbs-1-23:meaning",
+    },
+    {
+      "choices": [
+        "to listen / to ask",
+        "to sleep / go to bed",
+        "to wait",
+        "to go home",
+      ],
+      "id": "n5-verbs-1-7:meaning",
+    },
+    {
+      "choices": [
+        "to wash",
+        "to use",
+        "to go home",
+        "to see / watch",
+      ],
+      "id": "n5-verbs-1-20:meaning",
+    },
+    {
+      "choices": [
+        "to go",
+        "to wait",
+        "to do",
+        "to come",
+      ],
+      "id": "n5-verbs-1-3:meaning",
+    },
+    {
+      "choices": [
+        "to enter",
+        "to rest / take time off",
+        "to read",
+        "to speak",
+      ],
+      "id": "n5-verbs-1-24:meaning",
+    },
+    {
+      "choices": [
+        "to drink",
+        "to wash",
+        "to come",
+        "to study",
+      ],
+      "id": "n5-verbs-1-2:meaning",
+    },
+    {
+      "choices": [
+        "to wait",
+        "to do",
+        "to listen / to ask",
+        "to come",
+      ],
+      "id": "n5-verbs-1-16:meaning",
+    },
+    {
+      "choices": [
+        "to read",
+        "to rest / take time off",
+        "to leave / go out",
+        "to use",
+      ],
+      "id": "n5-verbs-1-9:meaning",
+    },
+    {
+      "choices": [
+        "to use",
+        "to wash",
+        "to go home",
+        "to enter",
+      ],
+      "id": "n5-verbs-1-22:meaning",
+    },
+    {
+      "choices": [
+        "to eat",
+        "to make",
+        "to use",
+        "to meet",
+      ],
+      "id": "n5-verbs-1-1:meaning",
+    },
+    {
+      "choices": [
+        "to study",
+        "to go",
+        "to make",
+        "to come",
+      ],
+      "id": "n5-verbs-1-19:meaning",
+    },
+    {
+      "choices": [
+        "to buy",
+        "to make",
+        "to leave / go out",
+        "to go home",
+      ],
+      "id": "n5-verbs-1-14:meaning",
+    },
+    {
+      "choices": [
+        "to make",
+        "to meet",
+        "to leave / go out",
+        "to enter",
+      ],
+      "id": "n5-verbs-1-21:meaning",
+    },
+    {
+      "choices": [
+        "to go home",
+        "to rest / take time off",
+        "to work",
+        "to wash",
+      ],
+      "id": "n5-verbs-1-5:meaning",
+    },
+    {
+      "choices": [
+        "to come",
+        "to get up",
+        "to eat",
+        "to leave / go out",
+      ],
+      "id": "n5-verbs-1-4:meaning",
+    },
+    {
+      "choices": [
+        "to do",
+        "to speak",
+        "to enter",
+        "to sleep / go to bed",
+      ],
+      "id": "n5-verbs-1-13:meaning",
+    },
+    {
+      "choices": [
+        "to meet",
+        "to buy",
+        "to read",
+        "to enter",
+      ],
+      "id": "n5-verbs-1-15:meaning",
+    },
+    {
+      "choices": [
+        "to speak",
+        "to buy",
+        "to meet",
+        "to enter",
+      ],
+      "id": "n5-verbs-1-8:meaning",
+    },
+    {
+      "choices": [
+        "to get up",
+        "to go",
+        "to buy",
+        "to write",
+      ],
+      "id": "n5-verbs-1-11:meaning",
+    },
+  ],
+  [
+    {
+      "choices": [
+        "休む",
+        "行く",
+        "入る",
+        "待つ",
+      ],
+      "id": "n5-verbs-1-18:reverse",
+    },
+    {
+      "choices": [
+        "書く",
+        "洗う",
+        "飲む",
+        "使う",
+      ],
+      "id": "n5-verbs-1-10:reverse",
+    },
+    {
+      "choices": [
+        "見る",
+        "帰る",
+        "飲む",
+        "する",
+      ],
+      "id": "n5-verbs-1-6:reverse",
+    },
+    {
+      "choices": [
+        "寝る",
+        "する",
+        "読む",
+        "聞く",
+      ],
+      "id": "n5-verbs-1-12:reverse",
+    },
+    {
+      "choices": [
+        "働く",
+        "買う",
+        "待つ",
+        "出る",
+      ],
+      "id": "n5-verbs-1-17:reverse",
+    },
+    {
+      "choices": [
+        "出る",
+        "勉強する",
+        "寝る",
+        "待つ",
+      ],
+      "id": "n5-verbs-1-23:reverse",
+    },
+    {
+      "choices": [
+        "聞く",
+        "寝る",
+        "待つ",
+        "帰る",
+      ],
+      "id": "n5-verbs-1-7:reverse",
+    },
+    {
+      "choices": [
+        "洗う",
+        "使う",
+        "帰る",
+        "見る",
+      ],
+      "id": "n5-verbs-1-20:reverse",
+    },
+    {
+      "choices": [
+        "行く",
+        "待つ",
+        "する",
+        "来る",
+      ],
+      "id": "n5-verbs-1-3:reverse",
+    },
+    {
+      "choices": [
+        "入る",
+        "休む",
+        "読む",
+        "話す",
+      ],
+      "id": "n5-verbs-1-24:reverse",
+    },
+    {
+      "choices": [
+        "飲む",
+        "洗う",
+        "来る",
+        "勉強する",
+      ],
+      "id": "n5-verbs-1-2:reverse",
+    },
+    {
+      "choices": [
+        "待つ",
+        "する",
+        "聞く",
+        "来る",
+      ],
+      "id": "n5-verbs-1-16:reverse",
+    },
+    {
+      "choices": [
+        "読む",
+        "休む",
+        "出る",
+        "使う",
+      ],
+      "id": "n5-verbs-1-9:reverse",
+    },
+    {
+      "choices": [
+        "使う",
+        "洗う",
+        "帰る",
+        "入る",
+      ],
+      "id": "n5-verbs-1-22:reverse",
+    },
+    {
+      "choices": [
+        "食べる",
+        "作る",
+        "使う",
+        "会う",
+      ],
+      "id": "n5-verbs-1-1:reverse",
+    },
+    {
+      "choices": [
+        "勉強する",
+        "行く",
+        "作る",
+        "来る",
+      ],
+      "id": "n5-verbs-1-19:reverse",
+    },
+    {
+      "choices": [
+        "買う",
+        "作る",
+        "出る",
+        "帰る",
+      ],
+      "id": "n5-verbs-1-14:reverse",
+    },
+    {
+      "choices": [
+        "作る",
+        "会う",
+        "出る",
+        "入る",
+      ],
+      "id": "n5-verbs-1-21:reverse",
+    },
+    {
+      "choices": [
+        "帰る",
+        "休む",
+        "働く",
+        "洗う",
+      ],
+      "id": "n5-verbs-1-5:reverse",
+    },
+    {
+      "choices": [
+        "来る",
+        "起きる",
+        "食べる",
+        "出る",
+      ],
+      "id": "n5-verbs-1-4:reverse",
+    },
+    {
+      "choices": [
+        "する",
+        "話す",
+        "入る",
+        "寝る",
+      ],
+      "id": "n5-verbs-1-13:reverse",
+    },
+    {
+      "choices": [
+        "会う",
+        "買う",
+        "読む",
+        "入る",
+      ],
+      "id": "n5-verbs-1-15:reverse",
+    },
+    {
+      "choices": [
+        "話す",
+        "買う",
+        "会う",
+        "入る",
+      ],
+      "id": "n5-verbs-1-8:reverse",
+    },
+    {
+      "choices": [
+        "起きる",
+        "行く",
+        "買う",
+        "書く",
+      ],
+      "id": "n5-verbs-1-11:reverse",
+    },
+  ],
+  [
+    {
+      "choices": [
+        "よむ",
+        "まつ",
+        "のむ",
+        "やすむ",
+      ],
+      "id": "n5-verbs-1-9:reading",
+    },
+    {
+      "choices": [
+        "はいる",
+        "あらう",
+        "のむ",
+        "あう",
+      ],
+      "id": "n5-verbs-1-24:reading",
+    },
+    {
+      "choices": [
+        "べんきょうする",
+        "はたらく",
+        "やすむ",
+        "いく",
+      ],
+      "id": "n5-verbs-1-19:reading",
+    },
+    {
+      "choices": [
+        "はたらく",
+        "ねる",
+        "みる",
+        "やすむ",
+      ],
+      "id": "n5-verbs-1-17:reading",
+    },
+    {
+      "choices": [
+        "でる",
+        "かう",
+        "あう",
+        "べんきょうする",
+      ],
+      "id": "n5-verbs-1-23:reading",
+    },
+    {
+      "choices": [
+        "みる",
+        "よむ",
+        "くる",
+        "きく",
+      ],
+      "id": "n5-verbs-1-6:reading",
+    },
+    {
+      "choices": [
+        "やすむ",
+        "はいる",
+        "おきる",
+        "かう",
+      ],
+      "id": "n5-verbs-1-18:reading",
+    },
+    {
+      "choices": [
+        "あらう",
+        "いく",
+        "つかう",
+        "たべる",
+      ],
+      "id": "n5-verbs-1-20:reading",
+    },
+    {
+      "choices": [
+        "かく",
+        "でる",
+        "つくる",
+        "ねる",
+      ],
+      "id": "n5-verbs-1-10:reading",
+    },
+    {
+      "choices": [
+        "のむ",
+        "たべる",
+        "くる",
+        "やすむ",
+      ],
+      "id": "n5-verbs-1-2:reading",
+    },
+    {
+      "choices": [
+        "まつ",
+        "あらう",
+        "おきる",
+        "はいる",
+      ],
+      "id": "n5-verbs-1-16:reading",
+    },
+    {
+      "choices": [
+        "はなす",
+        "のむ",
+        "あらう",
+        "でる",
+      ],
+      "id": "n5-verbs-1-8:reading",
+    },
+    {
+      "choices": [
+        "つかう",
+        "はいる",
+        "たべる",
+        "べんきょうする",
+      ],
+      "id": "n5-verbs-1-22:reading",
+    },
+    {
+      "choices": [
+        "たべる",
+        "みる",
+        "いく",
+        "はたらく",
+      ],
+      "id": "n5-verbs-1-1:reading",
+    },
+    {
+      "choices": [
+        "かえる",
+        "でる",
+        "みる",
+        "かく",
+      ],
+      "id": "n5-verbs-1-5:reading",
+    },
+    {
+      "choices": [
+        "つくる",
+        "まつ",
+        "くる",
+        "あう",
+      ],
+      "id": "n5-verbs-1-21:reading",
+    },
+    {
+      "choices": [
+        "ねる",
+        "あらう",
+        "かえる",
+        "のむ",
+      ],
+      "id": "n5-verbs-1-12:reading",
+    },
+    {
+      "choices": [
+        "くる",
+        "つかう",
+        "でる",
+        "いく",
+      ],
+      "id": "n5-verbs-1-4:reading",
+    },
+    {
+      "choices": [
+        "いく",
+        "かう",
+        "べんきょうする",
+        "かく",
+      ],
+      "id": "n5-verbs-1-3:reading",
+    },
+    {
+      "choices": [
+        "かう",
+        "あう",
+        "ねる",
+        "のむ",
+      ],
+      "id": "n5-verbs-1-14:reading",
+    },
+    {
+      "choices": [
+        "あう",
+        "かく",
+        "かう",
+        "たべる",
+      ],
+      "id": "n5-verbs-1-15:reading",
+    },
+    {
+      "choices": [
+        "きく",
+        "はなす",
+        "はたらく",
+        "ねる",
+      ],
+      "id": "n5-verbs-1-7:reading",
+    },
+    {
+      "choices": [
+        "おきる",
+        "くる",
+        "のむ",
+        "つかう",
+      ],
+      "id": "n5-verbs-1-11:reading",
+    },
+  ],
+  [],
+]
+`;
